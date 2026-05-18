@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análisis LDA — Patrones Discursivos Latentes · FCAB</title>
+<style>
+  :root {
+    --azul-oscuro: #1a2850;
+    --azul-medio: #1a5276;
+    --azul-claro: #2980b9;
+    --verde: #1e8449;
+    --naranja: #d35400;
+    --morado: #7d3c98;
+    --rojo: #a93226;
+    --gris-fondo: #f4f6f9;
+    --gris-borde: #dde3ed;
+    --texto: #2c3e50;
+    --texto-suave: #5d6d7e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--gris-fondo);
+         color: var(--texto); line-height: 1.7; font-size: 14px; }
+
+  /* PORTADA */
+  .portada { background: linear-gradient(135deg, #1a2850 0%, #1a5276 60%, #2980b9 100%);
+             color: white; padding: 60px 80px; min-height: 220px; }
+  .portada .tag { font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+                  opacity: 0.7; margin-bottom: 12px; }
+  .portada h1 { font-size: 28px; font-weight: 700; line-height: 1.3; margin-bottom: 10px; }
+  .portada h2 { font-size: 16px; font-weight: 400; opacity: 0.85; margin-bottom: 24px; }
+  .portada .meta { display: flex; gap: 40px; font-size: 12px; opacity: 0.75; flex-wrap: wrap; }
+  .portada .meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* CONTENEDOR */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 32px 60px; }
+
+  /* SECCIONES */
+  .section { margin: 40px 0; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+                    border-bottom: 3px solid var(--azul-medio); padding-bottom: 10px; }
+  .section-num { background: var(--azul-medio); color: white; width: 32px; height: 32px;
+                 border-radius: 50%; display: flex; align-items: center; justify-content: center;
+                 font-weight: 700; font-size: 14px; flex-shrink: 0; }
+  .section-title { font-size: 20px; font-weight: 700; color: var(--azul-oscuro); }
+
+  /* CAJAS */
+  .box { background: white; border-radius: 10px; padding: 24px 28px;
+         box-shadow: 0 2px 10px rgba(0,0,0,0.07); margin-bottom: 20px; }
+  .box-callout { border-left: 5px solid var(--azul-claro); background: #eaf4fb; }
+  .box-warning { border-left: 5px solid var(--naranja); background: #fdf3eb; }
+  .box-success { border-left: 5px solid var(--verde); background: #eafaf1; }
+
+  /* MÉTRICAS */
+  .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  .metric-card { background: white; border-radius: 10px; padding: 20px;
+                 box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-align: center; }
+  .metric-value { font-size: 32px; font-weight: 800; color: var(--azul-medio); }
+  .metric-label { font-size: 11px; color: var(--texto-suave); text-transform: uppercase;
+                  letter-spacing: 1px; margin-top: 4px; }
+  .metric-sub { font-size: 12px; color: var(--verde); font-weight: 600; margin-top: 4px; }
+
+  /* TÓPICOS */
+  .topics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .topic-card { background: white; border-radius: 12px; overflow: hidden;
+                box-shadow: 0 3px 12px rgba(0,0,0,0.09); }
+  .topic-header { padding: 16px 20px; display: flex; align-items: center; gap: 12px; }
+  .topic-num { font-size: 22px; font-weight: 900; opacity: 0.3; }
+  .topic-title { font-size: 14px; font-weight: 700; color: white; line-height: 1.3; }
+  .topic-body { padding: 18px 20px; }
+  .topic-keywords { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .kw { padding: 3px 10px; border-radius: 20px; font-size: 11.5px; font-weight: 600;
+        background: var(--gris-fondo); color: var(--texto); border: 1px solid var(--gris-borde); }
+  .topic-desc { font-size: 13px; color: var(--texto-suave); line-height: 1.6; }
+  .topic-actors { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--gris-borde); }
+  .topic-actors-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+                        color: var(--texto-suave); margin-bottom: 6px; font-weight: 600; }
+  .actor-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px;
+                 margin: 2px; background: var(--gris-fondo); border: 1px solid var(--gris-borde); }
+  .n-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px;
+             border-radius: 12px; background: rgba(255,255,255,0.3); color: white; }
+
+  /* COLORES TÓPICOS */
+  .t1 { background: #1a5276; }
+  .t2 { background: #2980b9; }
+  .t3 { background: #1e8449; }
+  .t4 { background: #d35400; }
+  .t5 { background: #7d3c98; }
+  .t6 { background: #a93226; }
+
+  /* TABLA */
+  table { width: 100%; border-collapse: collapse; background: white;
+          border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
+  th { background: var(--azul-oscuro); color: white; padding: 12px 14px;
+       font-size: 12px; text-align: left; font-weight: 600; }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--gris-borde); font-size: 13px; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #f9fafb; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px;
+           font-weight: 600; }
+  .badge-alto { background: #fdecea; color: #c0392b; }
+  .badge-medio { background: #fef5e6; color: #d35400; }
+  .badge-bajo { background: #eafaf1; color: #1e8449; }
+
+  /* BAR CHART */
+  .bar-chart { margin: 10px 0; }
+  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .bar-label { font-size: 12px; min-width: 200px; color: var(--texto); }
+  .bar-track { flex: 1; background: var(--gris-fondo); border-radius: 4px; height: 18px;
+               border: 1px solid var(--gris-borde); overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center;
+              padding-left: 8px; }
+  .bar-val { font-size: 11px; font-weight: 700; color: white; }
+
+  /* ANÁLISIS IMPLICACIONES */
+  .implications-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .impl-card { background: white; border-radius: 10px; padding: 20px;
+               box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  .impl-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .impl-icon { font-size: 20px; }
+  .impl-title { font-weight: 700; font-size: 14px; color: var(--azul-oscuro); }
+  .impl-body { font-size: 13px; color: var(--texto-suave); line-height: 1.65; }
+
+  /* METODOLOGÍA */
+  .method-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .method-step { text-align: center; padding: 16px 10px; background: white;
+                 border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.07); }
+  .step-num { font-size: 20px; font-weight: 800; color: var(--azul-claro); }
+  .step-name { font-size: 11px; color: var(--texto-suave); margin-top: 4px; font-weight: 600; }
+  .step-detail { font-size: 10px; color: #aaa; margin-top: 2px; }
+
+  /* SECTOR MATRIX */
+  .sector-table { font-size: 12px; }
+  .sector-bar { display: inline-block; height: 14px; border-radius: 3px; vertical-align: middle; }
+
+  /* HALLAZGOS */
+  .finding { background: white; border-radius: 10px; padding: 20px 24px;
+             box-shadow: 0 2px 8px rgba(0,0,0,0.07); margin-bottom: 14px;
+             border-left: 4px solid var(--azul-claro); }
+  .finding h4 { font-size: 14px; font-weight: 700; color: var(--azul-oscuro);
+                margin-bottom: 8px; }
+  .finding p { font-size: 13px; color: var(--texto-suave); line-height: 1.65; }
+
+  /* FOOTER */
+  .footer { background: var(--azul-oscuro); color: rgba(255,255,255,0.6);
+            text-align: center; padding: 20px; font-size: 12px; margin-top: 60px; }
+
+  /* NOTA METODOLÓGICA */
+  .nota { font-size: 12px; color: var(--texto-suave); background: #f9fafb;
+          border: 1px solid var(--gris-borde); border-radius: 6px; padding: 12px 16px;
+          margin-top: 14px; }
+
+  p { margin-bottom: 10px; }
+  h3 { font-size: 16px; font-weight: 700; color: var(--azul-oscuro); margin: 18px 0 10px; }
+  ul { padding-left: 20px; margin-bottom: 12px; }
+  li { margin-bottom: 5px; font-size: 13px; }
+
+  @media (max-width: 768px) {
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+    .topics-grid { grid-template-columns: 1fr; }
+    .implications-grid { grid-template-columns: 1fr; }
+    .method-steps { grid-template-columns: 1fr 1fr; }
+    .portada { padding: 36px 24px; }
+    .container { padding: 0 16px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="portada">
+  <div class="tag">Informe Analítico · Mapeo de Actores FCAB</div>
+  <h1>Análisis LDA: Patrones Discursivos Latentes en Entrevistas Territoriales</h1>
+  <h2>Latent Dirichlet Allocation aplicado al corpus de entrevistas del estudio de relacionamiento comunitario e institucional de FCAB</h2>
+  <div class="meta">
+    <span>📊 68 documentos analizados</span>
+    <span>🗺️ Antofagasta, Calama, Mejillones y entorno territorial</span>
+    <span>🔬 Modelo LDA · K=6 tópicos · Coherencia c_v = 0.4253</span>
+    <span>📅 2025</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- 1. PROPÓSITO -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <div class="section-title">Propósito y Alcance del Análisis</div>
+  </div>
+
+  <div class="box box-callout">
+    <p>El análisis LDA (<em>Latent Dirichlet Allocation</em>) aplicado al corpus de entrevistas tiene por objetivo identificar <strong>patrones discursivos latentes</strong> que no son evidentes en la lectura entrevista por entrevista. A diferencia de la codificación cualitativa tradicional —que opera con categorías predefinidas—, el LDA descubre inductivamente estructuras temáticas recurrentes en el lenguaje de los actores entrevistados, independientemente del tipo de actor o sector al que pertenezcan.</p>
+    <p>El resultado es una tipología de seis <strong>campos discursivos latentes</strong> que organizan la distribución de contenidos a través del corpus. Cada entrevistado puede participar de varios tópicos simultáneamente, pero el modelo identifica cuál predomina. Esto permite comparar perfiles discursivos entre sectores, detectar convergencias inesperadas y localizar temas que concentran la energía comunicativa del territorio.</p>
+  </div>
+
+  <div class="box box-warning">
+    <strong>Nota interpretativa:</strong> El LDA es un modelo probabilístico no supervisado. Los tópicos que emerge no tienen etiquetas predefinidas: son construcciones analíticas que el investigador interpreta a partir de las palabras más representativas de cada distribución. Las denominaciones asignadas en este informe reflejan el juicio interpretativo del equipo consultor, respaldado en la lectura cruzada con el material cualitativo original.
+  </div>
+</div>
+
+<!-- 2. METODOLOGÍA -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <div class="section-title">Diseño Metodológico del Modelo</div>
+  </div>
+
+  <div class="method-steps">
+    <div class="method-step">
+      <div class="step-num">①</div>
+      <div class="step-name">Preprocesamiento</div>
+      <div class="step-detail">Limpieza de transcripciones, eliminación de stopwords en español + léxico de entrevista</div>
+    </div>
+    <div class="method-step">
+      <div class="step-num">②</div>
+      <div class="step-name">Corpus BoW</div>
+      <div class="step-detail">68 documentos · Vocabulario 1.800 términos · Filtro: min. 2 docs, máx. 80% frecuencia</div>
+    </div>
+    <div class="method-step">
+      <div class="step-num">③</div>
+      <div class="step-name">Selección K</div>
+      <div class="step-detail">Barrido K=4 a 12 · Métrica coherencia c_v · Óptimo K=6</div>
+    </div>
+    <div class="method-step">
+      <div class="step-num">④</div>
+      <div class="step-name">Entrenamiento</div>
+      <div class="step-detail">30 pasadas · α y η automáticos · chunks=30 · 200 iteraciones</div>
+    </div>
+    <div class="method-step">
+      <div class="step-num">⑤</div>
+      <div class="step-name">Interpretación</div>
+      <div class="step-detail">Lectura cualitativa de top-words · Asignación de etiquetas · Triangulación con corpus</div>
+    </div>
+  </div>
+
+  <div class="metrics-grid" style="margin-top:20px;">
+    <div class="metric-card">
+      <div class="metric-value">68</div>
+      <div class="metric-label">Documentos en corpus</div>
+      <div class="metric-sub">Entrevistas transcritas</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">6</div>
+      <div class="metric-label">Tópicos identificados</div>
+      <div class="metric-sub">K óptimo por coherencia</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">0.425</div>
+      <div class="metric-label">Coherencia c_v</div>
+      <div class="metric-sub">Máxima del barrido</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">1.800</div>
+      <div class="metric-label">Términos vocabulario</div>
+      <div class="metric-sub">Tras filtrado extremos</div>
+    </div>
+  </div>
+
+  <div class="nota">
+    <strong>Sobre la coherencia:</strong> El indicador c_v mide cuánto co-ocurren los términos top de cada tópico en ventanas de texto reales. Valores entre 0.40 y 0.55 son considerados buenos para corpus de entrevistas orales transcritas, cuyo vocabulario es naturalmente más ruidoso que textos escritos formales. El valor de 0.4253 obtenido es satisfactorio para este tipo de material.
+  </div>
+</div>
+
+<!-- 3. TÓPICOS -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <div class="section-title">Los Seis Tópicos Discursivos Identificados</div>
+  </div>
+
+  <p style="margin-bottom:20px; color:var(--texto-suave); font-size:13px;">
+    Cada tópico agrupa un conjunto de términos con alta co-ocurrencia probabilística en el corpus. Las palabras clave permiten inferir el campo semántico dominante de cada uno. A continuación se presenta la caracterización analítica de los seis tópicos, con sus palabras clave, descripción interpretativa y actores con mayor carga en ese espacio discursivo.
+  </p>
+
+  <div class="topics-grid">
+
+    <!-- T1 -->
+    <div class="topic-card">
+      <div class="topic-header t1">
+        <div class="topic-num">T1</div>
+        <div>
+          <div class="topic-title">Visión Estratégica y Desarrollo Territorial</div>
+          <span class="n-badge">9 actores dominantes</span>
+        </div>
+      </div>
+      <div class="topic-body">
+        <div class="topic-keywords">
+          <span class="kw">región</span><span class="kw">desarrollo</span><span class="kw">fcab</span>
+          <span class="kw">ciudad</span><span class="kw">proyecto</span><span class="kw">regional</span>
+          <span class="kw">historia</span><span class="kw">actores</span><span class="kw">impacto</span>
+          <span class="kw">estrategia</span><span class="kw">patios</span><span class="kw">ecosistema</span>
+          <span class="kw">industria</span><span class="kw">espacios</span>
+        </div>
+        <p class="topic-desc">Este tópico articula una mirada de largo plazo sobre el rol territorial de FCAB. El lenguaje es estratégico, orientado al desarrollo, la historia institucional y el potencial de transformación urbana-regional. La palabra <em>patios</em> sugiere que la reconversión de terrenos ferroviarios es un eje central en este campo discursivo. Los actores que lo dominan provienen principalmente del mundo empresarial, institucional y de medios, con capacidad de incidencia regional.</p>
+        <div class="topic-actors">
+          <div class="topic-actors-label">Actores dominantes por sector</div>
+          <span class="actor-badge">🏭 Industria (3)</span>
+          <span class="actor-badge">🏛️ Institucional (1)</span>
+          <span class="actor-badge">⛏️ Minería (1)</span>
+          <span class="actor-badge">📰 Medios (1)</span>
+          <span class="actor-badge">🎓 Educación (1)</span>
+          <span class="actor-badge">🚢 Infraestructura (1)</span>
+          <span class="actor-badge">🤝 Sociedad Civil (1)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- T2 -->
+    <div class="topic-card">
+      <div class="topic-header t2">
+        <div class="topic-num">T2</div>
+        <div>
+          <div class="topic-title">Relacionamiento Comunitario y Comunicación</div>
+          <span class="n-badge">41 actores dominantes (60%)</span>
+        </div>
+      </div>
+      <div class="topic-body">
+        <div class="topic-keywords">
+          <span class="kw">fcab</span><span class="kw">vecinos</span><span class="kw">proyectos</span>
+          <span class="kw">contacto</span><span class="kw">comunicación</span><span class="kw">seguridad</span>
+          <span class="kw">urgencia</span><span class="kw">junta</span><span class="kw">actividades</span>
+          <span class="kw">calama</span><span class="kw">mejillones</span><span class="kw">línea</span>
+        </div>
+        <p class="topic-desc">Es el tópico dominante del corpus —concentra el 60% de los documentos—, lo que evidencia que el relacionamiento, la comunicación y la gestión de expectativas son el eje central del discurso territorial sobre FCAB. La presencia de palabras como <em>urgencia</em>, <em>seguridad</em> y <em>contacto</em> sugiere que la demanda de interlocución directa es intensa. Se distribuye transversalmente entre JJVV, instituciones, empresas mineras, medios y organismos de sociedad civil, lo que indica un campo discursivo compartido.</p>
+        <div class="topic-actors">
+          <div class="topic-actors-label">Sectores con mayor presencia</div>
+          <span class="actor-badge">🏘️ JJVV/Comunidad (21)</span>
+          <span class="actor-badge">🏛️ Institucional (5)</span>
+          <span class="actor-badge">⛏️ Minería (4)</span>
+          <span class="actor-badge">📰 Medios (2)</span>
+          <span class="actor-badge">🎓 Educación (2)</span>
+          <span class="actor-badge">🤝 Soc. Civil (2)</span>
+          <span class="actor-badge">🎨 Cultural (2)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- T3 -->
+    <div class="topic-card">
+      <div class="topic-header t3">
+        <div class="topic-num">T3</div>
+        <div>
+          <div class="topic-title">Operación, Riesgos e Impactos</div>
+          <span class="n-badge">0 dominantes · presencia difusa</span>
+        </div>
+      </div>
+      <div class="topic-body">
+        <div class="topic-keywords">
+          <span class="kw">operativo</span><span class="kw">generado</span><span class="kw">mesa</span>
+          <span class="kw">evalúas</span><span class="kw">internos</span><span class="kw">afectar</span>
+          <span class="kw">evaluarías</span><span class="kw">tendría</span><span class="kw">específico</span>
+          <span class="kw">escondida</span><span class="kw">lejos</span>
+        </div>
+        <p class="topic-desc">Este tópico captura el lenguaje técnico-evaluativo asociado a la operación ferroviaria y sus impactos: vocabulario modal (<em>evaluarías, tendría, afectar</em>), referencias a estructuras de coordinación (<em>mesa</em>) y actores industriales (<em>escondida</em>). El hecho de que ningún actor lo tenga como tópico dominante, pero aparezca distribuido en múltiples entrevistas como carga secundaria, sugiere que los temas operacionales son transversales aunque no definen el discurso principal de ningún actor en particular.</p>
+        <div class="topic-actors">
+          <div class="topic-actors-label">Interpretación del patrón</div>
+          <span class="actor-badge">⚠️ Tópico transversal difuso</span>
+          <span class="actor-badge">🔧 Carga secundaria amplia</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- T4 -->
+    <div class="topic-card">
+      <div class="topic-header t4">
+        <div class="topic-num">T4</div>
+        <div>
+          <div class="topic-title">Servicios, Carga y Relaciones Comerciales</div>
+          <span class="n-badge">1 actor dominante</span>
+        </div>
+      </div>
+      <div class="topic-body">
+        <div class="topic-keywords">
+          <span class="kw">puerto</span><span class="kw">trabajando</span><span class="kw">área</span>
+          <span class="kw">cliente</span><span class="kw">servicio</span><span class="kw">comercial</span>
+          <span class="kw">mejillones</span><span class="kw">carga</span><span class="kw">correo</span>
+          <span class="kw">sentido</span><span class="kw">mejora</span><span class="kw">estado</span>
+        </div>
+        <p class="topic-desc">El campo semántico de este tópico es inequívocamente comercial-logístico: <em>cliente, servicio, carga, puerto, comercial</em>. Solo Puerto Mejillones lo tiene como tópico dominante, lo cual es coherente con su rol como actor logístico con relación directa con la operación ferroviaria de FCAB. La escasa presencia de este tópico como dominante en el corpus revela que la dimensión comercial de FCAB es poco articulada en el discurso de la mayoría de actores territoriales.</p>
+        <div class="topic-actors">
+          <div class="topic-actors-label">Actor dominante</div>
+          <span class="actor-badge">🚢 Puerto Mejillones (Martín Araya)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- T5 -->
+    <div class="topic-card">
+      <div class="topic-header t5">
+        <div class="topic-num">T5</div>
+        <div>
+          <div class="topic-title">Convivencia Urbana, Infraestructura y Municipio</div>
+          <span class="n-badge">17 actores dominantes (25%)</span>
+        </div>
+      </div>
+      <div class="topic-body">
+        <div class="topic-keywords">
+          <span class="kw">vecinos</span><span class="kw">junta</span><span class="kw">fcab</span>
+          <span class="kw">niños</span><span class="kw">tren</span><span class="kw">alcalde</span>
+          <span class="kw">municipio</span><span class="kw">espacio</span><span class="kw">baquedano</span>
+          <span class="kw">casa</span><span class="kw">línea</span><span class="kw">problema</span>
+        </div>
+        <p class="topic-desc">Este tópico concentra las dimensiones de convivencia cotidiana con la infraestructura ferroviaria: la <em>línea</em>, los <em>niños</em>, los <em>espacios</em> públicos, la relación con el <em>municipio</em>. La referencia a <em>Baquedano</em> y <em>alcalde</em> indica que la dimensión político-local está presente. Es el segundo tópico más frecuente como dominante (17 entrevistas), concentrado casi exclusivamente en JJVV e instancias comunitarias directamente colindantes con la operación ferroviaria.</p>
+        <div class="topic-actors">
+          <div class="topic-actors-label">Sectores con mayor presencia</div>
+          <span class="actor-badge">🏘️ JJVV/Comunidad (13)</span>
+          <span class="actor-badge">🏛️ Institucional (1)</span>
+          <span class="actor-badge">🍽️ Comercio (1)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- T6 -->
+    <div class="topic-card">
+      <div class="topic-header t6">
+        <div class="topic-num">T6</div>
+        <div>
+          <div class="topic-title">Cotidianidad, Confianza y Experiencias Vecinales</div>
+          <span class="n-badge">0 dominantes · residual distribuido</span>
+        </div>
+      </div>
+      <div class="topic-body">
+        <div class="topic-keywords">
+          <span class="kw">pagan</span><span class="kw">correos</span><span class="kw">limpio</span>
+          <span class="kw">esperamos</span><span class="kw">apoyado</span><span class="kw">asistir</span>
+          <span class="kw">cooperar</span><span class="kw">rieles</span><span class="kw">mayoría</span>
+          <span class="kw">vehículo</span><span class="kw">semanas</span>
+        </div>
+        <p class="topic-desc">El vocabulario de este tópico es el más concreto y cotidiano del modelo: <em>pagan, rieles, limpio, vehículo, correos, semanas</em>. Refleja experiencias directas, tangibles y de pequeña escala en la relación con FCAB —pagos, limpieza, plazos, comunicación informal—. Al igual que T3, no es dominante en ninguna entrevista, sino que aparece como carga distribuida. Esto sugiere que la dimensión experiencial-cotidiana permea múltiples discursos pero no estructura en sí misma una posición articulada.</p>
+        <div class="topic-actors">
+          <div class="topic-actors-label">Interpretación del patrón</div>
+          <span class="actor-badge">🌊 Tópico "fondo común" del corpus</span>
+          <span class="actor-badge">🏠 Experiencias de escala local</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 4. DISTRIBUCIÓN -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <div class="section-title">Distribución de Tópicos en el Corpus</div>
+  </div>
+
+  <div class="box">
+    <h3>Distribución del tópico dominante (n=68 entrevistas)</h3>
+    <div class="bar-chart">
+      <div class="bar-row">
+        <div class="bar-label"><strong>T2</strong> · Relacionamiento Comunitario</div>
+        <div class="bar-track"><div class="bar-fill" style="width:60.3%; background:#2980b9;"><span class="bar-val">41 docs · 60%</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><strong>T5</strong> · Convivencia Urbana</div>
+        <div class="bar-track"><div class="bar-fill" style="width:25%; background:#7d3c98;"><span class="bar-val">17 docs · 25%</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><strong>T1</strong> · Visión Estratégica</div>
+        <div class="bar-track"><div class="bar-fill" style="width:13.2%; background:#1a5276;"><span class="bar-val">9 docs · 13%</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><strong>T4</strong> · Servicios y Carga</div>
+        <div class="bar-track"><div class="bar-fill" style="width:1.5%; background:#d35400;"><span class="bar-val">1 doc · 1.5%</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><strong>T3</strong> · Operación y Riesgos</div>
+        <div class="bar-track"><div class="bar-fill" style="width:0.5%; background:#1e8449;"><span class="bar-val">0 · Transversal</span></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><strong>T6</strong> · Cotidianidad Vecinal</div>
+        <div class="bar-track"><div class="bar-fill" style="width:0.5%; background:#a93226;"><span class="bar-val">0 · Residual</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Perfil discursivo por sector</h3>
+  <table class="sector-table">
+    <thead>
+      <tr>
+        <th>Sector</th>
+        <th>N</th>
+        <th>Tópico dominante</th>
+        <th>Perfil discursivo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Comunidad / JJVV</strong></td>
+        <td>34</td>
+        <td>T2 (62%) + T5 (38%)</td>
+        <td>División entre actores orientados al relacionamiento institucional (T2) y actores con foco en la convivencia cotidiana con la infraestructura (T5). Revela dos modalidades de vínculo vecinal con FCAB.</td>
+      </tr>
+      <tr>
+        <td><strong>Institucional</strong></td>
+        <td>7</td>
+        <td>T2 (71%) + T1 (14%) + T5 (14%)</td>
+        <td>Predominio del relacionamiento, con presencia minoritaria de visión estratégica. Sugiere que la mayoría de actores institucionales opera desde lógica reactiva, no estratégica.</td>
+      </tr>
+      <tr>
+        <td><strong>Minería</strong></td>
+        <td>5</td>
+        <td>T2 (80%) + T1 (20%)</td>
+        <td>Las empresas mineras hablan principalmente en clave de relacionamiento y comunicación, con un actor (Fundación Minera Escondida) con perfil estratégico-territorial.</td>
+      </tr>
+      <tr>
+        <td><strong>Industria</strong></td>
+        <td>4</td>
+        <td>T1 (75%) + T2 (25%)</td>
+        <td>El sector industrial es el que más claramente articula una visión estratégica de FCAB en el territorio. Alta orientación al desarrollo y la política regional.</td>
+      </tr>
+      <tr>
+        <td><strong>Infraestructura</strong></td>
+        <td>3</td>
+        <td>T1 / T2 / T4 (1 c/u)</td>
+        <td>Alta dispersión: cada actor de infraestructura tiene un perfil discursivo diferenciado. Puerto Antofagasta habla en clave estratégica; Puerto Mejillones, en clave comercial; Aguas Antofagasta, en clave de relacionamiento.</td>
+      </tr>
+      <tr>
+        <td><strong>Medios</strong></td>
+        <td>3</td>
+        <td>T2 (67%) + T1 (33%)</td>
+        <td>Los medios de comunicación combinan la perspectiva de relacionamiento con la visión de largo plazo. El Mercurio destaca como actor con orientación estratégica.</td>
+      </tr>
+      <tr>
+        <td><strong>Educación</strong></td>
+        <td>3</td>
+        <td>T2 (67%) + T1 (33%)</td>
+        <td>Presencia mayoritaria en relacionamiento, con un actor (UCN) articulando visión de vinculación territorial y conocimiento.</td>
+      </tr>
+      <tr>
+        <td><strong>Cultural</strong></td>
+        <td>2</td>
+        <td>T2 (100%)</td>
+        <td>Los actores culturales hablan en clave de relacionamiento. El Museo Ferroviario y el Centro Cultural Estación comparten lenguaje de comunicación y colaboración.</td>
+      </tr>
+      <tr>
+        <td><strong>Sociedad Civil</strong></td>
+        <td>3</td>
+        <td>T2 (67%) + T1 (33%)</td>
+        <td>Mayoría orientada al relacionamiento, con Timeline articulando una perspectiva histórica y estratégica singular.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 5. HALLAZGOS -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <div class="section-title">Hallazgos Analíticos del Modelo LDA</div>
+  </div>
+
+  <div class="finding">
+    <h4>Hallazgo 1 · Hegemonía del tópico de relacionamiento</h4>
+    <p>El tópico T2 (Relacionamiento Comunitario y Comunicación) concentra el 60% del corpus como discurso dominante y aparece distribuido en prácticamente todos los documentos como carga secundaria significativa. Esto evidencia que <strong>el relacionamiento no es un tema sectorial, sino el eje articulador del discurso territorial sobre FCAB</strong>. El modelo captura una demanda transversal de interlocución, contacto y comunicación que atraviesa todos los tipos de actores. La palabra <em>urgencia</em> en la distribución de palabras clave de T2 refuerza la lectura de que esta demanda tiene carácter apremiante para múltiples grupos.</p>
+  </div>
+
+  <div class="finding">
+    <h4>Hallazgo 2 · Fractura discursiva entre escala estratégica y escala vecinal</h4>
+    <p>El corpus evidencia una <strong>bifurcación clara entre dos registros discursivos</strong> sobre FCAB: uno estratégico-territorial (T1), articulado por actores con capacidad de incidencia regional (industria, instituciones, medios de comunicación, academia), y uno de convivencia urbana-vecinal (T5), articulado por juntas de vecinos directamente colindantes con la operación ferroviaria. <strong>Ambos registros coexisten sin articulación visible</strong>: los actores estratégicos hablan de desarrollo, reconversión y ecosistema; los actores vecinales hablan de niños, línea, alcalde y problemas inmediatos. Esta fractura representa una brecha de gobernanza territorial que FCAB debería abordar.</p>
+  </div>
+
+  <div class="finding">
+    <h4>Hallazgo 3 · Invisibilidad del tópico comercial-logístico</h4>
+    <p>El tópico T4 (Servicios, Carga y Relaciones Comerciales) solo domina en un actor (Puerto Mejillones), y su vocabulario específico —<em>cliente, carga, servicio comercial</em>— tiene escasa presencia en el resto del corpus. Esto indica que <strong>la dimensión comercial y logística de FCAB está prácticamente ausente del discurso territorial</strong>. Los actores comunitarios e institucionales no perciben ni reconocen públicamente la operación de carga como parte de la identidad territorial de FCAB. Esta invisibilidad puede ser tanto un riesgo (FCAB aparece solo como vecino incómodo, no como operador económico relevante) como una oportunidad (comunicar esta dimensión puede reencuadrar la percepción territorial).</p>
+  </div>
+
+  <div class="finding">
+    <h4>Hallazgo 4 · Difusión transversal de los tópicos operacionales y cotidianos</h4>
+    <p>Los tópicos T3 (Operación y Riesgos) y T6 (Cotidianidad Vecinal) no dominan ningún discurso pero aparecen como <strong>carga secundaria distribuida ampliamente</strong>. Esto sugiere que los temas operacionales y las experiencias cotidianas con FCAB son omnipresentes en el corpus pero no se articulan como posiciones discursivas autónomas. El modelo interpreta esto como que <strong>estos temas son "fondo" del discurso territorial</strong>: todos los actores los sienten, pero ninguno los encuadra como su tema central. Desde una perspectiva de gestión, esto implica que hay acumulación de preocupaciones no articuladas que podrían cristalizar en conflicto si no se canalizan.</p>
+  </div>
+
+  <div class="finding">
+    <h4>Hallazgo 5 · Convergencia discursiva transectorial en torno al relacionamiento</h4>
+    <p>El hecho de que T2 domine tanto en JJVV (62% de las JJVV) como en instituciones (71%), minería (80%), medios (67%) y sociedad civil (67%) revela una <strong>convergencia sin precedentes en torno al mismo campo semántico</strong>: todos hablan de relacionamiento, comunicación y contacto con FCAB en términos similares. Esta convergencia tiene dos lecturas posibles: (a) representa una oportunidad para FCAB de construir una agenda de relacionamiento que sea legítima para múltiples actores simultáneamente; (b) puede indicar que todos los sectores comparten la misma brecha —la falta de relacionamiento efectivo— lo que constituye una señal de alerta sobre el estado actual del vínculo.</p>
+  </div>
+
+  <div class="finding">
+    <h4>Hallazgo 6 · El sector industrial como portador del discurso estratégico</h4>
+    <p>El 75% de los actores industriales (Asociación de Industriales Antofagasta, Cámara de la Construcción, Filzic) tiene como tópico dominante T1 (Visión Estratégica). Esto los convierte en los <strong>principales portadores del discurso de largo plazo sobre FCAB</strong>: reconversión de patios, desarrollo territorial, historia y ecosistema. Esta posición no es neutral: el sector industrial tiene intereses directos en la reconversión y reutilización de infraestructuras ferroviarias. Para FCAB, esto representa tanto un aliado natural en la narrativa de desarrollo como un actor cuya incidencia debe gestionarse activamente.</p>
+  </div>
+</div>
+
+<!-- 6. IMPLICACIONES -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <div class="section-title">Implicaciones para la Gestión del Relacionamiento</div>
+  </div>
+
+  <div class="implications-grid">
+    <div class="impl-card">
+      <div class="impl-header">
+        <div class="impl-icon">🎯</div>
+        <div class="impl-title">Prioridad absoluta del relacionamiento</div>
+      </div>
+      <div class="impl-body">La hegemonía de T2 en el corpus no deja margen a la interpretación: el relacionamiento es la prioridad número uno de la agenda de actores territoriales respecto de FCAB. Cualquier estrategia de posicionamiento que no resuelva primero la brecha de comunicación y contacto directo perderá legitimidad ante todos los sectores.</div>
+    </div>
+
+    <div class="impl-card">
+      <div class="impl-header">
+        <div class="impl-icon">🌉</div>
+        <div class="impl-title">Articular los dos registros discursivos</div>
+      </div>
+      <div class="impl-body">FCAB necesita construir un discurso que conecte la escala estratégica (T1: desarrollo, reconversión, historia) con la escala vecinal (T5: convivencia, infraestructura, municipio). Sin esta articulación, la estrategia de relacionamiento se fragmenta: habla bien a los actores de influencia, pero no llega a las comunidades directamente afectadas, y viceversa.</div>
+    </div>
+
+    <div class="impl-card">
+      <div class="impl-header">
+        <div class="impl-icon">📣</div>
+        <div class="impl-title">Comunicar la dimensión logística y económica</div>
+      </div>
+      <div class="impl-body">La invisibilidad del tópico comercial-logístico en el discurso territorial es una brecha de comunicación estratégica. FCAB debería desarrollar narrativas que hagan visible su rol como operador económico y logístico clave en la región, sin reducir su identidad pública a la de "vecino con infraestructura". Esto puede reencuadrar la conversación territorial desde la queja hacia la colaboración.</div>
+    </div>
+
+    <div class="impl-card">
+      <div class="impl-header">
+        <div class="impl-icon">⚠️</div>
+        <div class="impl-title">Gestionar preocupaciones no articuladas</div>
+      </div>
+      <div class="impl-body">Los tópicos T3 y T6 —operación, riesgos, cotidianidad vecinal— aparecen como acumulación difusa en el corpus, sin articulación como posición discursiva clara. Esta característica es típica de tensiones pre-conflicto: las molestias existen, se verbalizan en contextos de entrevista, pero no han generado aún una demanda organizada. La gestión proactiva de estas dimensiones es clave para prevenir su escalada.</div>
+    </div>
+
+    <div class="impl-card">
+      <div class="impl-header">
+        <div class="impl-icon">🤝</div>
+        <div class="impl-title">Alianza con actores industriales para la narrativa estratégica</div>
+      </div>
+      <div class="impl-body">El sector industrial es el único segmento donde el discurso estratégico (T1) es dominante. Esto lo convierte en un aliado potencial de alto valor para construir una narrativa territorial de desarrollo que incluya y legitime el rol de FCAB. La coordinación con gremios y asociaciones empresariales puede amplificar el discurso estratégico hacia audiencias institucionales y políticas.</div>
+    </div>
+
+    <div class="impl-card">
+      <div class="impl-header">
+        <div class="impl-icon">🗺️</div>
+        <div class="impl-title">Diferenciación geográfica del relacionamiento</div>
+      </div>
+      <div class="impl-body">El corpus incluye actores de Antofagasta, Calama, Mejillones, Baquedano y Sierra Gorda. La presencia de topónimos específicos en los tópicos (calama, mejillones, baquedano) sugiere que las preocupaciones tienen anclaje geográfico diferenciado. El relacionamiento no puede ser homogéneo: requiere estrategias territorialmente diferenciadas según las características de cada localidad y la naturaleza del vínculo con la operación ferroviaria.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 7. LIMITACIONES -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">7</div>
+    <div class="section-title">Limitaciones del Modelo y Consideraciones de Uso</div>
+  </div>
+
+  <div class="box box-warning">
+    <h3 style="margin-top:0;">Consideraciones metodológicas críticas</h3>
+    <ul>
+      <li><strong>Corpus oral transcrito:</strong> Las entrevistas son discurso oral, más repetitivo, con más muletillas y menor densidad léxica que textos escritos. El preprocesamiento elimina este ruido, pero la coherencia del modelo es naturalmente menor que en corpus documentales.</li>
+      <li><strong>Asimetría del corpus:</strong> Las JJVV representan el grupo más numeroso de entrevistas (aprox. 50%), lo que sesga el modelo hacia sus temas. Los tópicos T2 y T5 están parcialmente inflados por esta representación mayoritaria.</li>
+      <li><strong>Tópicos residuales:</strong> T3 y T6 no tienen documentos dominantes, lo que puede indicar que son tópicos "de soporte" o que el modelo los captura como residuo estadístico. Su interpretación requiere triangulación cuidadosa con el análisis cualitativo.</li>
+      <li><strong>El LDA no establece causalidad:</strong> El modelo identifica co-ocurrencias probabilísticas, no relaciones de causa-efecto ni jerarquías valorativas entre temas. El hecho de que T2 sea dominante no significa que sea el "más importante" desde la perspectiva de FCAB, sino el más frecuente en el corpus.</li>
+      <li><strong>Etiquetas interpretativas:</strong> Las denominaciones de los tópicos son construcciones del equipo investigador. Dos investigadores podrían etiquetar los mismos tópicos de manera diferente sin invalidar el modelo.</li>
+    </ul>
+  </div>
+
+  <div class="nota">
+    <strong>Recomendación de uso:</strong> Este análisis LDA debe leerse en conjunto con el análisis cualitativo por dimensiones (percepción, expectativas, riesgos, oportunidades) y las matrices de actores. El LDA aporta una mirada de conjunto sobre el corpus que complementa —no reemplaza— la lectura detallada de entrevistas individuales.
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  Análisis LDA · Mapeo de Actores FCAB · Antofagasta y Entorno Territorial · Documento de uso interno del equipo consultor
+</div>
+
+</body>
+</html>

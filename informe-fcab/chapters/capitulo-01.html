@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cap. 01 — Introducción | Estudio FCAB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    /* ── Estilos específicos Cap. 01 ── */
+
+    /* Chip row for variables / themes */
+    .chip-row {
+      display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0;
+    }
+    .chip {
+      font-size: 12px; font-weight: 500; padding: 5px 12px;
+      border-radius: 20px; border: 1px solid var(--border);
+      background: var(--surface-1); color: var(--text-2);
+      white-space: nowrap;
+    }
+    .chip-accent {
+      background: rgba(37,99,235,0.07); border-color: rgba(37,99,235,0.22);
+      color: var(--accent); font-weight: 600;
+    }
+
+    /* Territory grid */
+    .territory-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0;
+    }
+    .territory-card {
+      background: var(--surface-1); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 14px 16px;
+    }
+    .territory-card .t-name {
+      font-size: 14px; font-weight: 700; color: var(--text-1); margin-bottom: 4px;
+    }
+    .territory-card .t-note {
+      font-size: 12px; color: var(--text-2); line-height: 1.5;
+    }
+    .territory-card.t-active  { border-left: 3px solid var(--accent); }
+    .territory-card.t-oper    { border-left: 3px solid #059669; }
+    .territory-card.t-distant { border-left: 3px solid #D97706; }
+
+    /* Recognition / gaps two-column */
+    .rg-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0;
+    }
+    .rg-card {
+      border: 1px solid var(--border); border-radius: var(--r); overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .rg-header {
+      padding: 12px 18px; border-bottom: 1px solid var(--border);
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .rg-header.rg-pos { background: #ECFDF5; color: #065F46; border-bottom-color: rgba(5,150,105,0.15); }
+    .rg-header.rg-neg { background: #FEF3C7; color: #92400E; border-bottom-color: rgba(217,119,6,0.15); }
+    .rg-body { background: var(--surface-1); padding: 14px 18px; }
+    .rg-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13px; color: var(--text-2); line-height: 1.55;
+      padding: 6px 0; border-bottom: 1px solid var(--border);
+    }
+    .rg-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .rg-dot {
+      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 5px;
+    }
+    .rg-pos-dot { background: #059669; }
+    .rg-neg-dot { background: #D97706; }
+
+    /* Favorable condition callout */
+    .favorable {
+      display: flex; gap: 16px; align-items: flex-start;
+      background: rgba(37,99,235,0.05); border: 1px solid rgba(37,99,235,0.18);
+      border-radius: var(--r); padding: 18px 22px; margin: 14px 0;
+    }
+    .favorable-icon {
+      font-size: 24px; flex-shrink: 0; line-height: 1;
+    }
+    .favorable-text p { font-size: 13.5px; color: var(--text-2); line-height: 1.72; margin: 0; }
+    .favorable-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--accent); margin-bottom: 6px;
+    }
+
+    /* Report flow / chapter sequence */
+    .report-flow {
+      display: flex; flex-direction: column; gap: 0;
+      border: 1px solid var(--border); border-radius: var(--r); overflow: hidden;
+      margin: 20px 0;
+    }
+    .flow-item {
+      display: flex; align-items: center; gap: 16px;
+      padding: 13px 20px; border-bottom: 1px solid var(--border);
+      background: var(--surface-1); text-decoration: none;
+      transition: background 0.12s;
+    }
+    .flow-item:last-child { border-bottom: none; }
+    .flow-item:hover { background: var(--surface-2); }
+    .flow-num {
+      font-size: 11px; font-weight: 700; color: var(--text-3);
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 50%; width: 26px; height: 26px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .flow-title { font-size: 13.5px; font-weight: 600; color: var(--text-1); }
+    .flow-desc  { font-size: 12px; color: var(--text-2); margin-top: 2px; }
+    .flow-arrow { margin-left: auto; font-size: 14px; color: var(--text-3); flex-shrink: 0; }
+
+    /* Method block */
+    .method-split {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0;
+    }
+    .method-block {
+      background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r-sm);
+      padding: 16px 18px;
+    }
+    .method-block-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--text-3); margin-bottom: 10px;
+    }
+
+    @media (max-width: 700px) {
+      .territory-grid { grid-template-columns: repeat(2, 1fr); }
+      .rg-grid        { grid-template-columns: 1fr; }
+      .method-split   { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 440px) {
+      .territory-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <button class="header-toggle" id="sidebar-toggle" aria-label="Abrir menú">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <a href="../index.html" class="header-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Índice
+    </a>
+    <div class="header-sep"></div>
+    <span class="header-chapter">Capítulo 01 — Introducción</span>
+    <div class="header-right">
+      <span class="header-agency">DOS BARBAS</span>
+    </div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar"></nav>
+
+  <!-- MAIN -->
+  <main class="chapter-main">
+    <div class="chapter-content">
+
+      <!-- ── ENCABEZADO ──────────────────────────────────────── -->
+      <header class="chapter-header">
+        <div class="chapter-meta">
+          <span class="chapter-num-label">Capítulo 01</span>
+        </div>
+        <h1>Introducción</h1>
+        <p class="chapter-lead">Estudio de identificación, caracterización y análisis de stakeholders de FCAB orientado a construir una lectura integral del ecosistema de actores vinculado a la empresa y a su presencia territorial en la región de Antofagasta.</p>
+      </header>
+
+      <!-- ── 1. PROPÓSITO DEL ESTUDIO ───────────────────────── -->
+      <section class="section">
+        <h2>1. Propósito del estudio</h2>
+        <p>Este informe expone los resultados de un estudio orientado a construir una lectura integral del ecosistema de actores vinculado a FCAB y a su presencia territorial en la región de Antofagasta. El estudio aborda tanto las relaciones actuales como las expectativas, tensiones, oportunidades y brechas que inciden en el posicionamiento de la empresa frente a su entorno.</p>
+
+        <div class="chip-row">
+          <span class="chip chip-accent">Comunidades</span>
+          <span class="chip chip-accent">Autoridades</span>
+          <span class="chip chip-accent">Organizaciones sociales</span>
+          <span class="chip chip-accent">Instituciones públicas</span>
+          <span class="chip chip-accent">Actores productivos</span>
+          <span class="chip chip-accent">Gremios</span>
+          <span class="chip chip-accent">Academia</span>
+          <span class="chip chip-accent">Medios</span>
+        </div>
+      </section>
+
+      <!-- ── 2. APROXIMACIÓN METODOLÓGICA ──────────────────── -->
+      <section class="section">
+        <h2>2. Aproximación metodológica</h2>
+        <p>La investigación combinó múltiples técnicas en una estrategia mixta que integra dos niveles de lectura complementarios.</p>
+
+        <div class="method-split">
+          <div class="method-block">
+            <div class="method-block-label">Nivel cuantitativo</div>
+            <p style="font-size:13px; color:var(--text-2); line-height:1.65; margin:0 0 12px;">Evaluación estadística de variables relacionales con sistematización y análisis de clusters.</p>
+            <div class="chip-row">
+              <span class="chip">Influencia territorial percibida</span>
+              <span class="chip">Afectación organizacional</span>
+              <span class="chip">Escucha percibida</span>
+              <span class="chip">Coherencia discurso-práctica</span>
+              <span class="chip">Calidad de relación</span>
+              <span class="chip">Cercanía relacional</span>
+              <span class="chip">Disposición al diálogo</span>
+            </div>
+          </div>
+          <div class="method-block">
+            <div class="method-block-label">Nivel cualitativo</div>
+            <p style="font-size:13px; color:var(--text-2); line-height:1.65; margin:0 0 12px;">Interpretación de discursos mediante análisis LDA, prevalencia de temas y mapas de redes.</p>
+            <div class="chip-row">
+              <span class="chip">Convivencia ferroviaria</span>
+              <span class="chip">Desarrollo urbano</span>
+              <span class="chip">Sostenibilidad</span>
+              <span class="chip">Patrimonio</span>
+              <span class="chip">Gobernanza</span>
+              <span class="chip">Logística</span>
+              <span class="chip">Comunicación</span>
+              <span class="chip">Presencia territorial</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 3. COBERTURA TERRITORIAL ───────────────────────── -->
+      <section class="section">
+        <h2>3. Cobertura territorial</h2>
+        <p>El levantamiento incluyó actores de seis comunas y localidades vinculadas al área de influencia de FCAB. La cobertura reveló diferencias significativas según el tipo de vínculo que la empresa mantiene con cada territorio.</p>
+
+        <div class="territory-grid">
+          <div class="territory-card t-active">
+            <div class="t-name">Antofagasta</div>
+            <div class="t-note">Zona de vínculos activos; mayor densidad de actores comunitarios, institucionales y estratégicos.</div>
+          </div>
+          <div class="territory-card t-active">
+            <div class="t-name">Calama</div>
+            <div class="t-note">Zona de vínculos activos; nodo logístico y comunitario con presencia diversificada de actores.</div>
+          </div>
+          <div class="territory-card t-oper">
+            <div class="t-name">Mejillones</div>
+            <div class="t-note">Presencia principalmente operacional; vínculo asociado a la infraestructura portuaria e industrial.</div>
+          </div>
+          <div class="territory-card t-distant">
+            <div class="t-name">Sierra Gorda</div>
+            <div class="t-note">Distancia entre infraestructura ferroviaria y relacionamiento efectivo con actores locales.</div>
+          </div>
+          <div class="territory-card t-distant">
+            <div class="t-name">Baquedano</div>
+            <div class="t-note">Fuerte identidad ferroviaria histórica; vínculo con la empresa débil o discontinuo.</div>
+          </div>
+          <div class="territory-card t-distant">
+            <div class="t-name">Ollagüe</div>
+            <div class="t-note">Distancia relacional marcada; solicitudes sin respuesta concreta en el período reciente.</div>
+          </div>
+        </div>
+
+        <div class="callout callout-info" style="margin-top:4px;">
+          <p>El informe no trata a FCAB como un actor homogéneo en el territorio: su presencia adquiere significados distintos según la experiencia, posición y expectativas de cada grupo entrevistado.</p>
+        </div>
+      </section>
+
+      <!-- ── 4. RECONOCIMIENTO Y BRECHAS ────────────────────── -->
+      <section class="section">
+        <h2>4. Reconocimiento y brechas</h2>
+        <p>Los resultados muestran una coexistencia entre el reconocimiento de FCAB como actor relevante y un conjunto de brechas relacionales significativas que limitan ese potencial.</p>
+
+        <div class="rg-grid">
+          <div class="rg-card">
+            <div class="rg-header rg-pos">FCAB es reconocida por</div>
+            <div class="rg-body">
+              <div class="rg-item"><div class="rg-dot rg-pos-dot"></div>Historia e identidad ferroviaria en la región</div>
+              <div class="rg-item"><div class="rg-dot rg-pos-dot"></div>Infraestructura territorial y capacidad logística</div>
+              <div class="rg-item"><div class="rg-dot rg-pos-dot"></div>Presencia en espacios de gobernanza regional</div>
+              <div class="rg-item"><div class="rg-dot rg-pos-dot"></div>Potencial de incidencia en el desarrollo regional</div>
+              <div class="rg-item"><div class="rg-dot rg-pos-dot"></div>Liderazgo en sostenibilidad (Pacto Global Norte)</div>
+            </div>
+          </div>
+          <div class="rg-card">
+            <div class="rg-header rg-neg">Brechas identificadas</div>
+            <div class="rg-body">
+              <div class="rg-item"><div class="rg-dot rg-neg-dot"></div>Vínculos comunitarios dependientes de personas específicas</div>
+              <div class="rg-item"><div class="rg-dot rg-neg-dot"></div>Baja institucionalización de canales de contacto</div>
+              <div class="rg-item"><div class="rg-dot rg-neg-dot"></div>Escasa proactividad en espacios estratégicos</div>
+              <div class="rg-item"><div class="rg-dot rg-neg-dot"></div>Debilidades de comunicación pública e imagen</div>
+              <div class="rg-item"><div class="rg-dot rg-neg-dot"></div>Diferencias territoriales en la calidad del relacionamiento</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="favorable">
+          <div class="favorable-icon">◎</div>
+          <div class="favorable-text">
+            <div class="favorable-label">Condición favorable para la acción</div>
+            <p>El estudio identifica una <strong>disposición ampliamente positiva</strong> de los actores a participar en instancias formales de diálogo, coordinación y trabajo conjunto con la empresa — una ventana de oportunidad estratégica para fortalecer el relacionamiento.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 5. ORGANIZACIÓN DEL INFORME ────────────────────── -->
+      <section class="section">
+        <h2>5. Organización del informe</h2>
+        <p>El informe sigue una secuencia analítica que permite avanzar desde la descripción metodológica y la caracterización de actores hacia el análisis de variables, segmentación, patrones discursivos, temas espontáneos y redes de coordinación.</p>
+
+        <div class="report-flow">
+          <a href="capitulo-02.html" class="flow-item">
+            <div class="flow-num">02</div>
+            <div>
+              <div class="flow-title">Metodología</div>
+              <div class="flow-desc">Diseño mixto, población, técnicas e instrumentos y procedimiento de recolección</div>
+            </div>
+            <div class="flow-arrow">→</div>
+          </a>
+          <a href="capitulo-08.html" class="flow-item">
+            <div class="flow-num">08</div>
+            <div>
+              <div class="flow-title">Análisis de Datos Descriptivos</div>
+              <div class="flow-desc">Caracterización de los 72 actores y distribución de variables relacionales</div>
+            </div>
+            <div class="flow-arrow">→</div>
+          </a>
+          <a href="capitulo-03.html" class="flow-item">
+            <div class="flow-num">03</div>
+            <div>
+              <div class="flow-title">Análisis de Cluster</div>
+              <div class="flow-desc">Segmentación empírica del ecosistema en tres perfiles relacionales</div>
+            </div>
+            <div class="flow-arrow">→</div>
+          </a>
+          <a href="capitulo-04.html" class="flow-item">
+            <div class="flow-num">04</div>
+            <div>
+              <div class="flow-title">Análisis temático</div>
+              <div class="flow-desc">Tópicos latentes (LDA) y 16 temas espontáneos identificados en el corpus</div>
+            </div>
+            <div class="flow-arrow">→</div>
+          </a>
+          <a href="capitulo-06.html" class="flow-item">
+            <div class="flow-num">06</div>
+            <div>
+              <div class="flow-title">Ecosistema de Actores y Red de Coordinación</div>
+              <div class="flow-desc">Centralidad perceptual e interrelaciones en la red interorganizacional</div>
+            </div>
+            <div class="flow-arrow">→</div>
+          </a>
+        </div>
+      </section>
+
+      <!-- ── NAVEGACIÓN ──────────────────────────────────────── -->
+      <nav class="chapter-nav" aria-label="Navegación entre capítulos">
+        <a href="../index.html" class="nav-btn nav-center">
+          <span class="nav-dir">↑ Inicio</span>
+          <span class="nav-label">Índice general</span>
+        </a>
+        <a href="capitulo-02.html" class="nav-btn nav-right">
+          <span class="nav-dir">Siguiente →</span>
+          <span class="nav-label">Cap. 02</span>
+          <span class="nav-sub">Metodología</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

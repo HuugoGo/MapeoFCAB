@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cap. 03 — Análisis de Cluster | Estudio FCAB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    /* ── Estilos específicos de este capítulo ── */
+
+    /* Cards de cluster */
+    .cluster-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin: 28px 0;
+    }
+    .cluster-card {
+      border-radius: var(--r);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .cluster-card-header {
+      padding: 20px 22px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cluster-card-body {
+      padding: 18px 22px 22px;
+      background: var(--surface-1);
+    }
+    .cluster-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; margin-bottom: 8px;
+    }
+    .cluster-name {
+      font-size: 16px; font-weight: 700; color: var(--text-1);
+      line-height: 1.3; margin-bottom: 10px;
+    }
+    .cluster-n {
+      display: inline-flex; align-items: baseline; gap: 5px;
+      background: rgba(0,0,0,0.05); border-radius: var(--r-sm);
+      padding: 3px 10px;
+    }
+    .cluster-n .num { font-size: 20px; font-weight: 700; color: var(--text-1); }
+    .cluster-n .lbl { font-size: 12px; color: var(--text-2); }
+    .cluster-card-body p {
+      font-size: 13.5px; color: var(--text-2); line-height: 1.7; margin-bottom: 12px;
+    }
+    .cluster-card-body p:last-child { margin-bottom: 0; }
+    .cluster-tag {
+      display: inline-block; font-size: 11px; font-weight: 600;
+      padding: 3px 9px; border-radius: 20px; margin: 2px 3px 2px 0;
+    }
+    .cluster-tags { margin-top: 12px; }
+
+    /* Colores por cluster */
+    .c1 .cluster-card-header { background: #FEF3C7; border-bottom-color: rgba(217,119,6,0.2); }
+    .c1 .cluster-label { color: #92400E; }
+    .c1 .cluster-tag  { background: rgba(217,119,6,0.12); color: #92400E; border: 1px solid rgba(217,119,6,0.25); }
+
+    .c2 .cluster-card-header { background: #ECFDF5; border-bottom-color: rgba(5,150,105,0.2); }
+    .c2 .cluster-label { color: #065F46; }
+    .c2 .cluster-tag  { background: rgba(5,150,105,0.10); color: #065F46; border: 1px solid rgba(5,150,105,0.25); }
+
+    .c3 .cluster-card-header { background: #EFF6FF; border-bottom-color: rgba(37,99,235,0.2); }
+    .c3 .cluster-label { color: #1E40AF; }
+    .c3 .cluster-tag  { background: rgba(37,99,235,0.08); color: #1E40AF; border: 1px solid rgba(37,99,235,0.22); }
+
+    /* Risk pill */
+    .risk-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+      padding: 4px 10px; border-radius: 20px; margin-top: 14px;
+    }
+    .risk-high   { background: rgba(220,38,38,0.08);  color: #991B1B; border: 1px solid rgba(220,38,38,0.2); }
+    .risk-med    { background: rgba(217,119,6,0.08);  color: #92400E; border: 1px solid rgba(217,119,6,0.2); }
+    .risk-low    { background: rgba(5,150,105,0.08);  color: #065F46; border: 1px solid rgba(5,150,105,0.2); }
+
+    /* Variables del modelo */
+    .var-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0;
+    }
+    .var-item {
+      display: flex; align-items: flex-start; gap: 10px; padding: 12px 16px;
+      background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r-sm);
+    }
+    .var-item.included { border-left: 3px solid var(--accent); }
+    .var-item.excluded { opacity: 0.55; border-left: 3px solid var(--border-2); }
+    .var-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .var-name  { font-size: 13px; font-weight: 600; color: var(--text-1); margin-bottom: 3px; }
+    .var-why   { font-size: 12px; color: var(--text-2); line-height: 1.45; }
+    .var-item.excluded .var-name { color: var(--text-2); text-decoration: line-through; }
+
+    /* Validation stats */
+    .val-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0;
+    }
+    .val-stat {
+      background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r);
+      padding: 18px 16px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .val-stat .num { font-size: 28px; font-weight: 700; color: var(--accent); letter-spacing: -0.03em; display: block; }
+    .val-stat .lbl { font-size: 12px; color: var(--text-2); line-height: 1.4; margin-top: 4px; display: block; }
+
+    /* Limitaciones */
+    .limit-list {
+      display: flex; flex-direction: column; gap: 0;
+      border: 1px solid var(--border); border-radius: var(--r); overflow: hidden;
+      margin: 16px 0;
+    }
+    .limit-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 16px 20px; border-bottom: 1px solid var(--border);
+      background: var(--surface-1);
+    }
+    .limit-item:last-child { border-bottom: none; }
+    .limit-num {
+      font-size: 12px; font-weight: 700; color: var(--text-3);
+      width: 20px; flex-shrink: 0; padding-top: 2px;
+    }
+    .limit-body h4 {
+      font-size: 13.5px; font-weight: 600; color: var(--text-1);
+      margin-bottom: 4px; text-transform: none; letter-spacing: 0;
+    }
+    .limit-body p { font-size: 13px; color: var(--text-2); margin: 0; line-height: 1.6; }
+
+    @media (max-width: 900px) {
+      .cluster-grid { grid-template-columns: 1fr; }
+      .var-grid     { grid-template-columns: 1fr; }
+      .val-grid     { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .val-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Cluster sections (descripción + tabla) ── */
+    .cluster-section {
+      border: 1px solid var(--border); border-radius: var(--r);
+      overflow: hidden; margin-bottom: 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .cluster-section-header { padding: 20px 24px; border-bottom: 1px solid var(--border); }
+    .cluster-section-meta   { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+    .cluster-section-name   { font-size: 18px; font-weight: 700; color: var(--text-1); margin: 0; }
+    .cluster-section-body   { background: var(--surface-1); padding: 20px 24px 4px; }
+    .cluster-section-body p { font-size: 14px; color: var(--text-2); line-height: 1.7; margin-bottom: 14px; }
+    .cluster-section-table  { background: var(--surface-1); padding: 4px 24px 24px; }
+    .cluster-section-table .table-wrap { margin-bottom: 0; }
+
+    /* Category badges inside tables */
+    .cat-badge     { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
+    .cat-auto      { background: rgba(37,99,235,0.08);  color: #1E40AF; border: 1px solid rgba(37,99,235,0.18); }
+    .cat-com       { background: rgba(5,150,105,0.08);  color: #065F46; border: 1px solid rgba(5,150,105,0.18); }
+    .cat-prod      { background: rgba(217,119,6,0.08);  color: #92400E; border: 1px solid rgba(217,119,6,0.18); }
+    .cat-soc       { background: rgba(124,58,237,0.08); color: #5B21B6; border: 1px solid rgba(124,58,237,0.18); }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <button class="header-toggle" id="sidebar-toggle" aria-label="Abrir menú">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <a href="../index.html" class="header-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Índice
+    </a>
+    <div class="header-sep"></div>
+    <span class="header-chapter">Capítulo 03 — Análisis de Cluster</span>
+    <div class="header-right">
+      <span class="header-agency">DOS BARBAS</span>
+    </div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar"></nav>
+
+  <!-- MAIN -->
+  <main class="chapter-main">
+    <div class="chapter-content">
+
+      <!-- ── ENCABEZADO ───────────────────────────────────────── -->
+      <header class="chapter-header">
+        <div class="chapter-meta">
+          <span class="chapter-num-label">Capítulo 03</span>
+        </div>
+        <h1>Análisis de Cluster</h1>
+        <p class="chapter-lead">Segmentación empírica del ecosistema de actores de FCAB en tres perfiles relacionales, construida a partir de variables de posicionamiento estratégico y centralidad en red.</p>
+      </header>
+
+      <!-- ── 1. PROPÓSITO Y ALCANCE ────────────────────────────── -->
+      <section class="section">
+        <h2>1. Propósito y alcance</h2>
+        <p>El análisis de conglomerados se realizó con el propósito de identificar grupos de actores con <strong>perfiles relacionales homogéneos internamente y diferenciados entre sí</strong>, de modo que las recomendaciones estratégicas pudieran formularse de forma diferenciada y accionable.</p>
+
+        <div class="callout">
+          <p>No se trata de una tipología conceptual construida a priori, sino de una <strong>clasificación empírica derivada de los datos</strong>. La unidad de análisis es el actor entrevistado (<strong>n=73</strong>) y las variables reflejan dimensiones centrales del relacionamiento institucional y comunitario con FCAB. Sus resultados deben interpretarse como insumo estratégico, no como categorías rígidas o exhaustivas.</p>
+        </div>
+      </section>
+
+      <!-- ── 2. DISEÑO DEL MODELO ──────────────────────────────── -->
+      <section class="section">
+        <h2>2. Diseño del modelo</h2>
+
+        <h3>Variables incluidas y excluidas</h3>
+        <p>De las 9 variables disponibles —las 8 del análisis descriptivo más <em>Menciones como actor relevante</em>— el modelo final utilizó <strong>5 variables</strong>. Las 4 excluidas lo fueron por razones metodológicas explícitas:</p>
+
+        <div class="var-grid">
+          <div class="var-item included">
+            <span class="var-icon">✓</span>
+            <div>
+              <div class="var-name">Calidad percibida de la relación</div>
+              <div class="var-why">Núcleo relacional del modelo.</div>
+            </div>
+          </div>
+          <div class="var-item included">
+            <span class="var-icon">✓</span>
+            <div>
+              <div class="var-name">Cercanía relacional percibida</div>
+              <div class="var-why">Núcleo relacional del modelo.</div>
+            </div>
+          </div>
+          <div class="var-item included">
+            <span class="var-icon">✓</span>
+            <div>
+              <div class="var-name">Coherencia discurso-práctica percibida</div>
+              <div class="var-why">Núcleo relacional; principal discriminante entre C1 y C2.</div>
+            </div>
+          </div>
+          <div class="var-item included">
+            <span class="var-icon">✓</span>
+            <div>
+              <div class="var-name">Escucha percibida</div>
+              <div class="var-why">Núcleo relacional del modelo.</div>
+            </div>
+          </div>
+          <div class="var-item included">
+            <span class="var-icon">✓</span>
+            <div>
+              <div class="var-name">Menciones como actor relevante</div>
+              <div class="var-why">Dimensión ortogonal: centralidad en red. Correlación con variables relacionales &lt;0.20.</div>
+            </div>
+          </div>
+          <div class="var-item excluded">
+            <span class="var-icon">✕</span>
+            <div>
+              <div class="var-name">Disposición al diálogo</div>
+              <div class="var-why">Varianza prácticamente nula: 84,7% de actores en el valor máximo (7.0). Sin capacidad discriminante.</div>
+            </div>
+          </div>
+          <div class="var-item excluded">
+            <span class="var-icon">✕</span>
+            <div>
+              <div class="var-name">Influencia territorial percibida de FCAB</div>
+              <div class="var-why">Captura percepción sobre la empresa, no sobre la relación. Genera un conglomerado incoherente de 4–5 actores.</div>
+            </div>
+          </div>
+          <div class="var-item excluded">
+            <span class="var-icon">✕</span>
+            <div>
+              <div class="var-name">Afectación organizacional percibida</div>
+              <div class="var-why">Alta correlación con variables relacionales incluidas. Deteriora los índices de separación entre grupos.</div>
+            </div>
+          </div>
+          <div class="var-item excluded">
+            <span class="var-icon">✕</span>
+            <div>
+              <div class="var-name">Expectativa de consideración</div>
+              <div class="var-why">Alta correlación con variables relacionales incluidas. Deteriora los índices de separación entre grupos.</div>
+            </div>
+          </div>
+        </div>
+
+        <h3>Algoritmo y parámetros</h3>
+        <div class="two-col">
+          <div class="two-col-card">
+            <h4>Algoritmo</h4>
+            <ul>
+              <li><strong>K-Means</strong> con inicialización múltiple (n_init=20)</li>
+              <li>Semilla fija (random_state=42) para reproducibilidad</li>
+              <li>Estandarización por <strong>z-score</strong> (media=0, DE=1)</li>
+              <li>Análisis sobre <strong>64 actores</strong> con datos completos</li>
+            </ul>
+          </div>
+          <div class="two-col-card">
+            <h4>Determinación de K=3</h4>
+            <ul>
+              <li>Criterio del <strong>codo</strong></li>
+              <li>Coeficiente de <strong>silueta</strong></li>
+              <li>Análisis jerárquico de <strong>Ward</strong></li>
+              <li>Convergencia de los tres criterios</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-amber">
+          <p><strong>Actores con datos faltantes (n=9):</strong> La variable coherencia discurso-práctica presentó un 12,5% de valores ausentes. Por ser el principal discriminante entre C1 y C2, se descartó la imputación por media o mediana. En su lugar, cada actor fue asignado al cluster cuyo centroide resultara más próximo en distancia euclidiana, imputando temporalmente el valor de coherencia con la media del cluster candidato.</p>
+        </div>
+      </section>
+
+      <!-- ── 3. TIPOLOGÍA DE ACTORES ───────────────────────────── -->
+      <section class="section">
+        <h2>3. Tipología de actores</h2>
+        <p>El análisis identificó tres perfiles diferenciados dentro del ecosistema territorial de FCAB. A continuación se presenta la descripción de cada cluster junto con el listado de actores que lo compone.</p>
+
+        <!-- CLUSTER 1 -->
+        <div class="cluster-section">
+          <div class="cluster-section-header c1">
+            <div class="cluster-section-meta">
+              <span class="cluster-label">Cluster 1</span>
+              <span class="cluster-n"><span class="num">32</span><span class="lbl">actores</span></span>
+              <span class="risk-pill risk-med">Riesgo latente</span>
+            </div>
+            <div class="cluster-section-name">Actores distantes o en relación deteriorada</div>
+          </div>
+          <div class="cluster-section-body">
+            <p>Evalúan el vínculo con FCAB como insuficiente o deteriorado, con baja percepción de coherencia y escucha. En muchos casos la distancia refleja <strong>ausencia más que tensión</strong>: un relacionamiento que nunca se construyó o que se interrumpió sin reencuadre explícito. Concentran organizaciones de base territorial, actores de sociedad civil y medios de comunicación, distribuidos principalmente en Antofagasta, con presencia relevante en Sierra Gorda, Baquedano y Mejillones.</p>
+          </div>
+          <div class="cluster-section-table">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Actor</th><th>Categoría</th><th>Comuna</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Concejal Osvaldo Torres</td><td><span class="cat-badge cat-auto">Autoridades y sector público</span></td><td>Sierra Gorda</td></tr>
+                  <tr><td>Delegación Provincial El Loa</td><td><span class="cat-badge cat-auto">Autoridades y sector público</span></td><td>Calama</td></tr>
+                  <tr><td>Hospital Calama</td><td><span class="cat-badge cat-auto">Autoridades y sector público</span></td><td>Calama</td></tr>
+                  <tr><td>Municipalidad de Mejillones</td><td><span class="cat-badge cat-auto">Autoridades y sector público</span></td><td>Mejillones</td></tr>
+                  <tr><td>JJVV Augusto D'Halmar</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV Ckaitchi</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Calama</td></tr>
+                  <tr><td>JJVV Condominio Catalina Cruz</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV Condominio Los Aromos</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Mejillones</td></tr>
+                  <tr><td>JJVV El Golf</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV Estadio Regional</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV N° 4 Baquedano</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Sierra Gorda</td></tr>
+                  <tr><td>JJVV N°1 Baquedano</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Sierra Gorda</td></tr>
+                  <tr><td>JJVV N°3 Sierra Gorda</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Sierra Gorda</td></tr>
+                  <tr><td>JJVV Oriente</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV Portada Norte III</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV Villa Chuquicamata</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Calama</td></tr>
+                  <tr><td>JJVV Villa Esmeralda</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Calama</td></tr>
+                  <tr><td>JJVV Vista Hermosa Antofagasta</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Restaurant El Baquedano</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Sierra Gorda</td></tr>
+                  <tr><td>Asociación de Industriales Mejillones</td><td><span class="cat-badge cat-prod">Sector productivo y gremios</span></td><td>Mejillones</td></tr>
+                  <tr><td>Centro Cultural Estación Antofagasta</td><td><span class="cat-badge cat-prod">Sector productivo y gremios</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Corporación Cluster Minero</td><td><span class="cat-badge cat-prod">Sector productivo y gremios</span></td><td>Antofagasta</td></tr>
+                  <tr><td>AIEP Calama</td><td><span class="cat-badge cat-soc">Sociedad civil, academia y medios</span></td><td>Calama</td></tr>
+                  <tr><td>Alianza Antofagasta</td><td><span class="cat-badge cat-soc">Sociedad civil, academia y medios</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Colegio Técnico Industrial Don Bosco</td><td><span class="cat-badge cat-soc">Sociedad civil, academia y medios</span></td><td>Antofagasta</td></tr>
+                  <tr><td>El Mercurio Antofagasta y Calama</td><td><span class="cat-badge cat-soc">Sociedad civil, academia y medios</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Filzic</td><td><span class="cat-badge cat-soc">Sociedad civil, academia y medios</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Fundación Minera Escondida</td><td><span class="cat-badge cat-soc">Sociedad civil, academia y medios</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Líder de Opinión Andrea Cox</td><td><span class="cat-badge cat-soc">Sociedad civil, academia y medios</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Museo Virtual Ferroviario</td><td><span class="cat-badge cat-soc">Sociedad civil, academia y medios</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Radio María Reina</td><td><span class="cat-badge cat-soc">Sociedad civil, academia y medios</span></td><td>Calama</td></tr>
+                  <tr><td>Timeline</td><td><span class="cat-badge cat-soc">Sociedad civil, academia y medios</span></td><td>Antofagasta</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- CLUSTER 2 -->
+        <div class="cluster-section">
+          <div class="cluster-section-header c2">
+            <div class="cluster-section-meta">
+              <span class="cluster-label">Cluster 2</span>
+              <span class="cluster-n"><span class="num">33</span><span class="lbl">actores</span></span>
+              <span class="risk-pill risk-low">Riesgo bajo · Mantención</span>
+            </div>
+            <div class="cluster-section-name">Actores vinculados con relación positiva</div>
+          </div>
+          <div class="cluster-section-body">
+            <p>Mantienen con FCAB una relación de alta calidad y cercanía, perciben coherencia entre el discurso y la práctica de la empresa, y se sienten escuchados cuando plantean propuestas o preocupaciones. El riesgo específico de este grupo no es el conflicto sino el <strong>mantenimiento</strong>: el vínculo está sostenido en gran medida en relaciones personales con referentes comunitarios y es sensible a rotaciones de personal o discontinuidades en la gestión.</p>
+          </div>
+          <div class="cluster-section-table">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Actor</th><th>Categoría</th><th>Comuna</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Municipalidad de Sierra Gorda</td><td><span class="cat-badge cat-auto">Autoridades y sector público</span></td><td>Sierra Gorda</td></tr>
+                  <tr><td>Seremi de Economía</td><td><span class="cat-badge cat-auto">Autoridades y sector público</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Seremi de Transportes</td><td><span class="cat-badge cat-auto">Autoridades y sector público</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Seremi de Gobierno</td><td><span class="cat-badge cat-auto">Autoridades y sector público</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Agrupación Acapulco</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Agrupación Mujeres por los Caminos de la Estación</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Centro de Madres 8 de Octubre</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV Bellavista</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV Centro N°19</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV Eleuterio Ramírez</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Calama</td></tr>
+                  <tr><td>JJVV Estación</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV Ferrocarril N°8</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV José Papic</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV Manuel Rodríguez</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV Manuel Rodríguez</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Calama</td></tr>
+                  <tr><td>JJVV Matta</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV Miramar Norte</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV Pablo Kruger</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV Sierra Nevada</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV Sur 1 N°7</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV Villa Ayquina N°14</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Calama</td></tr>
+                  <tr><td>JJVV Villa Chuquicamata Antofagasta</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV Villa Doña Francisca</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>JJVV Villa El Loa</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Calama</td></tr>
+                  <tr><td>JJVV Villa Florida</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Segunda Compañía de Bomberos Mejillones</td><td><span class="cat-badge cat-com">Comunidad y Org. social</span></td><td>Mejillones</td></tr>
+                  <tr><td>ATI</td><td><span class="cat-badge cat-prod">Sector productivo y gremios</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Aguas Antofagasta</td><td><span class="cat-badge cat-prod">Sector productivo y gremios</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Puerto Mejillones</td><td><span class="cat-badge cat-prod">Sector productivo y gremios</span></td><td>Mejillones</td></tr>
+                  <tr><td>Antofagasta Televisión</td><td><span class="cat-badge cat-soc">Sociedad civil, academia y medios</span></td><td>Antofagasta</td></tr>
+                  <tr><td>CREO</td><td><span class="cat-badge cat-soc">Sociedad civil, academia y medios</span></td><td>Antofagasta</td></tr>
+                  <tr><td>PROLOA</td><td><span class="cat-badge cat-soc">Sociedad civil, academia y medios</span></td><td>Calama</td></tr>
+                  <tr><td>Pacto Global</td><td><span class="cat-badge cat-soc">Sociedad civil, academia y medios</span></td><td>Antofagasta</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- CLUSTER 3 -->
+        <div class="cluster-section">
+          <div class="cluster-section-header c3">
+            <div class="cluster-section-meta">
+              <span class="cluster-label">Cluster 3</span>
+              <span class="cluster-n"><span class="num">8</span><span class="lbl">actores</span></span>
+              <span class="risk-pill risk-high">Riesgo reputacional alto</span>
+            </div>
+            <div class="cluster-section-name">Actores de alta centralidad y relación instrumental</div>
+          </div>
+          <div class="cluster-section-body">
+            <p>Se distinguen por su peso en la red territorial: son los actores que el resto del ecosistema identifica como más influyentes, con un promedio de <strong>11 menciones</strong> como actor relevante. Presentan la expectativa de escucha más alta del estudio (<strong>6,25/7</strong>), lo que combinado con evaluaciones intermedias de coherencia sugiere una brecha percibida entre su peso territorial y el reconocimiento que reciben de FCAB en la toma de decisiones.</p>
+            <p>Concentran el <strong>mayor riesgo reputacional e institucional</strong> para FCAB y, a la vez, la mayor oportunidad de legitimación territorial. Una relación instrumental o transaccional —sin canales formales de diálogo, sin trazabilidad de compromisos y sin gestión proactiva de expectativas— puede derivar en posicionamientos críticos que escalan rápidamente en la agenda pública.</p>
+          </div>
+          <div class="cluster-section-table">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Actor</th><th>Categoría</th><th>Comuna</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Gobierno Regional</td><td><span class="cat-badge cat-auto">Autoridades y sector público</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Municipalidad de Antofagasta</td><td><span class="cat-badge cat-auto">Autoridades y sector público</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Asociación de Industriales Antofagasta</td><td><span class="cat-badge cat-prod">Sector productivo y gremios</span></td><td>Antofagasta</td></tr>
+                  <tr><td>BHP</td><td><span class="cat-badge cat-prod">Sector productivo y gremios</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Centinela</td><td><span class="cat-badge cat-prod">Sector productivo y gremios</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Cámara Chilena de la Construcción</td><td><span class="cat-badge cat-prod">Sector productivo y gremios</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Puerto Antofagasta</td><td><span class="cat-badge cat-prod">Sector productivo y gremios</span></td><td>Antofagasta</td></tr>
+                  <tr><td>Vinculación con el Medio UCN</td><td><span class="cat-badge cat-soc">Sociedad civil, academia y medios</span></td><td>Antofagasta</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ── 4. VALIDACIÓN DEL MODELO ──────────────────────────── -->
+      <section class="section">
+        <h2>4. Validación del modelo</h2>
+        <p>Se realizaron tres pruebas de validación sobre la solución de tres clusters:</p>
+
+        <div class="val-grid">
+          <div class="val-stat">
+            <span class="num">0,988</span>
+            <span class="lbl">ARI medio en 500 repeticiones con semillas aleatorias</span>
+          </div>
+          <div class="val-stat">
+            <span class="num">90,4%</span>
+            <span class="lbl">De repeticiones con asignaciones idénticas (ARI = 1,0)</span>
+          </div>
+          <div class="val-stat">
+            <span class="num">0,615</span>
+            <span class="lbl">Concordancia con agrupamiento jerárquico Ward (moderada, esperable)</span>
+          </div>
+        </div>
+
+        <div class="callout callout-green">
+          <p>La misma partición emerge de forma <strong>prácticamente determinística</strong> bajo variaciones de inicialización, confirmando la robustez de la solución. La concordancia moderada con Ward (ARI=0,615) es esperable entre métodos que priorizan distintos criterios de cohesión y no constituye una inconsistencia.</p>
+        </div>
+      </section>
+
+      <!-- ── 5. LIMITACIONES ───────────────────────────────────── -->
+      <section class="section">
+        <h2>5. Limitaciones</h2>
+        <div class="limit-list">
+          <div class="limit-item">
+            <div class="limit-num">01</div>
+            <div class="limit-body">
+              <h4>Tamaño de muestra acotado</h4>
+              <p>El análisis se basa en 72 actores, cercano al umbral mínimo recomendado para K-Means. Afecta especialmente al C3 (n=8), cuyos resultados deben leerse con mayor cautela que los clusters de mayor tamaño.</p>
+            </div>
+          </div>
+          <div class="limit-item">
+            <div class="limit-num">02</div>
+            <div class="limit-body">
+              <h4>No respuesta posiblemente no aleatoria</h4>
+              <p>La variable coherencia discurso-práctica presenta 12,5% de valores ausentes. Esta ausencia puede reflejar menor familiaridad con la operación de FCAB o una relación más distante con la empresa, lo que también constituye información relevante.</p>
+            </div>
+          </div>
+          <div class="limit-item">
+            <div class="limit-num">03</div>
+            <div class="limit-body">
+              <h4>Captura temporal del relacionamiento</h4>
+              <p>Los clusters reflejan el estado del vínculo en el momento del levantamiento. Dado que las percepciones pueden cambiar por contingencias territoriales o ajustes en la estrategia de relacionamiento, se recomienda replicar el análisis en un ciclo de dos años.</p>
+            </div>
+          </div>
+          <div class="limit-item">
+            <div class="limit-num">04</div>
+            <div class="limit-body">
+              <h4>Universo de actores no exhaustivo</h4>
+              <p>Comunidades indígenas del Alto Loa, organizaciones de Ollagüe y actores privados de menor visibilidad no quedaron suficientemente representados. Su incorporación en una segunda fase podría modificar la distribución de los clusters, especialmente en la dimensión territorial.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── NAVEGACIÓN ────────────────────────────────────────── -->
+      <nav class="chapter-nav" aria-label="Navegación entre capítulos">
+        <a href="../index.html" class="nav-btn nav-center">
+          <span class="nav-dir">↑ Inicio</span>
+          <span class="nav-label">Índice general</span>
+        </a>
+        <a href="capitulo-06.html" class="nav-btn">
+          <span class="nav-dir">← Anterior</span>
+          <span class="nav-label">Cap. 06</span>
+          <span class="nav-sub">Ecosistema de Actores y Red de Coordinación</span>
+        </a>
+        <a href="capitulo-09.html" class="nav-btn nav-right">
+          <span class="nav-dir">Siguiente →</span>
+          <span class="nav-label">Cap. 09</span>
+          <span class="nav-sub">Conclusiones</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

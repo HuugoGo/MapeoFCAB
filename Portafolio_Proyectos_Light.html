@@ -1,0 +1,1668 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portafolio de Proyectos Tecnológicos · Dos Barbas · Tema Claro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #000000;--bg-2: #030308;
+      --surface: rgba(14,14,20,0.88);--surface-2: rgba(20,20,28,0.96);
+      --text: #f5f5f7;--muted: #98989f;--line: rgba(255,255,255,0.09);
+      --accent: #4da3ff;--accent-2: #bf5af2;--accent-3: #30d158;--accent-4: #ff9f0a;--accent-5: #ff375f;
+      --shadow: 0 32px 80px rgba(0,0,0,0.7);--radius: 24px;
+      --font-head: "Outfit",sans-serif;--font-body: "Manrope",sans-serif;
+    }
+    *{box-sizing:border-box}html,body{margin:0;padding:0;scroll-behavior:smooth}
+    body{font-family:var(--font-body);color:var(--text);background:#000;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    .top{position:fixed;top:0;width:100%;z-index:200;border-bottom:1px solid var(--line);backdrop-filter:blur(20px) saturate(180%);background:rgba(0,0,0,0.72)}
+    .top-wrap{width:min(1280px,94vw);margin:0 auto;height:60px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-head);font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text)}
+    .brand-dot{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff}
+    .nav-pills{display:flex;gap:4px}
+    .nav-pill{font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:6px 14px;border-radius:999px;cursor:pointer;border:1px solid transparent;color:var(--muted);background:transparent;transition:all .25s ease;text-decoration:none}
+    .nav-pill:hover,.nav-pill.active{color:var(--text);border-color:var(--line);background:var(--surface)}
+    .track{width:140px;height:3px;border-radius:999px;background:rgba(255,255,255,0.1);overflow:hidden}
+    .fill{width:0%;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .15s linear}
+    main{padding-top:60px}
+    .wrap{width:min(1280px,94vw);margin:0 auto}
+    .hero{min-height:100vh;display:grid;place-items:center;position:relative;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(77,163,255,.18),transparent),radial-gradient(ellipse 50% 40% at 80% 80%,rgba(191,90,242,.12),transparent),radial-gradient(ellipse 40% 30% at 20% 70%,rgba(48,209,88,.08),transparent)}
+    .orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(80px);opacity:.35;animation:float 8s ease-in-out infinite}
+    .orb-1{width:420px;height:420px;background:var(--accent);top:-80px;right:-100px;animation-delay:0s}
+    .orb-2{width:320px;height:320px;background:var(--accent-2);bottom:-60px;left:-60px;animation-delay:-3s}
+    .orb-3{width:240px;height:240px;background:var(--accent-3);top:40%;left:20%;animation-delay:-5s}
+    @keyframes float{0%,100%{transform:translateY(0px) scale(1)}50%{transform:translateY(-24px) scale(1.04)}}
+    .hero-inner{position:relative;z-index:1;text-align:center;padding:40px 20px}
+    .hero-kicker{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(77,163,255,.35);background:rgba(77,163,255,.08);border-radius:999px;padding:8px 16px;font-family:var(--font-head);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:28px}
+    .hero-kicker-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+    h1{font-family:var(--font-head);font-size:clamp(44px,7.5vw,100px);font-weight:900;letter-spacing:-0.035em;line-height:1;margin:0 0 12px;background:linear-gradient(135deg,#fff 30%,rgba(255,255,255,.55));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .hero-sub-title{font-family:var(--font-head);font-size:clamp(28px,4vw,56px);font-weight:700;letter-spacing:-0.02em;line-height:1.1;margin:0 0 24px;background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .hero-lead{max-width:60ch;margin:0 auto 40px;color:var(--muted);font-size:clamp(16px,2vw,20px);line-height:1.55}
+    .hero-stats{display:inline-flex;gap:0;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--surface)}
+    .hero-stat{padding:20px 32px;text-align:center;border-right:1px solid var(--line)}
+    .hero-stat:last-child{border-right:none}
+    .hero-stat .v{display:block;font-family:var(--font-head);font-size:clamp(24px,3vw,40px);font-weight:900;letter-spacing:-0.02em;background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .hero-stat .l{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+    .section{width:min(1280px,94vw);margin:0 auto;padding:clamp(60px,9vw,120px) 0}
+    .section-kicker{font-family:var(--font-head);font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+    .section-kicker::before{content:"";display:block;width:20px;height:2px;background:var(--accent);border-radius:2px}
+    .section-title{font-family:var(--font-head);font-size:clamp(30px,5vw,64px);font-weight:900;letter-spacing:-0.025em;line-height:1.05;max-width:18ch;margin:0 0 14px}
+    .section-sub{max-width:64ch;color:var(--muted);font-size:clamp(15px,1.8vw,19px);line-height:1.5;margin:0 0 48px}
+    .overview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+    .ov-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px;cursor:pointer;transition:all .3s ease;text-decoration:none;color:inherit;position:relative;overflow:hidden}
+    .ov-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.18);box-shadow:0 24px 60px rgba(0,0,0,.6)}
+    .ov-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px}
+    .ov-card-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px}
+    .ov-card-number{font-family:var(--font-head);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.03)}
+    .ov-card-name{font-family:var(--font-head);font-size:22px;font-weight:900;letter-spacing:-0.01em;margin-bottom:8px}
+    .ov-card-tagline{font-size:14px;color:var(--muted);line-height:1.45;margin-bottom:16px}
+    .ov-tags{display:flex;flex-wrap:wrap;gap:6px}
+    .ov-tag{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1px solid}
+    .ov-card-soon{background:rgba(255,255,255,.02);border:1px dashed rgba(255,255,255,.12);border-radius:20px;padding:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:200px;gap:10px;text-align:center}
+    .ov-card-soon .soon-icon{font-size:28px;opacity:.4}
+    .ov-card-soon p{font-size:13px;color:var(--muted);line-height:1.45;max-width:26ch}
+    .divider{width:min(1280px,94vw);margin:0 auto;height:1px;background:var(--line)}
+    .app-section{padding:clamp(60px,9vw,120px) 0;border-top:1px solid var(--line);position:relative;overflow:hidden}
+    .app-section-glow{position:absolute;width:600px;height:600px;border-radius:50%;filter:blur(120px);opacity:.06;pointer-events:none}
+    .app-header{display:flex;align-items:flex-start;gap:22px;margin-bottom:44px}
+    .app-icon{width:78px;height:78px;border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:38px;flex-shrink:0;border:1px solid var(--line)}
+    .app-name{font-family:var(--font-head);font-size:clamp(28px,4vw,52px);font-weight:900;letter-spacing:-0.03em;line-height:1;margin:0 0 8px}
+    .app-desc{font-size:clamp(14px,1.6vw,17px);color:var(--muted);max-width:60ch;line-height:1.5}
+    .app-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    .badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px;border:1px solid;white-space:nowrap}
+    .badge i{width:7px;height:7px;border-radius:50%;background:currentColor}
+    .badge.pub{color:#30d158;border-color:rgba(48,209,88,.35);background:rgba(48,209,88,.08)}
+    .badge.beta{color:var(--accent-4);border-color:rgba(255,159,10,.35);background:rgba(255,159,10,.08)}
+    .badge.int{color:var(--accent-2);border-color:rgba(191,90,242,.35);background:rgba(191,90,242,.08)}
+    .badge.ext{color:var(--accent);border-color:rgba(77,163,255,.35);background:rgba(77,163,255,.08)}
+    .badge.cli{color:var(--accent-5);border-color:rgba(255,55,95,.35);background:rgba(255,55,95,.08)}
+    .badge.saas{color:var(--accent-3);border-color:rgba(48,209,88,.35);background:rgba(48,209,88,.08)}
+    .app-body{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+    .app-body-full{grid-column:1 / -1}
+    .info-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px}
+    .info-card-title{font-family:var(--font-head);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+    .info-card-title::before{content:"";width:14px;height:2px;background:currentColor;border-radius:2px}
+    .objetivo-text{font-family:var(--font-head);font-size:clamp(17px,2vw,24px);font-weight:700;letter-spacing:-0.01em;line-height:1.35;color:var(--text)}
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+    .feat-card{background:var(--surface-2);border:1px solid var(--line);border-radius:16px;padding:16px}
+    .feat-icon{font-size:22px;margin-bottom:10px}
+    .feat-name{font-family:var(--font-head);font-size:14px;font-weight:800;margin-bottom:5px}
+    .feat-desc{font-size:12px;color:var(--muted);line-height:1.45}
+    .roles-list{display:flex;flex-wrap:wrap;gap:8px}
+    .role-chip{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface-2);color:var(--text);display:flex;align-items:center;gap:7px}
+    .role-chip-dot{width:6px;height:6px;border-radius:50%}
+    .stack-list{display:flex;flex-wrap:wrap;gap:8px}
+    .stack-chip{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--muted)}
+    .metrics-row{display:flex;gap:12px;flex-wrap:wrap}
+    .metric-mini{flex:1;min-width:100px;background:var(--surface-2);border:1px solid var(--line);border-radius:16px;padding:16px}
+    .metric-mini .v{font-family:var(--font-head);font-size:clamp(20px,2.5vw,30px);font-weight:900;letter-spacing:-0.02em}
+    .metric-mini .l{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+    .versions-block{background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-bottom:16px}
+    .versions-block-header{padding:20px 24px 0;font-family:var(--font-head);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px;margin-bottom:16px}
+    .versions-block-header::before{content:"";width:14px;height:2px;background:currentColor;border-radius:2px}
+    .version-tabs{display:flex;gap:0;padding:0 24px;border-bottom:1px solid var(--line);overflow-x:auto}
+    .vtab{font-family:var(--font-head);font-size:13px;font-weight:700;padding:12px 18px;cursor:pointer;border-bottom:2px solid transparent;color:var(--muted);transition:all .2s;white-space:nowrap;background:transparent;border-top:none;border-left:none;border-right:none}
+    .vtab:hover{color:var(--text)}
+    .vtab.active{color:var(--text);border-bottom-color:var(--accent)}
+    .vpanel{display:none;padding:24px}
+    .vpanel.active{display:block;animation:fadeUp .3s ease}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+    .vpanel-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px;flex-wrap:wrap}
+    .vpanel-title{font-family:var(--font-head);font-size:clamp(20px,2.5vw,28px);font-weight:900;letter-spacing:-0.02em;margin:0 0 6px}
+    .vpanel-desc{font-size:14px;color:var(--muted);line-height:1.45;max-width:52ch}
+    .vpanel-body{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .vpanel-full{grid-column:1 / -1}
+    .mini-card{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:14px}
+    .mini-card-title{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+    .mini-feat-list{display:grid;gap:8px}
+    .mini-feat{display:flex;align-items:flex-start;gap:8px;font-size:13px;line-height:1.4;color:rgba(245,245,247,.82)}
+    .mini-feat::before{content:"→";flex-shrink:0;color:var(--accent);font-size:11px;font-family:var(--font-head);font-weight:900;margin-top:2px}
+    .internal-note{border:1px dashed rgba(255,255,255,.12);border-radius:16px;padding:16px 20px;display:flex;align-items:flex-start;gap:12px;font-size:13px;color:var(--muted);line-height:1.5;background:rgba(255,255,255,.02)}
+    .internal-note-icon{font-size:18px;flex-shrink:0;opacity:.6}
+    .internal-note strong{color:rgba(255,255,255,.5)}
+    .app-url{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--accent);text-decoration:none;border:1px solid rgba(77,163,255,.3);background:rgba(77,163,255,.07);padding:8px 16px;border-radius:999px;margin-top:12px;transition:all .2s ease}
+    .app-url:hover{background:rgba(77,163,255,.14);border-color:rgba(77,163,255,.5)}
+    .app-links{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+    .app-links .app-url{margin-top:0}
+    .app-url-live{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--accent-3);text-decoration:none;border:1px solid rgba(48,209,88,.35);background:rgba(48,209,88,.1);padding:8px 16px;border-radius:999px;transition:all .2s ease}
+    .app-url-live:hover{background:rgba(48,209,88,.2);border-color:rgba(48,209,88,.55);box-shadow:0 0 14px rgba(48,209,88,.25)}
+    .app-url-domain{
+      position:relative;
+      overflow:hidden;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-family:var(--font-mono);
+      font-size:13px;
+      font-weight:800;
+      color:#dcffe8;
+      text-decoration:none;
+      border:1px solid rgba(48,209,88,.45);
+      background:
+        linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,0) 38%),
+        linear-gradient(135deg,rgba(48,209,88,.28),rgba(16,74,34,.42));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.25),
+        0 8px 22px rgba(48,209,88,.20),
+        0 0 0 1px rgba(48,209,88,.12);
+      padding:10px 18px;
+      border-radius:999px;
+      transition:all .22s ease;
+      letter-spacing:.01em;
+      backdrop-filter:blur(6px);
+    }
+    .app-url-domain::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.28) 48%,transparent 76%);
+      transform:translateX(-120%);
+      transition:transform .55s ease;
+      pointer-events:none;
+    }
+    .app-url-domain:hover{
+      color:#fff;
+      border-color:rgba(48,209,88,.75);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.30),
+        0 14px 28px rgba(48,209,88,.28),
+        0 0 20px rgba(48,209,88,.24);
+      transform:translateY(-1px) scale(1.01);
+    }
+    .app-url-domain:hover::after{transform:translateX(120%)}
+    .live-dot{width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#caffdc,#30d158 58%,#1fa54a 100%);display:inline-block;flex-shrink:0;animation:pulse-live 1.5s ease-in-out infinite;box-shadow:0 0 0 0 rgba(48,209,88,.6),0 0 12px rgba(48,209,88,.75)}
+    @keyframes pulse-live{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.65)}}
+    .c-blue{color:var(--accent)}.c-purple{color:var(--accent-2)}.c-green{color:var(--accent-3)}.c-orange{color:var(--accent-4)}.c-red{color:var(--accent-5)}
+    .bg-blue{background:linear-gradient(135deg,rgba(77,163,255,.18),rgba(77,163,255,.04));border-color:rgba(77,163,255,.28)!important}
+    .bg-purple{background:linear-gradient(135deg,rgba(191,90,242,.18),rgba(191,90,242,.04));border-color:rgba(191,90,242,.28)!important}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}
+    .footer{text-align:center;padding:clamp(60px,8vw,100px) 20px 60px;color:var(--muted);font-size:13px}
+    .footer strong{color:var(--text)}
+    /* ── Interactividad extra ── */
+    .spotlight{position:fixed;width:720px;height:720px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(77,163,255,.055) 0%,transparent 60%);transform:translate(-50%,-50%);z-index:1;transition:opacity .4s}
+    .ov-card::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.055) 50%,transparent 75%);transform:translateX(-120%);transition:transform .55s ease;border-radius:20px;pointer-events:none}
+    .ov-card:hover::before{transform:translateX(120%)}
+    .ov-card-name{transition:transform .25s ease}
+    .ov-card:hover .ov-card-name{transform:translateX(5px)}
+    .feat-card{transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+    .feat-card:hover{transform:translateY(-4px) scale(1.025);border-color:rgba(255,255,255,.18);box-shadow:0 16px 40px rgba(0,0,0,.55)}
+    .metric-mini{transition:transform .2s ease,border-color .2s ease}
+    .metric-mini:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.16)}
+    .stack-chip{transition:all .18s ease}
+    .stack-chip:hover{background:rgba(77,163,255,.12);border-color:rgba(77,163,255,.3);color:var(--accent)}
+    .role-chip{transition:all .18s ease}
+    .role-chip:hover{background:rgba(255,255,255,.09);transform:scale(1.04)}
+    .badge{transition:transform .15s ease}
+    .badge:hover{transform:scale(1.06)}
+    .info-card{transition:border-color .2s ease,box-shadow .2s ease}
+    .info-card:hover{border-color:rgba(255,255,255,.13);box-shadow:0 10px 44px rgba(0,0,0,.4)}
+    .mini-card{transition:border-color .2s ease}
+    .mini-card:hover{border-color:rgba(255,255,255,.14)}
+    .hero-stat{transition:background .2s ease}
+    .hero-stat:hover{background:rgba(255,255,255,.03)}
+    .brand:hover .brand-dot{animation:bdSpin .45s ease}
+    @keyframes bdSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .reveal-left{opacity:0;transform:translateX(-36px);transition:opacity .65s ease,transform .65s ease}
+    .reveal-right{opacity:0;transform:translateX(36px);transition:opacity .65s ease,transform .65s ease}
+    .reveal-scale{opacity:0;transform:scale(.91);transition:opacity .55s ease,transform .55s ease}
+    .reveal-left.visible,.reveal-right.visible,.reveal-scale.visible{opacity:1;transform:none}
+    .hero-scroll{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;animation:scrollBounce 2.4s ease-in-out infinite;cursor:pointer;z-index:2;opacity:.45}
+    .hero-scroll span{font-family:var(--font-head);font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+    .hero-scroll-arrow{width:14px;height:14px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg)}
+    @keyframes scrollBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
+    @keyframes counterPop{0%{transform:scale(1)}40%{transform:scale(1.1)}100%{transform:scale(1)}}
+    .count-done{animation:counterPop .35s ease}
+    .vtab::after{content:"";position:absolute;bottom:0;left:50%;width:0;height:2px;background:var(--accent);border-radius:2px;transform:translateX(-50%);transition:width .22s ease}
+    .vtab{position:relative}
+    .vtab:hover::after{width:50%}
+    .vtab.active::after{width:100%}
+    @media(max-width:960px){
+      .app-body{grid-template-columns:1fr}
+      .vpanel-body{grid-template-columns:1fr}
+      .hero-stats{flex-direction:column;border-radius:16px}
+      .hero-stat{border-right:none;border-bottom:1px solid var(--line)}
+      .hero-stat:last-child{border-bottom:none}
+      .nav-pills{display:none}
+      .app-header{flex-direction:column}
+      .overview-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:600px){.metrics-row{flex-direction:column}}
+    /* ── V7 Enhanced Dynamism ── */
+    #particle-canvas{position:absolute;inset:0;pointer-events:none;z-index:0;width:100%;height:100%}
+    .mm-val{font-family:var(--font-head);font-size:clamp(22px,2.8vw,34px);font-weight:900;letter-spacing:-0.02em;color:var(--ac,var(--accent))}
+    .mm-label{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+    .reveal-d4{transition-delay:.4s}.reveal-d5{transition-delay:.5s}
+    h1{background-size:200% auto;animation:gradShift 10s ease infinite}
+    .hero-sub-title{background-size:200% auto;animation:gradShift 7s ease-in-out infinite reverse}
+    @keyframes gradShift{0%,100%{background-position:0% center}50%{background-position:100% center}}
+    .app-section-glow{animation:glowPulse 7s ease-in-out infinite alternate!important}
+    @keyframes glowPulse{0%{opacity:.05;transform:scale(1)}100%{opacity:.11;transform:scale(1.28)}}
+    .section-title.visible::after{content:"";display:block;width:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3));border-radius:2px;margin-top:14px;animation:lineGrow .9s .25s ease forwards}
+    @keyframes lineGrow{to{width:72px}}
+    .metric-mini:hover{border-color:var(--ac,var(--accent))!important;box-shadow:0 0 0 1px var(--ac,var(--accent)),0 12px 36px rgba(0,0,0,.55)!important}
+    .nav-pill.active{background:linear-gradient(135deg,rgba(77,163,255,.1),rgba(191,90,242,.07))!important;border-color:rgba(77,163,255,.2)!important}
+    .hero-kicker-dot{animation:pulse 1.6s infinite,dotGlow 1.6s infinite}
+    @keyframes dotGlow{0%,100%{box-shadow:0 0 0 0 rgba(77,163,255,.7)}50%{box-shadow:0 0 0 10px rgba(77,163,255,0)}}
+    .ov-complete{background:linear-gradient(135deg,rgba(48,209,88,.08),rgba(48,209,88,.02));border:1px dashed rgba(48,209,88,.32);border-radius:20px;padding:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:200px;gap:12px;text-align:center;transition:all .35s ease}
+    .ov-complete:hover{border-color:rgba(48,209,88,.55);box-shadow:0 0 56px rgba(48,209,88,.09);transform:translateY(-4px)}
+    .ov-complete-check{font-size:40px;animation:checkPulse 3s ease-in-out infinite}
+    @keyframes checkPulse{0%,100%{transform:scale(1);filter:drop-shadow(0 0 0px transparent)}50%{transform:scale(1.12);filter:drop-shadow(0 0 18px rgba(48,209,88,.8))}}
+    .fc-reveal{animation:fcReveal .55s ease both}
+    @keyframes fcReveal{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+    .app-icon{transition:transform .35s ease,box-shadow .35s ease!important}
+    .app-header:hover .app-icon{transform:scale(1.07) rotate(4deg)!important;box-shadow:0 16px 48px rgba(0,0,0,.55)!important}
+    .info-card-title::before{transition:width .45s ease}
+    .info-card:hover .info-card-title::before{width:22px}
+    .section-kicker::before{transition:width .5s ease}
+    .section:hover .section-kicker::before,.section-kicker.visible::before{width:32px}
+    .ov-card-number{transition:all .25s ease}
+    .ov-card:hover .ov-card-number{background:rgba(255,255,255,.08);color:var(--text)}
+    .hero-stat .v{transition:transform .3s ease}
+    .hero-stat:hover .v{transform:scale(1.08)}
+    @keyframes orbFloat2{0%,100%{transform:translateY(0) scale(1) rotate(0deg)}50%{transform:translateY(-30px) scale(1.06) rotate(8deg)}}
+    .orb-3{animation:orbFloat2 11s ease-in-out infinite!important}
+    .feat-card::after{content:"";position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,rgba(255,255,255,.04),transparent);opacity:0;transition:opacity .25s ease;pointer-events:none}
+    .feat-card{position:relative;overflow:hidden}
+    .feat-card:hover::after{opacity:1}
+    .badge{transition:transform .18s ease,box-shadow .18s ease}
+    .badge:hover{transform:scale(1.07);box-shadow:0 4px 14px rgba(0,0,0,.4)}
+    /* ── View Toggle ── */
+    .feat-view-toggle{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+    .fvt-btn{font-family:var(--font-head);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:7px 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s ease}
+    .fvt-btn.active{background:var(--surface-2);color:var(--text);border-color:rgba(255,255,255,.22)}
+    .fvt-btn:hover:not(.active){color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.14)}
+    /* ── Coverflow ── */
+    .features-grid.cf-hidden{display:none}
+    .cf-wrap{display:none}
+    .cf-wrap.cf-active{display:block}
+    .cf-stage-wrap{position:relative;overflow:hidden;padding:10px 0 0;border-radius:18px;background:rgba(0,0,0,.22)}
+    .cf-stage{position:relative;height:380px;perspective:1800px;cursor:grab;user-select:none;touch-action:pan-y}
+    .cf-stage:active{cursor:grabbing}
+    .cf-item{position:absolute;left:50%;top:50%;width:230px;pointer-events:auto;background:none;border:none;padding:0;text-align:left;cursor:pointer}
+    .cf-card-inner{overflow:hidden;border-radius:20px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(15,15,22,.98),rgba(6,8,14,.98));box-shadow:0 24px 48px rgba(0,0,0,.6)}
+    .cf-cover{height:130px;display:flex;align-items:center;justify-content:center;font-size:46px;position:relative}
+    .cf-cover-badge{position:absolute;top:9px;left:9px;font-family:var(--font-head);font-size:8px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55);background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:3px 8px;backdrop-filter:blur(4px)}
+    .cf-body{padding:14px 16px;min-height:110px}
+    .cf-card-title{font-family:var(--font-head);font-size:14px;font-weight:800;color:#fff;margin-bottom:6px;line-height:1.25}
+    .cf-card-desc{font-size:11px;color:rgba(180,190,210,.75);line-height:1.45}
+    .cf-info-box{text-align:center;margin-top:16px;padding:0 20px 6px}
+    .cf-info-name{font-family:var(--font-head);font-size:clamp(16px,2vw,22px);font-weight:900;color:var(--text);letter-spacing:-.02em;margin-bottom:7px;min-height:1.2em}
+    .cf-info-desc{font-size:13px;color:var(--muted);max-width:58ch;margin:0 auto;line-height:1.5;min-height:3em}
+    .cf-nav{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:14px;padding-bottom:4px}
+    .cf-prev,.cf-next{font-family:var(--font-head);font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:7px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:var(--muted);cursor:pointer;transition:all .2s ease}
+    .cf-prev:hover,.cf-next:hover{background:rgba(255,255,255,.09);color:var(--text);border-color:rgba(255,255,255,.25)}
+    .cf-dots{display:flex;gap:6px;align-items:center;flex-wrap:wrap;max-width:220px;justify-content:center}
+    .cf-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:all .22s ease;flex-shrink:0}
+    .cf-dot.cf-dot-active{width:20px;border-radius:3px;background:var(--cf-ac,var(--accent))}
+    /* ── Timeline legend ── */
+    .tl-legend{display:flex;align-items:flex-start;gap:14px;margin-bottom:36px;padding:16px 22px;background:rgba(48,209,88,.03);border:1px solid rgba(48,209,88,.18);border-radius:16px;font-size:13px;color:var(--muted);line-height:1.55}
+    .tl-legend-dot{width:10px;height:10px;border-radius:50%;background:var(--accent-3);flex-shrink:0;margin-top:3px;box-shadow:0 0 10px rgba(48,209,88,.55);animation:tlPulse 2.4s ease-in-out infinite}
+    @keyframes tlPulse{0%,100%{box-shadow:0 0 6px rgba(48,209,88,.45)}50%{box-shadow:0 0 20px rgba(48,209,88,.9)}}
+    .tl-legend strong{color:rgba(255,255,255,.62)}
+
+  /* ═══════════════════════════════════════════
+     TEMA CLARO — overrides completos
+     ═══════════════════════════════════════════ */
+  :root {
+    --bg: #f0f0f4;
+    --bg-2: #ffffff;
+    --surface: rgba(255,255,255,0.88);
+    --surface-2: rgba(242,242,248,0.98);
+    --text: #1d1d1f;
+    --muted: #6e6e73;
+    --line: rgba(0,0,0,0.09);
+    --shadow: 0 32px 80px rgba(0,0,0,0.10);
+  }
+  body { background: #f0f0f4 !important; }
+  /* Navbar */
+  .top { background: rgba(236,236,240,0.90) !important; border-bottom-color: rgba(0,0,0,.10) !important; }
+  .track { background: rgba(0,0,0,0.10) !important; }
+  /* Hero title — oscuro en lugar de blanco */
+  h1 { background: linear-gradient(135deg,#1d1d1f 30%,rgba(60,60,67,.60)) !important; -webkit-background-clip:text !important; -webkit-text-fill-color:transparent !important; background-clip:text !important; }
+  /* Eliminar cursor spotlight (innecesario en blanco) */
+  .spotlight { display:none !important; }
+  /* Tarjetas overview */
+  .ov-card:hover { border-color:rgba(0,0,0,.16) !important; box-shadow:0 24px 60px rgba(0,0,0,.10) !important; }
+  .ov-card-number { background:rgba(0,0,0,.04) !important; }
+  .ov-card-soon { background:rgba(0,0,0,.02) !important; border-color:rgba(0,0,0,.12) !important; }
+  .ov-card::before { background:linear-gradient(115deg,transparent 25%,rgba(0,0,0,.04) 50%,transparent 75%) !important; }
+  /* Glows de sección — más visibles en blanco */
+  .app-section-glow { opacity:.15 !important; }
+  @keyframes glowPulse { 0%{opacity:.10;transform:scale(1)} 100%{opacity:.20;transform:scale(1.28)} }
+  /* Stack chips */
+  .stack-chip { background:rgba(0,0,0,.05) !important; }
+  /* Internal notes */
+  .internal-note { border-color:rgba(0,0,0,.14) !important; background:rgba(0,0,0,.02) !important; }
+  .internal-note strong { color:rgba(0,0,0,.50) !important; }
+  /* Feat cards */
+  .feat-card:hover { border-color:rgba(0,0,0,.16) !important; box-shadow:0 16px 40px rgba(0,0,0,.09) !important; }
+  .feat-card::after { background:linear-gradient(135deg,rgba(0,0,0,.03),transparent) !important; }
+  /* Role chips */
+  .role-chip:hover { background:rgba(0,0,0,.07) !important; }
+  /* Info cards */
+  .info-card:hover { border-color:rgba(0,0,0,.13) !important; box-shadow:0 10px 44px rgba(0,0,0,.07) !important; }
+  /* Mini cards (LiLi tabs) */
+  .mini-card:hover { border-color:rgba(0,0,0,.13) !important; }
+  /* Hero stats */
+  .hero-stat:hover { background:rgba(0,0,0,.03) !important; }
+  /* App icon hover */
+  .app-header:hover .app-icon { box-shadow:0 16px 48px rgba(0,0,0,.12) !important; }
+  /* OV card number hover */
+  .ov-card:hover .ov-card-number { background:rgba(0,0,0,.08) !important; }
+  /* Badges */
+  .badge:hover { box-shadow:0 4px 14px rgba(0,0,0,.08) !important; }
+  /* Toggle de vista */
+  .fvt-btn.active { border-color:rgba(0,0,0,.18) !important; background:rgba(0,0,0,.07) !important; color:var(--text) !important; }
+  .fvt-btn:hover:not(.active) { color:rgba(0,0,0,.60) !important; border-color:rgba(0,0,0,.14) !important; }
+  /* Coverflow nav */
+  .cf-stage-wrap { background:rgba(0,0,0,.07) !important; }
+  .cf-prev,.cf-next { border-color:rgba(0,0,0,.14) !important; background:rgba(0,0,0,.05) !important; }
+  .cf-prev:hover,.cf-next:hover { background:rgba(0,0,0,.09) !important; border-color:rgba(0,0,0,.25) !important; }
+  .cf-dot { background:rgba(0,0,0,.18) !important; }
+  /* Timeline legend */
+  .tl-legend strong { color:rgba(0,0,0,.62) !important; }
+  /* Mini-feat text */
+  .mini-feat { color:rgba(29,29,31,.82) !important; }
+  /* Metric-mini hover */
+  .metric-mini:hover { box-shadow:0 0 0 1px var(--ac,var(--accent)),0 12px 36px rgba(0,0,0,.10) !important; }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top-wrap">
+      <div class="brand">
+        <div class="brand-dot">↗</div>
+        Portafolio Tecnológico · Dos Barbas
+      </div>
+      <nav class="nav-pills">
+        <a class="nav-pill" href="#overview">Overview</a>
+        <a class="nav-pill" href="#lili">LiLi</a>
+        <a class="nav-pill" href="#portal">Portal Dos Barbas</a>
+        <a class="nav-pill" href="#fcab">CM FCAB</a>
+        <a class="nav-pill" href="#enjoy">Enjoy NPS</a>
+        <a class="nav-pill" href="#marcaciones">Marcaciones</a>
+        <a class="nav-pill" href="#hub">HUB</a>
+        <a class="nav-pill" href="#epsa">EPSA</a>
+      </nav>
+      <div class="track"><div id="pFill" class="fill"></div></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero-bg">
+        <canvas id="particle-canvas"></canvas>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+      </div>
+      <div class="hero-inner">
+        <div class="hero-kicker"><span class="hero-kicker-dot"></span>Dos Barbas · Portafolio Tecnológico · 2025–2026</div>
+        <h1>Portafolio de</h1>
+        <div class="hero-sub-title">Proyectos Tecnológicos</div>
+        <p class="hero-lead">Aplicaciones web full-stack, construidas de inicio a fin por el equipo Dos Barbas. Desde plataformas SaaS para la gran minería hasta herramientas internas de gestión. Cada proyecto es un producto vivo, en producción y con evolución continua.</p>
+        <div class="hero-stats">
+          <div class="hero-stat"><span class="v">7</span><div class="l">Proyectos</div></div>
+          <div class="hero-stat"><span class="v">7</span><div class="l">Documentados hoy</div></div>
+          <div class="hero-stat"><span class="v">Minería · EdTech</span><div class="l">Sectores</div></div>
+          <div class="hero-stat"><span class="v">React · TS</span><div class="l">Stack base</div></div>
+        </div>
+      </div>
+      <div class="hero-scroll" onclick="document.getElementById('overview').scrollIntoView({behavior:'smooth'})">
+        <div class="hero-scroll-arrow"></div>
+        <span>Explorar</span>
+      </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section class="section" id="overview">
+      <div class="section-kicker">Vista general</div>
+      <h2 class="section-title reveal">Todos los proyectos de un vistazo</h2>
+      <p class="section-sub reveal reveal-d1">Cada producto tiene su identidad y propósito. Este portafolio se irá completando con todos los proyectos del ecosistema Dos Barbas.</p>
+      <div class="tl-legend reveal reveal-d2">
+        <div class="tl-legend-dot"></div>
+        <span>Desde <strong>diciembre 2025</strong> a la fecha, el equipo <strong>Dos Barbas</strong> ha levantado y puesto en marcha los siguientes proyectos tecnológicos:</span>
+      </div>
+      <div class="overview-grid">
+        <a class="ov-card bg-blue reveal reveal-d1" href="#lili">
+          <div class="ov-card-top">
+            <div class="ov-card-icon bg-blue" style="font-size:28px">🎓</div>
+            <span class="ov-card-number">01</span>
+          </div>
+          <div class="ov-card-name">LiLi</div>
+          <div class="ov-card-tagline">Plataforma SaaS de gestión de capacitación para empresas mineras. 3 versiones públicas, piloto activo con Lomas Bayas.</div>
+          <div class="ov-tags">
+            <span class="ov-tag" style="color:var(--accent-3);border-color:rgba(48,209,88,.4);background:rgba(48,209,88,.08)">Publicado</span>
+            <span class="ov-tag" style="color:var(--accent-5);border-color:rgba(255,55,95,.4);background:rgba(255,55,95,.08)">Cliente real</span>
+            <span class="ov-tag" style="color:var(--accent);border-color:rgba(77,163,255,.4);background:rgba(77,163,255,.08)">3 versiones</span>
+          </div>
+        </a>
+        <a class="ov-card bg-purple reveal reveal-d2" href="#portal">
+          <div class="ov-card-top">
+            <div class="ov-card-icon bg-purple" style="font-size:28px">🏢</div>
+            <span class="ov-card-number">02</span>
+          </div>
+          <div class="ov-card-name">Portal Dos Barbas</div>
+          <div class="ov-card-tagline">Plataforma interna de gestión de proyectos, pipeline comercial, instructores y clases. Antes llamado "procap".</div>
+          <div class="ov-tags">
+            <span class="ov-tag" style="color:var(--accent-2);border-color:rgba(191,90,242,.4);background:rgba(191,90,242,.08)">Uso interno</span>
+            <span class="ov-tag" style="color:var(--accent-4);border-color:rgba(255,159,10,.4);background:rgba(255,159,10,.08)">Operativo</span>
+          </div>
+        </a>
+        <a class="ov-card reveal reveal-d3" href="#fcab" style="background:linear-gradient(135deg,rgba(48,209,88,.18),rgba(48,209,88,.04));border-color:rgba(48,209,88,.28)">
+          <div class="ov-card-top">
+            <div class="ov-card-icon" style="font-size:28px;background:linear-gradient(135deg,rgba(48,209,88,.18),rgba(48,209,88,.04));border:1px solid rgba(48,209,88,.28)">🚂</div>
+            <span class="ov-card-number">03</span>
+          </div>
+          <div class="ov-card-name">CM FCAB</div>
+          <div class="ov-card-tagline">Plataforma de gestión de actividades comunitarias para FCAB. Registro, seguimiento, cuadro de mando, encuestas y chat IA por actividad.</div>
+          <div class="ov-tags">
+            <span class="ov-tag" style="color:var(--accent-3);border-color:rgba(48,209,88,.4);background:rgba(48,209,88,.08)">Cliente externo</span>
+            <span class="ov-tag" style="color:var(--accent-3);border-color:rgba(48,209,88,.4);background:rgba(48,209,88,.08)">Operativo</span>
+          </div>
+        </a>
+        <a class="ov-card reveal reveal-d4" href="#enjoy" style="background:linear-gradient(135deg,rgba(255,159,10,.18),rgba(255,159,10,.04));border-color:rgba(255,159,10,.28)">
+          <div class="ov-card-top">
+            <div class="ov-card-icon" style="font-size:28px;background:linear-gradient(135deg,rgba(255,159,10,.18),rgba(255,159,10,.04));border:1px solid rgba(255,159,10,.28)">🎰</div>
+            <span class="ov-card-number">04</span>
+          </div>
+          <div class="ov-card-name">Enjoy NPS</div>
+          <div class="ov-card-tagline">Panel de medición NPS para Casino Enjoy Antofagasta. Encuestas por área, dashboards en tiempo real, alertas de seguimiento y análisis con IA.</div>
+          <div class="ov-tags">
+            <span class="ov-tag" style="color:var(--accent-3);border-color:rgba(48,209,88,.4);background:rgba(48,209,88,.08)">Operativo</span>
+            <span class="ov-tag" style="color:var(--accent-3);border-color:rgba(48,209,88,.4);background:rgba(48,209,88,.08)">Cliente externo</span>
+            <span class="ov-tag" style="color:var(--accent-4);border-color:rgba(255,159,10,.4);background:rgba(255,159,10,.08)">NPS · Turismo</span>
+          </div>
+        </a>
+        <a class="ov-card reveal" href="#marcaciones" style="background:linear-gradient(135deg,rgba(90,200,250,.18),rgba(90,200,250,.04));border-color:rgba(90,200,250,.28)">
+          <div class="ov-card-top">
+            <div class="ov-card-icon" style="font-size:28px;background:linear-gradient(135deg,rgba(90,200,250,.18),rgba(90,200,250,.04));border:1px solid rgba(90,200,250,.28)">⏱️</div>
+            <span class="ov-card-number">05</span>
+          </div>
+          <div class="ov-card-name">Dashboard Marcaciones</div>
+          <div class="ov-card-tagline">Plataforma interna de monitoreo de asistencia integrada con BUK. Atrasos, inasistencias, vacaciones, horas extras, alertas por email y sincronización automática.</div>
+          <div class="ov-tags">
+            <span class="ov-tag" style="color:#5ac8fa;border-color:rgba(90,200,250,.4);background:rgba(90,200,250,.08)">Uso interno</span>
+            <span class="ov-tag" style="color:#5ac8fa;border-color:rgba(90,200,250,.4);background:rgba(90,200,250,.08)">Operativo</span>
+            <span class="ov-tag" style="color:var(--accent-4);border-color:rgba(255,159,10,.4);background:rgba(255,159,10,.08)">BUK · RRHH</span>
+          </div>
+        </a>
+        <a class="ov-card reveal" href="#hub" style="background:linear-gradient(135deg,rgba(191,90,242,.18),rgba(191,90,242,.04));border-color:rgba(191,90,242,.28)">
+          <div class="ov-card-top">
+            <div class="ov-card-icon" style="font-size:28px;background:linear-gradient(135deg,rgba(191,90,242,.18),rgba(191,90,242,.04));border:1px solid rgba(191,90,242,.28)">🛠️</div>
+            <span class="ov-card-number">06</span>
+          </div>
+          <div class="ov-card-name">HUB Dos Barbas</div>
+          <div class="ov-card-tagline">Plataforma interna de gestión operativa de proyectos OTEC. Checklist por fases, dependencias entre tareas, Gantt, calendario y roles por área.</div>
+          <div class="ov-tags">
+            <span class="ov-tag" style="color:var(--accent-2);border-color:rgba(191,90,242,.4);background:rgba(191,90,242,.08)">Uso interno</span>
+            <span class="ov-tag" style="color:var(--accent-2);border-color:rgba(191,90,242,.4);background:rgba(191,90,242,.08)">Operativo</span>
+            <span class="ov-tag" style="color:var(--accent-4);border-color:rgba(255,159,10,.4);background:rgba(255,159,10,.08)">OTEC · SENCE</span>
+          </div>
+        </a>
+        <a class="ov-card reveal" href="#epsa" style="background:linear-gradient(135deg,rgba(255,55,95,.18),rgba(255,55,95,.04));border-color:rgba(255,55,95,.28)">
+          <div class="ov-card-top">
+            <div class="ov-card-icon" style="font-size:28px;background:linear-gradient(135deg,rgba(255,55,95,.18),rgba(255,55,95,.04));border:1px solid rgba(255,55,95,.28)">🧠</div>
+            <span class="ov-card-number">07</span>
+          </div>
+          <div class="ov-card-name">EPSA</div>
+          <div class="ov-card-tagline">Plataforma de evaluación psicométrica (PRP + DISC) con login por RUT, ranking de participantes y reportes individuales para apoyar decisiones de selección y desarrollo.</div>
+          <div class="ov-tags">
+            <span class="ov-tag" style="color:var(--accent-5);border-color:rgba(255,55,95,.4);background:rgba(255,55,95,.08)">Cliente externo</span>
+            <span class="ov-tag" style="color:var(--accent-5);border-color:rgba(255,55,95,.4);background:rgba(255,55,95,.08)">Evaluación psicométrica</span>
+            <span class="ov-tag" style="color:var(--accent-4);border-color:rgba(255,159,10,.4);background:rgba(255,159,10,.08)">PRP · DISC</span>
+          </div>
+        </a>
+        <div class="ov-complete reveal">
+          <div class="ov-complete-check">✅</div>
+          <p style="font-family:var(--font-head);font-size:17px;font-weight:900;color:var(--accent-3);margin:0 0 6px;letter-spacing:-.01em">Portafolio completo</p>
+          <p style="font-size:13px;color:var(--muted);line-height:1.5;max-width:24ch;margin:0">7 proyectos documentados · Dos Barbas 2025–2026</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- LILI -->
+    <section class="app-section" id="lili">
+      <div class="app-section-glow" style="background:var(--accent);top:-200px;right:-200px"></div>
+      <div class="wrap">
+        <div class="app-header reveal">
+          <div class="app-icon bg-blue" style="border-color:rgba(77,163,255,.35)">🎓</div>
+          <div>
+            <h2 class="app-name">LiLi</h2>
+            <p class="app-desc">Plataforma SaaS de gestión integral de capacitación, diagnóstico de brechas y cumplimiento normativo para empresas mineras. Un producto, múltiples versiones para distintos contextos de uso.</p>
+            <div class="app-badges">
+              <span class="badge pub"><i></i> Publicado · Live</span>
+              <span class="badge ext">Uso Externo · Cliente Real</span>
+              <span class="badge cli">Piloto: Lomas Bayas</span>
+              <span class="badge saas">SaaS Multi-empresa</span>
+            </div>
+            <div class="app-links">
+              <a class="app-url-domain" href="https://lili.dosbarbas.cl" target="_blank"><span class="live-dot"></span> lili.dosbarbas.cl ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card bg-blue app-body-full reveal" style="margin-bottom:16px">
+          <div class="info-card-title c-blue">Objetivo del producto</div>
+          <div class="objetivo-text">Digitalizar y automatizar la gestión de capacitación en empresas de la gran minería: desde el diagnóstico de brechas y la generación de rutas formativas con IA, hasta el control de cumplimiento SPTA, DNC y planes anuales.</div>
+        </div>
+
+        <div class="info-card app-body-full reveal reveal-d1" style="margin-bottom:16px">
+          <div class="info-card-title">Métricas del ecosistema LiLi</div>
+          <div class="metrics-row">
+            <div class="metric-mini"><div class="v c-blue" data-val="1240" data-suffix="+">1.240+</div><div class="l">Trabajadores activos</div></div>
+            <div class="metric-mini"><div class="v c-purple" data-val="352">352</div><div class="l">Jefaturas SPTA</div></div>
+            <div class="metric-mini"><div class="v c-green" data-val="3">3</div><div class="l">Versiones públicas</div></div>
+            <div class="metric-mini"><div class="v c-orange" data-val="5">5</div><div class="l">RPCs server-side</div></div>
+          </div>
+        </div>
+
+        <!-- TABS DE VERSIONES -->
+        <div class="versions-block reveal reveal-d2">
+          <div class="versions-block-header">Versiones públicas del producto</div>
+          <div class="version-tabs">
+            <button class="vtab active" onclick="switchTab(this,'tab-pro')">🏔️ Lili Lomas Bayas <span style="font-size:10px;margin-left:6px;color:var(--accent-3);font-weight:900">LIVE</span></button>
+            <button class="vtab" onclick="switchTab(this,'tab-lite2')">⚡ Lili Lite <span style="font-size:10px;margin-left:6px;color:var(--accent-4)">Escalable · Clientes nuevos</span></button>
+            <button class="vtab" onclick="switchTab(this,'tab-lite')">🎓 Lili DEMO <span style="font-size:10px;margin-left:6px;color:var(--muted)">Con tutoriales</span></button>
+          </div>
+
+          <!-- TAB PRO -->
+          <div class="vpanel active" id="tab-pro">
+            <div class="vpanel-header">
+              <div>
+                <h3 class="vpanel-title">Lili Lomas Bayas</h3>
+                <p class="vpanel-desc">Versión de producción. Piloto activo con Lomas Bayas (Anglo American). Multi-rol, datos reales, operativo en faena.</p>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
+                  <span class="badge pub"><i></i> Publicado</span>
+                  <span class="badge ext">Uso externo</span>
+                  <span class="badge cli">Cliente real</span>
+                </div>
+                <a class="app-url" href="https://github.com/LiliDosBarbas/lili-pro" target="_blank">↗ lili-pro · commit aa99977</a>
+              </div>
+            </div>
+            <div class="vpanel-body">
+              <div class="mini-card vpanel-full">
+                <div class="mini-card-title">Funcionalidades destacadas</div>
+                <div class="features-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px">
+                  <div class="feat-card"><div class="feat-icon">🗺️</div><div class="feat-name">Malla de Capacitación</div><div class="feat-desc">Visualización estilo metro. Rutas N1/N2/N3 por cargo con estado de avance.</div></div>
+                  <div class="feat-card"><div class="feat-icon">📊</div><div class="feat-name">Dashboard RRHH / SPTA</div><div class="feat-desc">KPIs de cumplimiento, jefaturas, equipos y supervisores en tiempo real.</div></div>
+                  <div class="feat-card"><div class="feat-icon">🤖</div><div class="feat-name">IA Generadora de Rutas</div><div class="feat-desc">Propone rutas formativas desde perfiles de cargo. Borradores editables con competencias.</div></div>
+                  <div class="feat-card"><div class="feat-icon">📋</div><div class="feat-name">Módulo DNC</div><div class="feat-desc">Levantamiento, revisión superintendencia y consolidado RRHH en flujo multi-rol.</div></div>
+                  <div class="feat-card"><div class="feat-icon">🏢</div><div class="feat-name">Organigrama</div><div class="feat-desc">Árbol organizacional interactivo, escalable a miles de trabajadores.</div></div>
+                  <div class="feat-card"><div class="feat-icon">🛒</div><div class="feat-name">Abastecimiento</div><div class="feat-desc">Flujo de solicitud, cotización y comparador con proveedores certificados.</div></div>
+                  <div class="feat-card"><div class="feat-icon">🔗</div><div class="feat-name">Integración Moodle</div><div class="feat-desc">Inscripción automática al LMS, sincronización de avances y reportes.</div></div>
+                  <div class="feat-card"><div class="feat-icon">🔒</div><div class="feat-name">Multi-empresa seguro</div><div class="feat-desc">RLS en PostgreSQL, auth Supabase, roles granulares. Datos aislados por empresa.</div></div>
+                  <div class="feat-card"><div class="feat-icon">📅</div><div class="feat-name">Agenda & Diagnósticos</div><div class="feat-desc">Programación de cursos, evaluaciones EIC/SOT/TCO y encuestas post-formación.</div></div>
+                  <div class="feat-card"><div class="feat-icon">⚡</div><div class="feat-name">RPCs Server-Side</div><div class="feat-desc">5 funciones PostgreSQL para 1.600+ IDs. Bypass del límite URL de PostgREST.</div></div>
+                </div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-card-title">Roles de usuario</div>
+                <div class="roles-list">
+                  <div class="role-chip"><span class="role-chip-dot" style="background:var(--accent-5)"></span>Trabajador</div>
+                  <div class="role-chip"><span class="role-chip-dot" style="background:var(--accent-4)"></span>Jefatura SPTA</div>
+                  <div class="role-chip"><span class="role-chip-dot" style="background:var(--accent)"></span>Admin empresa</div>
+                  <div class="role-chip"><span class="role-chip-dot" style="background:var(--accent-2)"></span>Superintendencia</div>
+                  <div class="role-chip"><span class="role-chip-dot" style="background:var(--accent-3)"></span>Abastecimiento</div>
+                  <div class="role-chip"><span class="role-chip-dot" style="background:var(--muted)"></span>Proveedor</div>
+                  <div class="role-chip"><span class="role-chip-dot" style="background:#fff"></span>Super Admin</div>
+                </div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-card-title">Stack tecnológico</div>
+                <div class="stack-list">
+                  <span class="stack-chip">React 18</span><span class="stack-chip">TypeScript</span><span class="stack-chip">Vite</span>
+                  <span class="stack-chip">Tailwind CSS</span><span class="stack-chip">shadcn/ui</span><span class="stack-chip">Supabase</span>
+                  <span class="stack-chip">PostgreSQL+RLS</span><span class="stack-chip">OpenAI API</span><span class="stack-chip">Edge Functions</span><span class="stack-chip">Bun</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB LITE -->
+          <div class="vpanel" id="tab-lite">
+            <div class="vpanel-header">
+              <div>
+                <h3 class="vpanel-title">Lili DEMO</h3>
+                <p class="vpanel-desc">Versión de demostración con tutoriales guiados integrados y flujos activos en modo de prueba. Pensada para mostrar la plataforma a prospectos sin exponer datos reales.</p>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
+                  <span class="badge beta">Demo</span>
+                  <span class="badge int">Datos ficticios</span>
+                  <span class="badge int">Tutoriales guiados</span>
+                </div>
+                <a class="app-url" href="https://github.com/LiliDosBarbas/lili-lite" target="_blank">↗ lili-lite · commit 4ee6919</a>
+              </div>
+            </div>
+            <div class="vpanel-body">
+              <div class="mini-card vpanel-full">
+                <div class="mini-card-title">Qué incluye</div>
+                <div class="features-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:10px;margin-top:6px">
+                  <div class="feat-card"><div class="feat-icon">📖</div><div class="feat-name">Tutorial paso a paso</div><div class="feat-desc">Guía integrada que acompaña al usuario módulo a módulo desde la primera pantalla.</div></div>
+                  <div class="feat-card"><div class="feat-icon">▶️</div><div class="feat-name">Flujos activos</div><div class="feat-desc">Todas las funcionalidades navegables en modo de prueba, sin restricciones artificiales.</div></div>
+                  <div class="feat-card"><div class="feat-icon">🗄️</div><div class="feat-name">Datos ficticios</div><div class="feat-desc">Base de datos independiente y pre-cargada, lista para cualquier reunión comercial.</div></div>
+                  <div class="feat-card"><div class="feat-icon">🔒</div><div class="feat-name">Aislado de producción</div><div class="feat-desc">Entorno completamente separado. Sin riesgo de cruce con datos de Lomas Bayas.</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB LITE 2 -->
+          <div class="vpanel" id="tab-lite2">
+            <div class="vpanel-header">
+              <div>
+                <h3 class="vpanel-title">Lili Lite</h3>
+                <p class="vpanel-desc">Versión escalable del producto. Parte desde el registro manual de cursos y asistencia, y escala progresivamente hasta cubrir trazabilidad completa, dashboards RRHH, diagnósticos de brechas, rutas con IA e integraciones — aproximándose a la cobertura funcional de Lomas Bayas.</p>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
+                  <span class="badge ext">Nuevos clientes</span>
+                  <span class="badge pub"><i></i> Escalable</span>
+                </div>
+                <a class="app-url" href="https://github.com/LiliDosBarbas/cloud-login-hub" target="_blank">↗ lili-lite_2 · commit 4bd68ed</a>
+              </div>
+            </div>
+            <div class="vpanel-body">
+
+              <!-- FASE 1 -->
+              <div class="mini-card vpanel-full" style="border-left:3px solid var(--accent);">
+                <div class="mini-card-title" style="color:var(--accent)">Fase 1 · Control inicial</div>
+                <div class="features-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px">
+                  <div class="feat-card"><div class="feat-icon">📝</div><div class="feat-name">Inscripción manual de cursos</div><div class="feat-desc">Alta de cursos y trabajadores de forma directa, sin depender de integraciones externas.</div></div>
+                  <div class="feat-card"><div class="feat-icon">✅</div><div class="feat-name">Control de asistencia</div><div class="feat-desc">Registro y validación de participantes por curso con estado aprobado/reprobado.</div></div>
+                  <div class="feat-card"><div class="feat-icon">🗂️</div><div class="feat-name">Hoja de vida digital</div><div class="feat-desc">Historial unificado de capacitaciones por trabajador, siempre accesible.</div></div>
+                  <div class="feat-card"><div class="feat-icon">📊</div><div class="feat-name">Seguimiento de avance</div><div class="feat-desc">Monitoreo del estado de ejecución de la ruta formativa de cada persona.</div></div>
+                </div>
+              </div>
+
+              <!-- FASE 2 -->
+              <div class="mini-card vpanel-full" style="border-left:3px solid var(--accent-4);">
+                <div class="mini-card-title" style="color:var(--accent-4)">Fase 2 · Trazabilidad y alertas</div>
+                <div class="features-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px">
+                  <div class="feat-card"><div class="feat-icon">📋</div><div class="feat-name">Reportes de cumplimiento</div><div class="feat-desc">Reportabilidad gráfica del estado normativo de la dotación por área y cargo.</div></div>
+                  <div class="feat-card"><div class="feat-icon">🔔</div><div class="feat-name">Alertas de vencimiento</div><div class="feat-desc">Avisos proactivos a los 30, 15 y 0 días antes del vencimiento de una certificación.</div></div>
+                  <div class="feat-card"><div class="feat-icon">🏗️</div><div class="feat-name">Control de terreno</div><div class="feat-desc">Diagnósticos para que jefaturas evalúen la aplicación real de lo aprendido en faena.</div></div>
+                  <div class="feat-card"><div class="feat-icon">📑</div><div class="feat-name">Dashboard RRHH</div><div class="feat-desc">Vista de KPIs de cumplimiento para el equipo de recursos humanos.</div></div>
+                </div>
+              </div>
+
+              <!-- FASE 3 -->
+              <div class="mini-card vpanel-full" style="border-left:3px solid var(--accent-2);">
+                <div class="mini-card-title" style="color:var(--accent-2)">Fase 3 · Automatización e IA</div>
+                <div class="features-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px">
+                  <div class="feat-card"><div class="feat-icon">🤖</div><div class="feat-name">Rutas formativas con IA</div><div class="feat-desc">Generación inteligente de rutas de cursos según el perfil y cargo del trabajador.</div></div>
+                  <div class="feat-card"><div class="feat-icon">🔍</div><div class="feat-name">Diagnóstico de brechas</div><div class="feat-desc">Instrumentos estructurados para detectar necesidades de capacitación por área.</div></div>
+                  <div class="feat-card"><div class="feat-icon">📈</div><div class="feat-name">DNC (Detección de Necesidades)</div><div class="feat-desc">Consolidado corporativo de brechas con flujo multi-rol: jefatura → superintendencia → RRHH.</div></div>
+                </div>
+              </div>
+
+              <!-- FASE 4 -->
+              <div class="mini-card vpanel-full" style="border-left:3px solid var(--accent-3);">
+                <div class="mini-card-title" style="color:var(--accent-3)">Fase 4 · Integraciones corporativas</div>
+                <div class="features-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px">
+                  <div class="feat-card"><div class="feat-icon">🎓</div><div class="feat-name">Integración Moodle (LMS)</div><div class="feat-desc">Avance teórico sincronizado desde la plataforma de e-learning interna.</div></div>
+                  <div class="feat-card"><div class="feat-icon">👥</div><div class="feat-name">Sincronización Buk (RRHH)</div><div class="feat-desc">Conexión nativa con Buk para mantener nóminas y altas/bajas al día sin intervención manual.</div></div>
+                </div>
+              </div>
+
+              <div class="mini-card">
+                <div class="mini-card-title">Stack tecnológico</div>
+                <div class="stack-list">
+                  <span class="stack-chip">React 18</span><span class="stack-chip">TypeScript</span>
+                  <span class="stack-chip">Playwright</span><span class="stack-chip">Vitest</span>
+                  <span class="stack-chip">Tailwind CSS</span><span class="stack-chip">Supabase</span><span class="stack-chip">Bun</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ramas internas -->
+        <div class="internal-note reveal reveal-d3" style="margin-top:16px">
+          <div class="internal-note-icon">🔧</div>
+          <div>
+            <strong>Ramas internas del equipo (no incluidas en el portafolio público)</strong> — <strong>lili-dev</strong> es la rama de innovación donde nacen las features. <strong>lili-dev-up</strong> es el staging intermedio para portar módulos grandes (DNC, organigrama). <strong>lili-lite-dev</strong> es el sandbox de diagnóstico con acceso a DB y Edge Functions. Estas ramas son de uso exclusivo del equipo de desarrollo.
+          </div>
+        </div>
+
+        <div class="info-card reveal" style="margin-top:16px;border-color:rgba(77,163,255,.25)">
+          <div class="info-card-title" style="color:var(--accent)">Beneficios</div>
+          <div class="mini-feat-list">
+            <div class="mini-feat">Reduce riesgo de incumplimiento normativo y costos por brechas de capacitación.</div>
+            <div class="mini-feat">Acelera la habilitación operativa de trabajadores, reduciendo tiempos de onboarding.</div>
+            <div class="mini-feat">Mejora productividad de RRHH y jefaturas al automatizar seguimiento, reportes y decisiones.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- PORTAL DOS BARBAS -->
+    <section class="app-section" id="portal">
+      <div class="app-section-glow" style="background:var(--accent-2);top:-200px;left:-200px"></div>
+      <div class="wrap">
+        <div class="app-header reveal">
+          <div class="app-icon bg-purple" style="border-color:rgba(191,90,242,.35)">🏢</div>
+          <div>
+            <h2 class="app-name">Portal Dos Barbas</h2>
+            <p class="app-desc">Plataforma interna de gestión para el equipo Dos Barbas. Centraliza el pipeline comercial, la gestión de proyectos, el mundo de instructores, estudiantes y clases, y las integraciones con Moodle.</p>
+            <div class="app-badges">
+              <span class="badge beta">Operativo</span>
+              <span class="badge int">Uso Interno</span>
+              <span class="badge int">Antes: procap</span>
+            </div>
+            <div class="app-links">
+              <a class="app-url" href="https://github.com/LiliDosBarbas/procap" target="_blank">↗ procap · commit 137fa51</a>
+              <a class="app-url-domain" href="https://portal.dosbarbas.cl" target="_blank"><span class="live-dot"></span> portal.dosbarbas.cl ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card bg-purple app-body-full reveal" style="margin-bottom:16px">
+          <div class="info-card-title c-purple">Objetivo</div>
+          <div class="objetivo-text">Ser el sistema nervioso central de Dos Barbas. Gestionar el pipeline de ventas, el ciclo de vida de proyectos, los recursos humanos (instructores y estudiantes) y la operación de clases — todo en una sola plataforma interna.</div>
+        </div>
+
+        <div class="app-body">
+          <div class="info-card app-body-full reveal reveal-d1">
+            <div class="info-card-title">Módulos principales</div>
+            <div class="features-grid">
+              <div class="feat-card"><div class="feat-icon">💼</div><div class="feat-name">Gestión Comercial</div><div class="feat-desc">Pipeline con 6 etapas: potenciales → validación → prospección → levantamiento → propuesta → cierre. Leads con tipo FC/SF/PC/DE/AC, probabilidad y CRM sync.</div></div>
+              <div class="feat-card"><div class="feat-icon">📁</div><div class="feat-name">Gestión de Proyectos</div><div class="feat-desc">Vista de proyectos activos y archivados. Filtros, búsqueda, restauración y eliminación permanente. Solo super_admin.</div></div>
+              <div class="feat-card"><div class="feat-icon">🎯</div><div class="feat-name">Formulario KOM</div><div class="feat-desc">Kick-off Meeting estructurado. Workspace propio por proyecto para documentar el inicio.</div></div>
+              <div class="feat-card"><div class="feat-icon">📚</div><div class="feat-name">Portal de Clases</div><div class="feat-desc">Acceso público a clases para estudiantes externos. Sin autenticación requerida.</div></div>
+              <div class="feat-card"><div class="feat-icon">🧑‍🏫</div><div class="feat-name">Instructores</div><div class="feat-desc">Administración de instructores: listado, asignación a clases y seguimiento.</div></div>
+              <div class="feat-card"><div class="feat-icon">🎓</div><div class="feat-name">Estudiantes</div><div class="feat-desc">Registro y gestión de alumnos. Vista "Mis Clases" para instructor y estudiante.</div></div>
+              <div class="feat-card"><div class="feat-icon">🔗</div><div class="feat-name">Integración Moodle</div><div class="feat-desc">Config unificada sincronizada entre usuarios. Gestión de instancias y credenciales.</div></div>
+              <div class="feat-card"><div class="feat-icon">📧</div><div class="feat-name">Gmail Sync</div><div class="feat-desc">Sincronización de correos para seguimiento comercial y gestión de comunicaciones.</div></div>
+              <div class="feat-card"><div class="feat-icon">👥</div><div class="feat-name">Usuarios</div><div class="feat-desc">Administración de cuentas y roles: admin, instructor, student, pending.</div></div>
+            </div>
+          </div>
+
+          <div class="info-card reveal reveal-d2">
+            <div class="info-card-title">Roles de usuario</div>
+            <div class="roles-list">
+              <div class="role-chip"><span class="role-chip-dot" style="background:#fff"></span>Super Admin</div>
+              <div class="role-chip"><span class="role-chip-dot" style="background:var(--accent)"></span>Admin</div>
+              <div class="role-chip"><span class="role-chip-dot" style="background:var(--accent-3)"></span>Instructor</div>
+              <div class="role-chip"><span class="role-chip-dot" style="background:var(--accent-4)"></span>Student</div>
+              <div class="role-chip"><span class="role-chip-dot" style="background:var(--muted)"></span>Pending</div>
+            </div>
+          </div>
+
+          <div class="info-card reveal reveal-d3">
+            <div class="info-card-title">Etapas del pipeline comercial</div>
+            <div class="mini-feat-list">
+              <div class="mini-feat">Proyectos potenciales</div>
+              <div class="mini-feat">Validación de datos</div>
+              <div class="mini-feat">Prospección</div>
+              <div class="mini-feat">Levantamiento y diseño</div>
+              <div class="mini-feat">Propuesta y negociación</div>
+              <div class="mini-feat">Gestión de cierre</div>
+            </div>
+          </div>
+
+          <div class="info-card app-body-full reveal">
+            <div class="info-card-title">Stack tecnológico</div>
+            <div class="stack-list">
+              <span class="stack-chip">React 18</span><span class="stack-chip">TypeScript</span><span class="stack-chip">Vite</span>
+              <span class="stack-chip">Tailwind CSS</span><span class="stack-chip">shadcn/ui</span><span class="stack-chip">Supabase</span>
+              <span class="stack-chip">Vitest</span><span class="stack-chip">Bun</span><span class="stack-chip">Moodle API</span>
+              <span class="stack-chip">Gmail API</span>
+            </div>
+          </div>
+          <div class="info-card app-body-full reveal">
+            <div class="info-card-title" style="color:var(--accent-2)">Beneficios</div>
+            <div class="mini-feat-list">
+              <div class="mini-feat">Acorta el ciclo comercial al ordenar oportunidades, etapas y prioridades en un solo pipeline.</div>
+              <div class="mini-feat">Eleva la tasa de ejecución de proyectos con trazabilidad centralizada y menos fricción operativa.</div>
+              <div class="mini-feat">Reduce costos administrativos al consolidar gestión de clases, instructores y comunicaciones.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CM FCAB -->
+    <section class="app-section" id="fcab">
+      <div class="app-section-glow" style="background:var(--accent-3);top:-200px;right:-200px"></div>
+      <div class="wrap">
+        <div class="app-header reveal">
+          <div class="app-icon" style="background:linear-gradient(135deg,rgba(48,209,88,.18),rgba(48,209,88,.04));border-color:rgba(48,209,88,.35);font-size:38px">🚂</div>
+          <div>
+            <h2 class="app-name">CM FCAB</h2>
+            <p class="app-desc">Plataforma de gestión de actividades de relacionamiento comunitario para Ferrocarril de Antofagasta (FCAB). Centraliza el registro, seguimiento y evaluación de actividades estratégicas, con cuadro de mando, encuestas vía Google Forms y un asistente IA por actividad.</p>
+            <div class="app-badges">
+              <span class="badge pub"><i></i> Operativo</span>
+              <span class="badge ext">Cliente externo · FCAB</span>
+              <span class="badge saas">Minería · Comunidades</span>
+            </div>
+            <div class="app-links">
+              <a class="app-url-domain" href="https://cmfcab.dosbarbas.cl" target="_blank"><span class="live-dot"></span> cmfcab.dosbarbas.cl ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card reveal" style="margin-bottom:16px;background:linear-gradient(135deg,rgba(48,209,88,".12),rgba(48,209,88,.04));border-color:rgba(48,209,88,.28)">
+          <div class="info-card-title" style="color:var(--accent-3)">Objetivo del producto</div>
+          <div class="objetivo-text">Digitalizar la gestión de actividades comunitarias de FCAB: desde el registro y seguimiento con ejes estratégicos definidos, hasta la aprobación gerencial, el envío automático de encuestas vía Google Forms y el análisis con IA de los resultados de cada actividad.</div>
+        </div>
+
+        <div class="app-body reveal reveal-d1" style="margin-bottom:16px">
+          <div class="info-card app-body-full">
+            <div class="info-card-title">Módulos principales</div>
+            <div class="features-grid">
+              <div class="feat-card"><div class="feat-icon">📋</div><div class="feat-name">Registro de Actividades</div><div class="feat-desc">Alta completa con eje estratégico, línea de acción, comuna, segmento, responsable, KPIs, canales, fechas, presupuesto e indicadores meta.</div></div>
+              <div class="feat-card"><div class="feat-icon">🔄</div><div class="feat-name">Flujo de Seguimiento</div><div class="feat-desc">Las actividades transitan por estados: pendiente → en progreso → completada. Las jefaturas revisan y aprueban con observaciones.</div></div>
+              <div class="feat-card"><div class="feat-icon">📅</div><div class="feat-name">Cuadro de Mando</div><div class="feat-desc">Vista calendario mensual de actividades aprobadas. Soporte para carga al framework con control de progreso y validación gerencial.</div></div>
+              <div class="feat-card"><div class="feat-icon">📊</div><div class="feat-name">Dashboard Ejecutivo</div><div class="feat-desc">Gráficos por eje estratégico (BarChart + PieChart), estado de actividades, participantes nuevos vs. antiguos y encuestas enviadas/respondidas.</div></div>
+              <div class="feat-card"><div class="feat-icon">📝</div><div class="feat-name">Encuestas Google Forms</div><div class="feat-desc">Generación automática de encuestas vía Google Apps Script. Plantilla configurable por usuario. Seguimiento de envíos y respuestas.</div></div>
+              <div class="feat-card"><div class="feat-icon">🤖</div><div class="feat-name">FCAB Lab (Chat IA)</div><div class="feat-desc">Asistente Gemini por actividad. Historial de conversación persistido en BD, contexto específico de la actividad y revisión automática.</div></div>
+              <div class="feat-card"><div class="feat-icon">👥</div><div class="feat-name">Asistentes</div><div class="feat-desc">Registro de participantes por actividad con seguimiento de tipo (nuevo/antiguo) y organización.</div></div>
+              <div class="feat-card"><div class="feat-icon">📊</div><div class="feat-name">Dashboard BBDD</div><div class="feat-desc">Vista analítica de asistentes, asignaciones de encuestas y respuestas acumuladas con búsqueda y filtros avanzados.</div></div>
+              <div class="feat-card"><div class="feat-icon">🔗</div><div class="feat-name">Integraciones</div><div class="feat-desc">Config de Google Apps Script (URL + token), modelo y API key de IA (Gemini), prompt personalizable por usuario y plantilla de encuesta.</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-body reveal reveal-d2">
+          <div class="info-card">
+            <div class="info-card-title">Ejes estratégicos</div>
+            <div class="mini-feat-list">
+              <div class="mini-feat" style="--accent:var(--accent-3)">Comunidad y buen vecino</div>
+              <div class="mini-feat" style="--accent:var(--accent-3)">Patrimonio e identidad</div>
+              <div class="mini-feat" style="--accent:var(--accent-3)">Seguridad y prevención</div>
+              <div class="mini-feat" style="--accent:var(--accent-3)">Sustentabilidad y medioambiente</div>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-title">Roles de usuario</div>
+            <div class="roles-list">
+              <div class="role-chip"><span class="role-chip-dot" style="background:#fff"></span>Admin Sistema</div>
+              <div class="role-chip"><span class="role-chip-dot" style="background:var(--accent-3)"></span>Gerente</div>
+              <div class="role-chip"><span class="role-chip-dot" style="background:var(--accent)"></span>Asistente</div>
+            </div>
+          </div>
+          <div class="info-card app-body-full">
+            <div class="info-card-title">Stack tecnológico</div>
+            <div class="stack-list">
+              <span class="stack-chip">React 18</span><span class="stack-chip">TypeScript</span><span class="stack-chip">Vite</span>
+              <span class="stack-chip">Tailwind CSS</span><span class="stack-chip">shadcn/ui</span><span class="stack-chip">Supabase</span>
+              <span class="stack-chip">TanStack Query</span><span class="stack-chip">Recharts</span><span class="stack-chip">React Hook Form</span>
+              <span class="stack-chip">Gemini API</span><span class="stack-chip">Google Apps Script</span><span class="stack-chip">XLSX</span><span class="stack-chip">Vitest</span><span class="stack-chip">Bun</span>
+            </div>
+          </div>
+          <div class="info-card app-body-full">
+            <div class="info-card-title" style="color:var(--accent-3)">Beneficios</div>
+            <div class="mini-feat-list">
+              <div class="mini-feat">Estandariza el seguimiento comunitario y mejora la trazabilidad frente a auditorías y stakeholders.</div>
+              <div class="mini-feat">Disminuye tiempos de reporte ejecutivo con datos consolidados y dashboards en tiempo real.</div>
+              <div class="mini-feat">Mejora la calidad de decisiones territoriales al convertir feedback en acciones concretas.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ENJOY NPS -->
+    <section class="app-section" id="enjoy">
+      <div class="app-section-glow" style="background:var(--accent-4);top:-200px;left:-200px"></div>
+      <div class="wrap">
+        <div class="app-header reveal">
+          <div class="app-icon" style="background:linear-gradient(135deg,rgba(255,159,10,.18),rgba(255,159,10,.04));border-color:rgba(255,159,10,.35);font-size:38px">🎰</div>
+          <div>
+            <h2 class="app-name">Enjoy NPS</h2>
+            <p class="app-desc">Panel de medición y gestión de experiencia del cliente para Casino Enjoy Antofagasta. Centraliza la toma de encuestas NPS por área, reportabilidad dinámica en tiempo real, análisis automático con IA y un sistema completo de seguimiento de incidencias para cerrar el ciclo ante evaluaciones negativas.</p>
+            <div class="app-badges">
+              <span class="badge pub"><i></i> Operativo</span>
+              <span class="badge ext">Cliente externo · Casino Enjoy</span>
+              <span class="badge saas">Turismo · Hospitalidad</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card reveal" style="margin-bottom:16px;background:linear-gradient(135deg,rgba(255,159,10,.12),rgba(255,159,10,.04));border-color:rgba(255,159,10,.28)">
+          <div class="info-card-title" style="color:var(--accent-4)">Objetivo del producto</div>
+          <div class="objetivo-text">Dar al Casino Enjoy Antofagasta visibilidad completa sobre la satisfacción de sus clientes en todas sus unidades de negocio. Desde la toma de encuestas asistida por encuestadores hasta dashboards ejecutivos con NPS e IGS en tiempo real, alertas automáticas ante malas evaluaciones y gestión de seguimiento hasta la resolución del problema.</div>
+        </div>
+
+        <!-- Métricas -->
+        <div class="metrics-row reveal" style="margin-bottom:20px;display:flex;gap:12px;flex-wrap:wrap">
+          <div class="metric-mini" style="--ac:var(--accent-4)"><div class="mm-val"><span data-val="9" data-suffix="">9</span></div><div class="mm-label">Tipos de encuesta</div></div>
+          <div class="metric-mini" style="--ac:var(--accent-4)"><div class="mm-val"><span data-val="5" data-suffix="">5</span></div><div class="mm-label">Roles de usuario</div></div>
+          <div class="metric-mini" style="--ac:var(--accent-4)"><div class="mm-val"><span data-val="5" data-suffix="">5</span></div><div class="mm-label">Áreas del casino</div></div>
+          <div class="metric-mini" style="--ac:var(--accent-4)"><div class="mm-val"><span data-val="7" data-suffix="">7</span></div><div class="mm-label">Edge Functions</div></div>
+        </div>
+
+        <div class="app-body reveal reveal-d1" style="margin-bottom:16px">
+          <div class="info-card app-body-full">
+            <div class="info-card-title">Módulos principales</div>
+            <div class="features-grid">
+              <div class="feat-card"><div class="feat-icon">📊</div><div class="feat-name">Dashboard Live</div><div class="feat-desc">Visión en tiempo real del mes actual: NPS global, IGS por área, gauge interactivo, ranking de áreas, tendencia de puntaje y foco en atributos a mejorar. Tabs por área: Casino, Hotel, AA&amp;BB, Enjoy Club, Contenidos.</div></div>
+              <div class="feat-card"><div class="feat-icon">📈</div><div class="feat-name">Dashboard Histórico</div><div class="feat-desc">Análisis comparativo por período con selector de fechas. Evolución de áreas, comparación por tipo de juego, motivaciones de visita y tabla de auditoría de ponderaciones.</div></div>
+              <div class="feat-card"><div class="feat-icon">📝</div><div class="feat-name">Encuestas NPS</div><div class="feat-desc">9 formularios de encuesta independientes por unidad de negocio: Enjoy Club, Casino Tragamonedas, Casino Mesas, Hotel, La Barquera, Santerra, Bar Jokers, Contenidos Sala y Ballroom. Públicos, accesibles por QR.</div></div>
+              <div class="feat-card"><div class="feat-icon">🆘</div><div class="feat-name">Service Recovery</div><div class="feat-desc">Sistema de gestión de casos ante mala evaluación. Registro de incidencia, seguimiento con SLA, indicador de tiempo transcurrido, estado del caso (abierto/en proceso/cerrado) y detalle completo de resolución.</div></div>
+              <div class="feat-card"><div class="feat-icon">🤖</div><div class="feat-name">IA Insights</div><div class="feat-desc">Edge function que analiza todos los comentarios de clientes: clasifica por tema, genera resumen ejecutivo y presenta hallazgos clave. Powered by Lovable AI (API propia del proyecto).</div></div>
+              <div class="feat-card"><div class="feat-icon">🔔</div><div class="feat-name">Alertas Automáticas</div><div class="feat-desc">Usuarios suscritos por unidad del casino. Al recibir una evaluación negativa, el sistema gatilla un correo de alerta y genera automáticamente una actividad de seguimiento asignada al responsable.</div></div>
+              <div class="feat-card"><div class="feat-icon">👥</div><div class="feat-name">Gestión Encuestadores</div><div class="feat-desc">Panel para creación de cuentas de encuestadores y supervisores. Dashboard propio del encuestador con acceso a centro de encuestas y métricas de encuestas tomadas.</div></div>
+              <div class="feat-card"><div class="feat-icon">📋</div><div class="feat-name">Respuestas y Exportación</div><div class="feat-desc">Módulo de revisión y descarga de respuestas completas. Exportación a Excel (ExcelJS) con todos los campos de la encuesta, cliente y puntajes. Acceso restringido por rol.</div></div>
+              <div class="feat-card"><div class="feat-icon">⚙️</div><div class="feat-name">Configuración avanzada</div><div class="feat-desc">Gestión de contactos y suscripciones por unidad, ponderaciones de atributos, metas por área, campañas de encuestas, QR codes para cada tipo y clientes Enjoy Club (EC).</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-body reveal reveal-d2">
+          <div class="info-card">
+            <div class="info-card-title">Áreas del casino</div>
+            <div class="mini-feat-list">
+              <div class="mini-feat" style="--accent:var(--accent-4)">🎰 Casino (Tragamonedas + Mesas)</div>
+              <div class="mini-feat" style="--accent:var(--accent-4)">🏨 Hotel</div>
+              <div class="mini-feat" style="--accent:var(--accent-4)">🍽️ AA&amp;BB (La Barquera · Santerra · Bar Jokers)</div>
+              <div class="mini-feat" style="--accent:var(--accent-4)">🃏 Enjoy Club</div>
+              <div class="mini-feat" style="--accent:var(--accent-4)">🎤 Contenidos (Sala + Ballroom)</div>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-title">Roles de usuario</div>
+            <div class="roles-list">
+              <div class="role-chip"><span class="role-chip-dot" style="background:#fff"></span>Admin</div>
+              <div class="role-chip"><span class="role-chip-dot" style="background:var(--accent-4)"></span>Gerencia General</div>
+              <div class="role-chip"><span class="role-chip-dot" style="background:var(--accent)"></span>Gerencia de Área</div>
+              <div class="role-chip"><span class="role-chip-dot" style="background:var(--accent-3)"></span>Supervisor</div>
+              <div class="role-chip"><span class="role-chip-dot" style="background:rgba(255,255,255,.4)"></span>Encuestador</div>
+            </div>
+          </div>
+          <div class="info-card app-body-full">
+            <div class="info-card-title">Stack tecnológico</div>
+            <div class="stack-list">
+              <span class="stack-chip">React 18</span><span class="stack-chip">TypeScript</span><span class="stack-chip">Vite</span>
+              <span class="stack-chip">Tailwind CSS</span><span class="stack-chip">shadcn/ui</span><span class="stack-chip">Supabase</span>
+              <span class="stack-chip">TanStack Query</span><span class="stack-chip">Recharts</span><span class="stack-chip">React Hook Form</span>
+              <span class="stack-chip">ExcelJS</span><span class="stack-chip">qrcode.react</span><span class="stack-chip">date-fns</span><span class="stack-chip">Lovable AI</span><span class="stack-chip">Bun</span>
+            </div>
+          </div>
+          <div class="info-card app-body-full">
+            <div class="info-card-title" style="color:var(--accent-4)">Beneficios</div>
+            <div class="mini-feat-list">
+              <div class="mini-feat">Incrementa retención y recompra al cerrar rápidamente casos de clientes detractores.</div>
+              <div class="mini-feat">Prioriza inversiones de experiencia con evidencia por área, campaña y período.</div>
+              <div class="mini-feat">Reduce costo de supervisión de calidad al automatizar alertas, seguimiento y reporting.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- DASHBOARD MARCACIONES -->
+    <section class="app-section" id="marcaciones">
+      <div class="app-section-glow" style="background:#5ac8fa;top:-200px;right:-200px"></div>
+      <div class="wrap">
+        <div class="app-header reveal">
+          <div class="app-icon" style="background:linear-gradient(135deg,rgba(90,200,250,.18),rgba(90,200,250,.04));border-color:rgba(90,200,250,.35);font-size:38px">⏱️</div>
+          <div>
+            <h2 class="app-name">Dashboard Marcaciones</h2>
+            <p class="app-desc">Plataforma interna de monitoreo y gestión de asistencia para equipos de trabajo. Integrada directamente con BUK para sincronización automática de empleados, vacaciones y marcaciones. Centraliza el control de atrasos, inasistencias, horas extras, balance de horas y genera alertas por correo cuando se superan umbrales críticos.</p>
+            <div class="app-badges">
+              <span class="badge pub"><i></i> Operativo</span>
+              <span class="badge" style="color:#5ac8fa;border-color:rgba(90,200,250,.35);background:rgba(90,200,250,.08)">Uso interno · Dos Barbas</span>
+              <span class="badge saas">RRHH · Asistencia</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card reveal" style="margin-bottom:16px;background:linear-gradient(135deg,rgba(90,200,250,.12),rgba(90,200,250,.04));border-color:rgba(90,200,250,.28)">
+          <div class="info-card-title" style="color:#5ac8fa">Objetivo del producto</div>
+          <div class="objetivo-text">Dar visibilidad en tiempo real sobre las marcaciones de los colaboradores sincronizando directamente con la API de BUK. Permite a supervisores y gerentes monitorear atrasos, ausencias y horas extras por período, configurar umbrales de tolerancia, recibir alertas automáticas por email ante incidencias críticas y acceder a la ficha individual de cualquier colaborador con todo su historial de asistencia.</div>
+        </div>
+
+        <!-- Métricas -->
+        <div class="metrics-row reveal" style="margin-bottom:20px;display:flex;gap:12px;flex-wrap:wrap">
+          <div class="metric-mini" style="--ac:#5ac8fa"><div class="mm-val"><span data-val="15" data-suffix="">15</span></div><div class="mm-label">Módulos / páginas</div></div>
+          <div class="metric-mini" style="--ac:#5ac8fa"><div class="mm-val"><span data-val="8" data-suffix="">8</span></div><div class="mm-label">Edge Functions</div></div>
+          <div class="metric-mini" style="--ac:#5ac8fa"><div class="mm-val"><span data-val="4" data-suffix="">4</span></div><div class="mm-label">Sync BUK (cron)</div></div>
+          <div class="metric-mini" style="--ac:#5ac8fa"><div class="mm-val"><span data-val="2" data-suffix="">2</span></div><div class="mm-label">Roles de usuario</div></div>
+        </div>
+
+        <div class="app-body reveal reveal-d1" style="margin-bottom:16px">
+          <div class="info-card app-body-full">
+            <div class="info-card-title">Módulos principales</div>
+            <div class="features-grid">
+              <div class="feat-card"><div class="feat-icon">📊</div><div class="feat-name">Dashboard Principal</div><div class="feat-desc">Vista diaria/semanal con tabla de asistencia, gráfico semanal, cards de balance, atrasos, horas extras, inasistencias y vacaciones activas. Tolerancias de entrada/salida configurables en tiempo real.</div></div>
+              <div class="feat-card"><div class="feat-icon">👤</div><div class="feat-name">Ficha Individual</div><div class="feat-desc">Historial completo de marcaciones por colaborador. Selector de período (semana/mes), detalle día a día: entrada real vs programada, minutos de atraso, horas extra, deuda y tipo de ausencia. Indicadores visuales por estado.</div></div>
+              <div class="feat-card"><div class="feat-icon">⚖️</div><div class="feat-name">Balance de Horas</div><div class="feat-desc">Termómetro visual de balance acumulado (positivo/negativo). Navegación por semana, mes y año con chevrons. Vista por empleado con desglose de horas pactadas vs efectivas y saldo neto.</div></div>
+              <div class="feat-card"><div class="feat-icon">🕐</div><div class="feat-name">Atrasos</div><div class="feat-desc">Ranking de colaboradores con mayor cantidad de atrasos en el período. Minutos totales, días con atraso y acceso directo a la ficha individual para análisis detallado.</div></div>
+              <div class="feat-card"><div class="feat-icon">⏰</div><div class="feat-name">Horas Extras</div><div class="feat-desc">Seguimiento de horas extra acumuladas por colaborador con barra de progreso proporcional, total en formato hh:mm y acceso a ficha individual.</div></div>
+              <div class="feat-card"><div class="feat-icon">❌</div><div class="feat-name">Inasistencias</div><div class="feat-desc">Listado de ausencias por período con distinción entre justificadas e injustificadas. Filtro por búsqueda y navegación de fechas. Acceso a detalle individual.</div></div>
+              <div class="feat-card"><div class="feat-icon">🏖️</div><div class="feat-name">Vacaciones</div><div class="feat-desc">Sincronización de períodos de vacaciones y saldos desde BUK. Vista de vacaciones activas hoy y balance de días disponibles por colaborador.</div></div>
+              <div class="feat-card"><div class="feat-icon">🔔</div><div class="feat-name">Alertas Críticas</div><div class="feat-desc">Motor de alertas configurable por umbrales (ausencias consecutivas, atrasos acumulados, marcaciones móvil). Severidad warning/critical. Envío automático de correo vía Resend.</div></div>
+              <div class="feat-card"><div class="feat-icon">📱</div><div class="feat-name">Marcaciones Celular</div><div class="feat-desc">Módulo para visualizar y gestionar marcaciones realizadas desde dispositivo móvil. Permite identificar colaboradores con permiso de marcar vía app y detectar patrones anómalos.</div></div>
+              <div class="feat-card"><div class="feat-icon">🚫</div><div class="feat-name">Sin Marcación</div><div class="feat-desc">Lista diaria de colaboradores que no registraron entrada o salida. Diferenciado de ausencias: permite detectar olvidos de marcación vs inasistencias reales.</div></div>
+              <div class="feat-card"><div class="feat-icon">📋</div><div class="feat-name">Excepciones</div><div class="feat-desc">Registro de excepciones de asistencia con justificación. Permite documentar situaciones especiales que no deben contabilizarse como atraso o inasistencia.</div></div>
+              <div class="feat-card"><div class="feat-icon">👥</div><div class="feat-name">Colaboradores</div><div class="feat-desc">Directorio completo sincronizado con BUK. Ficha por empleado con cargo, gerencia, RUT, contrato y estado activo. Acceso directo a ficha de marcaciones.</div></div>
+              <div class="feat-card"><div class="feat-icon">📬</div><div class="feat-name">Gerentes</div><div class="feat-desc">Gestión de gerentes suscritos a reportes. Toggle de recepción de email por gerente. Importación masiva vía Excel (XLSX). Reportes diarios automáticos.</div></div>
+              <div class="feat-card"><div class="feat-icon">⚙️</div><div class="feat-name">Criterio Asistencia</div><div class="feat-desc">Configuración de reglas de asistencia: horarios estándar, tolerancias por cargo o empresa, y criterios para marcar atrasos o ausencias justificadas.</div></div>
+              <div class="feat-card"><div class="feat-icon">🔗</div><div class="feat-name">Sync BUK (Cron)</div><div class="feat-desc">4 edge functions programadas: sync de empleados, vacaciones, saldos de vacaciones y marcaciones. Ejecución automática en días hábiles. Autenticación vía SYNC_CRON_SECRET.</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-body reveal reveal-d2">
+          <div class="info-card">
+            <div class="info-card-title">Integraciones BUK</div>
+            <div class="mini-feat-list">
+              <div class="mini-feat" style="--accent:#5ac8fa">🔄 Sync empleados (API BUK · RUT normalizado)</div>
+              <div class="mini-feat" style="--accent:#5ac8fa">📅 Sync vacaciones + saldos</div>
+              <div class="mini-feat" style="--accent:#5ac8fa">⏱️ Sync marcaciones diarias (días hábiles)</div>
+              <div class="mini-feat" style="--accent:#5ac8fa">📧 Reporte diario automático (Resend)</div>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-title">Roles de usuario</div>
+            <div class="roles-list">
+              <div class="role-chip"><span class="role-chip-dot" style="background:#fff"></span>Admin</div>
+              <div class="role-chip"><span class="role-chip-dot" style="background:#5ac8fa"></span>Gerente (alertas email)</div>
+            </div>
+          </div>
+          <div class="info-card app-body-full">
+            <div class="info-card-title">Stack tecnológico</div>
+            <div class="stack-list">
+              <span class="stack-chip">React 18</span><span class="stack-chip">TypeScript</span><span class="stack-chip">Vite</span>
+              <span class="stack-chip">Tailwind CSS</span><span class="stack-chip">shadcn/ui</span><span class="stack-chip">Supabase</span>
+              <span class="stack-chip">TanStack Query</span><span class="stack-chip">Recharts</span><span class="stack-chip">React Hook Form</span>
+              <span class="stack-chip">BUK API</span><span class="stack-chip">Resend</span><span class="stack-chip">XLSX</span><span class="stack-chip">date-fns</span><span class="stack-chip">Zod</span><span class="stack-chip">Bun</span>
+            </div>
+          </div>
+          <div class="info-card app-body-full">
+            <div class="info-card-title" style="color:#5ac8fa">Beneficios</div>
+            <div class="mini-feat-list">
+              <div class="mini-feat">Reduce pérdidas por ausentismo y horas extra no controladas con monitoreo continuo.</div>
+              <div class="mini-feat">Mejora la toma de decisiones de jefaturas con alertas tempranas y datos consolidados.</div>
+              <div class="mini-feat">Disminuye carga operativa de RRHH al automatizar sincronizaciones y reportes diarios.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- HUB DOS BARBAS -->
+    <section class="app-section" id="hub">
+      <div class="app-section-glow" style="background:var(--accent-2);top:-200px;left:-200px"></div>
+      <div class="wrap">
+        <div class="app-header reveal">
+          <div class="app-icon" style="background:linear-gradient(135deg,rgba(191,90,242,.18),rgba(191,90,242,.04));border-color:rgba(191,90,242,.35);font-size:38px">🛠️</div>
+          <div>
+            <h2 class="app-name">HUB Dos Barbas</h2>
+            <p class="app-desc">Plataforma interna de gestión operativa de proyectos de capacitación SENCE. Centraliza el seguimiento de cada proyecto a través de un checklist estructurado por fases con ~190 tareas, dependencias entre ellas, roles por área, Gantt interactivo, calendario y alertas de tareas pendientes. Cada persona del equipo ve solo lo que le corresponde según su rol.</p>
+            <div class="app-badges">
+              <span class="badge pub"><i></i> Operativo</span>
+              <span class="badge" style="color:var(--accent-2);border-color:rgba(191,90,242,.35);background:rgba(191,90,242,.08)">Uso interno · Dos Barbas</span>
+              <span class="badge saas">OTEC · SENCE</span>
+            </div>
+            <div class="app-links">
+              <a class="app-url-domain" href="https://hub.dosbarbas.cl" target="_blank"><span class="live-dot"></span> hub.dosbarbas.cl ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card reveal" style="margin-bottom:16px;background:linear-gradient(135deg,rgba(191,90,242,".12),rgba(191,90,242,.04));border-color:rgba(191,90,242,.28)">
+          <div class="info-card-title" style="color:var(--accent-2)">Objetivo del producto</div>
+          <div class="objetivo-text">Digitalizar el flujo completo de operación de proyectos de capacitación SENCE de Dos Barbas. Desde el kick-off inicial hasta la gestión de facturas y diplomas, el HUB estructura ~190 tareas distribuidas en 4 fases, con dependencias bloqueantes entre ellas. Cada rol del equipo ve sus tareas, registra avances y el sistema detecta bloqueos automáticamente. Incluye Gantt visual, calendario de proyectos y recordatorios automáticos por email.</div>
+        </div>
+
+        <!-- Métricas -->
+        <div class="metrics-row reveal" style="margin-bottom:20px;display:flex;gap:12px;flex-wrap:wrap">
+          <div class="metric-mini" style="--ac:var(--accent-2)"><div class="mm-val"><span data-val="190" data-suffix="">190</span></div><div class="mm-label">Tareas por proyecto</div></div>
+          <div class="metric-mini" style="--ac:var(--accent-2)"><div class="mm-val"><span data-val="4" data-suffix="">4</span></div><div class="mm-label">Fases operativas</div></div>
+          <div class="metric-mini" style="--ac:var(--accent-2)"><div class="mm-val"><span data-val="7" data-suffix="">7</span></div><div class="mm-label">Roles de equipo</div></div>
+          <div class="metric-mini" style="--ac:var(--accent-2)"><div class="mm-val"><span data-val="2" data-suffix="">2</span></div><div class="mm-label">Edge Functions</div></div>
+        </div>
+
+        <div class="app-body reveal reveal-d1" style="margin-bottom:16px">
+          <div class="info-card app-body-full">
+            <div class="info-card-title">Módulos principales</div>
+            <div class="features-grid">
+              <div class="feat-card"><div class="feat-icon">🏠</div><div class="feat-name">Home · Portafolio Proyectos</div><div class="feat-desc">Vista general de todos los proyectos activos con filtros por empresa, coordinador, modalidad y oficina. Tarjetas con estado, avance financiero (cobrable vs monto propuesta) e indicador visual verde/amarillo/rojo.</div></div>
+              <div class="feat-card"><div class="feat-icon">✅</div><div class="feat-name">Detalle de Proyecto · Checklist</div><div class="feat-desc">Vista central de un proyecto con ~190 tareas agrupadas por fases y etapas. Las tareas bloqueantes impiden avanzar hasta ser completadas. Estados: pendiente, en progreso, completado, bloqueado, no aplica.</div></div>
+              <div class="feat-card"><div class="feat-icon">🔗</div><div class="feat-name">Dependencias y Bloqueos</div><div class="feat-desc">Sistema de dependencias entre tareas: una tarea puede requerir que otra esté completada antes de poder iniciarse. Alerta visual automática ante bloqueos detectados en el flujo.</div></div>
+              <div class="feat-card"><div class="feat-icon">📅</div><div class="feat-name">Gantt Interactivo</div><div class="feat-desc">Vista Gantt generada automáticamente desde la matriz de tiempos del proyecto según tipo de convocatoria y colocación laboral. Muestra fases, etapas y duración en días desde la fecha KOM.</div></div>
+              <div class="feat-card"><div class="feat-icon">📆</div><div class="feat-name">Calendario de Proyectos</div><div class="feat-desc">Vista mensual y Gantt de todos los proyectos activos. Navegación temporal con selector de proyecto individual. Visualización por estado y solapamiento entre proyectos.</div></div>
+              <div class="feat-card"><div class="feat-icon">📋</div><div class="feat-name">Mis Tareas</div><div class="feat-desc">Vista personal filtrada por el rol del usuario. Cada miembro del equipo ve solo las tareas que le corresponden en todos sus proyectos activos, con acceso directo al detalle.</div></div>
+              <div class="feat-card"><div class="feat-icon">💰</div><div class="feat-name">Panel Financiero</div><div class="feat-desc">Card de comparación financiera por proyecto: participantes inscritos vs activos, valor por participante, monto propuesta y proyección cobrable. Indicador visual de salud financiera.</div></div>
+              <div class="feat-card"><div class="feat-icon">📄</div><div class="feat-name">Historial de Actividad</div><div class="feat-desc">Audit log persistido en base de datos. Registra cada acción relevante: creación de proyectos, cambio de estado de tareas, modificaciones de roles y configuraciones.</div></div>
+              <div class="feat-card"><div class="feat-icon">🛡️</div><div class="feat-name">Gestión de Roles y Permisos</div><div class="feat-desc">Panel exclusivo para gerencia: asignación de roles a usuarios, configuración de permisos granulares por rol (crear/editar/eliminar proyectos, crear tareas, etc.) y simulación de rol para ver la app desde otra perspectiva.</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-body reveal reveal-d2">
+          <div class="info-card">
+            <div class="info-card-title">Fases operativas</div>
+            <div class="mini-feat-list">
+              <div class="mini-feat" style="--accent:var(--accent-2)">1️⃣ Preparación (KOM, Gantt, convocatoria, perfil facilitador)</div>
+              <div class="mini-feat" style="--accent:var(--accent-2)">2️⃣ Ejecución (clases, asistencia, evaluaciones, soporte SENCE)</div>
+              <div class="mini-feat" style="--accent:var(--accent-2)">3️⃣ Cierre (DJ, OTIC, facturas, diplomas, reporte de cierre)</div>
+              <div class="mini-feat" style="--accent:var(--accent-2)">4️⃣ Post Ejecución (habilitantes, licencias, certificaciones)</div>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-title">Roles del equipo</div>
+            <div class="roles-list">
+              <div class="role-chip"><span class="role-chip-dot" style="background:#fff"></span>Gerencia</div>
+              <div class="role-chip"><span class="role-chip-dot" style="background:var(--accent-2)"></span>Jefa de Proyectos</div>
+              <div class="role-chip"><span class="role-chip-dot" style="background:var(--accent)"></span>Coordinador/a</div>
+              <div class="role-chip"><span class="role-chip-dot" style="background:var(--accent-3)"></span>Soporte</div>
+              <div class="role-chip"><span class="role-chip-dot" style="background:var(--accent-4)"></span>Calidad</div>
+              <div class="role-chip"><span class="role-chip-dot" style="background:#5ac8fa"></span>Academia</div>
+              <div class="role-chip"><span class="role-chip-dot" style="background:var(--accent-5)"></span>Jefa Academia</div>
+            </div>
+          </div>
+          <div class="info-card app-body-full">
+            <div class="info-card-title">Stack tecnológico</div>
+            <div class="stack-list">
+              <span class="stack-chip">React 18</span><span class="stack-chip">TypeScript</span><span class="stack-chip">Vite</span>
+              <span class="stack-chip">Tailwind CSS</span><span class="stack-chip">shadcn/ui</span><span class="stack-chip">Supabase</span>
+              <span class="stack-chip">TanStack Query</span><span class="stack-chip">Recharts</span><span class="stack-chip">React Hook Form</span>
+              <span class="stack-chip">Zod</span><span class="stack-chip">date-fns</span><span class="stack-chip">Resend</span><span class="stack-chip">Bun</span>
+            </div>
+          </div>
+          <div class="info-card app-body-full">
+            <div class="info-card-title" style="color:var(--accent-2)">Beneficios</div>
+            <div class="mini-feat-list">
+              <div class="mini-feat">Aumenta margen operativo al disminuir retrasos, reprocesos y cuellos de botella entre áreas.</div>
+              <div class="mini-feat">Mejora cumplimiento de hitos SENCE con trazabilidad de tareas, responsables y dependencias.</div>
+              <div class="mini-feat">Entrega previsibilidad comercial y financiera con visibilidad del avance real por proyecto.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- EPSA -->
+    <section class="app-section" id="epsa">
+      <div class="app-section-glow" style="background:var(--accent-5);top:-200px;right:-200px"></div>
+      <div class="wrap">
+        <div class="app-header reveal">
+          <div class="app-icon" style="background:linear-gradient(135deg,rgba(255,55,95,.18),rgba(255,55,95,.04));border-color:rgba(255,55,95,.35);font-size:38px">🧠</div>
+          <div>
+            <h2 class="app-name">EPSA</h2>
+            <p class="app-desc">Plataforma de evaluación psicométrica para procesos de selección y desarrollo. Gestiona proyectos de evaluación, participantes por programa, aplicación de pruebas PRP y DISC, ranking y reportes individuales para toma de decisiones.</p>
+            <div class="app-badges">
+              <span class="badge pub"><i></i> Operativo</span>
+              <span class="badge ext">Cliente externo · EPSA</span>
+              <span class="badge" style="color:var(--accent-5);border-color:rgba(255,55,95,.35);background:rgba(255,55,95,.08)">PRP · DISC</span>
+            </div>
+            <div class="app-links">
+              <a class="app-url" href="https://github.com/LiliDosBarbas/psych-spotlight-vue" target="_blank">↗ psych-spotlight-vue · commit 5533d91</a>
+              <a class="app-url-domain" href="https://test.dosbarbas.cl" target="_blank"><span class="live-dot"></span> test.dosbarbas.cl ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card reveal" style="margin-bottom:16px;background:linear-gradient(135deg,rgba(255,55,95,".12),rgba(255,55,95,.04));border-color:rgba(255,55,95,.28)">
+          <div class="info-card-title" style="color:var(--accent-5)">Objetivo del producto</div>
+          <div class="objetivo-text">Estandarizar y acelerar la evaluación de candidatos/participantes con instrumentos psicométricos consistentes, resultados trazables y reportes accionables para decisiones de selección, capacitación y gestión de talento.</div>
+        </div>
+
+        <div class="metrics-row reveal" style="margin-bottom:20px;display:flex;gap:12px;flex-wrap:wrap">
+          <div class="metric-mini" style="--ac:var(--accent-5)"><div class="mm-val"><span data-val="2">2</span></div><div class="mm-label">Tests psicométricos</div></div>
+          <div class="metric-mini" style="--ac:var(--accent-5)"><div class="mm-val"><span data-val="5">5</span></div><div class="mm-label">Módulos admin</div></div>
+          <div class="metric-mini" style="--ac:var(--accent-5)"><div class="mm-val"><span data-val="2">2</span></div><div class="mm-label">Roles de usuario</div></div>
+          <div class="metric-mini" style="--ac:var(--accent-5)"><div class="mm-val"><span data-val="1">1</span></div><div class="mm-label">Login por RUT</div></div>
+        </div>
+
+        <div class="app-body reveal reveal-d1" style="margin-bottom:16px">
+          <div class="info-card app-body-full">
+            <div class="info-card-title">Módulos principales</div>
+            <div class="features-grid">
+              <div class="feat-card"><div class="feat-icon">📁</div><div class="feat-name">Gestión de Proyectos</div><div class="feat-desc">Creación de proyectos de evaluación con configuración de pruebas habilitadas (PRP/DISC), estado y contexto por proceso.</div></div>
+              <div class="feat-card"><div class="feat-icon">👥</div><div class="feat-name">Gestión de Participantes</div><div class="feat-desc">Alta manual y carga masiva por CSV, edición, reinicio de evaluaciones y control de estado por participante.</div></div>
+              <div class="feat-card"><div class="feat-icon">🪪</div><div class="feat-name">Acceso por RUT</div><div class="feat-desc">Flujo de autenticación para participantes basado en RUT, con vinculación automática y control de acceso al test.</div></div>
+              <div class="feat-card"><div class="feat-icon">🧪</div><div class="feat-name">Aplicación PRP y DISC</div><div class="feat-desc">Ejecución guiada de pruebas, guardado de respuestas y cálculo de factores/perfiles para evaluación objetiva.</div></div>
+              <div class="feat-card"><div class="feat-icon">📊</div><div class="feat-name">Dashboard Ejecutivo</div><div class="feat-desc">Resumen de proyectos, participantes, completados y pendientes para control operativo en tiempo real.</div></div>
+              <div class="feat-card"><div class="feat-icon">🏆</div><div class="feat-name">Ranking y Selección</div><div class="feat-desc">Ranking de participantes por criterios definidos, con soporte para marcar seleccionados y candidatos en proceso.</div></div>
+              <div class="feat-card"><div class="feat-icon">📋</div><div class="feat-name">Criterios por Programa</div><div class="feat-desc">Definición de perfiles esperados (eneatipos/patrones) por programa para comparación estructurada.</div></div>
+              <div class="feat-card"><div class="feat-icon">🧾</div><div class="feat-name">Reporte Individual</div><div class="feat-desc">Informe detallado por participante con visualizaciones PRP/DISC, interpretación y opción de impresión/descarga.</div></div>
+              <div class="feat-card"><div class="feat-icon">🗃️</div><div class="feat-name">Registros y Calidad de Datos</div><div class="feat-desc">Auditoría de consistencia, revisión de avances y trazabilidad para reducir errores de operación.</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-body reveal reveal-d2">
+          <div class="info-card">
+            <div class="info-card-title">Roles de usuario</div>
+            <div class="roles-list">
+              <div class="role-chip"><span class="role-chip-dot" style="background:#fff"></span>Admin</div>
+              <div class="role-chip"><span class="role-chip-dot" style="background:var(--accent-5)"></span>Participant</div>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-title">Instrumentos</div>
+            <div class="mini-feat-list">
+              <div class="mini-feat" style="--accent:var(--accent-5)">PRP (Prevención de Riesgos Psicológicos)</div>
+              <div class="mini-feat" style="--accent:var(--accent-5)">DISC (Perfil Conductual)</div>
+            </div>
+          </div>
+          <div class="info-card app-body-full">
+            <div class="info-card-title">Stack tecnológico</div>
+            <div class="stack-list">
+              <span class="stack-chip">React 18</span><span class="stack-chip">TypeScript</span><span class="stack-chip">Vite</span>
+              <span class="stack-chip">Tailwind CSS</span><span class="stack-chip">shadcn/ui</span><span class="stack-chip">Supabase</span>
+              <span class="stack-chip">TanStack Query</span><span class="stack-chip">Recharts</span><span class="stack-chip">Zod</span><span class="stack-chip">XLSX</span><span class="stack-chip">Vitest</span><span class="stack-chip">Bun</span>
+            </div>
+          </div>
+          <div class="info-card app-body-full">
+            <div class="info-card-title" style="color:var(--accent-5)">Beneficios</div>
+            <div class="mini-feat-list">
+              <div class="mini-feat">Reduce tiempos de evaluación y selección al estandarizar todo el flujo en una sola plataforma.</div>
+              <div class="mini-feat">Mejora la calidad de contratación/desarrollo con decisiones basadas en datos psicométricos comparables.</div>
+              <div class="mini-feat">Disminuye riesgo de rotación temprana y costo de reemplazo al elevar el ajuste persona-rol.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <footer class="footer">
+      <div style="font-family:var(--font-head);font-size:clamp(28px,4vw,44px);font-weight:900;letter-spacing:-0.02em;margin-bottom:16px;background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Dos Barbas · Portafolio Tecnológico</div>
+      <p style="max-width:50ch;margin:0 auto 20px;line-height:1.55">Portafolio completo · 7 proyectos documentados · Dos Barbas 2025–2026.</p>
+      <p><strong>Dos Barbas</strong> · Portafolio Tecnológico · Marzo 2026</p>
+    </footer>
+  </main>
+
+  <script>
+    function switchTab(btn, panelId) {
+      const block = btn.closest('.versions-block');
+      block.querySelectorAll('.vtab').forEach(t => t.classList.remove('active'));
+      block.querySelectorAll('.vpanel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      const panel = document.getElementById(panelId);
+      panel.classList.add('active');
+      // Re-render carousels en el panel recién visible
+      requestAnimationFrame(() => {
+        panel.querySelectorAll('.mini-card').forEach(mc => {
+          const cfWrap = mc.querySelector('.cf-wrap');
+          if (mc._cfRender && cfWrap && cfWrap.style.display !== 'none') mc._cfRender();
+        });
+      });
+    }
+    const fill = document.getElementById('pFill');
+    function onScroll() {
+      const d = document.documentElement;
+      const max = d.scrollHeight - d.clientHeight;
+      fill.style.width = (max > 0 ? (d.scrollTop / max) * 100 : 0) + '%';
+      const sections = ['hero','overview','lili','portal','fcab','enjoy','marcaciones','hub','epsa'];
+      const pills = document.querySelectorAll('.nav-pill');
+      let current = '';
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && d.scrollTop >= el.offsetTop - 120) current = id;
+      });
+      pills.forEach(p => p.classList.toggle('active', p.getAttribute('href') === '#' + current));
+    }
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.07 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+
+    // ── Spotlight cursor (lag suave)
+    const spl = document.createElement('div');
+    spl.className = 'spotlight';
+    document.body.appendChild(spl);
+    let mx = innerWidth/2, my = innerHeight/2, cx2 = mx, cy2 = my;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    (function animSpl() { cx2 += (mx-cx2)*.08; cy2 += (my-cy2)*.08; spl.style.left=cx2+'px'; spl.style.top=cy2+'px'; requestAnimationFrame(animSpl); })();
+
+    // ── 3D tilt en feat-cards y metric-minis
+    function addTilt(sel, deg) {
+      document.querySelectorAll(sel).forEach(c => {
+        c.addEventListener('mousemove', e => {
+          const r = c.getBoundingClientRect();
+          const rx = ((e.clientX-r.left)/r.width-.5)*deg;
+          const ry = ((e.clientY-r.top)/r.height-.5)*-deg;
+          c.style.transform = `perspective(900px) rotateY(${rx}deg) rotateX(${ry}deg) translateZ(6px)`;
+        });
+        c.addEventListener('mouseleave', () => { c.style.transform = ''; });
+      });
+    }
+    addTilt('.feat-card', 9);
+    addTilt('.metric-mini', 7);
+
+    // ── Counter animation en métricas
+    function countUp(el) {
+      const target = parseFloat(el.dataset.val);
+      const sfx = el.dataset.suffix || '';
+      if (isNaN(target)) return;
+      const t0 = performance.now(), dur = 1500;
+      (function tick(now) {
+        const p = Math.min((now-t0)/dur, 1);
+        const ease = 1 - Math.pow(1-p, 3);
+        const v = Math.round(ease * target);
+        el.textContent = (target > 100 ? v.toLocaleString('es-CL') : v) + sfx;
+        if (p < 1) requestAnimationFrame(tick); else el.classList.add('count-done');
+      })(t0);
+    }
+    document.querySelectorAll('.metrics-row').forEach(row => {
+      new IntersectionObserver((entries, obs) => {
+        if (!entries[0].isIntersecting) return;
+        row.querySelectorAll('[data-val]').forEach(countUp);
+        obs.disconnect();
+      }, { threshold: 0.25 }).observe(row);
+    });
+
+    // ── Observer para reveal-left / reveal-right / reveal-scale
+    document.querySelectorAll('.reveal-left,.reveal-right,.reveal-scale').forEach(el => io.observe(el));
+
+    // ── Feat-card escalonado por grid
+    document.querySelectorAll('.features-grid').forEach(grid => {
+      const cards = grid.querySelectorAll('.feat-card');
+      cards.forEach(c => { c.style.opacity = '0'; c.style.transform = 'translateY(16px)'; });
+      new IntersectionObserver((entries, obs) => {
+        if (!entries[0].isIntersecting) return;
+        cards.forEach((c, i) => {
+          setTimeout(() => {
+            c.style.opacity = ''; c.style.transform = '';
+            c.classList.add('fc-reveal');
+          }, i * 65);
+        });
+        obs.disconnect();
+      }, { threshold: 0.07 }).observe(grid);
+    });
+
+    // ── Partículas hero
+    const canvas = document.getElementById('particle-canvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };
+      resize(); window.addEventListener('resize', resize);
+      const colors = ['rgba(77,163,255,', 'rgba(191,90,242,', 'rgba(48,209,88,'];
+      const pts = Array.from({length: 55}, () => ({
+        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+        r: Math.random() * 1.6 + 0.4,
+        dx: (Math.random() - 0.5) * 0.25, dy: (Math.random() - 0.5) * 0.25,
+        a: Math.random() * 0.5 + 0.08,
+        c: colors[Math.floor(Math.random() * colors.length)]
+      }));
+      (function animP() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pts.forEach(p => {
+          p.x += p.dx; p.y += p.dy;
+          if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.c + p.a + ')'; ctx.fill();
+        });
+        requestAnimationFrame(animP);
+      })();
+    }
+
+    // ── Parallax suave en orbs según cursor
+    const orbs = document.querySelectorAll('.orb');
+    let orbTx = 0, orbTy = 0, orbCx = 0, orbCy = 0;
+    document.addEventListener('mousemove', e => {
+      orbTx = (e.clientX / innerWidth - 0.5) * 22;
+      orbTy = (e.clientY / innerHeight - 0.5) * 14;
+    });
+    (function animOrbs() {
+      orbCx += (orbTx - orbCx) * 0.035; orbCy += (orbTy - orbCy) * 0.035;
+      orbs.forEach((orb, i) => {
+        const f = i === 0 ? 1 : i === 1 ? -0.65 : 0.45;
+        orb.style.marginLeft = (orbCx * f) + 'px';
+        orb.style.marginTop = (orbCy * f) + 'px';
+      });
+      requestAnimationFrame(animOrbs);
+    })();
+
+    // ── Section kicker visible trigger
+    document.querySelectorAll('.section-kicker').forEach(el => io.observe(el));
+
+    // ── Coverflow Carousel ──
+    const CF_GRADIENTS = [
+      ['#4da3ff','#1a5fa8'],['#ff9f0a','#a86000'],['#30d158','#166534'],
+      ['#bf5af2','#6b21a8'],['#ff375f','#991b1b'],['#5ac8fa','#0e6b8a'],
+      ['#f97316','#c2410c'],['#22c55e','#14532d'],['#ec4899','#9d174d']
+    ];
+
+    function buildCoverflow(infoCard, accentColor) {
+      const grid = infoCard.querySelector('.features-grid');
+      if (!grid) return;
+      const fcards = Array.from(grid.querySelectorAll('.feat-card'));
+      if (!fcards.length) return;
+
+      const items = fcards.map(c => ({
+        icon: c.querySelector('.feat-icon')?.textContent?.trim() || '📦',
+        name: c.querySelector('.feat-name')?.textContent?.trim() || '',
+        desc: c.querySelector('.feat-desc')?.textContent?.trim() || ''
+      }));
+
+      // Toggle
+      const toggle = document.createElement('div');
+      toggle.className = 'feat-view-toggle';
+      toggle.innerHTML = '<button class="fvt-btn active" data-view="cf">🎠 Vista Carrusel</button><button class="fvt-btn" data-view="grid">⊞ Vista General</button>';
+      infoCard.insertBefore(toggle, grid);
+
+      // Build coverflow
+      const total = items.length;
+      const angleStep = Math.min(62, Math.max(28, 360 / Math.max(total, 7)));
+      const radius = 240;
+      let activeIdx = 0;
+      let suppressUntil = 0;
+
+      const cfWrap = document.createElement('div');
+      cfWrap.className = 'cf-wrap';
+
+      const stageWrap = document.createElement('div');
+      stageWrap.className = 'cf-stage-wrap';
+      const stage = document.createElement('div');
+      stage.className = 'cf-stage';
+
+      const cardEls = items.map((item, i) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'cf-item';
+        const [c1, c2] = CF_GRADIENTS[i % CF_GRADIENTS.length];
+        const shortDesc = item.desc.length > 120 ? item.desc.slice(0, 120) + '…' : item.desc;
+        btn.innerHTML = `<div class="cf-card-inner"><div class="cf-cover" style="background:linear-gradient(135deg,${c1},${c2})"><span>${item.icon}</span><span class="cf-cover-badge">Módulo ${i + 1}</span></div><div class="cf-body"><div class="cf-card-title">${item.name}</div><div class="cf-card-desc">${shortDesc}</div></div></div>`;
+        stage.appendChild(btn);
+        return btn;
+      });
+
+      stageWrap.appendChild(stage);
+
+      const cfInfo = document.createElement('div');
+      cfInfo.className = 'cf-info-box';
+      cfInfo.innerHTML = '<div class="cf-info-name"></div><div class="cf-info-desc"></div>';
+
+      const dots = items.map((_, i) => {
+        const d = document.createElement('span');
+        d.className = 'cf-dot';
+        d.style.setProperty('--cf-ac', accentColor);
+        return d;
+      });
+      const cfDotsEl = document.createElement('div');
+      cfDotsEl.className = 'cf-dots';
+      dots.forEach(d => cfDotsEl.appendChild(d));
+
+      const cfNav = document.createElement('div');
+      cfNav.className = 'cf-nav';
+      const prevBtn = document.createElement('button');
+      prevBtn.className = 'cf-prev'; prevBtn.textContent = '← Anterior';
+      const nextBtn = document.createElement('button');
+      nextBtn.className = 'cf-next'; nextBtn.textContent = 'Siguiente →';
+      cfNav.appendChild(prevBtn); cfNav.appendChild(cfDotsEl); cfNav.appendChild(nextBtn);
+
+      cfWrap.appendChild(stageWrap);
+      cfWrap.appendChild(cfInfo);
+      cfWrap.appendChild(cfNav);
+      infoCard.appendChild(cfWrap);
+
+      function renderFrame() {
+        const item = items[activeIdx];
+        cfInfo.querySelector('.cf-info-name').textContent = item.name;
+        cfInfo.querySelector('.cf-info-desc').textContent = item.desc;
+        dots.forEach((d, i) => d.classList.toggle('cf-dot-active', i === activeIdx));
+        cardEls.forEach((el, index) => {
+          let off = index - activeIdx;
+          const half = total / 2;
+          if (off > half) off -= total;
+          if (off < -half) off += total;
+          const angle = off * angleStep;
+          const rad = angle * Math.PI / 180;
+          const x = Math.sin(rad) * radius * 1.2;
+          const z = Math.cos(rad) * radius;
+          const y = Math.abs(off) * 10;
+          const scale = Math.max(0.68, 1.06 - Math.abs(off) * 0.11);
+          const opacity = z < -radius * 0.28 ? 0 : Math.max(0.12, 1 - Math.abs(off) * 0.17);
+          el.style.transition = 'transform .62s cubic-bezier(.22,.68,0,1.15), opacity .55s ease, filter .55s ease';
+          el.style.transform = `translate3d(calc(-50% + ${x}px), calc(-50% + ${y}px), ${z}px) rotateY(${-angle}deg) scale(${scale})`;
+          el.style.opacity = opacity;
+          el.style.zIndex = Math.round(200 + z);
+          el.style.filter = (Math.abs(off) > 2 ? 'blur(1.5px)' : 'blur(0)') + (index === activeIdx ? ' saturate(1.1)' : ' saturate(0.82)');
+          el.style.pointerEvents = opacity < 0.1 ? 'none' : 'auto';
+        });
+      }
+
+      function rotateTo(idx) {
+        activeIdx = ((idx % total) + total) % total;
+        renderFrame();
+      }
+      function rotateBy(step) { rotateTo(activeIdx + step); }
+
+      prevBtn.addEventListener('click', () => rotateBy(-1));
+      nextBtn.addEventListener('click', () => rotateBy(1));
+      dots.forEach((d, i) => d.addEventListener('click', () => rotateTo(i)));
+      cardEls.forEach((el, i) => el.addEventListener('click', () => {
+        if (Date.now() < suppressUntil) return;
+        rotateTo(i);
+      }));
+
+      // Drag
+      let dragStartX = 0, dragDidMove = false;
+      stage.addEventListener('pointerdown', e => {
+        dragStartX = e.clientX; dragDidMove = false;
+        stage.setPointerCapture(e.pointerId);
+      });
+      stage.addEventListener('pointermove', e => {
+        const delta = e.clientX - dragStartX;
+        if (Math.abs(delta) < 55) return;
+        rotateBy(delta > 0 ? -1 : 1);
+        dragStartX = e.clientX; dragDidMove = true;
+        suppressUntil = Date.now() + 220;
+      });
+      stage.addEventListener('pointerup', () => {
+        if (dragDidMove) suppressUntil = Date.now() + 220;
+      });
+
+      // Wheel
+      let wAcc = 0, wDir = 0, wLocked = 0;
+      stage.addEventListener('wheel', e => {
+        e.preventDefault();
+        const now = Date.now();
+        const dom = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+        const dir = dom > 0 ? 1 : -1;
+        if (Math.abs(dom) < 12 || now < wLocked) return;
+        if (wDir !== dir) wAcc = 0;
+        wAcc += dom; wDir = dir;
+        if (Math.abs(wAcc) < 52) return;
+        wAcc = 0; wLocked = now + 210;
+        rotateBy(dir);
+      }, { passive: false });
+
+      // Toggle view
+      toggle.querySelectorAll('.fvt-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          toggle.querySelectorAll('.fvt-btn').forEach(b => b.classList.toggle('active', b === btn));
+          const isCF = btn.dataset.view === 'cf';
+          grid.style.display = isCF ? 'none' : '';
+          cfWrap.style.display = isCF ? 'block' : 'none';
+          if (isCF) renderFrame();
+        });
+      });
+      // Activar carrusel por defecto
+      grid.style.display = 'none';
+      cfWrap.style.display = 'block';
+      renderFrame();
+      infoCard._cfRender = renderFrame;
+    }
+
+    // Detectar accent de cada sección e inicializar carousels (proyectos app-section)
+    document.querySelectorAll('.app-section').forEach(section => {
+      const glow = section.querySelector('.app-section-glow');
+      const bg = glow ? glow.style.background : '';
+      let accent = '#4da3ff';
+      if (bg.includes('#5ac8fa')) accent = '#5ac8fa';
+      else if (bg.includes('accent-3') || bg.includes('#30d158')) accent = '#30d158';
+      else if (bg.includes('accent-4') || bg.includes('#ff9f0a')) accent = '#ff9f0a';
+      else if (bg.includes('accent-2') || bg.includes('#bf5af2')) accent = '#bf5af2';
+      const card = section.querySelector('.info-card .features-grid')?.closest('.info-card');
+      if (card) buildCoverflow(card, accent);
+    });
+
+    // Carousels para las versiones de LiLi — toggle global compartido
+    const liliMiniCards = [];
+    document.querySelectorAll('#lili .mini-card.vpanel-full').forEach(miniCard => {
+      if (!miniCard.querySelector('.features-grid')) return;
+      const css = miniCard.style.cssText || '';
+      let accent = '#4da3ff';
+      if (css.includes('accent-4')) accent = '#ff9f0a';
+      else if (css.includes('accent-2')) accent = '#bf5af2';
+      else if (css.includes('accent-3')) accent = '#30d158';
+      buildCoverflow(miniCard, accent);
+      liliMiniCards.push(miniCard);
+    });
+    if (liliMiniCards.length) {
+      // Eliminar toggles individuales de cada mini-card
+      liliMiniCards.forEach(mc => { const t = mc.querySelector('.feat-view-toggle'); if (t) t.remove(); });
+      // Toggle global único insertado justo debajo de los tabs de versión
+      const sharedToggle = document.createElement('div');
+      sharedToggle.className = 'feat-view-toggle';
+      sharedToggle.style.cssText = 'margin:10px 24px 0;';
+      sharedToggle.innerHTML = '<button class="fvt-btn active" data-view="cf">🎠 Vista Carrusel</button><button class="fvt-btn" data-view="grid">⊞ Vista General</button>';
+      const vTabs = document.querySelector('#lili .version-tabs');
+      vTabs.parentNode.insertBefore(sharedToggle, vTabs.nextSibling);
+      sharedToggle.querySelectorAll('.fvt-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          sharedToggle.querySelectorAll('.fvt-btn').forEach(b => b.classList.toggle('active', b === btn));
+          const isCF = btn.dataset.view === 'cf';
+          liliMiniCards.forEach(mc => {
+            const grid = mc.querySelector('.features-grid');
+            const cfWrap = mc.querySelector('.cf-wrap');
+            if (grid) grid.style.display = isCF ? 'none' : '';
+            if (cfWrap) {
+              cfWrap.style.display = isCF ? 'block' : 'none';
+              if (isCF && mc._cfRender) requestAnimationFrame(() => mc._cfRender());
+            }
+          });
+        });
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cap. 09 — Conclusiones | Estudio FCAB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    /* ── Estilos específicos Cap. 09 ── */
+
+    /* Balance estratégico — 2 columnas */
+    .balance-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0;
+    }
+    .balance-card {
+      border: 1px solid var(--border); border-radius: var(--r); overflow: hidden;
+    }
+    .balance-header {
+      padding: 12px 18px; border-bottom: 1px solid var(--border);
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .bh-pos { background: #ECFDF5; color: #065F46; border-bottom-color: rgba(5,150,105,0.15); }
+    .bh-neg { background: #FEF3C7; color: #92400E; border-bottom-color: rgba(217,119,6,0.15); }
+    .balance-body { background: var(--surface-1); padding: 14px 18px; }
+    .balance-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13px; color: var(--text-2); line-height: 1.55;
+      padding: 6px 0; border-bottom: 1px solid var(--border);
+    }
+    .balance-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .bi-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+    .bi-pos { background: #059669; }
+    .bi-neg { background: #D97706; }
+
+    /* Planos de relacionamiento */
+    .planos-wrap {
+      display: grid; grid-template-columns: 1fr 48px 1fr; align-items: stretch;
+      gap: 0; margin: 20px 0; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden;
+    }
+    .plano-col {
+      padding: 20px 22px; background: var(--surface-1);
+    }
+    .plano-col.pc-left { border-right: 1px solid var(--border); }
+    .plano-col.pc-right { border-left: 1px solid var(--border); }
+    .plano-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+    .plano-label.pl-com  { color: #065F46; }
+    .plano-label.pl-inst { color: #1E40AF; }
+    .plano-title { font-size: 14px; font-weight: 700; color: var(--text-1); margin-bottom: 8px; }
+    .plano-desc  { font-size: 12.5px; color: var(--text-2); line-height: 1.65; }
+    .plano-gap {
+      display: flex; align-items: center; justify-content: center;
+      background: var(--surface-2); border-left: 1px solid var(--border); border-right: 1px solid var(--border);
+    }
+    .plano-gap-label {
+      font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--text-3); writing-mode: vertical-rl; text-orientation: mixed;
+    }
+
+    /* Issue list */
+    .issue-list {
+      display: flex; flex-direction: column; gap: 0;
+      border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; margin: 16px 0;
+    }
+    .issue-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 14px 20px; border-bottom: 1px solid var(--border);
+      background: var(--surface-1);
+    }
+    .issue-item:last-child { border-bottom: none; }
+    .issue-num {
+      font-size: 11px; font-weight: 700; color: var(--text-3);
+      flex-shrink: 0; padding-top: 2px; min-width: 18px;
+    }
+    .issue-title { font-size: 13.5px; font-weight: 600; color: var(--text-1); margin-bottom: 3px; }
+    .issue-desc  { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+
+    /* Asset cards */
+    .asset-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0;
+    }
+    .asset-card {
+      border: 1px solid var(--border); border-radius: var(--r); overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .asset-top {
+      padding: 14px 16px; border-bottom: 1px solid var(--border);
+    }
+    .asset-eyebrow {
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--accent); margin-bottom: 6px;
+    }
+    .asset-title { font-size: 14px; font-weight: 700; color: var(--text-1); line-height: 1.3; }
+    .asset-body {
+      padding: 13px 16px; background: var(--surface-1);
+      font-size: 12.5px; color: var(--text-2); line-height: 1.65;
+    }
+    .asset-risk {
+      display: flex; align-items: flex-start; gap: 8px;
+      margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border);
+      font-size: 12px; color: var(--text-3); line-height: 1.5;
+    }
+    .asset-risk-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: #D97706; flex-shrink: 0;
+    }
+
+    /* Territory mini chips */
+    .territory-mini {
+      display: flex; flex-direction: column; gap: 0;
+      border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; margin: 16px 0;
+    }
+    .tm-row {
+      display: grid; grid-template-columns: 130px 1fr;
+      border-bottom: 1px solid var(--border); background: var(--surface-1);
+    }
+    .tm-row:last-child { border-bottom: none; }
+    .tm-name {
+      padding: 13px 16px; font-size: 13px; font-weight: 700; color: var(--text-1);
+      border-right: 1px solid var(--border);
+      display: flex; align-items: center;
+    }
+    .tm-desc { padding: 13px 16px; font-size: 13px; color: var(--text-2); line-height: 1.55; }
+
+    /* Segment cards */
+    .segment-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0;
+    }
+    .segment-card {
+      border: 1px solid var(--border); border-radius: var(--r); overflow: hidden;
+    }
+    .segment-header {
+      padding: 13px 16px; border-bottom: 1px solid var(--border);
+      font-size: 12px; font-weight: 700;
+    }
+    .sh-pos  { background: #ECFDF5; color: #065F46; border-bottom-color: rgba(5,150,105,0.15); }
+    .sh-crit { background: #FEF3C7; color: #92400E; border-bottom-color: rgba(217,119,6,0.15); }
+    .sh-cent { background: #EFF6FF; color: #1E40AF; border-bottom-color: rgba(37,99,235,0.15); }
+    .segment-body {
+      padding: 13px 16px; background: var(--surface-1);
+      font-size: 12.5px; color: var(--text-2); line-height: 1.65;
+    }
+
+    /* Synthesis block */
+    .synthesis {
+      background: var(--surface-1); border: 2px solid var(--accent);
+      border-radius: var(--r); padding: 28px 32px; margin: 24px 0;
+    }
+    .synthesis-eyebrow {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--accent); margin-bottom: 12px;
+    }
+    .synthesis p {
+      font-size: 14px; color: var(--text-1); line-height: 1.75; margin-bottom: 14px;
+    }
+    .synthesis p:last-child { margin-bottom: 0; }
+
+    /* Recommendation list */
+    .rec-list {
+      display: flex; flex-direction: column; gap: 0;
+      border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; margin: 16px 0;
+    }
+    .rec-item {
+      display: flex; gap: 0; border-bottom: 1px solid var(--border);
+      background: var(--surface-1);
+    }
+    .rec-item:last-child { border-bottom: none; }
+    .rec-icon {
+      width: 46px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 15px; border-right: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+    .rec-text { padding: 12px 18px; font-size: 13px; color: var(--text-2); line-height: 1.6; }
+    .rec-text strong { color: var(--text-1); }
+
+    /* Vision final */
+    .vision {
+      background: linear-gradient(135deg, rgba(37,99,235,0.06) 0%, rgba(37,99,235,0.02) 100%);
+      border: 1px solid rgba(37,99,235,0.18); border-radius: var(--r);
+      padding: 24px 28px; margin: 20px 0;
+    }
+    .vision p { font-size: 14px; color: var(--text-1); line-height: 1.78; margin: 0; font-style: italic; }
+
+    @media (max-width: 760px) {
+      .asset-grid    { grid-template-columns: 1fr; }
+      .segment-grid  { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .balance-grid  { grid-template-columns: 1fr; }
+      .planos-wrap   { grid-template-columns: 1fr; }
+      .plano-gap     { display: none; }
+      .synthesis     { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <button class="header-toggle" id="sidebar-toggle" aria-label="Abrir menú">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <a href="../index.html" class="header-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Índice
+    </a>
+    <div class="header-sep"></div>
+    <span class="header-chapter">Capítulo 09 — Conclusiones</span>
+    <div class="header-right">
+      <span class="header-agency">DOS BARBAS</span>
+    </div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar"></nav>
+
+  <!-- MAIN -->
+  <main class="chapter-main">
+    <div class="chapter-content">
+
+      <!-- ── ENCABEZADO ──────────────────────────────────────── -->
+      <header class="chapter-header">
+        <div class="chapter-meta">
+          <span class="chapter-num-label">Capítulo 09</span>
+        </div>
+        <h1>Conclusiones</h1>
+        <p class="chapter-lead">FCAB ocupa una posición estratégica dentro del ecosistema territorial de Antofagasta: cuenta con alto capital territorial, historia, infraestructura y actores dispuestos al diálogo. El desafío es integrar esos activos en una estrategia relacional más sistemática, territorializada y trazable.</p>
+      </header>
+
+      <!-- ── 1. BALANCE ESTRATÉGICO ─────────────────────────── -->
+      <section class="section">
+        <h2>1. Balance estratégico</h2>
+        <p>El estudio confirma que FCAB cuenta con un alto capital territorial, pero parte importante de ese capital se encuentra subutilizado, débilmente comunicado o insuficientemente articulado con los actores que estructuran el desarrollo regional.</p>
+
+        <div class="balance-grid">
+          <div class="balance-card">
+            <div class="balance-header bh-pos">Capital territorial disponible</div>
+            <div class="balance-body">
+              <div class="balance-item"><div class="bi-dot bi-pos"></div>Historia e identidad ferroviaria fundacional en Antofagasta</div>
+              <div class="balance-item"><div class="bi-dot bi-pos"></div>Infraestructura ferroviaria que conecta múltiples territorios</div>
+              <div class="balance-item"><div class="bi-dot bi-pos"></div>Capacidad logística e industrial diferenciada</div>
+              <div class="balance-item"><div class="bi-dot bi-pos"></div>Presencia en comunas, gobiernos locales y espacios regionales</div>
+              <div class="balance-item"><div class="bi-dot bi-pos"></div>Liderazgo reconocido en sostenibilidad (Pacto Global Norte)</div>
+              <div class="balance-item"><div class="bi-dot bi-pos"></div>Actores del ecosistema con disposición positiva al diálogo</div>
+            </div>
+          </div>
+          <div class="balance-card">
+            <div class="balance-header bh-neg">Capital subutilizado o debilitado</div>
+            <div class="balance-body">
+              <div class="balance-item"><div class="bi-dot bi-neg"></div>Relacionamiento comunitario episódico y personalizado</div>
+              <div class="balance-item"><div class="bi-dot bi-neg"></div>Baja visibilidad pública e identidad institucional propia</div>
+              <div class="balance-item"><div class="bi-dot bi-neg"></div>Escasa iniciativa propositiva en espacios estratégicos</div>
+              <div class="balance-item"><div class="bi-dot bi-neg"></div>Distancia relacional en territorios periféricos</div>
+              <div class="balance-item"><div class="bi-dot bi-neg"></div>Canales informales sin trazabilidad ni continuidad institucional</div>
+              <div class="balance-item"><div class="bi-dot bi-neg"></div>Brecha entre discurso de sostenibilidad y gestión cotidiana</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 2. DOS PLANOS DE RELACIONAMIENTO ───────────────── -->
+      <section class="section">
+        <h2>2. Dos planos de relacionamiento</h2>
+        <p>El relacionamiento de FCAB opera en dos planos que no siempre se conectan entre sí, generando una brecha de articulación que limita la efectividad del vínculo territorial.</p>
+
+        <div class="planos-wrap">
+          <div class="plano-col pc-left">
+            <div class="plano-label pl-com">Plano comunitario-barrial</div>
+            <div class="plano-title">Vínculos cotidianos con juntas de vecinos y organizaciones cercanas a la línea</div>
+            <div class="plano-desc">Marcado por demandas cotidianas (limpieza, seguridad, espacios), canales informales (WhatsApp) y relaciones personalizadas con referentes específicos de FCAB. Sensible y cercano, pero no institucionalizado.</div>
+          </div>
+          <div class="plano-gap">
+            <div class="plano-gap-label">Brecha de articulación</div>
+          </div>
+          <div class="plano-col pc-right">
+            <div class="plano-label pl-inst">Plano institucional-estratégico</div>
+            <div class="plano-title">Participación en espacios regionales, empresariales y de sostenibilidad</div>
+            <div class="plano-desc">FCAB participa en instancias de gobernanza, pero es percibida con baja iniciativa propositiva. Las decisiones estratégicas de la empresa no siempre se traducen en presencia visible para las comunidades.</div>
+          </div>
+        </div>
+
+        <div class="callout callout-amber">
+          <p>Las demandas concretas del territorio no siempre llegan a una gestión institucional sistemática. Sin puente entre ambos planos, la empresa acumula compromisos sin trazabilidad y relaciones sin continuidad.</p>
+        </div>
+      </section>
+
+      <!-- ── 3. BRECHAS CRÍTICAS ───────────────────────────── -->
+      <section class="section">
+        <h2>3. Brechas críticas</h2>
+        <p>Tres brechas concentran los mayores riesgos para la legitimidad territorial y la imagen institucional de FCAB.</p>
+
+        <div class="issue-list">
+          <div class="issue-item">
+            <div class="issue-num">01</div>
+            <div>
+              <div class="issue-title">Convivencia física y imagen cotidiana</div>
+              <div class="issue-desc">Basura, inseguridad, asentamientos irregulares, falta de iluminación, cruces ferroviarios, ruido y déficit de áreas verdes son los problemas más recurrentes. La legitimidad territorial de FCAB se juega en cómo administra, mantiene y mejora los espacios asociados a su operación — no solo en sus declaraciones institucionales.</div>
+            </div>
+          </div>
+          <div class="issue-item">
+            <div class="issue-num">02</div>
+            <div>
+              <div class="issue-title">Baja visibilidad institucional e identidad propia</div>
+              <div class="issue-desc">FCAB posee activos singulares, pero no los traduce en posicionamiento público con identidad propia. La presencia del Grupo AMSA absorbe parte de su visibilidad, diluyendo su proyección como actor ferroviario, logístico y territorial diferenciado. Esta invisibilidad deja que otros actores definan la narrativa sobre su rol en la región.</div>
+            </div>
+          </div>
+          <div class="issue-item">
+            <div class="issue-num">03</div>
+            <div>
+              <div class="issue-title">Relacionamiento informal sin arquitectura institucional</div>
+              <div class="issue-desc">WhatsApp y contactos directos son el canal dominante de vínculo comunitario. Sin estructura formal detrás, cuando los referentes cambian, la relación se interrumpe; cuando la información circula por grupos cerrados, se generan exclusiones; cuando los compromisos se trasladan a mensajes privados, se pierde trazabilidad.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 4. ACTIVOS Y OPORTUNIDADES ─────────────────────── -->
+      <section class="section">
+        <h2>4. Activos y oportunidades estratégicas</h2>
+        <p>El estudio identifica activos relacionales relevantes y oportunidades no plenamente activadas que representan palancas concretas de fortalecimiento.</p>
+
+        <div class="asset-grid">
+          <div class="asset-card">
+            <div class="asset-top">
+              <div class="asset-eyebrow">Activo urbano</div>
+              <div class="asset-title">Reconversión de patios ferroviarios</div>
+            </div>
+            <div class="asset-body">
+              Hito de mayor consenso positivo entre actores comunitarios y estratégicos. Señal de integración urbana, modernización y apertura hacia la ciudad. Si se gestiona como proyecto de ciudad — no solo de infraestructura — puede convertirse en eje de legitimación territorial.
+              <div class="asset-risk">
+                <div class="asset-risk-label">Riesgo</div>
+                Comunicación insuficiente frente a la magnitud del proyecto genera incertidumbre sobre su alcance e impacto real.
+              </div>
+            </div>
+          </div>
+          <div class="asset-card">
+            <div class="asset-top">
+              <div class="asset-eyebrow">Activo de sostenibilidad</div>
+              <div class="asset-title">Locomotora de hidrógeno verde y Pacto Global Norte</div>
+            </div>
+            <div class="asset-body">
+              Señales positivas de modernización reconocidas ampliamente. El liderazgo en el Consejo Norte de Pacto Global permite a FCAB diferenciarse en un territorio donde la sostenibilidad suele asociarse a la minería.
+              <div class="asset-risk">
+                <div class="asset-risk-label">Riesgo</div>
+                Activo frágil: requiere coherencia entre discurso sostenible y gestión cotidiana del corredor ferroviario.
+              </div>
+            </div>
+          </div>
+          <div class="asset-card">
+            <div class="asset-top">
+              <div class="asset-eyebrow">Oportunidad logística</div>
+              <div class="asset-title">Corredores de carga y posicionamiento industrial</div>
+            </div>
+            <div class="asset-body">
+              Actores empresariales identifican espacios de mayor participación: corredores con Bolivia y Argentina, articulación con puertos, transporte de pasajeros, Corredor Bioceánico y planificación logística regional.
+              <div class="asset-risk">
+                <div class="asset-risk-label">Brecha</div>
+                La tensión no es de falta de capacidad, sino de bajo protagonismo y ausencia de narrativa de valor propia.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 5. TERRITORIOS PERIFÉRICOS ─────────────────────── -->
+      <section class="section">
+        <h2>5. Vulnerabilidad de gobernanza en territorios periféricos</h2>
+        <p>En Baquedano, Sierra Gorda y Ollagüe, FCAB está físicamente presente pero relacionalmente distante. Esta distancia no siempre genera conflicto abierto, pero produce una vulnerabilidad de gobernanza ante proyectos logísticos, memorias ferroviarias y expectativas de desarrollo local.</p>
+
+        <div class="territory-mini">
+          <div class="tm-row">
+            <div class="tm-name">Baquedano</div>
+            <div class="tm-desc">Fuerte identidad ferroviaria histórica. La entrega del vagón patrimonial fue valorada, pero la falta de seguimiento posterior redujo su impacto. Compromisos incumplidos permanecen en la memoria colectiva.</div>
+          </div>
+          <div class="tm-row">
+            <div class="tm-name">Sierra Gorda</div>
+            <div class="tm-desc">Organizaciones vecinales señalan que históricamente no ha existido diálogo con la empresa. La infraestructura ferroviaria forma parte del paisaje local, pero FCAB no aparece como interlocutor activo.</div>
+          </div>
+          <div class="tm-row">
+            <div class="tm-name">Ollagüe</div>
+            <div class="tm-desc">Solicitudes y propuestas locales no han logrado traducirse en respuestas favorables. La ausencia instala una forma de indiferencia relacional: FCAB es parte del territorio, pero no de la conversación territorial.</div>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <p>Sin vínculos previos con autoridades y comunidades locales, la empresa queda con menor capital institucional para anticipar conflictos y gestionar contingencias con legitimidad territorial.</p>
+        </div>
+      </section>
+
+      <!-- ── 6. SEGMENTACIÓN DE ACTORES ─────────────────────── -->
+      <section class="section">
+        <h2>6. Segmentación de actores y desafíos de gestión</h2>
+        <p>La segmentación de actores refuerza la necesidad de un relacionamiento diferenciado. El informe identifica tres perfiles con necesidades y riesgos distintos.</p>
+
+        <div class="segment-grid">
+          <div class="segment-card">
+            <div class="segment-header sh-pos">Actores con relación positiva</div>
+            <div class="segment-body">
+              Requieren mantenimiento y continuidad. El riesgo es la erosión por informalidad: si el vínculo depende de personas específicas, cualquier cambio de cargo puede deteriorar la relación construida.
+            </div>
+          </div>
+          <div class="segment-card">
+            <div class="segment-header sh-crit">Actores distantes o críticos</div>
+            <div class="segment-body">
+              Necesitan reencuadre, presencia y reconstrucción de confianza. En muchos casos la distancia no es ideológica sino funcional: ausencia de canal estable, compromisos sin seguimiento o percepción de indiferencia.
+            </div>
+          </div>
+          <div class="segment-card">
+            <div class="segment-header sh-cent">Actores de alta centralidad</div>
+            <div class="segment-body">
+              Concentran el mayor riesgo reputacional e institucional, pero también la mayor oportunidad de legitimación. La relación no puede mantenerse en un plano meramente instrumental: requiere canales formales, trazabilidad y agendas compartidas.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 7. SÍNTESIS Y RECOMENDACIÓN TRANSVERSAL ────────── -->
+      <section class="section">
+        <h2>7. Síntesis y recomendación transversal</h2>
+
+        <div class="synthesis">
+          <div class="synthesis-eyebrow">Conclusión principal</div>
+          <p>El desafío principal de FCAB no es comenzar desde cero. La empresa ya cuenta con reconocimiento, historia, infraestructura, presencia territorial, actores dispuestos al diálogo y proyectos con alto potencial de legitimación. El problema es que esos activos no están suficientemente integrados en una estrategia relacional coherente.</p>
+        </div>
+
+        <p>La recomendación transversal es avanzar hacia un modelo de relacionamiento más sistemático, territorializado y trazable, con avances concretos en seis dimensiones:</p>
+
+        <div class="rec-list">
+          <div class="rec-item">
+            <div class="rec-icon">◉</div>
+            <div class="rec-text"><strong>Presencia regular en comunidades</strong> — superar el relacionamiento reactivo y episódico con un plan de visita, seguimiento y devolución continua.</div>
+          </div>
+          <div class="rec-item">
+            <div class="rec-icon">◉</div>
+            <div class="rec-text"><strong>Agenda diferenciada por tipo de actor</strong> — distinguir entre actores comunitarios, institucionales, estratégicos e industriales, con mensajes y canales adaptados a cada perfil.</div>
+          </div>
+          <div class="rec-item">
+            <div class="rec-icon">◉</div>
+            <div class="rec-text"><strong>Fortalecimiento del vínculo con autoridades locales</strong> — especialmente en territorios periféricos donde la brecha de gobernanza representa un riesgo latente.</div>
+          </div>
+          <div class="rec-item">
+            <div class="rec-icon">◉</div>
+            <div class="rec-text"><strong>Comunicación pública con identidad propia</strong> — diferenciar la vocería de FCAB de la del Grupo AMSA y construir una narrativa de valor como actor ferroviario, logístico y territorial.</div>
+          </div>
+          <div class="rec-item">
+            <div class="rec-icon">◉</div>
+            <div class="rec-text"><strong>Liderazgo logístico más visible</strong> — pasar de reconocimiento pasivo a protagonismo activo en debates sobre corredores, puertos, logística regional y movilidad.</div>
+          </div>
+          <div class="rec-item">
+            <div class="rec-icon">◉</div>
+            <div class="rec-text"><strong>Mecanismos de seguimiento de compromisos</strong> — instaurar trazabilidad formal para compromisos comunitarios, superando la dependencia de canales informales y referentes individuales.</div>
+          </div>
+        </div>
+
+        <div class="vision">
+          <p>Si FCAB logra conectar su peso histórico con una presencia territorial más activa, su capacidad logística con una narrativa pública propia, y su liderazgo institucional con acciones visibles para las comunidades, podrá pasar de ser un actor reconocido principalmente por su infraestructura a ser un actor valorado por su contribución efectiva al desarrollo regional.</p>
+        </div>
+      </section>
+
+      <!-- ── NAVEGACIÓN ──────────────────────────────────────── -->
+      <nav class="chapter-nav" aria-label="Navegación entre capítulos">
+        <a href="../index.html" class="nav-btn nav-center">
+          <span class="nav-dir">↑ Inicio</span>
+          <span class="nav-label">Índice general</span>
+        </a>
+        <a href="capitulo-03.html" class="nav-btn">
+          <span class="nav-dir">← Anterior</span>
+          <span class="nav-label">Cap. 03</span>
+          <span class="nav-sub">Análisis de Cluster</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

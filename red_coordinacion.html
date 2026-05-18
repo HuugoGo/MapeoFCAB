@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Red de Coordinación — Organizaciones Sociales</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f7f6;
+    --surface: #ffffff;
+    --border: #cdddd8;
+    --accent: #2a9d8f;
+    --accent-glow: rgba(42,157,143,0.18);
+    --accent2: #1b7268;
+    --node: #3dbfb0;
+    --node-stroke: #2a9d8f;
+    --edge: rgba(42,157,143,0.22);
+    --edge-hover: rgba(42,157,143,0.7);
+    --text: #1a2e2b;
+    --muted: #5a7a74;
+    --tooltip-bg: rgba(255,255,255,0.98);
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
+  }
+
+  /* ── HEADER ── */
+  #header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 18px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(245,247,246,0.98), rgba(245,247,246,0));
+    pointer-events: none;
+  }
+  #header h1 {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent2);
+    font-family: 'Montserrat', sans-serif;
+  }
+  #header p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; color: var(--muted); letter-spacing: 0.06em;
+  }
+
+  /* ── CANVAS ── */
+  #graph { width: 100%; height: 100%; display: block; }
+
+  /* ── CONTROLS ── */
+  #controls {
+    position: fixed; bottom: 28px; left: 32px; z-index: 100;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .ctrl-btn {
+    width: 36px; height: 36px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 1px 4px rgba(42,157,143,0.08);
+  }
+  .ctrl-btn:hover { color: var(--accent2); border-color: var(--accent); background: var(--accent-glow); }
+
+  /* ── LEGEND ── */
+  #legend {
+    position: fixed; bottom: 28px; right: 32px; z-index: 100;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    min-width: 200px;
+    box-shadow: 0 2px 12px rgba(42,157,143,0.08);
+  }
+  #legend h3 {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 8px;
+    font-size: 12px; color: var(--text);
+  }
+  .legend-item:last-child { margin-bottom: 0; }
+  .legend-circle {
+    width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+    background: var(--node);
+    box-shadow: 0 0 6px var(--accent-glow);
+    border: 1.5px solid var(--node-stroke);
+  }
+  .legend-circle.lg {
+    width: 18px; height: 18px;
+    box-shadow: 0 0 12px var(--accent-glow);
+  }
+  .legend-line {
+    width: 24px; height: 1.5px;
+    background: var(--accent);
+    opacity: 0.4;
+  }
+
+  /* ── STATS BAR ── */
+  #stats {
+    position: fixed; top: 60px; right: 32px; z-index: 100;
+    display: flex; flex-direction: column; gap: 4px; align-items: flex-end;
+  }
+  .stat {
+    font-family: 'Montserrat', sans-serif;
+  }
+  .stat span { color: var(--accent2); font-weight: 600; }
+
+  /* ── TOOLTIP ── */
+  #tooltip {
+    position: fixed;
+    pointer-events: none;
+    z-index: 200;
+    background: var(--tooltip-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    min-width: 180px;
+    max-width: 260px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.15s, transform 0.15s;
+    box-shadow: 0 4px 20px rgba(42,157,143,0.12);
+  }
+  #tooltip.visible { opacity: 1; transform: translateY(0); }
+  #tooltip h4 {
+    font-size: 13px; font-weight: 700; color: var(--text);
+    margin-bottom: 6px; line-height: 1.3;
+    font-family: 'Montserrat', sans-serif;
+  }
+  #tooltip .tt-row {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; color: var(--muted);
+    margin-top: 3px;
+    display: flex; justify-content: space-between; gap: 12px;
+  }
+  #tooltip .tt-row span { color: var(--accent2); font-weight: 600; }
+
+  /* ── SEARCH ── */
+  #search-wrap {
+    position: fixed; top: 60px; left: 32px; z-index: 100;
+  }
+  #search {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    width: 220px;
+    outline: none;
+    transition: border-color 0.2s;
+    box-shadow: 0 1px 4px rgba(42,157,143,0.06);
+  }
+  #search::placeholder { color: var(--muted); }
+  #search:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+
+  /* glow pulse on hovered node */
+  .node-highlight { filter: drop-shadow(0 0 8px var(--accent)); }
+
+  /* subtle grid bg */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(42,157,143,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(42,157,143,0.07) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* legend font */
+  #legend { font-family: 'Montserrat', sans-serif; font-size: 12px; }
+  #legend h3 { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<div id="header">
+  <div>
+    <h1>Red de Coordinación Interorganizacional</h1>
+    <p style="margin-top:4px">Organizaciones sociales y comunitarias — Región de Antofagasta</p>
+  </div>
+</div>
+
+<div id="search-wrap">
+  <input id="search" type="text" placeholder="Buscar organización…">
+</div>
+
+<div id="stats">
+  <div class="stat"><span id="s-nodes">80</span> nodos</div>
+  <div class="stat"><span id="s-edges">98</span> vínculos</div>
+</div>
+
+<svg id="graph"></svg>
+
+<div id="controls">
+  <button class="ctrl-btn" id="btn-zoom-in" title="Acercar">+</button>
+  <button class="ctrl-btn" id="btn-zoom-out" title="Alejar">−</button>
+  <button class="ctrl-btn" id="btn-reset" title="Restablecer vista">⊙</button>
+</div>
+
+<div id="legend">
+  <h3>Referencia</h3>
+  <div class="legend-item">
+    <div class="legend-circle"></div>
+    Nodo de conexión
+  </div>
+  <div class="legend-item">
+    <div class="legend-circle lg"></div>
+    Alta centralidad
+  </div>
+  <div class="legend-item">
+    <div class="legend-line"></div>
+    Vínculo de coordinación
+  </div>
+</div>
+
+<div id="tooltip">
+  <h4 id="tt-name"></h4>
+  <div class="tt-row">Vínculos recibidos <span id="tt-in"></span></div>
+  <div class="tt-row">Vínculos emitidos <span id="tt-out"></span></div>
+</div>
+
+<script>
+const NODES = [{"id":"Cámara Chilena de la Construcción","in_degree":1,"is_source":false},{"id":"SERVIU","in_degree":2,"is_source":false},{"id":"JJVV Vista Hermosa Antofagasta","in_degree":0,"is_source":true},{"id":"JJVV Villa Ayquina N°14","in_degree":0,"is_source":true},{"id":"PROLOA","in_degree":1,"is_source":false},{"id":"JJVV El Golf","in_degree":0,"is_source":true},{"id":"SERPLAS","in_degree":1,"is_source":false},{"id":"CONAF","in_degree":1,"is_source":false},{"id":"Delegación Presidencial","in_degree":3,"is_source":false},{"id":"JJVV Villa Esmeralda","in_degree":0,"is_source":true},{"id":"BHP","in_degree":2,"is_source":false},{"id":"Municipalidad de Sierra Gorda","in_degree":1,"is_source":false},{"id":"JJVV José Papic","in_degree":0,"is_source":true},{"id":"JJVV Portada norte III","in_degree":0,"is_source":true},{"id":"Hospital de Calama","in_degree":1,"is_source":false},{"id":"ENGIE","in_degree":1,"is_source":false},{"id":"Puerto Angamos","in_degree":1,"is_source":false},{"id":"JJVV Sierra Nevada","in_degree":0,"is_source":true},{"id":"CODELCO","in_degree":2,"is_source":false},{"id":"JJVV Bellavista","in_degree":0,"is_source":true},{"id":"JJVV Ferrocarril N°8","in_degree":0,"is_source":true},{"id":"JJVV Oriente","in_degree":0,"is_source":true},{"id":"ENAEX","in_degree":1,"is_source":false},{"id":"Next","in_degree":1,"is_source":false},{"id":"Noracid","in_degree":1,"is_source":false},{"id":"JJVV N° 4 Baquedano","in_degree":0,"is_source":true},{"id":"JJVV Centro N°19","in_degree":0,"is_source":true},{"id":"JJVV Estadio Regional","in_degree":0,"is_source":true},{"id":"Carabineros","in_degree":5,"is_source":false},{"id":"CESFAM","in_degree":4,"is_source":false},{"id":"DIDECO","in_degree":2,"is_source":false},{"id":"JJVV Villa Florida","in_degree":0,"is_source":true},{"id":"JJVV Manuel Rodríguez","in_degree":0,"is_source":true},{"id":"Santo Tomás","in_degree":1,"is_source":false},{"id":"Funcultur","in_degree":1,"is_source":false},{"id":"JJVV Pablo Kruger","in_degree":0,"is_source":true},{"id":"Copec","in_degree":2,"is_source":false},{"id":"JJVV Sur 1 N°7","in_degree":0,"is_source":true},{"id":"Fundación gaviotín","in_degree":1,"is_source":false},{"id":"Colegio Juan López","in_degree":1,"is_source":false},{"id":"Asociación de Industriales Mejillones","in_degree":1,"is_source":false},{"id":"Consejo Norte","in_degree":1,"is_source":false},{"id":"JJVV Condominio los Aromos","in_degree":0,"is_source":true},{"id":"Sierra Gorda SCM","in_degree":1,"is_source":false},{"id":"Corporación de Deportes","in_degree":1,"is_source":false},{"id":"Oxiquim","in_degree":3,"is_source":false},{"id":"JJVV Miramar Norte","in_degree":0,"is_source":true},{"id":"Hospital de Mejillones","in_degree":1,"is_source":false},{"id":"Molynor","in_degree":2,"is_source":false},{"id":"junta de vecinos Chango López","in_degree":1,"is_source":false},{"id":"Cementos bio-bio","in_degree":1,"is_source":false},{"id":"Segunda Compañia de bomberos Mejillones","in_degree":0,"is_source":true},{"id":"jjvv n3 Sierra Gorda","in_degree":0,"is_source":true},{"id":"JJVV Villa Doña Francisca","in_degree":0,"is_source":true},{"id":"junta de vecinos de Altos club hípico","in_degree":1,"is_source":false},{"id":"JJVV Villa El Loa","in_degree":0,"is_source":true},{"id":"junta de vecinos Villa Esmeralda","in_degree":1,"is_source":false},{"id":"Centro de Madres 8 de octubre","in_degree":0,"is_source":true},{"id":"Mall Plaza","in_degree":1,"is_source":false},{"id":"Aguas Antofagasta","in_degree":7,"is_source":true},{"id":"Agrupación Acapulco","in_degree":0,"is_source":true},{"id":"JJVV Villa Chuquicamata","in_degree":0,"is_source":true},{"id":"Gobierno Regional","in_degree":10,"is_source":false},{"id":"Municipalidad de Antofagasta","in_degree":14,"is_source":false},{"id":"Altonorte","in_degree":1,"is_source":false},{"id":"Unión Comunal","in_degree":3,"is_source":false},{"id":"JJVV Ckaitchi","in_degree":0,"is_source":true},{"id":"Agrupación Mujeres por los Caminos de la Estación","in_degree":0,"is_source":true},{"id":"Municipalidad de Calama","in_degree":4,"is_source":false},{"id":"JJVV Augusto D'halmar","in_degree":0,"is_source":true},{"id":"Mantos Blancos","in_degree":1,"is_source":false},{"id":"Municipalidad de Mejillones","in_degree":2,"is_source":true},{"id":"JJVV Condominio Catalina Cruz","in_degree":0,"is_source":true},{"id":"Pacto global","in_degree":0,"is_source":true},{"id":"Cámara chilena de la construcción","in_degree":0,"is_source":true},{"id":"Pacto Global","in_degree":1,"is_source":false},{"id":"Farmacia la económica","in_degree":1,"is_source":false},{"id":"JJVV 21 de mayo","in_degree":1,"is_source":false},{"id":"JJVV Eleuterio Ramírez","in_degree":0,"is_source":true},{"id":"ATI","in_degree":1,"is_source":false}];
+
+const EDGES = [{"source":"Agrupación Acapulco","target":"CONAF"},{"source":"Agrupación Acapulco","target":"Gobierno Regional"},{"source":"Agrupación Acapulco","target":"junta de vecinos Chango López"},{"source":"Agrupación Acapulco","target":"junta de vecinos de Altos club hípico"},{"source":"Agrupación Acapulco","target":"junta de vecinos Villa Esmeralda"},{"source":"Agrupación Acapulco","target":"Unión Comunal"},{"source":"Agrupación Mujeres por los Caminos de la Estación","target":"Aguas Antofagasta"},{"source":"Agrupación Mujeres por los Caminos de la Estación","target":"Municipalidad de Antofagasta"},{"source":"Aguas Antofagasta","target":"Pacto Global"},{"source":"Cámara chilena de la construcción","target":"Gobierno Regional"},{"source":"Centro de Madres 8 de octubre","target":"Aguas Antofagasta"},{"source":"Centro de Madres 8 de octubre","target":"Copec"},{"source":"Centro de Madres 8 de octubre","target":"ENGIE"},{"source":"Centro de Madres 8 de octubre","target":"Fundación gaviotín"},{"source":"Centro de Madres 8 de octubre","target":"Hospital de Mejillones"},{"source":"Centro de Madres 8 de octubre","target":"Molynor"},{"source":"Centro de Madres 8 de octubre","target":"Municipalidad de Antofagasta"},{"source":"Centro de Madres 8 de octubre","target":"Oxiquim"},{"source":"JJVV Augusto D'halmar","target":"Altonorte"},{"source":"JJVV Augusto D'halmar","target":"ATI"},{"source":"JJVV Bellavista","target":"Carabineros"},{"source":"JJVV Bellavista","target":"Santo Tomás"},{"source":"JJVV Centro N°19","target":"Carabineros"},{"source":"JJVV Centro N°19","target":"Delegación Presidencial"},{"source":"JJVV Centro N°19","target":"DIDECO"},{"source":"JJVV Centro N°19","target":"Municipalidad de Antofagasta"},{"source":"JJVV Ckaitchi","target":"Aguas Antofagasta"},{"source":"JJVV Ckaitchi","target":"Cámara Chilena de la Construcción"},{"source":"JJVV Ckaitchi","target":"CODELCO"},{"source":"JJVV Ckaitchi","target":"Municipalidad de Calama"},{"source":"JJVV Ckaitchi","target":"PROLOA"},{"source":"JJVV Ckaitchi","target":"SERPLAS"},{"source":"JJVV Condominio Catalina Cruz","target":"Aguas Antofagasta"},{"source":"JJVV Condominio Catalina Cruz","target":"Farmacia la económica"},{"source":"JJVV Condominio Catalina Cruz","target":"Gobierno Regional"},{"source":"JJVV Condominio Catalina Cruz","target":"Municipalidad de Antofagasta"},{"source":"JJVV Condominio los Aromos","target":"Copec"},{"source":"JJVV Condominio los Aromos","target":"Next"},{"source":"JJVV El Golf","target":"Aguas Antofagasta"},{"source":"JJVV El Golf","target":"Cementos bio-bio"},{"source":"JJVV El Golf","target":"Delegación Presidencial"},{"source":"JJVV El Golf","target":"Municipalidad de Antofagasta"},{"source":"JJVV Eleuterio Ramírez","target":"CESFAM"},{"source":"JJVV Eleuterio Ramírez","target":"Municipalidad de Calama"},{"source":"JJVV Eleuterio Ramírez","target":"Unión Comunal"},{"source":"JJVV Estadio Regional","target":"JJVV 21 de mayo"},{"source":"JJVV Ferrocarril N°8","target":"ENAEX"},{"source":"JJVV Ferrocarril N°8","target":"Municipalidad de Mejillones"},{"source":"JJVV Ferrocarril N°8","target":"Oxiquim"},{"source":"JJVV José Papic","target":"CESFAM"},{"source":"JJVV José Papic","target":"Gobierno Regional"},{"source":"JJVV José Papic","target":"Municipalidad de Antofagasta"},{"source":"JJVV Manuel Rodríguez","target":"Carabineros"},{"source":"JJVV Manuel Rodríguez","target":"Hospital de Calama"},{"source":"JJVV Manuel Rodríguez","target":"SERVIU"},{"source":"JJVV Miramar Norte","target":"Gobierno Regional"},{"source":"JJVV Miramar Norte","target":"Municipalidad de Antofagasta"},{"source":"JJVV N° 4 Baquedano","target":"BHP"},{"source":"JJVV N° 4 Baquedano","target":"Mantos Blancos"},{"source":"JJVV N° 4 Baquedano","target":"Sierra Gorda SCM"},{"source":"jjvv n3 Sierra Gorda","target":"Municipalidad de Sierra Gorda"},{"source":"JJVV Oriente","target":"Municipalidad de Antofagasta"},{"source":"JJVV Pablo Kruger","target":"Gobierno Regional"},{"source":"JJVV Pablo Kruger","target":"Municipalidad de Antofagasta"},{"source":"JJVV Portada norte III","target":"Gobierno Regional"},{"source":"JJVV Portada norte III","target":"Municipalidad de Antofagasta"},{"source":"JJVV Sierra Nevada","target":"Gobierno Regional"},{"source":"JJVV Sur 1 N°7","target":"Noracid"},{"source":"JJVV Sur 1 N°7","target":"Oxiquim"},{"source":"JJVV Sur 1 N°7","target":"Puerto Angamos"},{"source":"JJVV Villa Ayquina N°14","target":"Carabineros"},{"source":"JJVV Villa Ayquina N°14","target":"CESFAM"},{"source":"JJVV Villa Ayquina N°14","target":"CODELCO"},{"source":"JJVV Villa Ayquina N°14","target":"Delegación Presidencial"},{"source":"JJVV Villa Ayquina N°14","target":"Municipalidad de Calama"},{"source":"JJVV Villa Chuquicamata","target":"DIDECO"},{"source":"JJVV Villa Chuquicamata","target":"Unión Comunal"},{"source":"JJVV Villa Doña Francisca","target":"CESFAM"},{"source":"JJVV Villa Doña Francisca","target":"Gobierno Regional"},{"source":"JJVV Villa Doña Francisca","target":"Municipalidad de Antofagasta"},{"source":"JJVV Villa Doña Francisca","target":"SERVIU"},{"source":"JJVV Villa El Loa","target":"Municipalidad de Calama"},{"source":"JJVV Villa Esmeralda","target":"Gobierno Regional"},{"source":"JJVV Villa Esmeralda","target":"Municipalidad de Antofagasta"},{"source":"JJVV Villa Florida","target":"Aguas Antofagasta"},{"source":"JJVV Villa Florida","target":"Municipalidad de Antofagasta"},{"source":"JJVV Vista Hermosa Antofagasta","target":"Aguas Antofagasta"},{"source":"JJVV Vista Hermosa Antofagasta","target":"BHP"},{"source":"JJVV Vista Hermosa Antofagasta","target":"Carabineros"},{"source":"JJVV Vista Hermosa Antofagasta","target":"Colegio Juan López"},{"source":"JJVV Vista Hermosa Antofagasta","target":"Municipalidad de Antofagasta"},{"source":"Municipalidad de Mejillones","target":"Asociación de Industriales Mejillones"},{"source":"Municipalidad de Mejillones","target":"Corporación de Deportes"},{"source":"Municipalidad de Mejillones","target":"Funcultur"},{"source":"Municipalidad de Mejillones","target":"Molynor"},{"source":"Pacto global","target":"Consejo Norte"},{"source":"Pacto global","target":"Mall Plaza"},{"source":"Segunda Compañia de bomberos Mejillones","target":"Municipalidad de Mejillones"}];
+
+// out-degree count
+const outDeg = {};
+EDGES.forEach(e => { outDeg[e.source] = (outDeg[e.source]||0)+1; });
+
+// ── D3 SETUP ──
+const svg = d3.select('#graph');
+let W = window.innerWidth, H = window.innerHeight;
+svg.attr('width', W).attr('height', H);
+
+const g = svg.append('g').attr('class','scene');
+
+// Defs: arrowhead + glow filter
+const defs = svg.append('defs');
+const glow = defs.append('filter').attr('id','glow');
+glow.append('feGaussianBlur').attr('stdDeviation','3').attr('result','blur');
+const feMerge = glow.append('feMerge');
+feMerge.append('feMergeNode').attr('in','blur');
+feMerge.append('feMergeNode').attr('in','SourceGraphic');
+
+// node size scale
+const maxIn = d3.max(NODES, d => d.in_degree) || 1;
+const rScale = d3.scaleSqrt().domain([0, maxIn]).range([6, 26]);
+
+// Force simulation
+const simulation = d3.forceSimulation(NODES)
+  .force('link', d3.forceLink(EDGES).id(d => d.id).distance(90).strength(0.4))
+  .force('charge', d3.forceManyBody().strength(-220).distanceMax(350))
+  .force('center', d3.forceCenter(W/2, H/2))
+  .force('collision', d3.forceCollide(d => rScale(d.in_degree) + 14))
+  .alphaDecay(0.022);
+
+// Edges
+const link = g.append('g').attr('class','links')
+  .selectAll('line')
+  .data(EDGES)
+  .join('line')
+    .attr('stroke','rgba(42,157,143,0.2)')
+    .attr('stroke-width', 1.2);
+
+// Nodes group
+const node = g.append('g').attr('class','nodes')
+  .selectAll('g')
+  .data(NODES)
+  .join('g')
+    .attr('class','node-g')
+    .style('cursor','pointer')
+    .call(d3.drag()
+      .on('start', dragStart)
+      .on('drag', dragged)
+      .on('end', dragEnd));
+
+// Glow ring (for high-degree nodes)
+node.filter(d => d.in_degree >= 4)
+  .append('circle')
+    .attr('r', d => rScale(d.in_degree) + 6)
+    .attr('fill','none')
+    .attr('stroke', 'rgba(42,157,143,0.15)')
+    .attr('stroke-width', 8);
+
+// Main circle
+node.append('circle')
+  .attr('r', d => rScale(d.in_degree))
+  .attr('fill', '#3dbfb0')
+  .attr('fill-opacity', d => d.in_degree === 0 ? 0.50 : 0.75)
+  .attr('stroke', '#2a9d8f')
+  .attr('stroke-width', d => d.in_degree >= 5 ? 2.5 : 1.5)
+  .attr('filter', d => d.in_degree >= 4 ? 'url(#glow)' : null);
+
+// Smart label wrapping: max 3 lines, ~14 chars per line, split at natural points
+function wrapLabel(name) {
+  const words = name.split(' ');
+  if (words.length === 1) return [name];
+
+  // Try to find splits at prepositions/articles for natural breaks
+  const BREAK_WORDS = new Set(['de','del','la','las','los','el','y','por','en','a']);
+
+  // Score a partition into lines: penalize long lines, reward breaking at prepositions
+  function buildLines(words, splits) {
+    const lines = [];
+    let prev = 0;
+    for (const s of [...splits, words.length]) {
+      lines.push(words.slice(prev, s).join(' '));
+      prev = s;
+    }
+    return lines;
+  }
+
+  function score(lines) {
+    const maxLen = Math.max(...lines.map(l => l.length));
+    return maxLen; // lower is better
+  }
+
+  const n = words.length;
+
+  // 1 line
+  if (name.length <= 14) return [name];
+
+  // Try 2 lines
+  let best2 = null, bestScore2 = Infinity;
+  for (let i = 1; i < n; i++) {
+    const lines = buildLines(words, [i]);
+    const s = score(lines);
+    // prefer splitting after prepositions or before them
+    const bonus = BREAK_WORDS.has(words[i]?.toLowerCase()) || BREAK_WORDS.has(words[i-1]?.toLowerCase()) ? -2 : 0;
+    if (s + bonus < bestScore2) { bestScore2 = s + bonus; best2 = lines; }
+  }
+
+  // Try 3 lines (only if still too long)
+  if (bestScore2 <= 16 || n <= 3) return best2;
+
+  let best3 = null, bestScore3 = Infinity;
+  for (let i = 1; i < n - 1; i++) {
+    for (let j = i + 1; j < n; j++) {
+      const lines = buildLines(words, [i, j]);
+      const s = score(lines);
+      if (s < bestScore3) { bestScore3 = s; best3 = lines; }
+    }
+  }
+  return best3 || best2;
+}
+
+// Labels
+node.append('text')
+  .attr('text-anchor','middle')
+  .attr('font-family','Montserrat, sans-serif')
+  .attr('font-size', d => d.in_degree >= 8 ? '10px' : '9px')
+  .attr('fill', d => d.in_degree >= 4 ? '#1a3d38' : 'rgba(40,80,74,0.75)')
+  .attr('pointer-events','none')
+  .each(function(d) {
+    const text = d3.select(this);
+    const lines = wrapLabel(d.id);
+    const r = rScale(d.in_degree);
+    const lineH = 11;
+    lines.forEach((line, i) => {
+      text.append('tspan')
+        .attr('x', 0)
+        .attr('dy', i === 0 ? (r + 10) + 'px' : lineH + 'px')
+        .text(line);
+    });
+  });
+
+// Tooltip
+const tooltip = document.getElementById('tooltip');
+const ttName = document.getElementById('tt-name');
+const ttIn = document.getElementById('tt-in');
+const ttOut = document.getElementById('tt-out');
+
+node.on('mouseover', function(event, d) {
+    const connectedIds = new Set();
+    EDGES.forEach(e => {
+      if (e.source.id === d.id) connectedIds.add(e.target.id);
+      if (e.target.id === d.id) connectedIds.add(e.source.id);
+    });
+    connectedIds.add(d.id);
+
+    // dim/highlight nodes
+    node.selectAll('circle')
+      .attr('fill-opacity', n => connectedIds.has(n.id) ? 1 : 0.1)
+      .attr('stroke-width', n => n.id === d.id ? 3 : (connectedIds.has(n.id) ? 2 : 1));
+    node.selectAll('text')
+      .attr('fill', n => connectedIds.has(n.id) ? '#0d1f1c' : 'rgba(40,80,74,0.15)');
+
+    // highlight/dim edges
+    link
+      .attr('stroke', e => (e.source.id===d.id||e.target.id===d.id) ? 'rgba(42,157,143,0.8)' : 'rgba(42,157,143,0.04)')
+      .attr('stroke-width', e => (e.source.id===d.id||e.target.id===d.id) ? 2.5 : 0.8);
+
+    // tooltip
+    ttName.textContent = d.id;
+    ttIn.textContent = d.in_degree;
+    ttOut.textContent = outDeg[d.id] || 0;
+    tooltip.classList.add('visible');
+  })
+  .on('mousemove', function(event) {
+    const x = event.clientX + 16, y = event.clientY - 10;
+    tooltip.style.left = (x + 260 > W ? x - 280 : x) + 'px';
+    tooltip.style.top = y + 'px';
+  })
+  .on('mouseout', function() {
+    node.selectAll('circle')
+      .attr('fill-opacity', n => n.in_degree===0 ? 0.50 : 0.75)
+      .attr('stroke-width', n => n.in_degree >= 5 ? 2.5 : 1.5);
+    node.selectAll('text')
+      .attr('fill', n => n.in_degree >= 4 ? '#1a3d38' : 'rgba(40,80,74,0.75)');
+    link.attr('stroke','rgba(42,157,143,0.2)').attr('stroke-width',1.2);
+    tooltip.classList.remove('visible');
+  });
+
+// Simulation tick
+simulation.on('tick', () => {
+  link
+    .attr('x1', d => d.source.x)
+    .attr('y1', d => d.source.y)
+    .attr('x2', d => d.target.x)
+    .attr('y2', d => d.target.y);
+  node.attr('transform', d => `translate(${d.x},${d.y})`);
+});
+
+// Drag
+function dragStart(event, d) {
+  if (!event.active) simulation.alphaTarget(0.3).restart();
+  d.fx = d.x; d.fy = d.y;
+}
+function dragged(event, d) { d.fx = event.x; d.fy = event.y; }
+function dragEnd(event, d) {
+  if (!event.active) simulation.alphaTarget(0);
+  d.fx = null; d.fy = null;
+}
+
+// Zoom
+const zoom = d3.zoom().scaleExtent([0.15, 4]).on('zoom', e => g.attr('transform', e.transform));
+svg.call(zoom);
+
+document.getElementById('btn-zoom-in').onclick = () => svg.transition().duration(300).call(zoom.scaleBy, 1.4);
+document.getElementById('btn-zoom-out').onclick = () => svg.transition().duration(300).call(zoom.scaleBy, 0.7);
+document.getElementById('btn-reset').onclick = () => svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity.translate(W/2, H/2).scale(0.9).translate(-W/2,-H/2));
+
+// Search
+const searchEl = document.getElementById('search');
+searchEl.addEventListener('input', function() {
+  const q = this.value.toLowerCase().trim();
+  node.selectAll('circle')
+    .attr('fill-opacity', d => {
+      if (!q) return d.in_degree===0 ? 0.55 : 0.8;
+      return d.id.toLowerCase().includes(q) ? 1 : 0.12;
+    })
+    .attr('stroke-width', d => {
+      if (!q) return d.in_degree>=5 ? 2 : 1.2;
+      return d.id.toLowerCase().includes(q) ? 3 : 1;
+    });
+  node.selectAll('text')
+    .attr('fill', d => {
+      if (!q) return d.in_degree>=4 ? '#1a3d38' : 'rgba(40,80,74,0.75)';
+      return d.id.toLowerCase().includes(q) ? '#0d1f1c' : 'rgba(40,80,74,0.2)';
+    });
+  link.attr('stroke', e => {
+    if (!q) return 'rgba(42,157,143,0.2)';
+    const sm = e.source.id?.toLowerCase().includes(q)||e.source.toLowerCase?.()?.includes(q);
+    const tm = e.target.id?.toLowerCase().includes(q)||e.target.toLowerCase?.()?.includes(q);
+    return (sm||tm) ? 'rgba(42,157,143,0.7)' : 'rgba(42,157,143,0.04)';
+  });
+});
+
+// Resize
+window.addEventListener('resize', () => {
+  W = window.innerWidth; H = window.innerHeight;
+  svg.attr('width', W).attr('height', H);
+  simulation.force('center', d3.forceCenter(W/2, H/2)).alpha(0.3).restart();
+});
+</script>
+</body>
+</html>

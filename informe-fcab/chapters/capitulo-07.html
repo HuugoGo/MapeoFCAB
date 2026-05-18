@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cap. 07 — Red de Coordinación | Estudio FCAB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    /* ── Estilos específicos Cap. 07 ── */
+
+    /* Corpus cards */
+    .net-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 24px 0 32px;
+    }
+    .net-stat {
+      background: var(--surface-1); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 18px 16px; text-align: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .net-stat .num { font-size: 30px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; display: block; }
+    .net-stat .lbl { font-size: 12px; color: var(--text-2); margin-top: 6px; display: block; line-height: 1.35; }
+    .net-stat.accent .num { color: var(--accent); }
+    .net-stat.green  .num { color: #059669; }
+    .net-stat.amber  .num { color: #D97706; }
+    .net-stat.red    .num { color: #DC2626; }
+
+    /* Network viz wrapper */
+    .viz-wrapper {
+      border: 1px solid var(--border); border-radius: var(--r);
+      overflow: hidden; margin: 24px 0;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.09);
+    }
+    .viz-header {
+      padding: 14px 20px; background: var(--surface-1);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    }
+    .viz-title-block { flex: 1; min-width: 0; }
+    .viz-title { font-size: 14px; font-weight: 700; color: var(--text-1); display: block; }
+    .viz-sub   { font-size: 12px; color: var(--text-2); margin-top: 2px; display: block; }
+    .viz-pills { display: flex; gap: 8px; flex-shrink: 0; }
+    .viz-pill  { font-size: 11px; font-weight: 600; color: var(--text-2); background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; }
+    .viz-pill strong { color: var(--text-1); }
+    .viz-expand {
+      font-size: 11px; font-weight: 600; color: var(--accent); text-decoration: none;
+      padding: 5px 10px; border-radius: var(--r-sm);
+      border: 1px solid rgba(37,99,235,0.25); background: rgba(37,99,235,0.05);
+      white-space: nowrap; transition: all 0.15s; flex-shrink: 0;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .viz-expand:hover { background: rgba(37,99,235,0.10); text-decoration: none; }
+    .viz-frame iframe { width: 100%; height: 680px; border: none; display: block; background: #f5f7f6; }
+    .viz-footer {
+      padding: 10px 20px; background: var(--surface-2);
+      border-top: 1px solid var(--border);
+      font-size: 12px; color: var(--text-3); display: flex; align-items: center; gap: 8px;
+    }
+
+    /* Centrality ranking */
+    .rank-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; margin: 20px 0; }
+    .rank-row {
+      display: grid; grid-template-columns: 32px 1fr 70px 180px 90px;
+      align-items: center; border-bottom: 1px solid var(--border);
+      background: var(--surface-1); transition: background 0.12s;
+    }
+    .rank-row:last-child { border-bottom: none; }
+    .rank-row:hover { background: var(--surface-2); }
+    .rank-row.header-row { background: var(--surface-2); pointer-events: none; }
+
+    .rank-num { font-size: 11px; font-weight: 700; color: var(--text-3); text-align: center; padding: 13px 0; border-right: 1px solid var(--border); align-self: stretch; display: flex; align-items: center; justify-content: center; }
+    .rank-row:nth-child(2) .rank-num { color: var(--accent); }
+    .rank-row:nth-child(3) .rank-num { color: var(--text-2); }
+    .rank-row:nth-child(4) .rank-num { color: var(--text-2); }
+
+    .rank-actor { padding: 13px 16px; font-size: 13px; font-weight: 500; color: var(--text-1); display: flex; align-items: center; gap: 8px; }
+    .actor-type { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 7px; border-radius: 20px; flex-shrink: 0; }
+    .at-pub  { background: rgba(37,99,235,0.08);  color: #1E40AF; border: 1px solid rgba(37,99,235,0.18); }
+    .at-mun  { background: rgba(124,58,237,0.08); color: #5B21B6; border: 1px solid rgba(124,58,237,0.18); }
+    .at-priv { background: rgba(217,119,6,0.08);  color: #92400E; border: 1px solid rgba(217,119,6,0.18); }
+    .at-soc  { background: rgba(5,150,105,0.08);  color: #065F46; border: 1px solid rgba(5,150,105,0.18); }
+    .at-sal  { background: rgba(16,185,129,0.08); color: #047857; border: 1px solid rgba(16,185,129,0.18); }
+
+    .rank-degree { padding: 13px 8px; font-size: 13px; font-weight: 700; color: var(--text-1); text-align: center; border-left: 1px solid var(--border); }
+    .rank-degree span { font-size: 10px; font-weight: 400; color: var(--text-3); display: block; }
+
+    .rank-bar-col { padding: 13px 16px; border-left: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+    .rank-bar-wrap { flex: 1; height: 6px; background: var(--surface-2); border-radius: 3px; overflow: hidden; }
+    .rank-bar { height: 100%; border-radius: 3px; }
+    .bar-pub  { background: #2563EB; opacity: 0.7; }
+    .bar-mun  { background: #7C3AED; opacity: 0.7; }
+    .bar-priv { background: #D97706; opacity: 0.7; }
+    .bar-sal  { background: #059669; opacity: 0.7; }
+    .bar-soc  { background: #0D9488; opacity: 0.7; }
+
+    .rank-pct { font-size: 11px; font-weight: 600; color: var(--text-3); min-width: 30px; text-align: right; }
+    .rank-note { padding: 13px 14px; border-left: 1px solid var(--border); font-size: 11.5px; color: var(--text-2); font-style: italic; }
+
+    /* Type legend */
+    .type-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+
+    /* Pattern cards */
+    .pattern-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+    .pattern-card { background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r); padding: 20px 22px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+    .pattern-card h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); margin-bottom: 10px; }
+    .pattern-card .big { font-size: 32px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: var(--text-1); margin-bottom: 6px; }
+    .pattern-card p { font-size: 13px; color: var(--text-2); line-height: 1.6; margin: 0; }
+
+    /* Absence callout */
+    .absence-block {
+      background: rgba(220,38,38,0.04); border: 1px solid rgba(220,38,38,0.15);
+      border-left: 4px solid #DC2626; border-radius: var(--r); padding: 22px 26px; margin: 24px 0;
+    }
+    .absence-block .ab-title { font-size: 15px; font-weight: 700; color: #991B1B; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .absence-block p { font-size: 13.5px; color: var(--text-2); line-height: 1.72; margin-bottom: 12px; }
+    .absence-block p:last-child { margin-bottom: 0; }
+    .absence-block strong { color: var(--text-1); }
+
+    @media (max-width: 700px) {
+      .net-stats { grid-template-columns: repeat(2, 1fr); }
+      .rank-row  { grid-template-columns: 32px 1fr 50px; }
+      .rank-bar-col, .rank-note { display: none; }
+      .pattern-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .net-stats { grid-template-columns: 1fr 1fr; }
+      .viz-frame iframe { height: 480px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <button class="header-toggle" id="sidebar-toggle" aria-label="Abrir menú">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <a href="../index.html" class="header-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Índice
+    </a>
+    <div class="header-sep"></div>
+    <span class="header-chapter">Capítulo 07 — Red de Coordinación Interorganizacional</span>
+    <div class="header-right">
+      <span class="header-agency">DOS BARBAS</span>
+    </div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar"></nav>
+
+  <!-- MAIN -->
+  <main class="chapter-main">
+    <div class="chapter-content">
+
+      <!-- ── ENCABEZADO ──────────────────────────────────────── -->
+      <header class="chapter-header">
+        <div class="chapter-meta">
+          <span class="chapter-num-label">Capítulo 07</span>
+        </div>
+        <h1>Red de Coordinación Interorganizacional</h1>
+        <p class="chapter-lead">Mapa de vínculos de coordinación auto-reportados entre organizaciones sociales del territorio, con análisis de centralidad, patrones de conexión y la posición estratégica de FCAB en la estructura relacional.</p>
+      </header>
+
+      <!-- ── 1. DISEÑO METODOLÓGICO ─────────────────────────── -->
+      <section class="section">
+        <h2>1. Diseño metodológico</h2>
+        <p>La red se construyó a partir de una pregunta incluida en las entrevistas semiestructuradas, formulada a cada organización social participante:</p>
+
+        <div class="callout">
+          <p><em>"¿Con qué otras organizaciones sociales, ONGs, empresas o municipios se coordina o conversa su organización de manera frecuente?"</em></p>
+        </div>
+
+        <p>Las relaciones declaradas se visualizan mediante el <strong>algoritmo Kamada-Kawai</strong>, que posiciona los nodos según su proximidad relacional: los actores con mayor conectividad mutua aparecen más cercanos en el mapa. La red refleja <strong>coordinaciones auto-reportadas</strong>, por lo que su alcance está acotado a lo que los propios actores declaran y no representa la totalidad de relaciones existentes en el territorio.</p>
+
+        <div class="net-stats">
+          <div class="net-stat accent">
+            <span class="num">80</span>
+            <span class="lbl">Nodos en la red (organizaciones)</span>
+          </div>
+          <div class="net-stat accent">
+            <span class="num">98</span>
+            <span class="lbl">Vínculos de coordinación declarados</span>
+          </div>
+          <div class="net-stat green">
+            <span class="num">1,2</span>
+            <span class="lbl">Vínculos por organización (promedio)</span>
+          </div>
+          <div class="net-stat red">
+            <span class="num">0</span>
+            <span class="lbl">Menciones de FCAB en la red</span>
+          </div>
+        </div>
+
+        <div class="callout callout-amber">
+          <p><strong>Alcance del análisis:</strong> Las organizaciones sociales entrevistadas fueron la fuente emisora de los vínculos declarados. Algunas instituciones como Municipalidad de Antofagasta, Gobierno Regional o Aguas Antofagasta no fueron entrevistadas directamente como parte de esta red: aparecen como destinos mencionados por las organizaciones de base. Los resultados reflejan la perspectiva comunitaria sobre sus relaciones, no la totalidad del ecosistema institucional.</p>
+        </div>
+      </section>
+
+      <!-- ── 2. RED INTERACTIVA ──────────────────────────────── -->
+      <section class="section">
+        <h2>2. Mapa interactivo de la red</h2>
+        <p>El gráfico muestra la red completa de coordinaciones declaradas. El tamaño de cada nodo refleja su <strong>grado de entrada</strong> (cuántas organizaciones lo mencionan como interlocutor). Los nodos de mayor tamaño son los actores que más organizaciones identifican como referente de coordinación.</p>
+
+        <div class="viz-wrapper">
+          <div class="viz-header">
+            <div class="viz-title-block">
+              <span class="viz-title">Red de Coordinación Interorganizacional</span>
+              <span class="viz-sub">Algoritmo Kamada-Kawai · Coordinations auto-reportadas · Organizaciones sociales, Región de Antofagasta</span>
+            </div>
+            <div class="viz-pills">
+              <div class="viz-pill"><strong>80</strong> nodos</div>
+              <div class="viz-pill"><strong>98</strong> vínculos</div>
+            </div>
+            <a href="../../red_coordinacion.html" target="_blank" class="viz-expand">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Pantalla completa
+            </a>
+          </div>
+          <div class="viz-frame">
+            <iframe src="../../red_coordinacion.html" scrolling="no" title="Red de Coordinación Interorganizacional"></iframe>
+          </div>
+          <div class="viz-footer">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Arrastrar para mover nodos · Scroll para zoom · Pasar el cursor para ver detalles · Usar el buscador (esquina superior izquierda) para localizar una organización
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 3. OBSERVACIONES ───────────────────────────────── -->
+      <section class="section">
+        <h2>3. Observaciones</h2>
+        <ul style="display:flex; flex-direction:column; gap:16px; padding-left:22px;">
+          <li><strong>Hacia el sector público:</strong> La Municipalidad de Antofagasta es el interlocutor más citado (14 organizaciones la mencionan), seguida del Gobierno Regional (10). Esto confirma que el vínculo con el municipio y el gobierno subnacional es el eje estructural de la coordinación comunitaria en el territorio.</li>
+          <li><strong>Hacia empresas privadas y mixtas:</strong> Aguas Antofagasta destaca como el actor privado más mencionado (7 vínculos), lo que sugiere que esta empresa —prestadora de servicios básicos— es reconocida como interlocutor activo. En menor medida aparecen Oxiquim (3), BHP (2), Copec (2) y Molynor (2), actores principalmente del sector industrial y minero de Mejillones.</li>
+        </ul>
+      </section>
+
+      <!-- ── NAVEGACIÓN ──────────────────────────────────────── -->
+      <nav class="chapter-nav" aria-label="Navegación entre capítulos">
+        <a href="../index.html" class="nav-btn nav-center">
+          <span class="nav-dir">↑ Inicio</span>
+          <span class="nav-label">Índice general</span>
+        </a>
+        <a href="capitulo-06.html" class="nav-btn">
+          <span class="nav-dir">← Anterior</span>
+          <span class="nav-label">Cap. 06</span>
+          <span class="nav-sub">Ecosistema de Actores</span>
+        </a>
+        <a href="capitulo-08.html" class="nav-btn nav-right">
+          <span class="nav-dir">Siguiente →</span>
+          <span class="nav-label">Cap. 08</span>
+          <span class="nav-sub">Análisis de Datos Descriptivos</span>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

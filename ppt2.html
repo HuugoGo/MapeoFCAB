@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Plataforma LiLi | Ecosistema Dinámico</title>
+  <style>
+    :root {
+      /* Colores Corporativos Tech / IA */
+      --bg: #030407;
+      --card-bg: rgba(15, 15, 25, 0.85);
+      
+      --accent-purple: #a855f7;
+      --accent-blue: #3b82f6;
+      --accent-pink: #ec4899;
+      --accent-green: #10b981;
+      --accent-glow: rgba(59, 130, 246, 0.25);
+      
+      --text-main: #f5f5f7;
+      --text-muted: #9ca3af;
+      --font: -apple-system, BlinkMacSystemFont, "Inter", "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      background-image: 
+        radial-gradient(circle at 10% 40%, rgba(168, 85, 247, 0.08), transparent 30%),
+        radial-gradient(circle at 90% 70%, rgba(59, 130, 246, 0.06), transparent 30%);
+    }
+
+    /* ----- TOPBAR ----- */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; height: 60px; z-index: 999;
+      display: flex; align-items: center; justify-content: space-between; padding: 0 32px;
+      background: rgba(3, 4, 7, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 14px; font-weight: 600; letter-spacing: 0.05em;
+    }
+    
+    .btn-pdf {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); color: #fff;
+      border: none; padding: 8px 20px; border-radius: 20px; font-size: 12px; font-weight: 700;
+      cursor: pointer; text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+    }
+    .btn-pdf:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); }
+
+    /* ----- HERO SECTION ----- */
+    .hero-space {
+      height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 0 20px; background: radial-gradient(circle at 50% 40%, var(--accent-glow) 0%, transparent 60%);
+    }
+
+    .hero-space h1 {
+      font-size: clamp(40px, 7vw, 84px); letter-spacing: -0.04em; line-height: 1.05;
+      background: linear-gradient(135deg, #ffffff 0%, #60a5fa 50%, #c084fc 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 24px; max-width: 900px;
+    }
+    .hero-space p { font-size: 22px; color: #d1d5db; max-width: 800px; line-height: 1.5; }
+
+    .scroll-indicator {
+      margin-top: 60px; font-size: 14px; color: #60a5fa; animation: pulse 2s infinite;
+      text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;
+    }
+
+    @keyframes pulse { 0%, 100% { opacity: 0.3; transform: translateY(0); } 50% { opacity: 1; transform: translateY(8px); } }
+
+    /* ----- LAYOUT MAESTRO (A PRUEBA DE BUGS) ----- */
+    .pin-container { position: relative; height: 100vh; width: 100vw; overflow: hidden; perspective: 1800px; }
+    
+    .scene-container {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; z-index: 10;
+    }
+
+    /* Reglas de Posicionamiento Escritorio */
+    @media (min-width: 1001px) {
+      .visual-right { justify-content: flex-end; padding-right: 10%; }
+      .visual-left { justify-content: flex-start; padding-left: 10%; }
+      .visual-top { align-items: flex-start; padding-top: 12vh; }
+      
+      .step-text.text-left { left: 5%; width: 40%; max-width: 500px; }
+      .step-text.text-right { right: 5%; width: 40%; max-width: 500px; }
+      .step-text.text-bottom { bottom: 6%; left: 50%; transform: translateX(-50%); width: 80%; max-width: 900px; text-align: center; top: auto; }
+    }
+
+    /* Reglas de Posicionamiento Móvil/Tablet */
+    @media (max-width: 1000px) {
+      .scene-container { align-items: flex-start; padding-top: 12vh; }
+      .scale-mobile { transform: scale(0.8); transform-origin: top center; }
+      .scale-mobile-small { transform: scale(0.65); transform-origin: top center; }
+      
+      .step-text { 
+        top: auto !important; bottom: 2% !important; left: 4% !important; right: auto !important; 
+        transform: none !important; width: 92% !important; max-height: 45vh; padding: 24px !important; 
+      }
+    }
+
+    /* ----- COMPONENTES VISUALES (Las Grillas) ----- */
+    
+    /* Escena 1: Tarjetas Grid */
+    .grid-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .s-card {
+      width: 220px; height: 230px; background: var(--card-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    .s-card .icon { font-size: 38px; margin-bottom: 12px; }
+    .s-card h3 { font-size: 16px; color: #fff; margin-bottom: 6px; }
+    .s-card p { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
+
+    /* Escena 2: Capas Isométricas */
+    .iso-stack { display: flex; flex-direction: column; gap: 16px; transform-style: preserve-3d; perspective: 1000px; }
+    .iso-layer {
+      width: 400px; height: 100px; background: rgba(18, 15, 30, 0.95); backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 20px;
+      display: flex; align-items: center; padding: 0 30px; gap: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+    .iso-layer h3 { font-size: 20px; color: #fff; width: 130px; }
+    .iso-layer p { font-size: 14px; color: #cbd5e1; flex: 1; }
+
+    /* Escena 3: Pirámide de Alertas */
+    .pyramid-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; justify-items: center; }
+    .pyramid-card {
+      width: 240px; height: 260px; background: rgba(10, 8, 15, 0.95); border-radius: 24px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px;
+      border: 1px solid; box-shadow: 0 30px 60px rgba(0,0,0,0.8); backdrop-filter: blur(20px);
+    }
+    .pyramid-card.wide { grid-column: span 2; }
+    .pyramid-card .icon { font-size: 48px; margin-bottom: 15px; }
+    .pyramid-card h3 { font-size: 18px; color: #fff; margin-bottom: 8px; }
+    .pyramid-card p { font-size: 13px; color: var(--text-muted); }
+
+    /* Escena 4: Timeline Nodos */
+    .timeline-flex { display: flex; gap: 0; align-items: center; justify-content: center; width: 800px; }
+    .node-item { display: flex; flex-direction: column; align-items: center; flex: 1; position: relative; }
+    .node-line { position: absolute; top: 35px; left: 50%; width: 100%; height: 3px; background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple)); z-index: 1;}
+    .node-item:last-child .node-line { display: none; }
+    .node-dot { width: 70px; height: 70px; border-radius: 50%; background: #0c0a14; border: 4px solid var(--accent-blue); z-index: 2; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 0 25px var(--accent-glow);}
+    .node-text { margin-top: 20px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); width: 90%; text-align: center;}
+    .node-text h4 { color: #fff; font-size: 15px; margin-bottom: 6px;}
+    .node-text p { font-size: 12px; color: #94a3b8; line-height: 1.4;}
+
+    /* Escena 5: Servidores */
+    .server-rack { display: flex; flex-direction: column; gap: 16px; width: 480px; transform-style: preserve-3d; perspective: 1200px;}
+    .server-blade {
+      background: rgba(15, 12, 25, 0.95); border: 1px solid rgba(255,255,255,0.15); padding: 20px 25px; border-radius: 12px; 
+      display: flex; align-items: center; gap: 18px; color: #fff; font-weight: 600; font-size: 16px;
+      box-shadow: inset 0 0 20px rgba(59, 130, 246, 0.1), 0 20px 40px rgba(0,0,0,0.8);
+      border-left: 4px solid var(--accent-blue);
+    }
+    .server-blade .icon { font-size: 26px; }
+
+    @media (max-width: 1000px) {
+       .timeline-flex { flex-direction: column; width: 300px; gap: 15px;}
+       .node-item { flex-direction: row; width: 100%; gap: 15px; }
+       .node-line { width: 3px; height: 100%; top: 50%; left: 33px; }
+       .node-text { margin-top: 0; text-align: left; }
+       .server-rack { width: 90%; }
+    }
+
+    /* ----- TEXTOS FLOTANTES ----- */
+    .step-text {
+      position: absolute; top: 50%; transform: translateY(-50%); 
+      max-height: 80vh; overflow-y: auto; opacity: 0; z-index: 50;
+      background: rgba(8, 6, 12, 0.85); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      padding: 40px; border: 1px solid rgba(255,255,255,0.08); border-radius: 24px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.9);
+    }
+    .step-text::-webkit-scrollbar { width: 6px; }
+    .step-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+
+    .eyebrow { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px; }
+    .step-text h2 { font-size: 34px; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 16px; color: #ffffff; }
+    .step-text p.lead { font-size: 16px; color: #cbd5e1; line-height: 1.5; margin-bottom: 16px; }
+    .step-text ul { display: flex; flex-direction: column; gap: 12px; text-align: left; }
+    .step-text li { position: relative; padding-left: 20px; font-size: 15px; color: #a1a1aa; line-height: 1.4; list-style: none; }
+    .step-text li strong { color: #f3f4f6; }
+    .step-text li::before { content: "■"; position: absolute; left: 0; top: 2px; font-size: 12px; }
+
+    /* Colores por sección */
+    .theme-blue .eyebrow { color: var(--accent-blue); } .theme-blue li::before { color: var(--accent-blue); }
+    .theme-purple .eyebrow { color: var(--accent-purple); } .theme-purple li::before { color: var(--accent-purple); }
+
+    /* ----- SUMMARY FINAL ----- */
+    .footer-space { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 24px; position: relative; z-index: 100; opacity: 0;}
+    .status-card { background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; padding: 60px; max-width: 700px; box-shadow: 0 30px 60px rgba(0,0,0,0.8); }
+    .status-card h3 { font-size: 42px; margin-bottom: 16px; letter-spacing: -0.02em; color: #fff;}
+    .pill-ok { display: inline-block; background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid #60a5fa; padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px; }
+
+    /* ========================================== */
+    /* ----- PDF PRINT STYLES ------ */
+    /* ========================================== */
+    .print-container { display: none; }
+    @media print {
+      @page { size: A4 landscape; margin: 0; }
+      body, html { 
+        background: #000 !important; color: #f5f5f7 !important; 
+        height: auto !important; min-height: auto !important; overflow: visible !important; 
+        -webkit-print-color-adjust: exact; print-color-adjust: exact; 
+      }
+      
+      .topbar, .hero-space, #scroll-sequence, .footer-space, .pin-spacer { 
+        display: none !important; height: 0 !important; margin: 0 !important; padding: 0 !important; position: absolute;
+      }
+      
+      .print-container { display: block !important; width: 100%; }
+
+      .print-page { 
+        width: 100vw; height: 100vh; page-break-after: always; padding: 15mm 20mm; box-sizing: border-box; 
+        display: flex; flex-direction: column; justify-content: center; background: #050508 !important; position: relative;
+      }
+      .print-layout { display: flex; align-items: center; justify-content: space-between; gap: 40px; height: 80%;}
+      .print-text { flex: 1.2; }
+      .print-visuals { flex: 1; display: flex; justify-content: center; align-items: center; }
+
+      .print-kicker { font-size: 14px; color: var(--accent-blue); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px; font-weight: 700; }
+      .print-title { font-size: 42px; font-weight: 800; margin-bottom: 16px; color: #fff; line-height: 1.1;}
+      .print-desc { font-size: 16px; color: #a1a1aa; margin-bottom: 24px; line-height: 1.5; }
+      
+      .print-text ul { padding-left: 0; margin: 0; list-style: none;}
+      .print-text li { position: relative; padding-left: 20px; font-size: 14px; color: #d1d5db; margin-bottom: 12px; line-height: 1.4; }
+      .print-text li strong { color: #fff;}
+      .print-text li::before { content: "■"; position: absolute; left: 0; top: 1px; color: var(--accent-blue); font-size: 12px;}
+      
+      .print-text.purple li::before { color: var(--accent-purple); }
+      .print-text.purple .print-kicker { color: var(--accent-purple); }
+
+      /* Estáticos PDF Replicas */
+      .p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%;}
+      .p-card { background: #0f0c19; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; text-align: center; border-top: 3px solid var(--accent-blue); }
+      .p-card .icon { font-size: 32px; margin-bottom: 10px; }
+      .p-card h3 { font-size: 16px; color: #fff; margin-bottom: 5px;}
+      .p-card p { font-size: 12px; color: #94a3b8; line-height: 1.3;}
+
+      .p-stack { display: flex; flex-direction: column; gap: 15px; width: 100%; }
+      .p-layer { background: #120f1e; border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; padding: 20px 25px; display: flex; align-items: center; gap: 20px; border-left: 5px solid var(--accent-blue); }
+      .p-layer h3 { font-size: 18px; color: #fff; width: 120px;}
+      .p-layer p { font-size: 14px; color: #cbd5e1; flex: 1;}
+
+      .p-alert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%;}
+      .p-alert { background: #0a080f; border: 1px solid rgba(168, 85, 247, 0.4); border-radius: 16px; padding: 25px 20px; text-align: center; }
+      .p-alert .icon { font-size: 40px; color: var(--accent-purple); margin-bottom: 15px;}
+      .p-alert h3 { font-size: 18px; color: #fff; margin-bottom: 8px;}
+      .p-alert p { font-size: 12px; color: #94a3b8;}
+      .p-alert.wide { grid-column: span 2; }
+
+      .p-timeline { display: flex; flex-direction: column; gap: 15px; width: 100%; position: relative;}
+      .p-node { display: flex; align-items: center; gap: 20px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 15px 20px; border-radius: 16px; z-index: 2; position: relative;}
+      .p-dot { width: 45px; height: 45px; border-radius: 50%; border: 3px solid var(--accent-blue); display: flex; align-items: center; justify-content: center; font-size: 20px; background: #0c0a14; flex-shrink: 0;}
+      .p-node-content h4 { color: #fff; font-size: 16px; margin-bottom: 4px;}
+      .p-node-content p { font-size: 13px; color: #94a3b8;}
+      
+      .p-server { background: rgba(15, 12, 25, 0.95); border: 1px solid rgba(255,255,255,0.15); padding: 20px; border-radius: 12px; display: flex; align-items: center; gap: 15px; color: #fff; font-weight: 600; border-left: 4px solid var(--accent-blue); margin-bottom: 15px;}
+
+      .print-footer { position: absolute; bottom: 15mm; left: 20mm; right: 20mm; display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;}
+      
+      .print-cover { flex-direction: column; justify-content: center; align-items: flex-start; }
+      .print-cover h1 { font-size: 56px; color: #fff; margin-bottom: 20px; line-height: 1.1;}
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div>Plataforma LiLi</div>
+    <div class="tb-right">
+      <span style="color: var(--text-muted); font-weight: 400;">Ecosistema de Capacitación</span>
+      <button class="btn-pdf" onclick="window.print()">Exportar PDF</button>
+    </div>
+  </header>
+
+  <section class="hero-space">
+    <h1>Tu Ecosistema de <br>Capacitación</h1>
+    <p>Desde el control operativo y la trazabilidad, hasta la automatización con Inteligencia Artificial. LiLi centraliza y escala la formación de tu empresa.</p>
+    <div class="scroll-indicator">Descubre la Plataforma ↓</div>
+  </section>
+
+  <div id="scroll-sequence">
+    <div class="pin-container">
+      
+      <div class="step-text text-left theme-blue" id="text1">
+        <p class="eyebrow">Fase 1: Control Inicial</p>
+        <h2>Registro y Ejecución</h2>
+        <p class="lead">Estructura la información y sigue el progreso de tu dotación sin complicaciones ni planillas de cálculo.</p>
+        <ul>
+          <li><strong>Ingreso de Cursos:</strong> Registro centralizado para mantener el inventario de capacitaciones ordenado.</li>
+          <li><strong>Seguimiento de Avance:</strong> Monitorea el estado de ejecución de las rutas formativas de cada trabajador.</li>
+          <li><strong>Hoja de Vida Digital:</strong> Creación de un historial unificado y permanentemente accesible para cada miembro.</li>
+        </ul>
+      </div>
+      <div class="scene-container visual-right" id="scene1">
+        <div class="grid-2x2 scale-mobile">
+          <div class="s-card c-card" style="border-top-color: var(--accent-blue);"><div class="icon">📝</div><h3>Registro Unificado</h3><p>Ingreso de cursos</p></div>
+          <div class="s-card c-card" style="border-top-color: var(--accent-blue);"><div class="icon">📊</div><h3>Avance</h3><p>Estado de ejecución</p></div>
+          <div class="s-card c-card" style="border-top-color: var(--accent-blue);"><div class="icon">🗂️</div><h3>Historial</h3><p>Hoja de vida consolidada</p></div>
+          <div class="s-card c-card" style="border-top-color: var(--accent-blue);"><div class="icon">✅</div><h3>Validación</h3><p>Control de asistencia</p></div>
+        </div>
+      </div>
+
+      <div class="step-text text-right theme-blue" id="text2">
+        <p class="eyebrow">Fase 2: Gestión y Terreno</p>
+        <h2>Trazabilidad y Alertas</h2>
+        <p class="lead">Mantén el cumplimiento normativo bajo control absoluto con reportes e involucrando a las jefaturas.</p>
+        <ul>
+          <li><strong>Dashboards para RRHH:</strong> Reportabilidad gráfica para visualizar el estado de cumplimiento de toda la compañía.</li>
+          <li><strong>Alertas de Vencimiento:</strong> Avisos proactivos a los 30, 15 y 0 días antes de que expire una certificación.</li>
+          <li><strong>Control de Terreno:</strong> Digitalización de diagnósticos para que las jefaturas evalúen la aplicación real de lo aprendido.</li>
+        </ul>
+      </div>
+      <div class="scene-container visual-left" id="scene2">
+        <div class="iso-stack scale-mobile" id="s2-stack">
+          <div class="iso-layer layer-item" style="border-left-color: #ef4444;"><h3>Alertas</h3><p>Avisos de Vencimiento Normativo</p></div>
+          <div class="iso-layer layer-item" style="border-left-color: var(--accent-blue);"><h3>Terreno</h3><p>Diagnósticos y Jefaturas</p></div>
+          <div class="iso-layer layer-item" style="border-left-color: var(--accent-blue);"><h3>Dashboards</h3><p>Reportabilidad RRHH</p></div>
+        </div>
+      </div>
+
+      <div class="step-text text-left theme-purple" id="text3">
+        <p class="eyebrow">Fase 3: Automatización</p>
+        <h2 style="margin-bottom: 10px;">Inteligencia Artificial</h2>
+        <p class="lead">Lleva la gestión al siguiente nivel delegando tareas complejas a nuestro motor de IA.</p>
+        <ul>
+          <li><strong>Rutas Formativas IA:</strong> Generación y sugerencia inteligente de rutas de cursos según el perfil del cargo.</li>
+          <li><strong>Optimización de Rutas:</strong> Herramienta impulsada por IA para cargar y mejorar estructuras de capacitación existentes.</li>
+          <li><strong>Diagnósticos y DNC:</strong> Creación inteligente de instrumentos para detectar brechas y necesidades corporativas.</li>
+        </ul>
+      </div>
+      <div class="scene-container visual-right" id="scene3">
+        <div class="pyramid-grid scale-mobile-small">
+          <div class="pyramid-card a-card" style="border-color: rgba(168, 85, 247, 0.5);"><div class="icon" style="color: var(--accent-purple);">🤖</div><h3>Rutas IA</h3><p>Rutas generadas inteligentemente</p></div>
+          <div class="pyramid-card a-card" style="border-color: rgba(168, 85, 247, 0.5);"><div class="icon" style="color: var(--accent-purple);">🔍</div><h3>Brechas</h3><p>Diagnósticos estructurados</p></div>
+          <div class="pyramid-card a-card wide" style="border-color: rgba(168, 85, 247, 0.5);"><div class="icon" style="color: var(--accent-purple);">📈</div><h3>DNC</h3><p>Detección de necesidades</p></div>
+        </div>
+      </div>
+
+      <div class="step-text text-bottom theme-purple" id="text4" style="border-top-color: var(--accent-purple);">
+        <p class="eyebrow">Fase 4: Ecosistema Completo</p>
+        <h2>Integraciones Corporativas</h2>
+        <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 10px; max-width: 800px; margin-left:auto; margin-right:auto;">
+          <li style="grid-column: span 2;"><strong>Sincronización Buk (RRHH):</strong> Conexión nativa para mantener las nóminas y altas/bajas actualizadas automáticamente.</li>
+          <li style="grid-column: span 2;"><strong>Conexión Moodle (LMS):</strong> Integración de avance teórico directo desde tu plataforma de e-learning interna.</li>
+        </ul>
+      </div>
+      <div class="scene-container visual-top" id="scene4">
+        <div class="timeline-flex scale-mobile">
+          <div class="node-item n-item"><div class="node-line"></div><div class="node-dot">🔗</div><div class="node-text"><h4>API Sync</h4><p>Conexión segura</p></div></div>
+          <div class="node-item n-item"><div class="node-line"></div><div class="node-dot">👥</div><div class="node-text"><h4>BUK</h4><p>Sincronización de Dotación</p></div></div>
+          <div class="node-item n-item"><div class="node-dot">🎓</div><div class="node-text"><h4>Moodle</h4><p>Avance LMS Integrado</p></div></div>
+        </div>
+      </div>
+
+      <div class="step-text text-left theme-blue" id="text5">
+        <p class="eyebrow">Fase 5: Infraestructura</p>
+        <h2>Arquitectura Técnica</h2>
+        <p class="lead">Construido con estándares de ingeniería modernos para garantizar seguridad, velocidad y alta disponibilidad en la nube.</p>
+        <ul>
+          <li><strong>Stack Tecnológico:</strong> Frontend desarrollado en <b>React</b> para máxima velocidad y backend serverless escalable.</li>
+          <li><strong>Base de Datos y Seguridad:</strong> Arquitectura basada en <b>Supabase</b> (PostgreSQL) con encriptación de datos sensibles.</li>
+          <li><strong>Control de Acceso (RLS):</strong> Políticas de Row Level Security (RLS) para garantizar que cada usuario vea solo lo que le corresponde.</li>
+        </ul>
+      </div>
+      <div class="scene-container visual-right" id="scene5">
+        <div class="server-rack scale-mobile">
+          <div class="server-blade sr-item"><span class="icon">⚛️</span> Frontend React de Alto Rendimiento</div>
+          <div class="server-blade sr-item"><span class="icon">🗄️</span> Supabase (PostgreSQL) Cloud</div>
+          <div class="server-blade sr-item"><span class="icon">🔒</span> Seguridad RLS y Encriptación</div>
+          <div class="server-blade sr-item"><span class="icon">🔌</span> Integración Vía API RESTful</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <section class="footer-space" id="final-summary">
+    <div class="status-card">
+      <div class="pill-ok">Crecimiento Asegurado</div>
+      <h3>El Sistema que Escala Contigo</h3>
+      <p style="color: #cbd5e1; font-size: 20px; margin-bottom: 30px; line-height: 1.5;">
+        Inicia ordenando la base operativa, trazando el cumplimiento, y escala hacia el futuro automatizando procesos con Inteligencia Artificial.
+      </p>
+      <button class="btn-pdf" style="font-size: 16px; padding: 14px 40px; border-radius: 30px;" onclick="window.print()">Descargar Brochure Completo</button>
+    </div>
+  </section>
+
+  <div class="print-container">
+    
+    <div class="print-page print-cover">
+      <div class="print-kicker">Plataforma Tecnológica de Capacitación</div>
+      <h1>La Evolución del <br>Aprendizaje con LiLi</h1>
+      <p>LiLi acompaña la madurez de tu empresa. Desde establecer una base sólida de registro y alertas, hasta automatizar la estrategia formativa mediante Inteligencia Artificial e integraciones corporativas.</p>
+      <div class="print-footer"><span>Brochure Comercial</span><span>Plataforma LiLi</span></div>
+    </div>
+
+    <div class="print-page">
+      <div class="print-layout">
+        <div class="print-text">
+          <div class="print-kicker">Fase 1: Control Inicial</div>
+          <h2 class="print-title">Registro y Ejecución</h2>
+          <p class="print-desc">Estructura la información y sigue el progreso de tu dotación sin complicaciones ni planillas de cálculo.</p>
+          <ul>
+            <li><strong>Ingreso de Cursos:</strong> Registro centralizado para mantener el inventario de capacitaciones de forma unificada.</li>
+            <li><strong>Seguimiento de Avance:</strong> Monitoreo del estado de ejecución de las rutas por trabajador.</li>
+            <li><strong>Hoja de Vida:</strong> Historial integral y accesible para cada miembro de la organización.</li>
+            <li><strong>Proveedores:</strong> Acceso exclusivo para conectar a OTEC y OTIC directamente.</li>
+          </ul>
+        </div>
+        <div class="print-visuals">
+          <div class="p-grid">
+            <div class="p-card"><div class="icon">📝</div><h3>Registro Unificado</h3></div>
+            <div class="p-card"><div class="icon">📊</div><h3>Avance</h3></div>
+            <div class="p-card"><div class="icon">🗂️</div><h3>Historial</h3></div>
+            <div class="p-card"><div class="icon">✅</div><h3>Validación</h3></div>
+          </div>
+        </div>
+      </div>
+      <div class="print-footer"><span>Página 2</span><span>Plataforma LiLi</span></div>
+    </div>
+
+    <div class="print-page">
+      <div class="print-layout">
+        <div class="print-text">
+          <div class="print-kicker">Fase 2: Gestión y Terreno</div>
+          <h2 class="print-title">Trazabilidad y Alertas</h2>
+          <p class="print-desc">Mantén el cumplimiento normativo bajo control absoluto con reportes e involucrando a las jefaturas.</p>
+          <ul>
+            <li><strong>Dashboards para RRHH:</strong> Reportabilidad gráfica para visualizar el estado de cumplimiento.</li>
+            <li><strong>Control de Terreno:</strong> Digitalización de evaluaciones prácticas para jefaturas directas.</li>
+            <li><strong>Alertas de Vencimiento:</strong> Avisos automáticos a los 30, 15 y 0 días de la expiración de certificaciones.</li>
+            <li><strong>Control de Brechas:</strong> Las reprobaciones detonan planes de nivelación.</li>
+          </ul>
+        </div>
+        <div class="print-visuals">
+          <div class="p-stack">
+            <div class="p-layer" style="border-color: #ef4444;"><h3>Alertas</h3><p>Avisos de Vencimiento</p></div>
+            <div class="p-layer"><h3>Terreno</h3><p>Diagnósticos y Jefaturas</p></div>
+            <div class="p-layer"><h3>Dashboards</h3><p>Reportabilidad RRHH</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="print-footer"><span>Página 3</span><span>Plataforma LiLi</span></div>
+    </div>
+
+    <div class="print-page">
+      <div class="print-layout">
+        <div class="print-text purple">
+          <div class="print-kicker">Fase 3: Automatización</div>
+          <h2 class="print-title">Inteligencia Artificial</h2>
+          <p class="print-desc">Lleva la gestión al siguiente nivel delegando tareas complejas a nuestro motor de IA.</p>
+          <ul>
+            <li><strong>Rutas Formativas IA:</strong> Generación y sugerencia de rutas de aprendizaje según el perfil.</li>
+            <li><strong>Optimización de Rutas:</strong> Herramienta para cargar y estructurar rutas existentes mediante IA.</li>
+            <li><strong>Diagnósticos Automáticos:</strong> Creación inteligente de instrumentos para detectar brechas y necesidades.</li>
+          </ul>
+        </div>
+        <div class="print-visuals">
+          <div class="p-alert-grid">
+            <div class="p-alert"><div class="icon">🤖</div><h3>Rutas IA</h3></div>
+            <div class="p-alert"><div class="icon">🔍</div><h3>Brechas</h3></div>
+            <div class="p-alert wide"><div class="icon">📈</div><h3>DNC Inteligente</h3></div>
+          </div>
+        </div>
+      </div>
+      <div class="print-footer"><span>Página 4</span><span>Plataforma LiLi</span></div>
+    </div>
+
+    <div class="print-page">
+      <div class="print-layout">
+        <div class="print-text purple">
+          <div class="print-kicker">Fase 4: Ecosistema Completo</div>
+          <h2 class="print-title">Integraciones</h2>
+          <p class="print-desc">La interoperabilidad total para que la capacitación fluya sin doble digitación.</p>
+          <ul>
+            <li><strong>Sincronización Buk:</strong> Conexión nativa con el software de RRHH.</li>
+            <li><strong>Conexión Moodle (LMS):</strong> Integración de avance teórico directo desde e-learning.</li>
+            <li><strong>Ecosistema API:</strong> Interoperabilidad total con otras plataformas.</li>
+          </ul>
+        </div>
+        <div class="print-visuals">
+          <div class="p-timeline">
+            <div class="p-node"><div class="p-dot">🔗</div><div class="p-node-content"><h4>API Sync</h4></div></div>
+            <div class="p-node"><div class="p-dot">👥</div><div class="p-node-content"><h4>BUK</h4></div></div>
+            <div class="p-node"><div class="p-dot">🎓</div><div class="p-node-content"><h4>Moodle</h4></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="print-footer"><span>Página 5</span><span>Plataforma LiLi</span></div>
+    </div>
+
+    <div class="print-page">
+      <div class="print-layout">
+        <div class="print-text">
+          <div class="print-kicker">Fase 5: Infraestructura</div>
+          <h2 class="print-title">Arquitectura Técnica</h2>
+          <p class="print-desc">Construido con estándares de ingeniería modernos para garantizar seguridad y rendimiento corporativo.</p>
+          <ul>
+            <li><strong>Stack Tecnológico:</strong> Frontend desarrollado en <b>React</b> para máxima velocidad y backend escalable.</li>
+            <li><strong>Base de Datos y Seguridad:</strong> Arquitectura basada en <b>Supabase</b> (PostgreSQL) con encriptación de datos.</li>
+            <li><strong>Control de Acceso (RLS):</strong> Políticas de Row Level Security (RLS) para garantizar control de accesos.</li>
+          </ul>
+        </div>
+        <div class="print-visuals">
+          <div class="p-stack">
+            <div class="p-server"><span class="icon">⚛️</span> Frontend React de Alto Rendimiento</div>
+            <div class="p-server"><span class="icon">🗄️</span> Supabase (PostgreSQL) Cloud</div>
+            <div class="p-server"><span class="icon">🔒</span> Seguridad RLS y Encriptación</div>
+            <div class="p-server"><span class="icon">🔌</span> Integración Vía API RESTful</div>
+          </div>
+        </div>
+      </div>
+      <div class="print-footer"><span>Página 6</span><span>Plataforma LiLi</span></div>
+    </div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const tl = gsap.timeline({
+      scrollTrigger: { trigger: "#scroll-sequence", start: "top top", end: "+=10000px", pin: true, scrub: 1 }
+    });
+
+    // --- ESCENA 1: Tarjetas Grid ---
+    tl.to("#scene1", { opacity: 1, duration: 0.1 })
+      .fromTo(".c-card", { y: 100, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.1, duration: 0.8, ease: "power2.out" })
+      .to("#text1", { opacity: 1, duration: 0.5 }, "<")
+      .to("#text1", { opacity: 0, duration: 0.5 }, "+=2.0")
+      .to("#scene1", { opacity: 0, duration: 0.5 }, "<");
+
+    // --- ESCENA 2: Isométrico ---
+    tl.to("#scene2", { opacity: 1, duration: 0.1 })
+      .fromTo(".layer-item", { x: -50, opacity: 0 }, { x: 0, opacity: 1, stagger: 0.1, duration: 0.8 })
+      .to("#text2", { opacity: 1, duration: 0.5 }, "<")
+      .to("#scene2", { duration: 1.5 }) 
+      .to("#s2-stack", { rotateX: 60, rotateZ: window.innerWidth > 1000 ? 25 : -15, duration: 1, ease: "power2.inOut" }) 
+      .to(".layer-item:nth-child(1)", { z: 160, duration: 1, ease: "power2.inOut" }, "<")
+      .to(".layer-item:nth-child(2)", { z: 80, duration: 1, ease: "power2.inOut" }, "<")
+      .to(".layer-item:nth-child(3)", { z: 0, duration: 1, ease: "power2.inOut" }, "<")
+      .to("#text2", { opacity: 0, duration: 0.5 }, "+=1.5")
+      .to("#scene2", { opacity: 0, duration: 0.5 }, "<");
+
+    // --- ESCENA 3: Alertas Pirámide ---
+    tl.to("#scene3", { opacity: 1, duration: 0.1 })
+      .fromTo(".a-card", { y: -150, opacity: 0 }, { y: 0, opacity: 1, rotationZ: (i) => [-3, 3, 0][i], stagger: 0.1, duration: 1, ease: "bounce.out" })
+      .to("#text3", { opacity: 1, duration: 0.5 }, "<")
+      .to("#text3", { opacity: 0, duration: 0.5 }, "+=2.0")
+      .to("#scene3", { opacity: 0, duration: 0.5 }, "<");
+
+    // --- ESCENA 4: Nodos Timeline ---
+    tl.to("#scene4", { opacity: 1, duration: 0.1 })
+      .fromTo(".n-item", { y: 50, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.15, duration: 0.8, ease: "back.out(1.5)" })
+      .to("#text4", { opacity: 1, duration: 0.5 }, "<")
+      .to("#text4", { opacity: 0, duration: 0.5 }, "+=2.0")
+      .to("#scene4", { opacity: 0, duration: 0.5 }, "<");
+
+    // --- ESCENA 5: Servidores Racks ---
+    tl.to("#scene5", { opacity: 1, duration: 0.1 })
+      .fromTo(".sr-item", { x: window.innerWidth > 1000 ? 150 : 0, y: window.innerWidth > 1000 ? 0 : 50, opacity: 0, rotationY: 30 }, 
+                         { x: 0, y: 0, opacity: 1, rotationY: 0, stagger: 0.1, duration: 1, ease: "power3.out" })
+      .to("#text5", { opacity: 1, duration: 0.5 }, "<")
+      .to("#text5", { opacity: 0, duration: 0.5 }, "+=2.0")
+      .to("#scene5", { opacity: 0, duration: 0.5 }, "<");
+
+    // --- FINAL DIVE ---
+    tl.to("#final-summary", { opacity: 1, duration: 1.5 });
+
+  </script>
+</body>
+</html>
