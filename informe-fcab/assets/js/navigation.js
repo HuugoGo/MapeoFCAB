@@ -333,8 +333,57 @@ function buildSectionTOC() {
   sections.forEach(sec => { if (sec.id) observer.observe(sec); });
 }
 
+/* ================================================================
+   buildProgressBar — Barra de progreso de lectura (2px, top fixed)
+   ================================================================ */
+function buildProgressBar() {
+  const bar = document.createElement('div');
+  bar.className = 'scroll-progress';
+  document.body.prepend(bar);
+
+  const update = () => {
+    const scrolled = window.scrollY;
+    const total    = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = total > 0 ? `${(scrolled / total) * 100}%` : '0%';
+  };
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
+/* ================================================================
+   animateSections — Entrada suave de secciones al hacer scroll
+   ================================================================ */
+function animateSections() {
+  const sections = Array.from(document.querySelectorAll('.section'));
+  if (!sections.length) return;
+
+  const fold = window.innerHeight * 0.85;
+  sections.forEach(sec => {
+    if (sec.getBoundingClientRect().top > fold) {
+      sec.classList.add('section-hidden');
+    }
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.remove('section-hidden');
+        e.target.classList.add('section-visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.06 });
+
+  sections.forEach(sec => {
+    if (sec.classList.contains('section-hidden')) observer.observe(sec);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   buildSidebar();
   buildMobileToggle();
   buildSectionTOC();
+  buildProgressBar();
+  animateSections();
 });
