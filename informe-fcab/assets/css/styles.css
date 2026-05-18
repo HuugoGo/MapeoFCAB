@@ -161,6 +161,10 @@ li { color: var(--text-2); line-height: 1.65; margin-bottom: 6px; }
 .callout.callout-amber p { color: var(--text-1); }
 .callout.callout-green { border-left-color: var(--green); background: rgba(16,185,129,0.07); }
 .callout.callout-green p { color: var(--text-1); }
+.callout.callout-info { border-left-color: #0891B2; background: rgba(8,145,178,0.06); }
+.callout.callout-info p { color: var(--text-1); }
+.callout.callout-red { border-left-color: var(--red); background: rgba(220,38,38,0.05); }
+.callout.callout-red p { color: var(--text-1); }
 
 .finding {
   background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r);
@@ -168,6 +172,28 @@ li { color: var(--text-2); line-height: 1.65; margin-bottom: 6px; }
 }
 .finding-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 6px; }
 .finding p { color: var(--text-2); margin: 0; font-size: 14px; line-height: 1.65; }
+
+/* Insight — hallazgo analítico destacado */
+.insight {
+  background: var(--surface-1); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 18px 22px; margin-bottom: 20px;
+  border-left: 4px solid var(--accent-alt);
+}
+.insight-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--accent-alt); margin-bottom: 8px;
+}
+.insight p { color: var(--text-2); margin: 0; font-size: 14px; line-height: 1.7; }
+.insight strong { color: var(--text-1); }
+
+/* Pull quote — cita de entrevistado */
+.pull-quote {
+  margin: 16px 0; padding: 14px 20px;
+  background: var(--surface-2); border-left: 3px solid var(--border-2);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+}
+.pull-quote p { font-size: 13.5px; font-style: italic; color: var(--text-2); margin: 0; line-height: 1.65; }
+.pull-quote cite { display: block; font-size: 11px; color: var(--text-3); font-style: normal; margin-top: 6px; }
 
 /* --- METHOD CARDS --------------------------------------------- */
 .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px; }
