@@ -147,6 +147,24 @@
     .profile-card-note { font-size: 12px; color: var(--text-2); line-height: 1.55; border-top: 1px solid var(--border); padding-top: 10px; }
     @media (max-width: 640px) { .profile-grid { grid-template-columns: 1fr; } }
 
+    /* ── Sistema de tabs por variable ── */
+    .var-tabs { margin-bottom: 32px; }
+    .var-tab-bar {
+      display: flex; gap: 0; margin-bottom: 20px;
+      border-bottom: 2px solid var(--border);
+    }
+    .var-tab-btn {
+      font-size: 12px; font-weight: 600; padding: 9px 16px;
+      border: none; background: none; cursor: pointer;
+      color: var(--text-3); border-bottom: 2px solid transparent;
+      margin-bottom: -2px; transition: color .15s, border-color .15s;
+      white-space: nowrap;
+    }
+    .var-tab-btn:hover { color: var(--text-2); }
+    .var-tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .var-tab-panel { display: none; }
+    .var-tab-panel.active { display: block; }
+
     /* ── Tabla estadística descriptiva ── */
     .desc-table-wrap {
       overflow-x: auto; margin: 20px 0;
@@ -424,97 +442,68 @@
 
         <p>Esta variable evalúa el nivel de influencia que el actor atribuye a FCAB sobre su territorio, medida en escala 1–7. El 58% de los actores evalúa la influencia en el rango 5–6 (alta), el 21% en 7 (muy alta), el 16% en 3–4 (media) y solo el 5% en 1–2 (baja).</p>
 
-        <!-- Gráfico 1 -->
-        <div class="chart-block">
-          <h3>Influencia percibida por tipo de actor</h3>
-          <p>La variación entre tipos de actores es acotada (rango 4,61–5,12), pero su dirección es analíticamente significativa: los actores con mayor conocimiento del funcionamiento económico regional lideran la percepción, mientras que quienes viven la relación de manera más cotidiana —comunidades y autoridades— la evalúan por debajo del promedio del eje.</p>
-          <div class="score-rows">
-            <div class="score-row">
-              <div class="score-label">Sector productivo, clientes y gremios</div>
-              <div class="score-bar-wrap"><div class="score-bar" style="width:73.1%"></div></div>
-              <div class="score-num">5,12</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Sociedad civil, academia y medios</div>
-              <div class="score-bar-wrap"><div class="score-bar" style="width:72.7%"></div></div>
-              <div class="score-num">5,09</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Comunidad y organización social</div>
-              <div class="score-bar-wrap"><div class="score-bar" style="width:70.4%"></div></div>
-              <div class="score-num">4,93</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Autoridades</div>
-              <div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:65.9%"></div></div>
-              <div class="score-num">4,61</div>
-            </div>
+        <div class="var-tabs">
+          <div class="var-tab-bar">
+            <button class="var-tab-btn active" type="button">Por tipo de actor</button>
+            <button class="var-tab-btn" type="button">Distribución general</button>
+            <button class="var-tab-btn" type="button">Por territorio</button>
           </div>
-          <div class="chart-container">
-            <iframe src="../../influencia_fcab_territorio_segmentacion_1_7.html"
-                    scrolling="no"
-                    title="Influencia percibida por tipo de actor"
-                    style="height:460px"></iframe>
-          </div>
-        </div>
 
-        <p>Al desagregar por tipo de actor, el sector productivo, clientes y gremios lidera con 5,12, seguido de la sociedad civil, academia y medios con 5,09. Este resultado revela que son los actores con mayor conocimiento del funcionamiento económico regional —no necesariamente los más cercanos a FCAB— quienes reconocen con mayor claridad su peso territorial. Los gremios industriales y las organizaciones académicas comprenden que FCAB es un actor estructural en la economía de la región, aunque ese reconocimiento no derive en una relación satisfactoria.</p>
-        <p>Comunidad y organización social (4,93) y las autoridades (4,61) puntúan por debajo del promedio. Para muchas JJVV, la influencia de FCAB en sus decisiones cotidianas es concreta pero acotada a aspectos físicos —ruido, faja, cruces—, no a un rol de desarrollo territorial más amplio. Las autoridades, por su parte, distinguen entre la influencia económica de FCAB —que reconocen como alta— y su influencia en el desarrollo comunitario local.</p>
-
-        <!-- Gráfico 2 -->
-        <div class="chart-block">
-          <h3>Distribución general de la influencia percibida</h3>
-          <p>El 79% de los actores sitúa la influencia de FCAB en el rango alto o muy alto (5–7). El valor dominante es el rango 5–6, donde se concentra más de la mitad del ecosistema. Solo uno de cada cinco actores alcanza la valoración máxima de 7, lo que indica que el reconocimiento es amplio pero moderado.</p>
-          <div class="dist-chips">
-            <span class="dchip dchip-high">58% — Alta (5–6)</span>
-            <span class="dchip dchip-vhigh">21% — Muy alta (7)</span>
-            <span class="dchip dchip-mid">16% — Media (3–4)</span>
-            <span class="dchip dchip-low">5% — Baja (1–2)</span>
-          </div>
-          <div class="chart-container">
-            <iframe src="../../influencia_fcab_territorio_promedio_categoria_1_7.html"
-                    scrolling="no"
-                    title="Distribución general de la influencia territorial percibida"
-                    style="height:460px"></iframe>
-          </div>
-        </div>
-
-        <p>Desde una perspectiva territorial, Calama (5,67) y Mejillones (5,70) lideran por razones distintas. En Calama, la influencia de FCAB se asocia a una historia de presencia económica e identitaria de largo plazo, vinculada a la minería y al transporte de carga. En Mejillones, el puerto y la industria del combustible generan una percepción de que el ferrocarril es un eslabón central de la cadena logística local, lo que eleva su influencia percibida.</p>
-        <p>Sierra Gorda (4,33) registra el valor más bajo pese a que la línea ferroviaria atraviesa físicamente la comuna. Los actores de Baquedano y Sierra Gorda reconocen la existencia del ferrocarril en su territorio, pero no lo describen como un actor que incide en sus decisiones comunitarias, en su desarrollo local ni en sus oportunidades. La influencia se percibe como de paso —literal y figuradamente— antes que como anclada al territorio.</p>
-        <p>Antofagasta (4,76) es el resultado más llamativo. En la capital regional conviven actores con percepciones de influencia muy alta —especialmente quienes tienen contacto directo con la línea, los patios o la infraestructura portuaria— con actores de barrios donde el ferrocarril es físicamente cercano pero cuya presencia en la vida institucional local se percibe como reducida.</p>
-
-        <!-- Gráfico 3 -->
-        <div class="chart-block">
-          <h3>Distribución territorial de la influencia percibida</h3>
-          <p>El mapa revela que la influencia percibida de FCAB no sigue un gradiente simple de distancia a la capital. Calama y Mejillones superan a Antofagasta, mientras Sierra Gorda registra el valor más bajo pese a tener la línea ferroviaria dentro de su territorio.</p>
-          <div class="territory-scores">
-            <div class="tscore">
-              <div class="tscore-n">5,70</div>
-              <div class="tscore-label">Mejillones</div>
+          <div class="var-tab-panel active">
+            <div class="chart-block">
+              <h3>Influencia percibida por tipo de actor</h3>
+              <p>La variación entre tipos de actores es acotada (rango 4,61–5,12), pero su dirección es analíticamente significativa: los actores con mayor conocimiento del funcionamiento económico regional lideran la percepción, mientras que quienes viven la relación de manera más cotidiana —comunidades y autoridades— la evalúan por debajo del promedio del eje.</p>
+              <div class="score-rows">
+                <div class="score-row"><div class="score-label">Sector productivo, clientes y gremios</div><div class="score-bar-wrap"><div class="score-bar" style="width:73.1%"></div></div><div class="score-num">5,12</div></div>
+                <div class="score-row"><div class="score-label">Sociedad civil, academia y medios</div><div class="score-bar-wrap"><div class="score-bar" style="width:72.7%"></div></div><div class="score-num">5,09</div></div>
+                <div class="score-row"><div class="score-label">Comunidad y organización social</div><div class="score-bar-wrap"><div class="score-bar" style="width:70.4%"></div></div><div class="score-num">4,93</div></div>
+                <div class="score-row"><div class="score-label">Autoridades</div><div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:65.9%"></div></div><div class="score-num">4,61</div></div>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../influencia_fcab_territorio_segmentacion_1_7.html" scrolling="no" title="Influencia percibida por tipo de actor" style="height:460px"></iframe>
+              </div>
             </div>
-            <div class="tscore">
-              <div class="tscore-n">5,67</div>
-              <div class="tscore-label">Calama</div>
-            </div>
-            <div class="tscore">
-              <div class="tscore-n">4,76</div>
-              <div class="tscore-label">Antofagasta</div>
-            </div>
-            <div class="tscore ts-low">
-              <div class="tscore-n">4,33</div>
-              <div class="tscore-label">Sierra Gorda</div>
-            </div>
+            <p>Al desagregar por tipo de actor, el sector productivo, clientes y gremios lidera con 5,12, seguido de la sociedad civil, academia y medios con 5,09. Este resultado revela que son los actores con mayor conocimiento del funcionamiento económico regional —no necesariamente los más cercanos a FCAB— quienes reconocen con mayor claridad su peso territorial. Los gremios industriales y las organizaciones académicas comprenden que FCAB es un actor estructural en la economía de la región, aunque ese reconocimiento no derive en una relación satisfactoria.</p>
+            <p>Comunidad y organización social (4,93) y las autoridades (4,61) puntúan por debajo del promedio. Para muchas JJVV, la influencia de FCAB en sus decisiones cotidianas es concreta pero acotada a aspectos físicos —ruido, faja, cruces—, no a un rol de desarrollo territorial más amplio. Las autoridades, por su parte, distinguen entre la influencia económica de FCAB —que reconocen como alta— y su influencia en el desarrollo comunitario local.</p>
           </div>
-          <div class="chart-container">
-            <iframe src="../../1.%20influencia%20terrritorio%20mapa.html"
-                    scrolling="no"
-                    title="Mapa de influencia territorial percibida por comuna"
-                    style="height:760px"></iframe>
-          </div>
-        </div>
 
-        <div class="callout callout-green">
-          <p>Los tres gráficos convergen en un diagnóstico común: FCAB es reconocido como un actor con presencia e influencia en el territorio regional, pero esa influencia es percibida como <strong>económico-operacional más que territorial-comunitaria</strong>. La mayoría de los actores la sitúa en el rango alto (5–6), pero pocos llegan al nivel máximo, lo que sugiere que el reconocimiento del peso de FCAB no alcanza a configurar una percepción de agencia real sobre el desarrollo de las comunidades.</p>
+          <div class="var-tab-panel">
+            <div class="chart-block">
+              <h3>Distribución general de la influencia percibida</h3>
+              <p>El 79% de los actores sitúa la influencia de FCAB en el rango alto o muy alto (5–7). El valor dominante es el rango 5–6, donde se concentra más de la mitad del ecosistema. Solo uno de cada cinco actores alcanza la valoración máxima de 7, lo que indica que el reconocimiento es amplio pero moderado.</p>
+              <div class="dist-chips">
+                <span class="dchip dchip-high">58% — Alta (5–6)</span>
+                <span class="dchip dchip-vhigh">21% — Muy alta (7)</span>
+                <span class="dchip dchip-mid">16% — Media (3–4)</span>
+                <span class="dchip dchip-low">5% — Baja (1–2)</span>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../influencia_fcab_territorio_promedio_categoria_1_7.html" scrolling="no" title="Distribución general de la influencia territorial percibida" style="height:460px"></iframe>
+              </div>
+            </div>
+            <p>Desde una perspectiva territorial, Calama (5,67) y Mejillones (5,70) lideran por razones distintas. En Calama, la influencia de FCAB se asocia a una historia de presencia económica e identitaria de largo plazo, vinculada a la minería y al transporte de carga. En Mejillones, el puerto y la industria del combustible generan una percepción de que el ferrocarril es un eslabón central de la cadena logística local, lo que eleva su influencia percibida.</p>
+            <p>Sierra Gorda (4,33) registra el valor más bajo pese a que la línea ferroviaria atraviesa físicamente la comuna. Los actores de Baquedano y Sierra Gorda reconocen la existencia del ferrocarril en su territorio, pero no lo describen como un actor que incide en sus decisiones comunitarias, en su desarrollo local ni en sus oportunidades. La influencia se percibe como de paso —literal y figuradamente— antes que como anclada al territorio.</p>
+            <p>Antofagasta (4,76) es el resultado más llamativo. En la capital regional conviven actores con percepciones de influencia muy alta —especialmente quienes tienen contacto directo con la línea, los patios o la infraestructura portuaria— con actores de barrios donde el ferrocarril es físicamente cercano pero cuya presencia en la vida institucional local se percibe como reducida.</p>
+          </div>
+
+          <div class="var-tab-panel">
+            <div class="chart-block">
+              <h3>Distribución territorial de la influencia percibida</h3>
+              <p>El mapa revela que la influencia percibida de FCAB no sigue un gradiente simple de distancia a la capital. Calama y Mejillones superan a Antofagasta, mientras Sierra Gorda registra el valor más bajo pese a tener la línea ferroviaria dentro de su territorio.</p>
+              <div class="territory-scores">
+                <div class="tscore"><div class="tscore-n">5,70</div><div class="tscore-label">Mejillones</div></div>
+                <div class="tscore"><div class="tscore-n">5,67</div><div class="tscore-label">Calama</div></div>
+                <div class="tscore"><div class="tscore-n">4,76</div><div class="tscore-label">Antofagasta</div></div>
+                <div class="tscore ts-low"><div class="tscore-n">4,33</div><div class="tscore-label">Sierra Gorda</div></div>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../1.%20influencia%20terrritorio%20mapa.html" scrolling="no" title="Mapa de influencia territorial percibida por comuna" style="height:760px"></iframe>
+              </div>
+            </div>
+            <div class="callout callout-green">
+              <p>Los tres gráficos convergen en un diagnóstico común: FCAB es reconocido como un actor con presencia e influencia en el territorio regional, pero esa influencia es percibida como <strong>económico-operacional más que territorial-comunitaria</strong>. La mayoría de los actores la sitúa en el rango alto (5–6), pero pocos llegan al nivel máximo, lo que sugiere que el reconocimiento del peso de FCAB no alcanza a configurar una percepción de agencia real sobre el desarrollo de las comunidades.</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -524,130 +513,76 @@
 
         <p>La afectación organizacional pregunta en qué medida las decisiones de FCAB impactan en el funcionamiento específico de cada actor. La respuesta es llamativa: el promedio es uno de los más bajos de las dimensiones analizadas (4,20). El gráfico de segmentación exhibe la distribución más fragmentada del conjunto: el 26% se ubica en el rango bajo (1–2), el 18% en el medio (3–4), el 33% en el alto (5–6) y solo el 23% en el máximo (7). Con el 44% en los rangos bajos y medios, esta es la única variable donde la zona más baja acumula un peso comparable al de la zona alta. La distribución cuasi-plana señala que no hay un patrón dominante: la afectación percibida varía enormemente según el tipo de organización y su relación concreta con la operación ferroviaria.</p>
 
-        <!-- Gráfico 1 -->
-        <div class="chart-block">
-          <h3>Afectación percibida por tipo de actor</h3>
-          <p>La brecha de 1,71 puntos entre autoridades/sector público (5,41) y comunidad/organización social (3,70) es la mayor registrada en cualquier variable del estudio. La separación refleja si la interdependencia con FCAB es estructural-operacional o cotidiana-física.</p>
-          <div class="score-rows">
-            <div class="score-row">
-              <div class="score-label">Autoridades y sector público</div>
-              <div class="score-bar-wrap"><div class="score-bar" style="width:77.3%"></div></div>
-              <div class="score-num">5,41</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Sector productivo</div>
-              <div class="score-bar-wrap"><div class="score-bar" style="width:75.4%"></div></div>
-              <div class="score-num">5,28</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Sociedad civil, academia y medios</div>
-              <div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:54.9%"></div></div>
-              <div class="score-num">3,84</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Comunidad y organización social</div>
-              <div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:52.9%"></div></div>
-              <div class="score-num">3,70</div>
-            </div>
+        <div class="var-tabs">
+          <div class="var-tab-bar">
+            <button class="var-tab-btn active" type="button">Por tipo de actor</button>
+            <button class="var-tab-btn" type="button">Distribución general</button>
+            <button class="var-tab-btn" type="button">Por territorio</button>
           </div>
-          <div class="chart-container">
-            <iframe src="../../afectacion_objetivos_fcab_segmentacion_1_7.html"
-                    scrolling="no"
-                    title="Afectación organizacional percibida por tipo de actor"
-                    style="height:460px"></iframe>
-          </div>
-        </div>
 
-        <div class="finding">
-          <div class="finding-label">Mayor brecha del análisis</div>
-          <p>Al desagregar por categoría de actor, se observa la mayor brecha entre grupos de todo el análisis: 1,71 puntos separan a autoridades y sector público (5,41) de la comunidad y organización social (3,70). Esta distancia refleja lógicas de interdependencia distintas según el tipo de vínculo que cada actor mantiene con la operación ferroviaria.</p>
-        </div>
-        <p>Las autoridades lideran porque su interdependencia con FCAB es estructural y concreta. Los municipios atravesados por el trazado ferroviario perciben que las decisiones de la empresa sobre el uso de patios, el mantenimiento de la faja, los horarios de operación y la gestión de cruces tienen consecuencias directas sobre la movilidad urbana, los proyectos de mejoramiento territorial y la capacidad de respuesta ante emergencias.</p>
-        <p>La baja afectación de las organizaciones sociales (3,70) está asociada a que perciben la presencia de FCAB en dimensiones físicas y cotidianas —ruido, tránsito en cruces, estado de la faja— pero no en su quehacer institucional como organizaciones. Esta disociación entre presencia física y afectación decisional revela que una parte de los actores más numerosos del mapa no se siente concernida por las decisiones que definen el desarrollo territorial de la empresa.</p>
-        <p>El sector productivo (5,28) sigue de cerca a las autoridades, también por razones operacionales: los clientes de transporte de carga tienen sus cadenas logísticas directamente vinculadas a las decisiones de FCAB sobre rutas, tarifas y capacidad. La sociedad civil y academia (3,84) se ubica levemente por sobre la comunidad, lo que refleja que algunos actores de ese grupo perciben cierta afectación indirecta de menor intensidad.</p>
+          <div class="var-tab-panel active">
+            <div class="chart-block">
+              <h3>Afectación percibida por tipo de actor</h3>
+              <p>La brecha de 1,71 puntos entre autoridades/sector público (5,41) y comunidad/organización social (3,70) es la mayor registrada en cualquier variable del estudio. La separación refleja si la interdependencia con FCAB es estructural-operacional o cotidiana-física.</p>
+              <div class="score-rows">
+                <div class="score-row"><div class="score-label">Autoridades y sector público</div><div class="score-bar-wrap"><div class="score-bar" style="width:77.3%"></div></div><div class="score-num">5,41</div></div>
+                <div class="score-row"><div class="score-label">Sector productivo</div><div class="score-bar-wrap"><div class="score-bar" style="width:75.4%"></div></div><div class="score-num">5,28</div></div>
+                <div class="score-row"><div class="score-label">Sociedad civil, academia y medios</div><div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:54.9%"></div></div><div class="score-num">3,84</div></div>
+                <div class="score-row"><div class="score-label">Comunidad y organización social</div><div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:52.9%"></div></div><div class="score-num">3,70</div></div>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../afectacion_objetivos_fcab_segmentacion_1_7.html" scrolling="no" title="Afectación organizacional percibida por tipo de actor" style="height:460px"></iframe>
+              </div>
+            </div>
+            <div class="finding">
+              <div class="finding-label">Mayor brecha del análisis</div>
+              <p>Al desagregar por categoría de actor, se observa la mayor brecha entre grupos de todo el análisis: 1,71 puntos separan a autoridades y sector público (5,41) de la comunidad y organización social (3,70). Esta distancia refleja lógicas de interdependencia distintas según el tipo de vínculo que cada actor mantiene con la operación ferroviaria.</p>
+            </div>
+            <p>Las autoridades lideran porque su interdependencia con FCAB es estructural y concreta. Los municipios atravesados por el trazado ferroviario perciben que las decisiones de la empresa sobre el uso de patios, el mantenimiento de la faja, los horarios de operación y la gestión de cruces tienen consecuencias directas sobre la movilidad urbana, los proyectos de mejoramiento territorial y la capacidad de respuesta ante emergencias.</p>
+            <p>La baja afectación de las organizaciones sociales (3,70) está asociada a que perciben la presencia de FCAB en dimensiones físicas y cotidianas —ruido, tránsito en cruces, estado de la faja— pero no en su quehacer institucional como organizaciones. Esta disociación entre presencia física y afectación decisional revela que una parte de los actores más numerosos del mapa no se siente concernida por las decisiones que definen el desarrollo territorial de la empresa.</p>
+            <p>El sector productivo (5,28) sigue de cerca a las autoridades, también por razones operacionales: los clientes de transporte de carga tienen sus cadenas logísticas directamente vinculadas a las decisiones de FCAB sobre rutas, tarifas y capacidad. La sociedad civil y academia (3,84) se ubica levemente por sobre la comunidad, lo que refleja que algunos actores de ese grupo perciben cierta afectación indirecta de menor intensidad.</p>
+          </div>
 
-        <!-- Gráfico 2 -->
-        <div class="chart-block">
-          <h3>Distribución general de la afectación percibida</h3>
-          <p>Con un promedio de 4,20 y la distribución más fragmentada del conjunto, esta variable no tiene un patrón dominante. El 44% de los actores se sitúa en los rangos bajos y medios (1–4), un peso sin equivalente en el resto de las dimensiones analizadas.</p>
-          <div class="dist-chips">
-            <span class="dchip dchip-low">26% — Baja (1–2)</span>
-            <span class="dchip dchip-mid">18% — Media (3–4)</span>
-            <span class="dchip dchip-high">33% — Alta (5–6)</span>
-            <span class="dchip dchip-vhigh">23% — Muy alta (7)</span>
+          <div class="var-tab-panel">
+            <div class="chart-block">
+              <h3>Distribución general de la afectación percibida</h3>
+              <p>Con un promedio de 4,20 y la distribución más fragmentada del conjunto, esta variable no tiene un patrón dominante. El 44% de los actores se sitúa en los rangos bajos y medios (1–4), un peso sin equivalente en el resto de las dimensiones analizadas.</p>
+              <div class="dist-chips">
+                <span class="dchip dchip-low">26% — Baja (1–2)</span>
+                <span class="dchip dchip-mid">18% — Media (3–4)</span>
+                <span class="dchip dchip-high">33% — Alta (5–6)</span>
+                <span class="dchip dchip-vhigh">23% — Muy alta (7)</span>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../afectacion_objetivos_fcab_promedio_categoria_1_7.html" scrolling="no" title="Distribución general de la afectación organizacional percibida" style="height:460px"></iframe>
+              </div>
+            </div>
+            <p>A nivel comunal, Antofagasta (4,56) lidera sobre los demás territorios, seguida de Sierra Gorda (4,18) y Mejillones (4,05), mientras que Calama (3,39) registra el puntaje más bajo.</p>
+            <p>Antofagasta lidera en afectación dado que concentra la mayor parte de la infraestructura visible de FCAB —patios, línea central, estaciones— y la mayor densidad de actores institucionales cuya gestión está vinculada a decisiones sobre ese espacio urbano. Los actores del sector público, los clientes portuarios y los actores de sociedad civil de la capital regional describen conexiones concretas entre las decisiones de FCAB y sus propios objetivos organizacionales.</p>
+            <p>Sierra Gorda (4,18) presenta <strong>afectación sin relación</strong>, combinación especialmente riesgosa desde el punto de vista del relacionamiento. Esta afectación se expresa en cuatro dimensiones:</p>
+            <div class="steps-list">
+              <div class="step-item"><div class="step-dot">1</div><div class="step-body"><h4>Afectación estructural</h4><p>FCAB es vista como un actor territorial cuyas decisiones inciden en la planificación comunal, el desarrollo logístico y proyectos estratégicos como el Plan Maestro Logístico y el Corredor Bioceánico.</p></div></div>
+              <div class="step-item"><div class="step-dot">2</div><div class="step-body"><h4>Baja presencia relacional percibida como abandono</h4><p>La falta de canales de información, gestión de infraestructura histórica y vínculo activo es interpretada como una forma de abandono, especialmente frente al relacionamiento más visible de otras empresas mineras presentes en la zona.</p></div></div>
+              <div class="step-item"><div class="step-dot">3</div><div class="step-body"><h4>Riesgo operacional activo</h4><p>El derrame de ácido en Baquedano permanece como hito relevante, no solo por el incidente, sino por la percepción de falta de seguimiento posterior en materia de comunicación, prevención y educación comunitaria.</p></div></div>
+              <div class="step-item"><div class="step-dot">4</div><div class="step-body"><h4>Brecha entre éxito corporativo y desarrollo local</h4><p>Aunque la empresa comunica logros logísticos y tecnológicos, los actores locales consideran que esos beneficios no retornan proporcionalmente al territorio. FCAB es reconocida como empresa fundacional y decisiva, pero con baja reciprocidad frente a las expectativas locales de desarrollo, seguridad y valor compartido.</p></div></div>
+            </div>
+            <p>El bajo resultado de Calama (3,39) refleja que las JJVV y actores locales no perciben que las decisiones operacionales de FCAB les afecten directamente en su quehacer organizacional.</p>
           </div>
-          <div class="chart-container">
-            <iframe src="../../afectacion_objetivos_fcab_promedio_categoria_1_7.html"
-                    scrolling="no"
-                    title="Distribución general de la afectación organizacional percibida"
-                    style="height:460px"></iframe>
-          </div>
-        </div>
 
-        <p>A nivel comunal, Antofagasta (4,56) lidera sobre los demás territorios, seguida de Sierra Gorda (4,18) y Mejillones (4,05), mientras que Calama (3,39) registra el puntaje más bajo.</p>
-        <p>Antofagasta lidera en afectación dado que concentra la mayor parte de la infraestructura visible de FCAB —patios, línea central, estaciones— y la mayor densidad de actores institucionales cuya gestión está vinculada a decisiones sobre ese espacio urbano. Los actores del sector público, los clientes portuarios y los actores de sociedad civil de la capital regional describen conexiones concretas entre las decisiones de FCAB y sus propios objetivos organizacionales.</p>
-        <p>Sierra Gorda (4,18) presenta <strong>afectación sin relación</strong>, combinación especialmente riesgosa desde el punto de vista del relacionamiento. Esta afectación se expresa en cuatro dimensiones:</p>
-
-        <div class="steps-list">
-          <div class="step-item">
-            <div class="step-dot">1</div>
-            <div class="step-body">
-              <h4>Afectación estructural</h4>
-              <p>FCAB es vista como un actor territorial cuyas decisiones inciden en la planificación comunal, el desarrollo logístico y proyectos estratégicos como el Plan Maestro Logístico y el Corredor Bioceánico.</p>
+          <div class="var-tab-panel">
+            <div class="chart-block">
+              <h3>Distribución territorial de la afectación percibida</h3>
+              <p>Antofagasta lidera la afectación por concentración de infraestructura visible e interlocutores institucionales. Sierra Gorda presenta la combinación más crítica: afectación alta sin vínculo relacional activo. Calama registra el valor más bajo pese a ser el segundo polo del estudio.</p>
+              <div class="territory-scores">
+                <div class="tscore"><div class="tscore-n">4,56</div><div class="tscore-label">Antofagasta</div></div>
+                <div class="tscore"><div class="tscore-n">4,18</div><div class="tscore-label">Sierra Gorda</div></div>
+                <div class="tscore"><div class="tscore-n">4,05</div><div class="tscore-label">Mejillones</div></div>
+                <div class="tscore ts-low"><div class="tscore-n">3,39</div><div class="tscore-label">Calama</div></div>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../2.%20afectaci%C3%B3n%20territorio%20mapa.html" scrolling="no" title="Mapa de afectación organizacional percibida por comuna" style="height:760px"></iframe>
+              </div>
             </div>
-          </div>
-          <div class="step-item">
-            <div class="step-dot">2</div>
-            <div class="step-body">
-              <h4>Baja presencia relacional percibida como abandono</h4>
-              <p>La falta de canales de información, gestión de infraestructura histórica y vínculo activo es interpretada como una forma de abandono, especialmente frente al relacionamiento más visible de otras empresas mineras presentes en la zona.</p>
-            </div>
-          </div>
-          <div class="step-item">
-            <div class="step-dot">3</div>
-            <div class="step-body">
-              <h4>Riesgo operacional activo</h4>
-              <p>El derrame de ácido en Baquedano permanece como hito relevante, no solo por el incidente, sino por la percepción de falta de seguimiento posterior en materia de comunicación, prevención y educación comunitaria.</p>
-            </div>
-          </div>
-          <div class="step-item">
-            <div class="step-dot">4</div>
-            <div class="step-body">
-              <h4>Brecha entre éxito corporativo y desarrollo local</h4>
-              <p>Aunque la empresa comunica logros logísticos y tecnológicos, los actores locales consideran que esos beneficios no retornan proporcionalmente al territorio. FCAB es reconocida como empresa fundacional y decisiva, pero con baja reciprocidad frente a las expectativas locales de desarrollo, seguridad y valor compartido.</p>
-            </div>
-          </div>
-        </div>
-
-        <p>El bajo resultado de Calama (3,39) refleja que las JJVV y actores locales no perciben que las decisiones operacionales de FCAB les afecten directamente en su quehacer organizacional.</p>
-
-        <!-- Gráfico 3 -->
-        <div class="chart-block">
-          <h3>Distribución territorial de la afectación percibida</h3>
-          <p>Antofagasta lidera la afectación por concentración de infraestructura visible e interlocutores institucionales. Sierra Gorda presenta la combinación más crítica: afectación alta sin vínculo relacional activo. Calama registra el valor más bajo pese a ser el segundo polo del estudio.</p>
-          <div class="territory-scores">
-            <div class="tscore">
-              <div class="tscore-n">4,56</div>
-              <div class="tscore-label">Antofagasta</div>
-            </div>
-            <div class="tscore">
-              <div class="tscore-n">4,18</div>
-              <div class="tscore-label">Sierra Gorda</div>
-            </div>
-            <div class="tscore">
-              <div class="tscore-n">4,05</div>
-              <div class="tscore-label">Mejillones</div>
-            </div>
-            <div class="tscore ts-low">
-              <div class="tscore-n">3,39</div>
-              <div class="tscore-label">Calama</div>
-            </div>
-          </div>
-          <div class="chart-container">
-            <iframe src="../../2.%20afectaci%C3%B3n%20territorio%20mapa.html"
-                    scrolling="no"
-                    title="Mapa de afectación organizacional percibida por comuna"
-                    style="height:760px"></iframe>
           </div>
         </div>
       </section>
@@ -658,94 +593,66 @@
 
         <p>Esta variable mide qué tan esperable o legítimo considera el actor que FCAB tome en cuenta su opinión en decisiones que afectan el territorio. El gráfico de segmentación revela la distribución más favorable de las cuatro variables analizadas: el 43% otorga nota máxima (7) y el 32% se ubica en el rango alto (5–6), lo que concentra al 75% de los actores en la zona positiva. Solo el 8% evalúa esta expectativa como baja (1–2), el porcentaje más reducido de todas las variables.</p>
 
-        <!-- Gráfico 1 -->
-        <div class="chart-block">
-          <h3>Expectativa de consideración por tipo de actor</h3>
-          <p>Los puntajes están concentrados en un rango estrecho (5,13–5,61), pero la posición de las autoridades al final —pese a tener el rol normativo más directo— es el dato más analíticamente relevante: refleja resignación aprendida, no falta de interés.</p>
-          <div class="score-rows">
-            <div class="score-row">
-              <div class="score-label">Sector productivo</div>
-              <div class="score-bar-wrap"><div class="score-bar" style="width:80.1%"></div></div>
-              <div class="score-num">5,61</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Sociedad civil, academia y medios</div>
-              <div class="score-bar-wrap"><div class="score-bar" style="width:79.7%"></div></div>
-              <div class="score-num">5,58</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Comunidad y organización social</div>
-              <div class="score-bar-wrap"><div class="score-bar" style="width:76.0%"></div></div>
-              <div class="score-num">5,32</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Autoridades</div>
-              <div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:73.3%"></div></div>
-              <div class="score-num">5,13</div>
-            </div>
+        <div class="var-tabs">
+          <div class="var-tab-bar">
+            <button class="var-tab-btn active" type="button">Por tipo de actor</button>
+            <button class="var-tab-btn" type="button">Distribución general</button>
+            <button class="var-tab-btn" type="button">Por territorio</button>
           </div>
-          <div class="chart-container">
-            <iframe src="../../expectativa_escucha_fcab_segmentacion_1_7.html"
-                    scrolling="no"
-                    title="Expectativa de consideración por tipo de actor"
-                    style="height:460px"></iframe>
-          </div>
-        </div>
 
-        <p>Al desagregar por tipo de actor, el sector productivo (5,61) y la sociedad civil, academia y medios (5,58) lideran, mientras que las autoridades quedan últimas (5,13) pese a tener el rol normativo más directo sobre la empresa.</p>
-        <p>El resultado de las autoridades merece atención especial. Que sean el grupo con menor expectativa de consideración no significa desinterés: las transcripciones muestran que varios representantes del sector público distinguen entre lo que sería deseable y lo que es realista dado el carácter privado de la empresa. Algunos actores normalizan la exclusión con expresiones que dan cuenta de una resignación aprendida: reconocen que FCAB opera con lógica empresarial y que sus terrenos y decisiones son propios, lo que rebaja la expectativa de consulta a niveles que no reflejan preferencia sino ajuste a una experiencia histórica de no participación.</p>
-        <p>El sector productivo lidera no porque tenga una relación más satisfactoria con FCAB, sino porque opera con la lógica de quien reconoce la interdependencia: si las decisiones de FCAB los afectan directamente en términos operacionales, la expectativa de ser considerados en esas decisiones es alta y se percibe como estructuralmente lógica. La sociedad civil y los medios fundan esta expectativa en una dinámica distinta: el rol público de FCAB como empresa con infraestructura en el territorio genera, a su juicio, una obligación de transparencia y consulta que no depende de si existe una relación previa.</p>
-
-        <!-- Gráfico 2 -->
-        <div class="chart-block">
-          <h3>Distribución general de la expectativa de consideración</h3>
-          <p>Con el 75% de los actores en la zona positiva (5–7) y solo un 8% en rango bajo, esta es la variable con distribución más favorable del conjunto. Casi la mitad del ecosistema asigna la puntuación máxima, lo que señala que la legitimidad de ser considerado por FCAB está ampliamente reconocida.</p>
-          <div class="dist-chips">
-            <span class="dchip dchip-vhigh">43% — Muy alta (7)</span>
-            <span class="dchip dchip-high">32% — Alta (5–6)</span>
-            <span class="dchip dchip-low">8% — Baja (1–2)</span>
+          <div class="var-tab-panel active">
+            <div class="chart-block">
+              <h3>Expectativa de consideración por tipo de actor</h3>
+              <p>Los puntajes están concentrados en un rango estrecho (5,13–5,61), pero la posición de las autoridades al final —pese a tener el rol normativo más directo— es el dato más analíticamente relevante: refleja resignación aprendida, no falta de interés.</p>
+              <div class="score-rows">
+                <div class="score-row"><div class="score-label">Sector productivo</div><div class="score-bar-wrap"><div class="score-bar" style="width:80.1%"></div></div><div class="score-num">5,61</div></div>
+                <div class="score-row"><div class="score-label">Sociedad civil, academia y medios</div><div class="score-bar-wrap"><div class="score-bar" style="width:79.7%"></div></div><div class="score-num">5,58</div></div>
+                <div class="score-row"><div class="score-label">Comunidad y organización social</div><div class="score-bar-wrap"><div class="score-bar" style="width:76.0%"></div></div><div class="score-num">5,32</div></div>
+                <div class="score-row"><div class="score-label">Autoridades</div><div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:73.3%"></div></div><div class="score-num">5,13</div></div>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../expectativa_escucha_fcab_segmentacion_1_7.html" scrolling="no" title="Expectativa de consideración por tipo de actor" style="height:460px"></iframe>
+              </div>
+            </div>
+            <p>Al desagregar por tipo de actor, el sector productivo (5,61) y la sociedad civil, academia y medios (5,58) lideran, mientras que las autoridades quedan últimas (5,13) pese a tener el rol normativo más directo sobre la empresa.</p>
+            <p>El resultado de las autoridades merece atención especial. Que sean el grupo con menor expectativa de consideración no significa desinterés: las transcripciones muestran que varios representantes del sector público distinguen entre lo que sería deseable y lo que es realista dado el carácter privado de la empresa. Algunos actores normalizan la exclusión con expresiones que dan cuenta de una resignación aprendida: reconocen que FCAB opera con lógica empresarial y que sus terrenos y decisiones son propios, lo que rebaja la expectativa de consulta a niveles que no reflejan preferencia sino ajuste a una experiencia histórica de no participación.</p>
+            <p>El sector productivo lidera no porque tenga una relación más satisfactoria con FCAB, sino porque opera con la lógica de quien reconoce la interdependencia: si las decisiones de FCAB los afectan directamente en términos operacionales, la expectativa de ser considerados en esas decisiones es alta y se percibe como estructuralmente lógica. La sociedad civil y los medios fundan esta expectativa en una dinámica distinta: el rol público de FCAB como empresa con infraestructura en el territorio genera, a su juicio, una obligación de transparencia y consulta que no depende de si existe una relación previa.</p>
           </div>
-          <div class="chart-container">
-            <iframe src="../../expectativa_escucha_fcab_promedio_categoria_1_7.html"
-                    scrolling="no"
-                    title="Distribución general de la expectativa de consideración"
-                    style="height:460px"></iframe>
-          </div>
-        </div>
 
-        <p>Desde el punto de vista territorial, Antofagasta (5,54) lidera, seguido de Mejillones (5,33) y Calama (5,17), mientras que Sierra Gorda (3,78) presenta el valor más bajo con diferencia.</p>
-        <p>Que Antofagasta encabece esta variable apunta a que la densidad institucional de la capital regional genera actores con mayor conciencia y claridad sobre lo que esperan de una empresa con la presencia territorial de FCAB. Los actores de Antofagasta, particularmente los del sector productivo, la academia y los medios, articulan esta expectativa en términos de legitimidad corporativa y responsabilidad social, no simplemente como demanda.</p>
-        <div class="callout callout-amber">
-          <p>En el extremo opuesto, Sierra Gorda (3,78) registra el puntaje más bajo en expectativa de consideración. Las entrevistas revelan que en estas localidades opera una <strong>resignación institucional</strong>: la experiencia repetida de no ser consultados ni informados ha reducido la expectativa hasta el punto en que algunos actores ni siquiera la formulan como una demanda legítima.</p>
-        </div>
-
-        <!-- Gráfico 3 -->
-        <div class="chart-block">
-          <h3>Distribución territorial de la expectativa de consideración</h3>
-          <p>La brecha entre Antofagasta (5,54) y Sierra Gorda (3,78) —1,76 puntos— es la más pronunciada de esta variable en el corte territorial. Sierra Gorda no solo lidera el valor más bajo: es el único territorio que cae por debajo del umbral de 4 en esta dimensión.</p>
-          <div class="territory-scores">
-            <div class="tscore">
-              <div class="tscore-n">5,54</div>
-              <div class="tscore-label">Antofagasta</div>
+          <div class="var-tab-panel">
+            <div class="chart-block">
+              <h3>Distribución general de la expectativa de consideración</h3>
+              <p>Con el 75% de los actores en la zona positiva (5–7) y solo un 8% en rango bajo, esta es la variable con distribución más favorable del conjunto. Casi la mitad del ecosistema asigna la puntuación máxima, lo que señala que la legitimidad de ser considerado por FCAB está ampliamente reconocida.</p>
+              <div class="dist-chips">
+                <span class="dchip dchip-vhigh">43% — Muy alta (7)</span>
+                <span class="dchip dchip-high">32% — Alta (5–6)</span>
+                <span class="dchip dchip-low">8% — Baja (1–2)</span>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../expectativa_escucha_fcab_promedio_categoria_1_7.html" scrolling="no" title="Distribución general de la expectativa de consideración" style="height:460px"></iframe>
+              </div>
             </div>
-            <div class="tscore">
-              <div class="tscore-n">5,33</div>
-              <div class="tscore-label">Mejillones</div>
-            </div>
-            <div class="tscore">
-              <div class="tscore-n">5,17</div>
-              <div class="tscore-label">Calama</div>
-            </div>
-            <div class="tscore ts-low">
-              <div class="tscore-n">3,78</div>
-              <div class="tscore-label">Sierra Gorda</div>
+            <p>Desde el punto de vista territorial, Antofagasta (5,54) lidera, seguido de Mejillones (5,33) y Calama (5,17), mientras que Sierra Gorda (3,78) presenta el valor más bajo con diferencia.</p>
+            <p>Que Antofagasta encabece esta variable apunta a que la densidad institucional de la capital regional genera actores con mayor conciencia y claridad sobre lo que esperan de una empresa con la presencia territorial de FCAB. Los actores de Antofagasta, particularmente los del sector productivo, la academia y los medios, articulan esta expectativa en términos de legitimidad corporativa y responsabilidad social, no simplemente como demanda.</p>
+            <div class="callout callout-amber">
+              <p>En el extremo opuesto, Sierra Gorda (3,78) registra el puntaje más bajo en expectativa de consideración. Las entrevistas revelan que en estas localidades opera una <strong>resignación institucional</strong>: la experiencia repetida de no ser consultados ni informados ha reducido la expectativa hasta el punto en que algunos actores ni siquiera la formulan como una demanda legítima.</p>
             </div>
           </div>
-          <div class="chart-container">
-            <iframe src="../../3.expectativa%20coniderai%C3%B3n%20mapa.html"
-                    scrolling="no"
-                    title="Mapa de expectativa de consideración por comuna"
-                    style="height:760px"></iframe>
+
+          <div class="var-tab-panel">
+            <div class="chart-block">
+              <h3>Distribución territorial de la expectativa de consideración</h3>
+              <p>La brecha entre Antofagasta (5,54) y Sierra Gorda (3,78) —1,76 puntos— es la más pronunciada de esta variable en el corte territorial. Sierra Gorda no solo lidera el valor más bajo: es el único territorio que cae por debajo del umbral de 4 en esta dimensión.</p>
+              <div class="territory-scores">
+                <div class="tscore"><div class="tscore-n">5,54</div><div class="tscore-label">Antofagasta</div></div>
+                <div class="tscore"><div class="tscore-n">5,33</div><div class="tscore-label">Mejillones</div></div>
+                <div class="tscore"><div class="tscore-n">5,17</div><div class="tscore-label">Calama</div></div>
+                <div class="tscore ts-low"><div class="tscore-n">3,78</div><div class="tscore-label">Sierra Gorda</div></div>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../3.expectativa%20coniderai%C3%B3n%20mapa.html" scrolling="no" title="Mapa de expectativa de consideración por comuna" style="height:760px"></iframe>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -757,87 +664,65 @@
         <p>Esta variable evalúa si el actor percibe que FCAB escucha, recibe y toma en cuenta sus preocupaciones o propuestas. El promedio general se ubica en 4,80 e indica que la escucha percibida es la dimensión donde FCAB presenta mayor heterogeneidad entre tipos de actores.</p>
         <p>El gráfico de segmentación muestra una percepción heterogénea: el 34% con nota máxima corresponde a actores con vínculos operacionales activos y contacto personalizado, que describen la escucha como inmediata y efectiva. El 14% con nota 1–2 incluye actores que no han tenido ocasión de transmitir preocupaciones, sea por ausencia de canales o por no haberlos necesitado. El 21% en rango 3–4 es el más relevante cualitativamente: son actores que han intentado transmitir preguntas o propuestas y no han recibido respuesta, o cuya respuesta fue parcial. Las entrevistas de este grupo articulan una distinción clara entre la atención ante solicitudes puntuales —que evalúan bien— y la consideración real de sus posiciones en decisiones estratégicas, que evalúan como baja.</p>
 
-        <!-- Gráfico 1 -->
-        <div class="chart-block">
-          <h3>Escucha percibida por tipo de actor</h3>
-          <p>El rango de 0,49 puntos (5,12–4,63) es el más amplio del análisis por categoría. Los tres grupos por debajo del promedio (4,80) comparten un factor común: la escucha está mediada por la existencia de un referente personal, no por un canal institucional.</p>
-          <div class="score-rows">
-            <div class="score-row">
-              <div class="score-label">Sector productivo, clientes y gremios</div>
-              <div class="score-bar-wrap"><div class="score-bar" style="width:73.1%"></div></div>
-              <div class="score-num">5,12</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Comunidad y organización social</div>
-              <div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:67.9%"></div></div>
-              <div class="score-num">4,75</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Sociedad civil, academia y medios</div>
-              <div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:67.0%"></div></div>
-              <div class="score-num">4,69</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Autoridades</div>
-              <div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:66.1%"></div></div>
-              <div class="score-num">4,63</div>
-            </div>
+        <div class="var-tabs">
+          <div class="var-tab-bar">
+            <button class="var-tab-btn active" type="button">Por tipo de actor</button>
+            <button class="var-tab-btn" type="button">Distribución general</button>
+            <button class="var-tab-btn" type="button">Por territorio</button>
           </div>
-          <div class="chart-container">
-            <iframe src="../../percepcion_escucha_fcab_segmentacion_1_7.html"
-                    scrolling="no"
-                    title="Escucha percibida por tipo de actor"
-                    style="height:460px"></iframe>
-          </div>
-        </div>
 
-        <p>Al desagregar por categoría de actor, el rango entre categorías es el más amplio: 0,49 puntos entre el sector productivo (5,12) y las autoridades (4,63). El sector productivo se explica principalmente por los clientes con contrato operacional activo —quienes tienen canales establecidos y contacto regular— más que por los actores gremiales, cuya percepción de escucha es más moderada.</p>
-        <div class="finding">
-          <div class="finding-label">Hallazgo — Escucha mediada por referente personal</div>
-          <p>Comunidad y organización social (4,75) y sociedad civil, academia y medios (4,69) convergen en valores similares y muy próximos al promedio. Las entrevistas revelan que en ambos grupos la percepción de escucha depende casi completamente de la existencia de un referente personalizado en FCAB: cuando ese vínculo está activo, la escucha se evalúa alta; cuando no existe o se ha interrumpido, baja de forma marcada. Las organizaciones sociales con mejor percepción de escucha son precisamente aquellas que describen una relación de contacto frecuente y directo con una persona específica del equipo de relacionamiento comunitario.</p>
-        </div>
-
-        <!-- Gráfico 2 -->
-        <div class="chart-block">
-          <h3>Distribución general de la escucha percibida</h3>
-          <p>La distribución es la más heterogénea del conjunto: los cuatro rangos acumulan porcentajes comparables, sin un valor dominante claro. El promedio de 4,80 oculta realidades muy distintas: actores con contacto directo evalúan alto; actores sin canal de contacto evalúan bajo.</p>
-          <div class="dist-chips">
-            <span class="dchip dchip-vhigh">34% — Muy alta (7)</span>
-            <span class="dchip dchip-high">32% — Alta (5–6)</span>
-            <span class="dchip dchip-mid">21% — Media (3–4)</span>
-            <span class="dchip dchip-low">14% — Baja (1–2)</span>
-          </div>
-          <div class="chart-container">
-            <iframe src="../../percepcion_escucha_fcab_promedio_categoria_1_7.html"
-                    scrolling="no"
-                    title="Distribución general de la escucha percibida"
-                    style="height:460px"></iframe>
-          </div>
-        </div>
-
-        <p>El mapa muestra que Calama y Antofagasta presentan percepciones de escucha similares y moderadamente positivas. En ambas ciudades, las transcripciones apuntan al mismo patrón: la escucha funciona cuando hay un referente activo y cuando la demanda está asociada a un proyecto concreto. Cuando ese mecanismo existe, la evaluación sube; a la inversa, la percepción cae dentro del mismo territorio.</p>
-        <p>En Mejillones (4,24), las entrevistas revelan que FCAB participa formalmente en instancias locales, pero esa participación no se traduce en capacidad de incidencia recíproca.</p>
-        <p>En Sierra Gorda (3,89), la baja percepción de escucha es coherente con la ausencia de canales de contacto sistemáticos y con la experiencia de intervenciones puntuales y reactivas. Los actores de Baquedano, en particular, no describen una relación de escucha activa sino episodios aislados de atención a demandas urgentes, sin continuidad.</p>
-
-        <!-- Gráfico 3 -->
-        <div class="chart-block">
-          <h3>Distribución territorial de la escucha percibida</h3>
-          <p>Calama y Antofagasta muestran percepciones moderadamente positivas y similares entre sí, con escucha que funciona cuando existe un referente activo. Mejillones y Sierra Gorda registran los valores más bajos: en ambos territorios predominan la participación formal sin incidencia recíproca y la intervención puntual sin continuidad.</p>
-          <div class="territory-scores">
-            <div class="tscore ts-low">
-              <div class="tscore-n">4,24</div>
-              <div class="tscore-label">Mejillones</div>
+          <div class="var-tab-panel active">
+            <div class="chart-block">
+              <h3>Escucha percibida por tipo de actor</h3>
+              <p>El rango de 0,49 puntos (5,12–4,63) es el más amplio del análisis por categoría. Los tres grupos por debajo del promedio (4,80) comparten un factor común: la escucha está mediada por la existencia de un referente personal, no por un canal institucional.</p>
+              <div class="score-rows">
+                <div class="score-row"><div class="score-label">Sector productivo, clientes y gremios</div><div class="score-bar-wrap"><div class="score-bar" style="width:73.1%"></div></div><div class="score-num">5,12</div></div>
+                <div class="score-row"><div class="score-label">Comunidad y organización social</div><div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:67.9%"></div></div><div class="score-num">4,75</div></div>
+                <div class="score-row"><div class="score-label">Sociedad civil, academia y medios</div><div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:67.0%"></div></div><div class="score-num">4,69</div></div>
+                <div class="score-row"><div class="score-label">Autoridades</div><div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:66.1%"></div></div><div class="score-num">4,63</div></div>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../percepcion_escucha_fcab_segmentacion_1_7.html" scrolling="no" title="Escucha percibida por tipo de actor" style="height:460px"></iframe>
+              </div>
             </div>
-            <div class="tscore ts-low">
-              <div class="tscore-n">3,89</div>
-              <div class="tscore-label">Sierra Gorda</div>
+            <p>Al desagregar por categoría de actor, el rango entre categorías es el más amplio: 0,49 puntos entre el sector productivo (5,12) y las autoridades (4,63). El sector productivo se explica principalmente por los clientes con contrato operacional activo —quienes tienen canales establecidos y contacto regular— más que por los actores gremiales, cuya percepción de escucha es más moderada.</p>
+            <div class="finding">
+              <div class="finding-label">Hallazgo — Escucha mediada por referente personal</div>
+              <p>Comunidad y organización social (4,75) y sociedad civil, academia y medios (4,69) convergen en valores similares y muy próximos al promedio. Las entrevistas revelan que en ambos grupos la percepción de escucha depende casi completamente de la existencia de un referente personalizado en FCAB: cuando ese vínculo está activo, la escucha se evalúa alta; cuando no existe o se ha interrumpido, baja de forma marcada. Las organizaciones sociales con mejor percepción de escucha son precisamente aquellas que describen una relación de contacto frecuente y directo con una persona específica del equipo de relacionamiento comunitario.</p>
             </div>
           </div>
-          <div class="chart-container">
-            <iframe src="../../4.%20escucha%20percibida%20mapa.html"
-                    scrolling="no"
-                    title="Mapa de escucha percibida por comuna"
-                    style="height:760px"></iframe>
+
+          <div class="var-tab-panel">
+            <div class="chart-block">
+              <h3>Distribución general de la escucha percibida</h3>
+              <p>La distribución es la más heterogénea del conjunto: los cuatro rangos acumulan porcentajes comparables, sin un valor dominante claro. El promedio de 4,80 oculta realidades muy distintas: actores con contacto directo evalúan alto; actores sin canal de contacto evalúan bajo.</p>
+              <div class="dist-chips">
+                <span class="dchip dchip-vhigh">34% — Muy alta (7)</span>
+                <span class="dchip dchip-high">32% — Alta (5–6)</span>
+                <span class="dchip dchip-mid">21% — Media (3–4)</span>
+                <span class="dchip dchip-low">14% — Baja (1–2)</span>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../percepcion_escucha_fcab_promedio_categoria_1_7.html" scrolling="no" title="Distribución general de la escucha percibida" style="height:460px"></iframe>
+              </div>
+            </div>
+            <p>El mapa muestra que Calama y Antofagasta presentan percepciones de escucha similares y moderadamente positivas. En ambas ciudades, las transcripciones apuntan al mismo patrón: la escucha funciona cuando hay un referente activo y cuando la demanda está asociada a un proyecto concreto. Cuando ese mecanismo existe, la evaluación sube; a la inversa, la percepción cae dentro del mismo territorio.</p>
+            <p>En Mejillones (4,24), las entrevistas revelan que FCAB participa formalmente en instancias locales, pero esa participación no se traduce en capacidad de incidencia recíproca.</p>
+            <p>En Sierra Gorda (3,89), la baja percepción de escucha es coherente con la ausencia de canales de contacto sistemáticos y con la experiencia de intervenciones puntuales y reactivas. Los actores de Baquedano, en particular, no describen una relación de escucha activa sino episodios aislados de atención a demandas urgentes, sin continuidad.</p>
+          </div>
+
+          <div class="var-tab-panel">
+            <div class="chart-block">
+              <h3>Distribución territorial de la escucha percibida</h3>
+              <p>Calama y Antofagasta muestran percepciones moderadamente positivas y similares entre sí, con escucha que funciona cuando existe un referente activo. Mejillones y Sierra Gorda registran los valores más bajos: en ambos territorios predominan la participación formal sin incidencia recíproca y la intervención puntual sin continuidad.</p>
+              <div class="territory-scores">
+                <div class="tscore ts-low"><div class="tscore-n">4,24</div><div class="tscore-label">Mejillones</div></div>
+                <div class="tscore ts-low"><div class="tscore-n">3,89</div><div class="tscore-label">Sierra Gorda</div></div>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../4.%20escucha%20percibida%20mapa.html" scrolling="no" title="Mapa de escucha percibida por comuna" style="height:760px"></iframe>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -854,89 +739,64 @@
 
         <p>Con un promedio general en torno a 5,0 y una distribución que concentra el 41% en el nivel máximo (7) pero también acumula un 31% en los rangos bajo y medio (1–4), esta es una de las variables con mayor dispersión del conjunto. La ausencia de un patrón dominante señala que la percepción de coherencia es heterogénea: conviven actores que perciben alineación total entre discurso y práctica con actores que la cuestionan.</p>
 
-        <!-- Gráfico 1 -->
-        <div class="chart-block">
-          <h3>Coherencia percibida por tipo de actor</h3>
-          <p>El patrón se invierte respecto a las variables anteriores: los actores con mayor capacidad de contraste técnico entre discurso y práctica —sector productivo y sociedad civil— registran los valores más bajos. Las autoridades y la comunidad, que evalúan desde la experiencia directa y cotidiana, lideran.</p>
-          <div class="score-rows">
-            <div class="score-row">
-              <div class="score-label">Autoridades</div>
-              <div class="score-bar-wrap"><div class="score-bar" style="width:76.7%"></div></div>
-              <div class="score-num">5,37</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Comunidad y organización social</div>
-              <div class="score-bar-wrap"><div class="score-bar" style="width:74.6%"></div></div>
-              <div class="score-num">5,22</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Sociedad civil, academia y medios</div>
-              <div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:66.3%"></div></div>
-              <div class="score-num">4,64</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Sector productivo, clientes y gremios</div>
-              <div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:63.9%"></div></div>
-              <div class="score-num">4,47</div>
-            </div>
+        <div class="var-tabs">
+          <div class="var-tab-bar">
+            <button class="var-tab-btn active" type="button">Por tipo de actor</button>
+            <button class="var-tab-btn" type="button">Distribución general</button>
+            <button class="var-tab-btn" type="button">Por territorio</button>
           </div>
-          <div class="chart-container">
-            <iframe src="../../coherencia_discurso_practica_fcab_segmentacion_1_7.html"
-                    scrolling="no"
-                    title="Coherencia discurso-práctica percibida por tipo de actor"
-                    style="height:460px"></iframe>
-          </div>
-        </div>
 
-        <p>Al realizar la comparación por categorías, el sector productivo, clientes y gremios (4,47) y la sociedad civil, academia y medios (4,64) registran los valores más bajos, mientras que las autoridades (5,37) y la comunidad y organización social (5,22) puntúan por encima del promedio.</p>
-        <p>Este resultado invierte el patrón observado en variables como afectación o escucha, donde el sector productivo lideraba. La razón que emerge de las transcripciones es que los actores con mayor conocimiento técnico y mayor acceso a información pública sobre FCAB —gremios, clientes, medios, academia— son precisamente quienes pueden contrastar con mayor precisión lo que la empresa declara con lo que efectivamente hace. Varios entrevistados de estos grupos elaboran espontáneamente una distinción entre el discurso regional de FCAB —que evalúan como coherente— y su actuación a escala local o comunitaria.</p>
-        <div class="insight">
-          <div class="insight-label">Patrón inverso</div>
-          <p>Las organizaciones sociales y las autoridades evalúan la coherencia desde una experiencia más directa y menos comparativa: cuando FCAB cumple lo que promete en el ámbito de su relación cotidiana, la nota sube, independientemente de lo que ocurra a mayor escala.</p>
-        </div>
-
-        <!-- Gráfico 2 -->
-        <div class="chart-block">
-          <h3>Distribución general de la coherencia percibida</h3>
-          <p>El 41% en el nivel máximo convive con un 31% en los rangos bajos y medios (1–4), la mayor polarización registrada en las variables del análisis. La heterogeneidad de la distribución refleja que la coherencia percibida depende directamente de la intensidad del contacto con FCAB.</p>
-          <div class="dist-chips">
-            <span class="dchip dchip-vhigh">41% — Muy alta (7)</span>
-            <span class="dchip dchip-low">31% — Baja y media (1–4)</span>
-          </div>
-          <div class="chart-container">
-            <iframe src="../../coherencia_discurso_practica_fcab_promedio_categoria_1_7.html"
-                    scrolling="no"
-                    title="Distribución general de la coherencia discurso-práctica percibida"
-                    style="height:460px"></iframe>
-          </div>
-        </div>
-
-        <p>En el mapa territorial, Calama (5,39) lidera nuevamente, coherente con una historia de vínculos más sólidos y continuos que generan una percepción de correspondencia entre lo que FCAB dice y lo que hace. Antofagasta (4,94) se ubica cerca del promedio, con alta varianza interna: los actores más vinculados a FCAB la evalúan con coherencia alta, mientras que medios y algunas JJVV reducen el promedio.</p>
-        <p>Sierra Gorda (4,11) registra el puntaje más bajo. Los actores de Baquedano perciben que lo que FCAB declara a nivel regional no tiene correlato en intervenciones concretas en su localidad, lo que configura una percepción de incoherencia no ideológica sino experiencial: no ven en su entorno lo que escuchan en el discurso público de la empresa.</p>
-
-        <!-- Gráfico 3 -->
-        <div class="chart-block">
-          <h3>Distribución territorial de la coherencia percibida</h3>
-          <p>Calama lidera con la mayor percepción de correspondencia entre discurso y práctica. Sierra Gorda registra el valor más bajo: una incoherencia experiencial —no ideológica— donde el discurso regional de la empresa no tiene correlato en la realidad local de Baquedano.</p>
-          <div class="territory-scores">
-            <div class="tscore">
-              <div class="tscore-n">5,39</div>
-              <div class="tscore-label">Calama</div>
+          <div class="var-tab-panel active">
+            <div class="chart-block">
+              <h3>Coherencia percibida por tipo de actor</h3>
+              <p>El patrón se invierte respecto a las variables anteriores: los actores con mayor capacidad de contraste técnico entre discurso y práctica —sector productivo y sociedad civil— registran los valores más bajos. Las autoridades y la comunidad, que evalúan desde la experiencia directa y cotidiana, lideran.</p>
+              <div class="score-rows">
+                <div class="score-row"><div class="score-label">Autoridades</div><div class="score-bar-wrap"><div class="score-bar" style="width:76.7%"></div></div><div class="score-num">5,37</div></div>
+                <div class="score-row"><div class="score-label">Comunidad y organización social</div><div class="score-bar-wrap"><div class="score-bar" style="width:74.6%"></div></div><div class="score-num">5,22</div></div>
+                <div class="score-row"><div class="score-label">Sociedad civil, academia y medios</div><div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:66.3%"></div></div><div class="score-num">4,64</div></div>
+                <div class="score-row"><div class="score-label">Sector productivo, clientes y gremios</div><div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:63.9%"></div></div><div class="score-num">4,47</div></div>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../coherencia_discurso_practica_fcab_segmentacion_1_7.html" scrolling="no" title="Coherencia discurso-práctica percibida por tipo de actor" style="height:460px"></iframe>
+              </div>
             </div>
-            <div class="tscore">
-              <div class="tscore-n">4,94</div>
-              <div class="tscore-label">Antofagasta</div>
-            </div>
-            <div class="tscore ts-low">
-              <div class="tscore-n">4,11</div>
-              <div class="tscore-label">Sierra Gorda</div>
+            <p>Al realizar la comparación por categorías, el sector productivo, clientes y gremios (4,47) y la sociedad civil, academia y medios (4,64) registran los valores más bajos, mientras que las autoridades (5,37) y la comunidad y organización social (5,22) puntúan por encima del promedio.</p>
+            <p>Este resultado invierte el patrón observado en variables como afectación o escucha, donde el sector productivo lideraba. La razón que emerge de las transcripciones es que los actores con mayor conocimiento técnico y mayor acceso a información pública sobre FCAB —gremios, clientes, medios, academia— son precisamente quienes pueden contrastar con mayor precisión lo que la empresa declara con lo que efectivamente hace. Varios entrevistados de estos grupos elaboran espontáneamente una distinción entre el discurso regional de FCAB —que evalúan como coherente— y su actuación a escala local o comunitaria.</p>
+            <div class="insight">
+              <div class="insight-label">Patrón inverso</div>
+              <p>Las organizaciones sociales y las autoridades evalúan la coherencia desde una experiencia más directa y menos comparativa: cuando FCAB cumple lo que promete en el ámbito de su relación cotidiana, la nota sube, independientemente de lo que ocurra a mayor escala.</p>
             </div>
           </div>
-          <div class="chart-container">
-            <iframe src="../../5.%20coherencia%20mapa.html"
-                    scrolling="no"
-                    title="Mapa de coherencia discurso-práctica percibida por comuna"
-                    style="height:760px"></iframe>
+
+          <div class="var-tab-panel">
+            <div class="chart-block">
+              <h3>Distribución general de la coherencia percibida</h3>
+              <p>El 41% en el nivel máximo convive con un 31% en los rangos bajos y medios (1–4), la mayor polarización registrada en las variables del análisis. La heterogeneidad de la distribución refleja que la coherencia percibida depende directamente de la intensidad del contacto con FCAB.</p>
+              <div class="dist-chips">
+                <span class="dchip dchip-vhigh">41% — Muy alta (7)</span>
+                <span class="dchip dchip-low">31% — Baja y media (1–4)</span>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../coherencia_discurso_practica_fcab_promedio_categoria_1_7.html" scrolling="no" title="Distribución general de la coherencia discurso-práctica percibida" style="height:460px"></iframe>
+              </div>
+            </div>
+            <p>En el mapa territorial, Calama (5,39) lidera nuevamente, coherente con una historia de vínculos más sólidos y continuos que generan una percepción de correspondencia entre lo que FCAB dice y lo que hace. Antofagasta (4,94) se ubica cerca del promedio, con alta varianza interna: los actores más vinculados a FCAB la evalúan con coherencia alta, mientras que medios y algunas JJVV reducen el promedio.</p>
+            <p>Sierra Gorda (4,11) registra el puntaje más bajo. Los actores de Baquedano perciben que lo que FCAB declara a nivel regional no tiene correlato en intervenciones concretas en su localidad, lo que configura una percepción de incoherencia no ideológica sino experiencial: no ven en su entorno lo que escuchan en el discurso público de la empresa.</p>
+          </div>
+
+          <div class="var-tab-panel">
+            <div class="chart-block">
+              <h3>Distribución territorial de la coherencia percibida</h3>
+              <p>Calama lidera con la mayor percepción de correspondencia entre discurso y práctica. Sierra Gorda registra el valor más bajo: una incoherencia experiencial —no ideológica— donde el discurso regional de la empresa no tiene correlato en la realidad local de Baquedano.</p>
+              <div class="territory-scores">
+                <div class="tscore"><div class="tscore-n">5,39</div><div class="tscore-label">Calama</div></div>
+                <div class="tscore"><div class="tscore-n">4,94</div><div class="tscore-label">Antofagasta</div></div>
+                <div class="tscore ts-low"><div class="tscore-n">4,11</div><div class="tscore-label">Sierra Gorda</div></div>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../5.%20coherencia%20mapa.html" scrolling="no" title="Mapa de coherencia discurso-práctica percibida por comuna" style="height:760px"></iframe>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -947,107 +807,78 @@
 
         <p>Esta variable mide la cercanía percibida entre el actor y la empresa. El 70% de los actores se ubica en los rangos alto (5–6, 38%, n=27) y máximo (7, 32%, n=23). El 22% se sitúa en rango medio (3–4, n=16) y solo el 8% en rango bajo (1–2, n=6).</p>
 
-        <!-- Gráfico 1 -->
-        <div class="chart-block">
-          <h3>Cercanía percibida por tipo de actor</h3>
-          <p>Comunidad lidera con el único puntaje claramente sobre el promedio general. Sociedad civil y medios registra el valor más bajo del conjunto: es el segmento con mayor incidencia en reputación y con menor atención sistemática de relacionamiento.</p>
-          <div class="score-rows">
-            <div class="score-row">
-              <div class="score-label">Comunidad y organización social</div>
-              <div class="score-bar-wrap"><div class="score-bar" style="width:75.3%"></div></div>
-              <div class="score-num">5,27</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Sector productivo, clientes y gremios</div>
-              <div class="score-bar-wrap"><div class="score-bar" style="width:68.9%"></div></div>
-              <div class="score-num">4,82</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Autoridades y sector público</div>
-              <div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:66.7%"></div></div>
-              <div class="score-num">4,67</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Sociedad civil, academia y medios</div>
-              <div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:57.9%"></div></div>
-              <div class="score-num">4,05</div>
-            </div>
+        <div class="var-tabs">
+          <div class="var-tab-bar">
+            <button class="var-tab-btn active" type="button">Por tipo de actor</button>
+            <button class="var-tab-btn" type="button">Distribución general</button>
+            <button class="var-tab-btn" type="button">Por territorio</button>
           </div>
-          <div class="chart-container">
-            <iframe src="../../cercania_relacion_fcab_segmentacion_1_7.html"
-                    scrolling="no"
-                    title="Cercanía relacional percibida por tipo de actor"
-                    style="height:460px"></iframe>
-          </div>
-        </div>
 
-        <p>En el detalle por actor, la categoría Comunidad y organización social registra el promedio más alto (5,27), seguida de Sector productivo, clientes y gremios (4,82) y Autoridades y sector público (4,67), mientras que Sociedad civil, academia y medios obtiene el valor más bajo (4,05).</p>
-        <p>Comunidad y organización social es el único segmento que supera claramente el promedio general. Este resultado refleja la estrategia de relacionamiento que FCAB ha sostenido en los últimos años: presencia concreta en territorios aledaños a su operación, principalmente a través de mesas comunitarias, actividades de navidad, operativos de salud y arborización en sectores próximos a la vía. Sin embargo, al igual que con la calidad relacional percibida, este capital relacional comunitario es frágil si descansa exclusivamente en el contacto presencial de un encargado de relacionamiento: cuando ese contacto se interrumpe —por rotación de personas, cambios de gestión o discontinuidad de programas— la cercanía se diluye rápidamente.</p>
-        <div class="insight">
-          <div class="insight-label">Segmento de mayor riesgo reputacional</div>
-          <p>Sociedad civil, academia y medios es el segmento más distante. El grupo es internamente heterogéneo: lo que lo unifica no es la calidad del vínculo sino el tipo de mirada que ejercen sobre FCAB —observan, evalúan y comunican—, lo que los convierte en amplificadores potenciales tanto de percepciones positivas como críticas. En el polo más bajo se encuentran actores académicos con vínculos históricos puntuales sin agenda de colaboración activa, medios con una relación debilitada en el tiempo, y casos donde directamente no existe relación alguna. <strong>Es el segmento que más incide en la reputación de largo plazo de FCAB y el que menos recibe atención sistemática.</strong></p>
-        </div>
-        <p>El dato de Autoridades y sector público (4,67) revela una brecha de gobernanza. Las autoridades quedan por debajo del promedio general y por debajo del segmento comunitario, pese a ser los actores con mayor poder normativo sobre las operaciones de FCAB. Parte de este resultado se explica por una memoria institucional que persiste: el sector público describe un relacionamiento deficitario con administraciones anteriores de FCAB, caracterizadas por el cierre institucional ante demandas de coordinación. La percepción dominante en este segmento no es de hostilidad sino de insuficiencia: FCAB es reconocida como actor relevante para el territorio, pero no como interlocutor activo de las instituciones que lo administran.</p>
-
-        <!-- Gráfico 2 -->
-        <div class="chart-block">
-          <h3>Distribución general de la cercanía percibida</h3>
-          <p>El 70% de los actores se sitúa en los rangos positivos (5–7), con una distribución relativamente equilibrada entre muy alta y alta. El 8% en rango bajo es el segundo más reducido de las variables analizadas, lo que indica que la cercanía generalizada no es el problema central: lo es su distribución desigual entre territorios y segmentos.</p>
-          <div class="dist-chips">
-            <span class="dchip dchip-vhigh">32% — Muy alta (7)</span>
-            <span class="dchip dchip-high">38% — Alta (5–6)</span>
-            <span class="dchip dchip-mid">22% — Media (3–4)</span>
-            <span class="dchip dchip-low">8% — Baja (1–2)</span>
-          </div>
-          <div class="chart-container">
-            <iframe src="../../cercania_relacion_fcab_promedio_categoria_1_7.html"
-                    scrolling="no"
-                    title="Distribución general de la cercanía relacional percibida"
-                    style="height:460px"></iframe>
-          </div>
-        </div>
-
-        <p>La geografía del relacionamiento dibuja una centralidad en Antofagasta y una periferia desatendida. La diferencia entre Antofagasta (5,18) y Sierra Gorda (3,67) equivale a 1,51 puntos, una brecha sustantiva que se explica por la concentración histórica del relacionamiento comunitario en la ciudad sede. En Antofagasta, la presencia de FCAB en el tejido comunitario es más densa, con múltiples juntas de vecinos en contacto regular. En Sierra Gorda, coexisten realidades opuestas dentro del mismo territorio: el segmento autoridades tiene una relación valorada y fluida con la gerencia, mientras que en una junta de vecinos se declara distancia máxima y desconocimiento total:</p>
-        <div class="pull-quote">
-          <p>"Nada, nada, no conocimos el FCAB porque pasa el tren ahí nomás."</p>
-          <cite>— Junta de vecinos, Sierra Gorda</cite>
-        </div>
-        <p>Esta polarización intracomunitaria indica que FCAB no ha construido un modelo de relacionamiento que alcance al conjunto del tejido social local, sino que opera a través de interlocutores seleccionados, dejando amplias capas de la comunidad fuera del vínculo.</p>
-        <p>Mejillones (4,24) presenta una cercanía apenas sobre la mediana pese a que FCAB mantiene membresía gremial activa en la comuna desde hace varios años. Esa membresía no se ha traducido en cercanía relacional real: la participación de FCAB en instancias locales es reconocida, pero se describe como puntual y sin involucramiento profundo. La distancia en Mejillones no se explica por ausencia de intención sino por ausencia de arquitectura del relacionamiento.</p>
-        <p>Calama (4,59) presenta un perfil heterogéneo: algunas juntas de vecinos reportan vínculos activos y cercanos —con proyectos, mesas de trabajo y comunicación regular—, mientras que actores del sector público declaran una relación "marginal y muy distante".</p>
-
-        <!-- Gráfico 3 -->
-        <div class="chart-block">
-          <h3>Distribución territorial de la cercanía percibida</h3>
-          <p>La brecha de 1,51 puntos entre Antofagasta (5,18) y Sierra Gorda (3,67) refleja la concentración histórica del relacionamiento en la ciudad sede. Sierra Gorda es el único territorio donde la polarización intracomunitaria es máxima: conviven vínculos fluidos con gerencia y desconocimiento total de la empresa en el tejido vecinal.</p>
-          <div class="territory-scores">
-            <div class="tscore">
-              <div class="tscore-n">5,18</div>
-              <div class="tscore-label">Antofagasta</div>
+          <div class="var-tab-panel active">
+            <div class="chart-block">
+              <h3>Cercanía percibida por tipo de actor</h3>
+              <p>Comunidad lidera con el único puntaje claramente sobre el promedio general. Sociedad civil y medios registra el valor más bajo del conjunto: es el segmento con mayor incidencia en reputación y con menor atención sistemática de relacionamiento.</p>
+              <div class="score-rows">
+                <div class="score-row"><div class="score-label">Comunidad y organización social</div><div class="score-bar-wrap"><div class="score-bar" style="width:75.3%"></div></div><div class="score-num">5,27</div></div>
+                <div class="score-row"><div class="score-label">Sector productivo, clientes y gremios</div><div class="score-bar-wrap"><div class="score-bar" style="width:68.9%"></div></div><div class="score-num">4,82</div></div>
+                <div class="score-row"><div class="score-label">Autoridades y sector público</div><div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:66.7%"></div></div><div class="score-num">4,67</div></div>
+                <div class="score-row"><div class="score-label">Sociedad civil, academia y medios</div><div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:57.9%"></div></div><div class="score-num">4,05</div></div>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../cercania_relacion_fcab_segmentacion_1_7.html" scrolling="no" title="Cercanía relacional percibida por tipo de actor" style="height:460px"></iframe>
+              </div>
             </div>
-            <div class="tscore">
-              <div class="tscore-n">4,59</div>
-              <div class="tscore-label">Calama</div>
+            <p>En el detalle por actor, la categoría Comunidad y organización social registra el promedio más alto (5,27), seguida de Sector productivo, clientes y gremios (4,82) y Autoridades y sector público (4,67), mientras que Sociedad civil, academia y medios obtiene el valor más bajo (4,05).</p>
+            <p>Comunidad y organización social es el único segmento que supera claramente el promedio general. Este resultado refleja la estrategia de relacionamiento que FCAB ha sostenido en los últimos años: presencia concreta en territorios aledaños a su operación, principalmente a través de mesas comunitarias, actividades de navidad, operativos de salud y arborización en sectores próximos a la vía. Sin embargo, al igual que con la calidad relacional percibida, este capital relacional comunitario es frágil si descansa exclusivamente en el contacto presencial de un encargado de relacionamiento: cuando ese contacto se interrumpe —por rotación de personas, cambios de gestión o discontinuidad de programas— la cercanía se diluye rápidamente.</p>
+            <div class="insight">
+              <div class="insight-label">Segmento de mayor riesgo reputacional</div>
+              <p>Sociedad civil, academia y medios es el segmento más distante. El grupo es internamente heterogéneo: lo que lo unifica no es la calidad del vínculo sino el tipo de mirada que ejercen sobre FCAB —observan, evalúan y comunican—, lo que los convierte en amplificadores potenciales tanto de percepciones positivas como críticas. En el polo más bajo se encuentran actores académicos con vínculos históricos puntuales sin agenda de colaboración activa, medios con una relación debilitada en el tiempo, y casos donde directamente no existe relación alguna. <strong>Es el segmento que más incide en la reputación de largo plazo de FCAB y el que menos recibe atención sistemática.</strong></p>
             </div>
-            <div class="tscore">
-              <div class="tscore-n">4,24</div>
-              <div class="tscore-label">Mejillones</div>
-            </div>
-            <div class="tscore ts-low">
-              <div class="tscore-n">3,67</div>
-              <div class="tscore-label">Sierra Gorda</div>
-            </div>
+            <p>El dato de Autoridades y sector público (4,67) revela una brecha de gobernanza. Las autoridades quedan por debajo del promedio general y por debajo del segmento comunitario, pese a ser los actores con mayor poder normativo sobre las operaciones de FCAB. Parte de este resultado se explica por una memoria institucional que persiste: el sector público describe un relacionamiento deficitario con administraciones anteriores de FCAB, caracterizadas por el cierre institucional ante demandas de coordinación. La percepción dominante en este segmento no es de hostilidad sino de insuficiencia: FCAB es reconocida como actor relevante para el territorio, pero no como interlocutor activo de las instituciones que lo administran.</p>
           </div>
-          <div class="chart-container">
-            <iframe src="../../7.%20cercan%C3%ADa%20mapa.html"
-                    scrolling="no"
-                    title="Mapa de cercanía relacional percibida por comuna"
-                    style="height:760px"></iframe>
-          </div>
-        </div>
 
-        <div class="callout callout-green">
-          <p>Esta variable se percibe como una <strong>brecha de gestión, no como una distancia de principio</strong>. Esto define con claridad el tipo de intervención que se requiere: no reparación de vínculos dañados, sino construcción de arquitectura relacional en territorios y segmentos donde aún no existe.</p>
+          <div class="var-tab-panel">
+            <div class="chart-block">
+              <h3>Distribución general de la cercanía percibida</h3>
+              <p>El 70% de los actores se sitúa en los rangos positivos (5–7), con una distribución relativamente equilibrada entre muy alta y alta. El 8% en rango bajo es el segundo más reducido de las variables analizadas, lo que indica que la cercanía generalizada no es el problema central: lo es su distribución desigual entre territorios y segmentos.</p>
+              <div class="dist-chips">
+                <span class="dchip dchip-vhigh">32% — Muy alta (7)</span>
+                <span class="dchip dchip-high">38% — Alta (5–6)</span>
+                <span class="dchip dchip-mid">22% — Media (3–4)</span>
+                <span class="dchip dchip-low">8% — Baja (1–2)</span>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../cercania_relacion_fcab_promedio_categoria_1_7.html" scrolling="no" title="Distribución general de la cercanía relacional percibida" style="height:460px"></iframe>
+              </div>
+            </div>
+            <p>La geografía del relacionamiento dibuja una centralidad en Antofagasta y una periferia desatendida. La diferencia entre Antofagasta (5,18) y Sierra Gorda (3,67) equivale a 1,51 puntos, una brecha sustantiva que se explica por la concentración histórica del relacionamiento comunitario en la ciudad sede. En Antofagasta, la presencia de FCAB en el tejido comunitario es más densa, con múltiples juntas de vecinos en contacto regular. En Sierra Gorda, coexisten realidades opuestas dentro del mismo territorio: el segmento autoridades tiene una relación valorada y fluida con la gerencia, mientras que en una junta de vecinos se declara distancia máxima y desconocimiento total:</p>
+            <div class="pull-quote">
+              <p>"Nada, nada, no conocimos el FCAB porque pasa el tren ahí nomás."</p>
+              <cite>— Junta de vecinos, Sierra Gorda</cite>
+            </div>
+            <p>Esta polarización intracomunitaria indica que FCAB no ha construido un modelo de relacionamiento que alcance al conjunto del tejido social local, sino que opera a través de interlocutores seleccionados, dejando amplias capas de la comunidad fuera del vínculo.</p>
+            <p>Mejillones (4,24) presenta una cercanía apenas sobre la mediana pese a que FCAB mantiene membresía gremial activa en la comuna desde hace varios años. Esa membresía no se ha traducido en cercanía relacional real: la participación de FCAB en instancias locales es reconocida, pero se describe como puntual y sin involucramiento profundo. La distancia en Mejillones no se explica por ausencia de intención sino por ausencia de arquitectura del relacionamiento.</p>
+            <p>Calama (4,59) presenta un perfil heterogéneo: algunas juntas de vecinos reportan vínculos activos y cercanos —con proyectos, mesas de trabajo y comunicación regular—, mientras que actores del sector público declaran una relación "marginal y muy distante".</p>
+          </div>
+
+          <div class="var-tab-panel">
+            <div class="chart-block">
+              <h3>Distribución territorial de la cercanía percibida</h3>
+              <p>La brecha de 1,51 puntos entre Antofagasta (5,18) y Sierra Gorda (3,67) refleja la concentración histórica del relacionamiento en la ciudad sede. Sierra Gorda es el único territorio donde la polarización intracomunitaria es máxima: conviven vínculos fluidos con gerencia y desconocimiento total de la empresa en el tejido vecinal.</p>
+              <div class="territory-scores">
+                <div class="tscore"><div class="tscore-n">5,18</div><div class="tscore-label">Antofagasta</div></div>
+                <div class="tscore"><div class="tscore-n">4,59</div><div class="tscore-label">Calama</div></div>
+                <div class="tscore"><div class="tscore-n">4,24</div><div class="tscore-label">Mejillones</div></div>
+                <div class="tscore ts-low"><div class="tscore-n">3,67</div><div class="tscore-label">Sierra Gorda</div></div>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../7.%20cercan%C3%ADa%20mapa.html" scrolling="no" title="Mapa de cercanía relacional percibida por comuna" style="height:760px"></iframe>
+              </div>
+            </div>
+            <div class="callout callout-green">
+              <p>Esta variable se percibe como una <strong>brecha de gestión, no como una distancia de principio</strong>. Esto define con claridad el tipo de intervención que se requiere: no reparación de vínculos dañados, sino construcción de arquitectura relacional en territorios y segmentos donde aún no existe.</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1057,83 +888,60 @@
 
         <p>Esta variable mide la apertura del actor o su organización a participar en instancias formales de diálogo, coordinación o trabajo conjunto con FCAB. Los resultados son los más contundentes y homogéneos de toda la batería de variables: con un promedio general de 6,8 y el 92% de los actores en el nivel máximo de la escala (7), la disposición al diálogo formal con FCAB es prácticamente universal. No hay rango 1–2 en la distribución y las diferencias entre categorías son mínimas. Esto convierte a esta variable en la dimensión más sólida de todo el diagnóstico y la sitúa como un signo de apertura estructural, independiente del historial de la relación.</p>
 
-        <!-- Gráfico 1 -->
-        <div class="chart-block">
-          <h3>Disposición al diálogo por tipo de actor</h3>
-          <p>Las diferencias entre categorías son mínimas —el rango es de apenas 0,49 puntos—. La sociedad civil es el único segmento que introduce condiciones al diálogo: prefiere instancias con agenda concreta por sobre relacionamiento genérico.</p>
-          <div class="score-rows">
-            <div class="score-row">
-              <div class="score-label">Autoridades y sector público</div>
-              <div class="score-bar-wrap"><div class="score-bar" style="width:100%"></div></div>
-              <div class="score-num">7,0</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Sector productivo, clientes y gremios</div>
-              <div class="score-bar-wrap"><div class="score-bar" style="width:99.1%"></div></div>
-              <div class="score-num">6,94</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Comunidad y organización social</div>
-              <div class="score-bar-wrap"><div class="score-bar" style="width:97.0%"></div></div>
-              <div class="score-num">6,79</div>
-            </div>
-            <div class="score-row">
-              <div class="score-label">Sociedad civil, academia y medios</div>
-              <div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:93.0%"></div></div>
-              <div class="score-num">6,51</div>
-            </div>
+        <div class="var-tabs">
+          <div class="var-tab-bar">
+            <button class="var-tab-btn active" type="button">Por tipo de actor</button>
+            <button class="var-tab-btn" type="button">Distribución general</button>
+            <button class="var-tab-btn" type="button">Por territorio</button>
           </div>
-          <div class="chart-container">
-            <iframe src="../../disposicion_dialogo_fcab_segmentacion_1_7.html"
-                    scrolling="no"
-                    title="Disposición al diálogo por tipo de actor"
-                    style="height:460px"></iframe>
-          </div>
-        </div>
 
-        <p>Por categorías, las autoridades alcanzan el promedio perfecto de 7,0, lo que en las transcripciones se explica por la naturaleza de su rol: para un municipio, una delegación u otra autoridad, participar en instancias de diálogo con una empresa que opera en su territorio no es solo deseable sino parte inherente de su función pública. El sector productivo (6,94) y la comunidad y organización social (6,79) le siguen de cerca. La sociedad civil, academia y medios (6,51) es el único segmento que matiza con condiciones: sus actores señalan apertura hacia diálogos con agenda concreta o con objetivos compartidos claros, antes que instancias genéricas de relacionamiento.</p>
-
-        <!-- Gráfico 2 -->
-        <div class="chart-block">
-          <h3>Distribución general de la disposición al diálogo</h3>
-          <p>El 92% de los actores asigna la puntuación máxima y no hay ningún actor en el rango bajo (1–2). Es la distribución más concentrada y favorable de todo el análisis, con un promedio de 6,8 sobre 7.</p>
-          <div class="dist-chips">
-            <span class="dchip dchip-vhigh">92% — Nivel máximo (7)</span>
-          </div>
-          <div class="chart-container">
-            <iframe src="../../disposicion_dialogo_fcab_promedio_categoria_1_7.html"
-                    scrolling="no"
-                    title="Distribución general de la disposición al diálogo"
-                    style="height:460px"></iframe>
-          </div>
-        </div>
-
-        <p>El mapa territorial refuerza la homogeneidad: Mejillones alcanza el máximo perfecto (7,0), Calama y Antofagasta se ubican entre 6,77 y 6,94, y Sierra Gorda —que en todas las variables anteriores registraba los valores más bajos— llega aquí a 6,33, su mejor resultado relativo. Este dato es estratégicamente relevante: incluso donde la relación está deteriorada y la afectación no se traduce en participación, los actores mantienen una disposición activa a construir algo diferente. La puerta no está cerrada en ningún territorio.</p>
-
-        <!-- Gráfico 3 -->
-        <div class="chart-block">
-          <h3>Distribución territorial de la disposición al diálogo</h3>
-          <p>Mejillones es el único territorio con máximo perfecto. Calama y Antofagasta se ubican entre 6,77 y 6,94. Sierra Gorda —el territorio más crítico en todas las variables anteriores— registra aquí su mejor resultado relativo: la disposición al diálogo persiste incluso donde la relación está deteriorada.</p>
-          <div class="territory-scores">
-            <div class="tscore">
-              <div class="tscore-n">7,0</div>
-              <div class="tscore-label">Mejillones</div>
+          <div class="var-tab-panel active">
+            <div class="chart-block">
+              <h3>Disposición al diálogo por tipo de actor</h3>
+              <p>Las diferencias entre categorías son mínimas —el rango es de apenas 0,49 puntos—. La sociedad civil es el único segmento que introduce condiciones al diálogo: prefiere instancias con agenda concreta por sobre relacionamiento genérico.</p>
+              <div class="score-rows">
+                <div class="score-row"><div class="score-label">Autoridades y sector público</div><div class="score-bar-wrap"><div class="score-bar" style="width:100%"></div></div><div class="score-num">7,0</div></div>
+                <div class="score-row"><div class="score-label">Sector productivo, clientes y gremios</div><div class="score-bar-wrap"><div class="score-bar" style="width:99.1%"></div></div><div class="score-num">6,94</div></div>
+                <div class="score-row"><div class="score-label">Comunidad y organización social</div><div class="score-bar-wrap"><div class="score-bar" style="width:97.0%"></div></div><div class="score-num">6,79</div></div>
+                <div class="score-row"><div class="score-label">Sociedad civil, academia y medios</div><div class="score-bar-wrap"><div class="score-bar bar-dim" style="width:93.0%"></div></div><div class="score-num">6,51</div></div>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../disposicion_dialogo_fcab_segmentacion_1_7.html" scrolling="no" title="Disposición al diálogo por tipo de actor" style="height:460px"></iframe>
+              </div>
             </div>
-            <div class="tscore">
-              <div class="tscore-n">6,33</div>
-              <div class="tscore-label">Sierra Gorda</div>
+            <p>Por categorías, las autoridades alcanzan el promedio perfecto de 7,0, lo que en las transcripciones se explica por la naturaleza de su rol: para un municipio, una delegación u otra autoridad, participar en instancias de diálogo con una empresa que opera en su territorio no es solo deseable sino parte inherente de su función pública. El sector productivo (6,94) y la comunidad y organización social (6,79) le siguen de cerca. La sociedad civil, academia y medios (6,51) es el único segmento que matiza con condiciones: sus actores señalan apertura hacia diálogos con agenda concreta o con objetivos compartidos claros, antes que instancias genéricas de relacionamiento.</p>
+          </div>
+
+          <div class="var-tab-panel">
+            <div class="chart-block">
+              <h3>Distribución general de la disposición al diálogo</h3>
+              <p>El 92% de los actores asigna la puntuación máxima y no hay ningún actor en el rango bajo (1–2). Es la distribución más concentrada y favorable de todo el análisis, con un promedio de 6,8 sobre 7.</p>
+              <div class="dist-chips">
+                <span class="dchip dchip-vhigh">92% — Nivel máximo (7)</span>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../disposicion_dialogo_fcab_promedio_categoria_1_7.html" scrolling="no" title="Distribución general de la disposición al diálogo" style="height:460px"></iframe>
+              </div>
+            </div>
+            <p>El mapa territorial refuerza la homogeneidad: Mejillones alcanza el máximo perfecto (7,0), Calama y Antofagasta se ubican entre 6,77 y 6,94, y Sierra Gorda —que en todas las variables anteriores registraba los valores más bajos— llega aquí a 6,33, su mejor resultado relativo. Este dato es estratégicamente relevante: incluso donde la relación está deteriorada y la afectación no se traduce en participación, los actores mantienen una disposición activa a construir algo diferente. La puerta no está cerrada en ningún territorio.</p>
+          </div>
+
+          <div class="var-tab-panel">
+            <div class="chart-block">
+              <h3>Distribución territorial de la disposición al diálogo</h3>
+              <p>Mejillones es el único territorio con máximo perfecto. Calama y Antofagasta se ubican entre 6,77 y 6,94. Sierra Gorda —el territorio más crítico en todas las variables anteriores— registra aquí su mejor resultado relativo: la disposición al diálogo persiste incluso donde la relación está deteriorada.</p>
+              <div class="territory-scores">
+                <div class="tscore"><div class="tscore-n">7,0</div><div class="tscore-label">Mejillones</div></div>
+                <div class="tscore"><div class="tscore-n">6,33</div><div class="tscore-label">Sierra Gorda</div></div>
+              </div>
+              <div class="chart-container">
+                <iframe src="../../8.%20di%C3%A1logo%20mapa.html" scrolling="no" title="Mapa de disposición al diálogo por comuna" style="height:760px"></iframe>
+              </div>
+            </div>
+            <div class="callout callout-green">
+              <p>La disposición al diálogo funciona como el <strong>suelo firme</strong> sobre el que FCAB puede construir toda su estrategia de relacionamiento. Las brechas identificadas en calidad relacional, escucha percibida y afectación no expresan rechazo a la empresa sino demanda de una relación mejor. Que el 91% de los actores —incluidos los más críticos— esté dispuesto a participar formalmente no es un dato trivial: es la condición habilitante más robusta que este diagnóstico identifica, y su aprovechamiento depende exclusivamente de la iniciativa de FCAB.</p>
             </div>
           </div>
-          <div class="chart-container">
-            <iframe src="../../8.%20di%C3%A1logo%20mapa.html"
-                    scrolling="no"
-                    title="Mapa de disposición al diálogo por comuna"
-                    style="height:760px"></iframe>
-          </div>
-        </div>
-
-        <div class="callout callout-green">
-          <p>La disposición al diálogo funciona como el <strong>suelo firme</strong> sobre el que FCAB puede construir toda su estrategia de relacionamiento. Las brechas identificadas en calidad relacional, escucha percibida y afectación no expresan rechazo a la empresa sino demanda de una relación mejor. Que el 91% de los actores —incluidos los más críticos— esté dispuesto a participar formalmente no es un dato trivial: es la condición habilitante más robusta que este diagnóstico identifica, y su aprovechamiento depende exclusivamente de la iniciativa de FCAB.</p>
         </div>
       </section>
 
@@ -1320,5 +1128,19 @@
   </main>
 
   <script src="../assets/js/navigation.js"></script>
+  <script>
+    document.querySelectorAll('.var-tabs').forEach(container => {
+      const buttons = container.querySelectorAll('.var-tab-btn');
+      const panels  = container.querySelectorAll('.var-tab-panel');
+      buttons.forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          buttons.forEach(b => b.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          btn.classList.add('active');
+          panels[i].classList.add('active');
+        });
+      });
+    });
+  </script>
 </body>
 </html>
