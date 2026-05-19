@@ -81,8 +81,10 @@ li { color: var(--text-2); line-height: 1.65; margin-bottom: 6px; }
 .header-back:hover { color: var(--text-1); background: var(--surface-2); text-decoration: none; }
 .header-sep { width: 1px; height: 18px; background: var(--border-2); flex-shrink: 0; }
 .header-chapter { font-size: 13px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.header-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+.header-right { margin-left: auto; display: flex; align-items: center; gap: 14px; }
 .header-agency { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); }
+.header-logo { height: 30px; width: auto; object-fit: contain; display: block; }
+.index-header-logo-img { height: 28px; width: auto; object-fit: contain; display: block; }
 
 /* Sidebar */
 .sidebar {
@@ -379,9 +381,10 @@ tbody td:first-child { color: var(--text-1); font-weight: 500; min-width: 180px;
   position: fixed; top: 0; left: 0; right: 0; height: var(--header-h); z-index: 200;
   background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; padding: 0 40px;
+  display: flex; align-items: center; gap: 14px; padding: 0 40px;
 }
 .index-header-logo { font-size: 13px; font-weight: 700; color: var(--text-1); letter-spacing: 0.06em; text-transform: uppercase; }
+.index-header-right { margin-left: auto; display: flex; align-items: center; }
 .index-header-right { margin-left: auto; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); }
 
 /* --- RESPONSIVE ----------------------------------------------- */
