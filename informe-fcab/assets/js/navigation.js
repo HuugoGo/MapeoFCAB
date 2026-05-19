@@ -27,7 +27,7 @@ const CHAPTERS = [
   },
   {
     num:    '08',
-    title:  'Análisis de Datos Descriptivos',
+    title:  'Análisis Descriptivo de Datos',
     desc:   'Distribución territorial de la muestra y estrategia analítica integrada.',
     file:   'capitulo-08.html',
     status: 'borrador',
