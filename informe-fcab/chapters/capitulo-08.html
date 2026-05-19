@@ -1079,8 +1079,17 @@
   <script src="../assets/js/navigation.js"></script>
   <script>
     document.querySelectorAll('.var-tabs').forEach(container => {
+      // Los paneles están en DOM: [tipo-actor, dist-general, territorio]
+      // Los botones están en DOM: [dist-general, tipo-actor, territorio]
+      // → Mover panel[1] (dist-general) antes de panel[0] para alinear índices
+      const snap = Array.from(container.querySelectorAll('.var-tab-panel'));
+      if (snap.length >= 2) container.insertBefore(snap[1], snap[0]);
+
+      // Re-leer paneles en el nuevo orden y resetear clase active
       const buttons = container.querySelectorAll('.var-tab-btn');
       const panels  = container.querySelectorAll('.var-tab-panel');
+      panels.forEach((p, i) => p.classList.toggle('active', i === 0));
+
       buttons.forEach((btn, i) => {
         btn.addEventListener('click', () => {
           buttons.forEach(b => b.classList.remove('active'));
