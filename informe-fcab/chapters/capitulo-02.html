@@ -8,6 +8,391 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    /* ── Diseño mixto cards ── */
+    .design-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 28px 0;
+    }
+    .design-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 24px;
+    }
+    .design-card-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    .design-card h4 {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 0 0 10px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .design-card p {
+      font-size: .9rem;
+      color: var(--text-2);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── KPI territory ── */
+    .territory-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .t-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: .85rem;
+      font-weight: 500;
+      color: var(--text-1);
+    }
+    .t-pill .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ── Actor category cards ── */
+    .actor-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin: 28px 0;
+    }
+    .actor-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px 22px;
+      position: relative;
+      overflow: hidden;
+    }
+    .actor-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .actor-card.ac-auth::before { background: #3b82f6; }
+    .actor-card.ac-com::before  { background: #10b981; }
+    .actor-card.ac-prod::before { background: #f59e0b; }
+    .actor-card.ac-soc::before  { background: #8b5cf6; }
+    .actor-card .ac-icon { font-size: 1.6rem; margin-bottom: 10px; }
+    .actor-card h4 {
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--text-1);
+      margin: 0 0 8px;
+    }
+    .actor-card .ac-desc {
+      font-size: .83rem;
+      color: var(--text-2);
+      line-height: 1.55;
+      margin-bottom: 12px;
+    }
+    .actor-card .ac-criteria-label {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text-3);
+      margin-bottom: 6px;
+    }
+    .actor-card ul {
+      margin: 0;
+      padding: 0 0 0 16px;
+    }
+    .actor-card ul li {
+      font-size: .8rem;
+      color: var(--text-2);
+      line-height: 1.5;
+      margin-bottom: 3px;
+    }
+
+    /* ── Variables table ── */
+    .var-table-wrap {
+      margin: 28px 0;
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .var-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .85rem;
+    }
+    .var-table thead tr {
+      background: var(--card);
+    }
+    .var-table th {
+      padding: 13px 16px;
+      text-align: left;
+      font-weight: 600;
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--text-3);
+      border-bottom: 1px solid var(--border);
+    }
+    .var-table td {
+      padding: 13px 16px;
+      color: var(--text-2);
+      line-height: 1.5;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .var-table tr:last-child td { border-bottom: none; }
+    .var-table tr:hover td { background: rgba(255,255,255,.02); }
+    .var-name {
+      font-weight: 600;
+      color: var(--text-1);
+      white-space: nowrap;
+    }
+
+    /* ── Process stepper ── */
+    .process-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 28px 0;
+    }
+    .process-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 0 20px;
+      position: relative;
+    }
+    .process-step:not(:last-child) .step-line {
+      position: absolute;
+      left: 23px;
+      top: 48px;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+    .step-num {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: .95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .step-body {
+      padding: 10px 0 32px;
+    }
+    .step-body h4 {
+      font-size: .92rem;
+      font-weight: 700;
+      color: var(--text-1);
+      margin: 0 0 8px;
+    }
+    .step-body p {
+      font-size: .88rem;
+      color: var(--text-2);
+      line-height: 1.6;
+      margin: 0 0 6px;
+    }
+
+    /* ── Alert / info box ── */
+    .alert-box {
+      background: rgba(239,68,68,.08);
+      border: 1px solid rgba(239,68,68,.25);
+      border-left: 3px solid #ef4444;
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: .87rem;
+      color: var(--text-2);
+      line-height: 1.55;
+      margin: 14px 0;
+    }
+    .info-box {
+      background: rgba(59,130,246,.07);
+      border: 1px solid rgba(59,130,246,.2);
+      border-left: 3px solid #3b82f6;
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: .87rem;
+      color: var(--text-2);
+      line-height: 1.55;
+      margin: 14px 0;
+    }
+
+    /* ── Tech items ── */
+    .tech-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .tech-item {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+    }
+    .tech-item-icon {
+      font-size: 1.7rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .tech-item h4 {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--text-1);
+      margin: 0 0 6px;
+    }
+    .tech-item p {
+      font-size: .86rem;
+      color: var(--text-2);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── Analysis multi-step ── */
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .analysis-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 20px;
+    }
+    .analysis-card .ac-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(var(--accent-rgb, 99,102,241),.15);
+      color: var(--accent);
+      font-size: .8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .analysis-card h4 {
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--text-1);
+      margin: 0 0 6px;
+    }
+    .analysis-card p {
+      font-size: .82rem;
+      color: var(--text-2);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* ── Ethics list ── */
+    .ethics-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .ethics-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: .88rem;
+      color: var(--text-2);
+      line-height: 1.55;
+    }
+    .ethics-item .check {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: rgba(16,185,129,.15);
+      color: #10b981;
+      font-size: .8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── Excluded actors ── */
+    .excluded-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 16px 0;
+    }
+    .excluded-tag {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: .82rem;
+      color: var(--text-2);
+    }
+
+    /* ── stat kpi bar ── */
+    .stat-row {
+      display: flex;
+      gap: 16px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+    .stat-card {
+      flex: 1;
+      min-width: 130px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: .78rem;
+      color: var(--text-3);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 640px) {
+      .design-split,
+      .actor-grid,
+      .analysis-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
@@ -20,8 +405,8 @@
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
       Índice
     </a>
-    <div class="header-sep"></div>
-    <span class="header-chapter">Capítulo 02 — Metodología</span>
+    <span class="header-sep"></span>
+    <span class="header-chapter">Cap. 02 — Metodología</span>
     <div class="header-right">
       <img src="../assets/img/logo-fcab.jpg" alt="FCAB" class="header-logo">
       <span class="header-sep"></span>
@@ -29,328 +414,371 @@
     </div>
   </header>
 
-  <!-- SIDEBAR (poblado por navigation.js) -->
-  <nav class="sidebar" id="sidebar"></nav>
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar" aria-label="Navegación del capítulo">
+    <div class="sidebar-label">Capítulo 02</div>
+    <a class="sidebar-link active" href="#sec-diseno">Diseño metodológico</a>
+    <a class="sidebar-link" href="#sec-muestra">Población y muestra</a>
+    <a class="sidebar-link" href="#sec-tecnicas">Técnicas e instrumentos</a>
+    <a class="sidebar-link" href="#sec-recoleccion">Recolección</a>
+    <a class="sidebar-link" href="#sec-analisis">Análisis de datos</a>
+    <a class="sidebar-link" href="#sec-etica">Consideraciones éticas</a>
+    <div class="sidebar-footer">
+      <div>DOS BARBAS</div>
+      <div style="margin-top:4px;opacity:.7">2026 · Estudio FCAB</div>
+    </div>
+  </nav>
 
-  <!-- MAIN -->
+  <!-- CONTENT -->
   <main class="chapter-main">
     <div class="chapter-content">
 
-      <!-- ── ENCABEZADO DEL CAPÍTULO ─────────────────────────── -->
+      <!-- CHAPTER HEADER -->
       <header class="chapter-header">
         <div class="chapter-meta">
           <span class="chapter-num-label">Capítulo 02</span>
         </div>
         <h1>Metodología</h1>
-        <p class="chapter-lead">Diseño mixto aplicado y territorial para mapear el ecosistema de stakeholders de FCAB: combinación de técnicas cualitativas, sistematización cuantitativa y análisis multinivel en seis comunas del norte de Chile.</p>
+        <p class="chapter-lead">Diseño mixto, estrategia muestral intencionada y análisis integrado para comprender el ecosistema de actores vinculados al territorio de influencia de FCAB.</p>
       </header>
 
+      <!-- ── SECCIÓN 1: DISEÑO METODOLÓGICO ── -->
+      <section class="section" id="sec-diseno">
+        <h2>Diseño metodológico</h2>
+        <p>El estudio se desarrolló bajo un <strong>diseño metodológico mixto</strong>, de carácter aplicado y territorial, orientado a comprender la posición, percepciones, expectativas y niveles de incidencia de los actores vinculados al territorio de influencia de FCAB. La estrategia metodológica combinó técnicas cualitativas y cuantitativas con el propósito de construir una lectura integral del mapa de actores, considerando tanto los atributos relacionales de cada actor como las temáticas prioritarias que estructuran su vínculo con la empresa y el territorio.</p>
 
-      <!-- ── RESUMEN EJECUTIVO ───────────────────────────────── -->
-      <section class="section">
-        <h2>Resumen ejecutivo</h2>
-        <div class="callout">
-          <p>El estudio adoptó un <strong>diseño metodológico mixto</strong>, combinando entrevistas semiestructuradas con sistematización cuantitativa mediante índices normalizados (escala 0–1). La estrategia permitió construir una lectura integral del ecosistema de actores: sus posiciones, percepciones, expectativas y niveles de incidencia respecto de FCAB. El análisis operó en cinco capas sucesivas — codificación temática, índices comparables, segmentación por clusters, modelamiento de tópicos (LDA) y mapas de red — generando insumos diferenciados para la toma de decisiones territorial.</p>
-        </div>
-      </section>
-
-      <!-- ── 1. DISEÑO METODOLÓGICO ──────────────────────────── -->
-      <section class="section">
-        <h2>1. Diseño metodológico</h2>
-        <p>El estudio se desarrolló bajo un diseño aplicado y territorial, orientado a comprender la posición, percepciones, expectativas y niveles de incidencia de los actores vinculados al área de influencia de FCAB. La estrategia metodológica integró dos componentes complementarios:</p>
-
-        <div class="two-col">
-          <div class="two-col-card">
-            <h4>Componente cualitativo</h4>
-            <ul>
-              <li>Entrevistas semiestructuradas a actores clave</li>
-              <li>Levantamiento de percepciones, expectativas y preocupaciones</li>
-              <li>Identificación de temas sensibles, oportunidades y riesgos reputacionales</li>
-              <li>Codificación temática de relatos</li>
-            </ul>
-          </div>
-          <div class="two-col-card">
+        <div class="design-split">
+          <div class="design-card">
+            <div class="design-card-icon">📊</div>
             <h4>Componente cuantitativo</h4>
+            <p>Se estructuró a partir de la sistematización de respuestas e indicadores derivados del levantamiento de información. Se analizaron las variables numéricas capturadas en las entrevistas y se utilizaron para realizar un <strong>análisis de cluster</strong> que permitió generar tres perfiles de actor, facilitando la generación de recomendaciones diferenciadas.</p>
+          </div>
+          <div class="design-card">
+            <div class="design-card-icon">🗣️</div>
+            <h4>Componente cualitativo</h4>
+            <p>Se basó en <strong>entrevistas semiestructuradas</strong> aplicadas a actores clave del territorio. Permitió levantar percepciones, experiencias, expectativas, preocupaciones y recomendaciones vinculadas al relacionamiento de FCAB, e identificar temas sensibles, oportunidades de colaboración, riesgos reputacionales y brechas de comunicación.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SECCIÓN 2: POBLACIÓN Y MUESTRA ── -->
+      <section class="section" id="sec-muestra">
+        <h2>Población y muestra</h2>
+        <p>La población del estudio estuvo compuesta por actores institucionales, comunitarios, sociales, públicos, privados y territoriales que mantienen algún grado de vínculo, interés, afectación o capacidad de incidencia respecto de FCAB y su presencia en el territorio. Esta población se definió desde una lógica de <strong>mapeo estratégico de stakeholders</strong>, considerando la posición que cada actor ocupa dentro del ecosistema de relacionamiento territorial de la empresa.</p>
+
+        <p>La unidad de análisis correspondió a actores, instituciones, organizaciones o representantes relevantes: autoridades locales, organismos públicos, organizaciones comunitarias, representantes sociales, actores económicos, instituciones educacionales, organizaciones territoriales y otros referentes con conocimiento o incidencia en las comunas abordadas.</p>
+
+        <p>La <strong>muestra fue de carácter intencionado y estratégico</strong>. A diferencia de una muestra probabilística, la estrategia muestral no buscó representar estadísticamente a la población general de las comunas, sino asegurar la inclusión de actores clave para el análisis del sistema territorial de relaciones. Los resultados deben interpretarse como una aproximación estratégica al mapa de actores, orientada a identificar posiciones, percepciones, expectativas, prioridades y oportunidades de gestión territorial.</p>
+
+        <h3 style="margin-top:32px">Cobertura territorial</h3>
+        <p>El levantamiento consideró actores provenientes de distintas comunas y localidades vinculadas al área de influencia territorial de FCAB:</p>
+        <div class="territory-pills">
+          <span class="t-pill"><span class="dot"></span>Calama</span>
+          <span class="t-pill"><span class="dot"></span>Antofagasta</span>
+          <span class="t-pill"><span class="dot"></span>Sierra Gorda</span>
+          <span class="t-pill"><span class="dot"></span>Baquedano</span>
+          <span class="t-pill"><span class="dot"></span>Ollagüe</span>
+          <span class="t-pill"><span class="dot"></span>Mejillones</span>
+        </div>
+        <p>Esta cobertura permitió incorporar perspectivas diferenciadas según contexto local, tipo de relación con la empresa y particularidades territoriales, fortaleciendo una lectura comparativa del ecosistema de actores en los distintos puntos de presencia y operación ferroviaria.</p>
+
+        <h3 style="margin-top:32px">Categorías de actores</h3>
+        <p>La siguiente clasificación presenta las categorías consideradas en el estudio, junto con su descripción y criterio de inclusión dentro del ecosistema territorial:</p>
+
+        <div class="actor-grid">
+          <div class="actor-card ac-auth">
+            <div class="ac-icon">🏛️</div>
+            <h4>Autoridades y Sector Público</h4>
+            <p class="ac-desc">Representantes de instituciones gubernamentales regionales, elegidas democráticamente y designadas con incidencia directa operacional o social en FCAB.</p>
+            <div class="ac-criteria-label">Criterios de inclusión</div>
             <ul>
-              <li>Sistematización de respuestas en matriz estructurada</li>
-              <li>Comparación estandarizada entre actores, comunas y categorías</li>
-              <li>Segmentación por clusters y análisis estadístico</li>
+              <li>Alineamiento con desarrollo estratégico regional</li>
+              <li>Viabilidad regulatoria y permisos</li>
+              <li>Vinculación y pertinencia territorial</li>
+              <li>Rápida respuesta ante contingencias</li>
+            </ul>
+          </div>
+          <div class="actor-card ac-com">
+            <div class="ac-icon">🏘️</div>
+            <h4>Comunidad y Organizaciones Sociales</h4>
+            <p class="ac-desc">Juntas de vecinos, agrupaciones locales, organizaciones sociales o comunitarias con presencia territorial directa.</p>
+            <div class="ac-criteria-label">Criterios de inclusión</div>
+            <ul>
+              <li>Licencia social para operar y convivencia armónica</li>
+              <li>Anticipación de conflictos</li>
+              <li>Construcción de confianza a largo plazo</li>
+            </ul>
+          </div>
+          <div class="actor-card ac-prod">
+            <div class="ac-icon">🏭</div>
+            <h4>Sector Productivo, Clientes y Gremios</h4>
+            <p class="ac-desc">Clientes actuales y potenciales, socios estratégicos y asociaciones gremiales vinculadas a la operación de FCAB.</p>
+            <div class="ac-criteria-label">Criterios de inclusión</div>
+            <ul>
+              <li>Articulación para el desarrollo económico regional</li>
+              <li>Oportunidad de desarrollo de nuevos negocios</li>
+              <li>Influencia en decisiones políticas de impacto económico</li>
+            </ul>
+          </div>
+          <div class="actor-card ac-soc">
+            <div class="ac-icon">🎓</div>
+            <h4>Sociedad Civil, Academia y Medios</h4>
+            <p class="ac-desc">Fundaciones, corporaciones, instituciones educacionales de educación superior, medios de comunicación locales y regionales.</p>
+            <div class="ac-criteria-label">Criterios de inclusión</div>
+            <ul>
+              <li>Construcción de legitimidad, reputación e identidad</li>
+              <li>Capital humano, transferencia tecnológica y patrimonio</li>
+              <li>Sinergias para amplificar el impacto social</li>
+              <li>Posicionamiento institucional sistemático</li>
             </ul>
           </div>
         </div>
+      </section>
 
-        <h3>Pipeline analítico</h3>
-        <p>El análisis se organizó en cuatro etapas sucesivas, desde el levantamiento hasta la representación gráfica del ecosistema:</p>
-        <div class="pipeline">
-          <div class="pipeline-step">
-            <strong>Etapa 1</strong>
-            <span>Entrevistas semiestructuradas</span>
+      <!-- ── SECCIÓN 3: TÉCNICAS E INSTRUMENTOS ── -->
+      <section class="section" id="sec-tecnicas">
+        <h2>Técnicas e instrumentos</h2>
+        <p>El estudio utilizó una combinación de técnicas cualitativas y herramientas de sistematización estructurada, orientadas a levantar información sobre percepciones, experiencias, expectativas, niveles de incidencia y prioridades territoriales de los actores vinculados a FCAB. Esta estrategia permitió integrar información discursiva proveniente de entrevistas con variables comparables para el análisis del mapa de actores.</p>
+
+        <div class="tech-list">
+          <div class="tech-item">
+            <div class="tech-item-icon">🎙️</div>
+            <div>
+              <h4>Entrevista semiestructurada</h4>
+              <p>Principal técnica de levantamiento, aplicada a actores clave del territorio. Permitió abordar un conjunto común de dimensiones analíticas, manteniendo la flexibilidad necesaria para profundizar en temas emergentes según el rol, experiencia y conocimiento de cada entrevistado. Se recogieron antecedentes sobre relación histórica con FCAB, mecanismos de comunicación, percepción de impactos, expectativas de participación, disposición al diálogo, temas prioritarios y oportunidades de mejora en el relacionamiento territorial.</p>
+            </div>
           </div>
-          <div class="pipeline-step">
-            <strong>Etapa 2</strong>
-            <span>Codificación temática</span>
+          <div class="tech-item">
+            <div class="tech-item-icon">📋</div>
+            <div>
+              <h4>Matriz de caracterización de actores</h4>
+              <p>Instrumento complementario destinado a registrar información básica y analítica de cada caso incluido en el estudio. Permitió sistematizar datos como nombre del actor, institución u organización, comuna, categoría, tipo de vínculo con FCAB y otras variables relevantes para el análisis comparativo.</p>
+            </div>
           </div>
-          <div class="pipeline-step">
-            <strong>Etapa 3</strong>
-            <span>Clusters + LDA</span>
-          </div>
-          <div class="pipeline-step">
-            <strong>Etapa 4</strong>
-            <span>Mapas de red</span>
+          <div class="tech-item">
+            <div class="tech-item-icon">🔍</div>
+            <div>
+              <h4>Codificación temática</h4>
+              <p>El análisis cualitativo se apoyó en una codificación temática de las entrevistas, orientada a identificar patrones discursivos, temas recurrentes, preocupaciones territoriales, expectativas hacia FCAB, riesgos percibidos y oportunidades de colaboración. Esta codificación permitió vincular los relatos de los actores con las dimensiones analíticas del estudio y complementar la lectura cuantitativa de los indicadores.</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- ── 2. POBLACIÓN Y MUESTRA ──────────────────────────── -->
-      <section class="section">
-        <h2>2. Población y muestra</h2>
-        <p>La población del estudio estuvo compuesta por actores institucionales, comunitarios, sociales, públicos, privados y territoriales con algún grado de vínculo, interés, afectación o capacidad de incidencia respecto de FCAB. La <strong>unidad de análisis</strong> correspondió a actores, instituciones, organizaciones o representantes relevantes para comprender las dinámicas de relación entre FCAB y su entorno.</p>
+      <!-- ── SECCIÓN 4: RECOLECCIÓN ── -->
+      <section class="section" id="sec-recoleccion">
+        <h2>Procedimiento de recolección</h2>
+        <p>El procedimiento de recolección se desarrolló de manera secuencial, combinando la identificación preliminar de actores, la coordinación del levantamiento, la aplicación de entrevistas y la sistematización posterior de los antecedentes recopilados.</p>
 
-        <div class="callout callout-amber">
-          <p><strong>Muestreo intencionado estratégico:</strong> La selección de casos se orientó a incorporar actores relevantes para los objetivos del estudio — no a representar estadísticamente a la población general de las comunas. Los resultados deben interpretarse como una aproximación estratégica al mapa de actores, orientada a identificar posiciones, percepciones y oportunidades de gestión territorial.</p>
-        </div>
+        <div class="process-steps">
 
-        <h3>Cobertura territorial</h3>
-        <p>El levantamiento incorporó actores de seis comunas y localidades vinculadas al área de operación ferroviaria de FCAB:</p>
-        <div class="tags">
-          <span class="tag tag-accent">Calama</span>
-          <span class="tag tag-accent">Antofagasta</span>
-          <span class="tag tag-accent">Sierra Gorda</span>
-          <span class="tag tag-accent">Baquedano</span>
-          <span class="tag tag-accent">Ollagüe</span>
-          <span class="tag tag-accent">Mejillones</span>
-        </div>
-        <p>Esta cobertura permitió incorporar perspectivas diferenciadas según contexto local, tipo de relación con la empresa y particularidades territoriales.</p>
-
-        <h3>Categorías de actores</h3>
-        <p>La siguiente tabla presenta las categorías consideradas en el estudio, su descripción y el criterio de inclusión utilizado:</p>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Categoría</th>
-                <th>Descripción</th>
-                <th>Criterio de inclusión</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Autoridades y Sector Público</td>
-                <td>Representantes de instituciones gubernamentales regionales, elegidas democráticamente o designadas, con incidencia directa en la operación social o regulatoria de FCAB.</td>
-                <td>Alineamiento con desarrollo estratégico regional. Viabilidad regulatoria y permisos. Pertinencia territorial y capacidad de respuesta ante contingencias.</td>
-              </tr>
-              <tr>
-                <td>Comunidad y Organizaciones Sociales</td>
-                <td>Juntas de vecinos, agrupaciones locales y organizaciones sociales o comunitarias.</td>
-                <td>Licencia social para operar y convivencia armónica en el territorio. Anticipación de conflictos y construcción de confianza a largo plazo.</td>
-              </tr>
-              <tr>
-                <td>Sector Productivo, Clientes y Gremios</td>
-                <td>Clientes actuales y potenciales, socios estratégicos y asociaciones gremiales.</td>
-                <td>Espacios de articulación para el desarrollo económico regional. Oportunidades de nuevos negocios y articulación de influencia en decisiones políticas.</td>
-              </tr>
-              <tr>
-                <td>Sociedad Civil, Academia y Medios</td>
-                <td>Fundaciones, corporaciones, instituciones educacionales de educación superior y medios de comunicación locales y regionales.</td>
-                <td>Construcción de legitimidad, reputación y relato identitario. Generación de capital humano, transferencia tecnológica y posicionamiento institucional.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="table-caption">Tabla 1 — Categorías de actores consideradas en el estudio.</p>
-      </section>
-
-      <!-- ── 3. TÉCNICAS E INSTRUMENTOS ─────────────────────── -->
-      <section class="section">
-        <h2>3. Técnicas e instrumentos</h2>
-        <p>El estudio utilizó una combinación de técnicas cualitativas y herramientas de sistematización estructurada para integrar información discursiva con variables comparables:</p>
-
-        <div class="method-grid">
-          <div class="method-card">
-            <div class="method-icon">🎙</div>
-            <h3>Entrevista semiestructurada</h3>
-            <p>Técnica principal del levantamiento. Combinó un conjunto común de dimensiones analíticas con flexibilidad para profundizar en temas emergentes según el rol y experiencia de cada entrevistado. Abordó relación histórica con FCAB, mecanismos de comunicación, percepción de impactos y expectativas de participación.</p>
-          </div>
-          <div class="method-card">
-            <div class="method-icon">📋</div>
-            <h3>Matriz de caracterización</h3>
-            <p>Instrumento de registro básico y analítico de cada caso. Sistematizó datos como nombre del actor, institución, comuna, categoría, tipo de vínculo con FCAB y otras variables relevantes para la comparación posterior.</p>
-          </div>
-          <div class="method-card">
-            <div class="method-icon">🔍</div>
-            <h3>Codificación temática</h3>
-            <p>El análisis cualitativo se apoyó en codificación de entrevistas para identificar patrones discursivos, temas recurrentes, preocupaciones territoriales y oportunidades de colaboración. Vinculó los relatos con las dimensiones analíticas del estudio.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── 4. PROCEDIMIENTO DE RECOLECCIÓN ────────────────── -->
-      <section class="section">
-        <h2>4. Procedimiento de recolección</h2>
-        <p>El proceso se desarrolló de forma secuencial en cuatro etapas, desde la identificación de actores hasta la sistematización de los antecedentes recopilados:</p>
-
-        <div class="steps-list">
-          <div class="step-item">
-            <div class="step-dot">1</div>
+          <div class="process-step">
+            <div class="step-line"></div>
+            <div class="step-num">1</div>
             <div class="step-body">
               <h4>Identificación y priorización de actores</h4>
-              <p>Selección intencionada considerando vínculo con el territorio, rol institucional o comunitario, eventual relación con FCAB y capacidad de aportar información pertinente. Se cubrieron las seis comunas del área de influencia ferroviaria.</p>
+              <p>Se realizó la identificación inicial de actores relevantes considerando su vínculo con el territorio, rol institucional o comunitario, relación con FCAB y capacidad para aportar información pertinente. Se construyó una muestra intencionada que cubre distintas categorías de actores en Calama, Antofagasta, Sierra Gorda, Baquedano, Ollagüe y Mejillones.</p>
             </div>
           </div>
-          <div class="step-item">
-            <div class="step-dot">2</div>
+
+          <div class="process-step">
+            <div class="step-line"></div>
+            <div class="step-num">2</div>
             <div class="step-body">
-              <h4>Contacto multicanal</h4>
-              <p>Se implementó una estrategia de contacto combinada: <strong>82 cartas de invitación</strong> enviadas por correo electrónico, complementadas por contactos institucionales y redes del equipo consultor. Para autoridades sujetas a la <strong>Ley N°20.730 (lobby)</strong>, se ingresaron <strong>16 solicitudes formales</strong>. Algunas solicitudes dirigidas a Seremis no pudieron concretarse, asociado al contexto de cambio de gobierno durante el período de recolección.</p>
+              <h4>Estrategia de contacto multicanal</h4>
+              <p>Con el objetivo de concretar las entrevistas, se implementó una estrategia de contacto dirigida a los actores priorizados.</p>
+              <div class="stat-row">
+                <div class="stat-card">
+                  <div class="stat-num">82</div>
+                  <div class="stat-label">Cartas de invitación enviadas por correo electrónico</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-num">16</div>
+                  <div class="stat-label">Solicitudes formales de lobby ingresadas</div>
+                </div>
+              </div>
+              <p>De manera complementaria, se recurrió a contactos institucionales y redes del equipo consultor para facilitar la coordinación con actores clave y reforzar el proceso de convocatoria.</p>
             </div>
           </div>
-          <div class="step-item">
-            <div class="step-dot">3</div>
+
+          <div class="process-step">
+            <div class="step-line"></div>
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h4>Solicitudes de lobby y contexto político</h4>
+              <p>En el caso de autoridades sujetas a las disposiciones de la <strong>Ley N°20.730 sobre lobby y gestión de intereses particulares</strong>, se ingresaron 16 solicitudes formales a través de los canales correspondientes.</p>
+              <div class="alert-box">
+                ⚠️ Algunas solicitudes dirigidas a Secretarías Regionales Ministeriales (SEREMI) fueron rechazadas o no lograron concretarse. Esta situación estuvo asociada al <strong>contexto de cambio de gobierno</strong> presente en el país durante el período de recolección de datos.
+              </div>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="step-num">4</div>
             <div class="step-body">
               <h4>Aplicación de entrevistas</h4>
               <p>Las entrevistas se realizaron principalmente de manera <strong>presencial</strong> y, en segundo término, mediante <strong>videollamada</strong>, según la disponibilidad de los participantes y las condiciones de coordinación en cada territorio.</p>
             </div>
           </div>
-          <div class="step-item">
-            <div class="step-dot">4</div>
-            <div class="step-body">
-              <h4>Sistematización</h4>
-              <p>Registro de antecedentes cualitativos y analíticos en la matriz de caracterización. Algunas entrevistas fueron consideradas antecedentes cualitativos complementarios y no incorporadas a la sistematización estructurada, por razones de equivalencia metodológica.</p>
-            </div>
-          </div>
+
         </div>
       </section>
 
-      <!-- ── 5. PROCESO DE ANÁLISIS ──────────────────────────── -->
-      <section class="section">
-        <h2>5. Proceso de análisis de datos</h2>
-        <p>El análisis integró procedimientos cualitativos y cuantitativos organizados en cinco capas sucesivas. Esta estrategia multietapa permitió pasar desde la descripción individual de variables hacia la identificación de patrones, posiciones estratégicas y estructuras de relación en el ecosistema de actores.</p>
+      <!-- ── SECCIÓN 5: ANÁLISIS ── -->
+      <section class="section" id="sec-analisis">
+        <h2>Proceso de análisis de datos</h2>
+        <p>El análisis de datos se desarrolló mediante una <strong>estrategia integrada</strong>, combinando procedimientos cualitativos de interpretación temática con técnicas de sistematización cuantitativa orientadas a comparar y segmentar actores. Esta aproximación permitió transformar la información levantada en insumos analíticos para comprender el posicionamiento de los actores dentro del ecosistema territorial de FCAB.</p>
 
-        <div class="finding">
-          <div class="finding-label">Estrategia de análisis</div>
-          <p>Triangulación entre fuentes y dimensiones: hallazgos cualitativos de entrevistas contrastados con indicadores construidos, menciones temáticas, clasificación de actores y resultados de segmentación. El cruce entre capas garantiza coherencia y robustez interpretativa.</p>
+        <div class="analysis-grid">
+          <div class="analysis-card">
+            <div class="ac-num">1</div>
+            <h4>Codificación temática cualitativa</h4>
+            <p>Revisión y organización de información cualitativa mediante codificación temática. Identificación de recurrencias, temas prioritarios, percepciones, expectativas, riesgos y oportunidades de colaboración por actor, comuna e institución.</p>
+          </div>
+          <div class="analysis-card">
+            <div class="ac-num">2</div>
+            <h4>Variables auxiliares de interpretación</h4>
+            <p>Incorporación de coherencia institucional, disposición al diálogo, percepción de escucha, cercanía y calidad de la relación para enriquecer la lectura del vínculo entre FCAB y los actores.</p>
+          </div>
+          <div class="analysis-card">
+            <div class="ac-num">3</div>
+            <h4>Análisis de clusters</h4>
+            <p>Agrupamiento de actores con perfiles similares, identificando patrones de comportamiento, niveles de prioridad y configuraciones estratégicas dentro del ecosistema territorial. Permite pasar de lectura individual a clasificación estratégica de perfiles.</p>
+          </div>
+          <div class="analysis-card">
+            <div class="ac-num">4</div>
+            <h4>Modelamiento LDA</h4>
+            <p>Análisis de patrones temáticos latentes (Asignación Latente de Dirichlet) para identificar agrupaciones probabilísticas de términos y temas en el corpus de entrevistas. Los tópicos se interpretan como apoyos exploratorios, no como categorías cerradas.</p>
+          </div>
+          <div class="analysis-card">
+            <div class="ac-num">5</div>
+            <h4>Temas emergentes</h4>
+            <p>Identificación cualitativa de asuntos, preocupaciones, expectativas y oportunidades que surgieron espontáneamente en los relatos, ampliando la interpretación más allá de las variables previamente definidas.</p>
+          </div>
+          <div class="analysis-card">
+            <div class="ac-num">6</div>
+            <h4>Mapas de ecosistema</h4>
+            <p>Elaboración de mapa de ecosistema de actores y de coordinación interorganizacional para representar gráficamente vínculos, conexiones y posiciones relativas. Permite identificar nodos con mayor centralidad, actores puente, subgrupos de relación y zonas de menor integración.</p>
+          </div>
         </div>
 
-        <h3>Variables del instrumento</h3>
-        <p>La siguiente tabla presenta las ocho variables incorporadas, la pregunta asociada y su definición operacional:</p>
-        <div class="table-wrap">
-          <table>
+        <p style="margin-top:8px">La interpretación de los resultados se realizó mediante <strong>triangulación entre fuentes y dimensiones de análisis</strong>, contrastando hallazgos cualitativos con indicadores construidos, menciones temáticas, clasificación de actores y resultados de segmentación.</p>
+
+        <h3 style="margin-top:36px">Variables del instrumento de levantamiento</h3>
+        <p>La siguiente tabla presenta las variables incorporadas en el instrumento, junto con la pregunta asociada y su definición operacional:</p>
+
+        <div class="var-table-wrap">
+          <table class="var-table">
             <thead>
               <tr>
-                <th>Variable</th>
-                <th>Pregunta aplicada</th>
-                <th>Definición</th>
+                <th style="width:22%">Variable</th>
+                <th style="width:42%">Pregunta</th>
+                <th>Definición operacional</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Coherencia discurso-práctica</td>
+                <td><span class="var-name">Coherencia discurso-práctica</span></td>
                 <td>¿Cómo evaluaría la coherencia entre lo que FCAB declara públicamente y lo que hace en la práctica en el territorio?</td>
-                <td>Consistencia percibida entre declaraciones públicas de FCAB y sus acciones concretas en el territorio.</td>
+                <td>Evalúa el grado en que el actor percibe consistencia entre las declaraciones públicas de FCAB y sus acciones concretas en el territorio.</td>
               </tr>
               <tr>
-                <td>Disposición al diálogo</td>
+                <td><span class="var-name">Disposición al diálogo</span></td>
                 <td>¿Qué tan dispuesto estaría a participar en instancias formales de diálogo o trabajo conjunto con FCAB?</td>
-                <td>Apertura del actor a participar en instancias formales de diálogo, coordinación o trabajo conjunto.</td>
+                <td>Mide la apertura del actor o su organización a participar en instancias formales de diálogo, coordinación o trabajo conjunto con FCAB.</td>
               </tr>
               <tr>
-                <td>Afectación organizacional percibida</td>
+                <td><span class="var-name">Afectación organizacional</span></td>
                 <td>¿En qué medida las decisiones de FCAB afectan el trabajo u objetivos de su organización?</td>
-                <td>Estimación del grado en que las decisiones de FCAB inciden en el funcionamiento de la organización del actor.</td>
+                <td>Estima en qué medida las decisiones de FCAB inciden en el trabajo, objetivos o funcionamiento de la organización del actor.</td>
               </tr>
               <tr>
-                <td>Escucha percibida</td>
+                <td><span class="var-name">Escucha percibida</span></td>
                 <td>Cuando su organización quiere transmitir una preocupación o propuesta a FCAB, ¿siente que la empresa la escucha y toma en cuenta?</td>
-                <td>Percepción de que FCAB recibe y considera las preocupaciones o propuestas del actor.</td>
+                <td>Evalúa si el actor percibe que FCAB escucha, recibe y toma en cuenta sus preocupaciones o propuestas.</td>
               </tr>
               <tr>
-                <td>Expectativa de consideración</td>
-                <td>¿Qué tan esperable es que FCAB considere la opinión de su organización cuando toma decisiones que afectan al territorio?</td>
-                <td>Grado en que el actor considera esperable que FCAB tome en cuenta su opinión en decisiones territoriales.</td>
+                <td><span class="var-name">Expectativa de consideración</span></td>
+                <td>¿Qué tan esperable o natural es que FCAB considere la opinión de su organización cuando toma decisiones que afectan al territorio?</td>
+                <td>Mide qué tan esperable considera el actor que FCAB tome en cuenta la opinión de su organización en decisiones que afectan el territorio.</td>
               </tr>
               <tr>
-                <td>Influencia territorial percibida</td>
+                <td><span class="var-name">Influencia territorial de FCAB</span></td>
                 <td>¿Qué tanta influencia cree que tiene FCAB en su territorio?</td>
-                <td>Nivel de influencia que el actor atribuye a FCAB sobre su territorio.</td>
+                <td>Evalúa el nivel de influencia que el actor atribuye a FCAB sobre su territorio.</td>
               </tr>
               <tr>
-                <td>Calidad percibida de la relación</td>
+                <td><span class="var-name">Calidad de la relación</span></td>
                 <td>¿Cómo evaluaría la calidad de la relación con FCAB?</td>
-                <td>Evaluación general del actor sobre la calidad del vínculo actual con FCAB.</td>
+                <td>Mide la evaluación general que realiza el actor sobre la calidad del vínculo actual entre su organización y FCAB.</td>
               </tr>
               <tr>
-                <td>Cercanía relacional percibida</td>
+                <td><span class="var-name">Cercanía relacional</span></td>
                 <td>¿Qué distancia existe en la relación entre su institución y FCAB?</td>
-                <td>Grado de cercanía que el actor percibe en su relación con FCAB.</td>
+                <td>Evalúa el grado de cercanía que el actor percibe en su relación con FCAB.</td>
               </tr>
             </tbody>
           </table>
         </div>
-        <p class="table-caption">Tabla 2 — Variables del instrumento de levantamiento, preguntas y definiciones operacionales.</p>
+      </section>
 
-        <h3>Técnicas de análisis avanzadas</h3>
-        <div class="method-grid">
-          <div class="method-card">
-            <div class="method-icon">🧩</div>
-            <h3>Análisis de clusters</h3>
-            <p>Permitió pasar desde una lectura individual de actores hacia una clasificación estratégica de perfiles, facilitando la identificación de grupos prioritarios para definir acciones diferenciadas de vinculación.</p>
+      <!-- ── SECCIÓN 6: ÉTICA ── -->
+      <section class="section" id="sec-etica">
+        <h2>Consideraciones éticas</h2>
+        <p>El estudio incorporó resguardos éticos orientados a proteger la participación voluntaria de los actores entrevistados, la confidencialidad de la información entregada y el uso responsable de los antecedentes recopilados. Dado que el estudio consideró la participación de representantes institucionales, comunitarios, sociales y territoriales, se procuró que cada persona contara con información clara sobre los objetivos, alcance y condiciones de la entrevista antes de participar.</p>
+
+        <div class="ethics-list">
+          <div class="ethics-item">
+            <div class="check">✓</div>
+            <div><strong>Consentimiento informado:</strong> Se explicó a los participantes el propósito del estudio, el carácter técnico del levantamiento, el uso previsto de la información y las condiciones de confidencialidad. En entrevistas presenciales se firmó por escrito; en entrevistas online se registró verbalmente y grabado.</div>
           </div>
-          <div class="method-card">
-            <div class="method-icon">🤖</div>
-            <h3>Modelamiento LDA</h3>
-            <p>Asignación Latente de Dirichlet aplicada al corpus de entrevistas para identificar agrupaciones probabilísticas de temas y estructuras discursivas subyacentes. Los tópicos obtenidos son apoyos exploratorios, no categorías cerradas.</p>
+          <div class="ethics-item">
+            <div class="check">✓</div>
+            <div><strong>Participación voluntaria:</strong> Cada entrevistado pudo decidir libremente si participar o no del estudio, sin presiones de ningún tipo.</div>
           </div>
-          <div class="method-card">
-            <div class="method-icon">🕸</div>
-            <h3>Mapa de ecosistema</h3>
-            <p>Representación gráfica de vínculos y posiciones relativas entre actores. Permite identificar nodos con mayor centralidad, actores puente, subgrupos de relación y zonas de menor integración.</p>
+          <div class="ethics-item">
+            <div class="check">✓</div>
+            <div><strong>Carácter técnico del levantamiento:</strong> Se resguardó que los participantes comprendieran que la entrevista no constituía una instancia de gestión de demandas particulares ni de toma de decisiones individuales, sino un espacio técnico de levantamiento de percepciones y experiencias.</div>
           </div>
-          <div class="method-card">
-            <div class="method-icon">📈</div>
-            <h3>Temas emergentes</h3>
-            <p>Identificación cualitativa de asuntos, preocupaciones y oportunidades surgidas de manera espontánea en los relatos, más allá de las dimensiones estructuradas de la pauta.</p>
+          <div class="ethics-item">
+            <div class="check">✓</div>
+            <div><strong>Representación fiel de perspectivas:</strong> El análisis se realizó procurando representar de forma fiel y responsable las perspectivas de los actores entrevistados, evitando descontextualizar sus opiniones o atribuirles interpretaciones no desprendidas del levantamiento.</div>
           </div>
+          <div class="ethics-item">
+            <div class="check">✓</div>
+            <div><strong>Consistencia y comparabilidad:</strong> Algunas entrevistas fueron consideradas como antecedentes cualitativos complementarios y no incorporadas a la matriz de sistematización estructurada, dado que la pauta no fue aplicada de manera equivalente al resto de los casos.</div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:28px">Actores excluidos de la matriz estructurada</h3>
+        <p>Las siguientes organizaciones participaron del estudio en calidad de antecedentes cualitativos complementarios, sin ser incorporadas a la sistematización estructurada:</p>
+
+        <div class="excluded-list">
+          <span class="excluded-tag">🏆 Club Social y Deportivo Casa de Máquinas <em>(Mejillones)</em></span>
+          <span class="excluded-tag">🏆 Club Social y Deportivo Cooferro <em>(Mejillones)</em></span>
+          <span class="excluded-tag">🏛️ Seremi de Cultura <em>(Antofagasta)</em></span>
+          <span class="excluded-tag">🏘️ JJVV Ricardo Mora <em>(Antofagasta)</em></span>
+          <span class="excluded-tag">🏛️ Municipalidad de Ollagüe <em>(Ollagüe)</em></span>
+        </div>
+
+        <div class="info-box" style="margin-top:20px">
+          ℹ️ Adicionalmente, <strong>un actor no autorizó grabar la entrevista</strong>. Su participación fue igualmente incorporada como antecedente cualitativo bajo las condiciones acordadas.
         </div>
       </section>
 
-      <!-- ── 6. CONSIDERACIONES ÉTICAS ──────────────────────── -->
-      <section class="section">
-        <h2>6. Consideraciones éticas</h2>
-        <p>El estudio incorporó resguardos orientados a proteger la participación voluntaria, la confidencialidad de la información y el uso responsable de los antecedentes recopilados.</p>
-
-        <div class="method-grid">
-          <div class="method-card">
-            <div class="method-icon">📝</div>
-            <h3>Consentimiento informado</h3>
-            <p>Se explicó a cada participante el propósito del estudio, su carácter técnico, el uso previsto de la información y las condiciones de confidencialidad. En entrevistas presenciales se firmó antes del inicio; en modalidad online se registró verbalmente y grabado.</p>
-          </div>
-          <div class="method-card">
-            <div class="method-icon">🔒</div>
-            <h3>Voluntariedad y confidencialidad</h3>
-            <p>La participación fue voluntaria. Se resguardó que los participantes comprendieran que la entrevista era un espacio técnico de levantamiento, no una instancia de gestión de demandas particulares ni toma de decisiones individuales.</p>
-          </div>
-        </div>
-
-        <div class="callout callout-amber">
-          <p><strong>Nota sobre casos excluidos:</strong> Algunas entrevistas fueron consideradas antecedentes cualitativos complementarios y no incorporadas a la matriz estructurada, dado que la pauta no fue aplicada de manera equivalente. Corresponden a: <strong>Club Social y Deportivo Casa de Máquinas</strong> y <strong>Club Social y Deportivo Cooferro de Mejillones</strong>; en Antofagasta: <strong>Seremi de Cultura</strong> y <strong>JJVV Ricardo Mora</strong>; en Ollagüe: <strong>Municipalidad</strong>. Un actor no autorizó la grabación de su entrevista.</p>
-        </div>
-      </section>
-
-      <!-- ── NAVEGACIÓN ENTRE CAPÍTULOS ─────────────────────── -->
-      <nav class="chapter-nav" aria-label="Navegación entre capítulos">
-        <a href="../index.html" class="nav-btn nav-center">
-          <span class="nav-dir">↑ Inicio</span>
-          <span class="nav-label">Índice general</span>
+      <!-- CHAPTER NAV -->
+      <nav class="chapter-nav">
+        <a class="nav-btn nav-prev" href="capitulo-01.html">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          Cap.01 Introducción
         </a>
-        <a href="capitulo-01.html" class="nav-btn">
-          <span class="nav-dir">← Anterior</span>
-          <span class="nav-label">Cap. 01</span>
-          <span class="nav-sub">Introducción</span>
+        <a class="nav-btn nav-center" href="../index.html">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 9 12 2 21 9"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Índice
         </a>
-        <a href="capitulo-08.html" class="nav-btn nav-right">
-          <span class="nav-dir">Siguiente →</span>
-          <span class="nav-label">Cap. 08</span>
-          <span class="nav-sub">Análisis Descriptivo de Datos</span>
+        <a class="nav-btn nav-next" href="capitulo-08.html">
+          Cap.03 Análisis Descriptivo
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
         </a>
       </nav>
 
@@ -358,5 +786,26 @@
   </main>
 
   <script src="../assets/js/navigation.js"></script>
+  <script>
+    /* Sidebar scrollspy */
+    (function() {
+      const links = Array.from(document.querySelectorAll('.sidebar-link[href^="#"]'));
+      const secs  = links.map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+      const setActive = id => links.forEach(l =>
+        l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+      if (secs[0]) setActive(secs[0].id);
+      const obs = new IntersectionObserver(entries => {
+        const vis = entries.filter(e => e.isIntersecting)
+          .sort((a,b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (vis.length) setActive(vis[0].target.id);
+      }, { rootMargin: '-10% 0px -55% 0px', threshold: 0 });
+      secs.forEach(s => obs.observe(s));
+      links.forEach(l => l.addEventListener('click', e => {
+        e.preventDefault();
+        const t = document.querySelector(l.getAttribute('href'));
+        if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' });
+      }));
+    })();
+  </script>
 </body>
 </html>
