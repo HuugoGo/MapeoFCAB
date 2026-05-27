@@ -365,6 +365,118 @@
       .validation-grid,
       .cluster-card-body { grid-template-columns: 1fr; }
     }
+
+    /* ── Actor listing tables ── */
+    .actor-listing {
+      margin-top: 48px;
+    }
+    .actor-listing-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-1);
+      margin: 0 0 6px;
+    }
+    .actor-listing-lead {
+      font-size: .875rem;
+      color: var(--text-2);
+      line-height: 1.6;
+      margin: 0 0 28px;
+    }
+    .actor-cluster-block {
+      margin-bottom: 36px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .actor-cluster-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .actor-cluster-header.hc0 { background: rgba(239,68,68,.06); }
+    .actor-cluster-header.hc1 { background: rgba(16,185,129,.06); }
+    .actor-cluster-header.hc2 { background: rgba(139,92,246,.07); }
+    .acl-emoji { font-size: 1rem; }
+    .acl-title {
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--text-1);
+      flex: 1;
+    }
+    .acl-count {
+      font-size: .75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+    .hc0 .acl-count { background: rgba(239,68,68,.1); color: #dc2626; }
+    .hc1 .acl-count { background: rgba(16,185,129,.1); color: #059669; }
+    .hc2 .acl-count { background: rgba(139,92,246,.1); color: #7c3aed; }
+
+    /* Actor table */
+    .actor-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .84rem;
+    }
+    .actor-table thead tr {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+    .actor-table th {
+      padding: 9px 16px;
+      text-align: left;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+    .actor-table td {
+      padding: 9px 16px;
+      color: var(--text-2);
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .actor-table tr:last-child td { border-bottom: none; }
+    .actor-table tr:hover td { background: rgba(99,102,241,.03); }
+    .actor-table td:first-child {
+      font-weight: 500;
+      color: var(--text-1);
+    }
+
+    /* Category separator rows */
+    .cat-sep td {
+      background: var(--surface) !important;
+      padding: 6px 16px;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+    .hc0 .cat-sep td { color: #dc2626; }
+    .hc1 .cat-sep td { color: #059669; }
+    .hc2 .cat-sep td { color: #7c3aed; }
+
+    /* Comuna tag */
+    .comuna-tag {
+      display: inline-block;
+      font-size: .72rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-3);
+      white-space: nowrap;
+    }
+
+    @media (max-width: 600px) {
+      .actor-table th:nth-child(3),
+      .actor-table td:nth-child(3) { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -623,9 +735,6 @@
         <p>A continuación se presenta la descripción de los clusters identificados. Estos corresponden a agrupaciones de actores construidas a partir de similitudes en sus variables seleccionadas, permitiendo distinguir perfiles diferenciados dentro del ecosistema territorial de FCAB.</p>
         <p>Esta aproximación permite pasar de una <strong>caracterización individual de actores</strong> a una <strong>segmentación comparativa</strong>, útil para identificar prioridades, brechas relacionales y estrategias diferenciadas de vinculación.</p>
 
-        <div class="warn-box" style="margin-bottom:28px">
-          📋 El detalle de actores que compone cada cluster está disponible en el <strong>Anexo</strong> del informe.
-        </div>
 
         <div class="cluster-cards">
 
@@ -798,6 +907,157 @@
           </div>
 
         </div><!-- /cluster-cards -->
+
+        <!-- ── LISTADO DETALLADO DE ACTORES POR CLUSTER ── -->
+        <div class="actor-listing">
+          <h3 class="actor-listing-title">Composición detallada por cluster</h3>
+          <p class="actor-listing-lead">Listado completo de los 73 actores del ecosistema FCAB clasificados según el cluster al que pertenecen, organizados por dimensión de relacionamiento y territorio.</p>
+
+          <!-- CLUSTER 0 — DISTANTES -->
+          <div class="actor-cluster-block">
+            <div class="actor-cluster-header hc0">
+              <span class="acl-emoji">🔴</span>
+              <span class="acl-title">Cluster 1 — Actores distantes o en relación deteriorada</span>
+              <span class="acl-count">32 actores</span>
+            </div>
+            <table class="actor-table">
+              <thead>
+                <tr>
+                  <th>Actor</th>
+                  <th>Categoría</th>
+                  <th>Comuna</th>
+                </tr>
+              </thead>
+              <tbody class="hc0">
+                <tr class="cat-sep"><td colspan="3">Autoridades y sector público</td></tr>
+                <tr><td>Concejal Osvaldo Torres</td><td>Autoridades y sector público</td><td><span class="comuna-tag">Sierra Gorda</span></td></tr>
+                <tr><td>Delegación provincial El Loa</td><td>Autoridades y sector público</td><td><span class="comuna-tag">Calama</span></td></tr>
+                <tr><td>Hospital Calama</td><td>Autoridades y sector público</td><td><span class="comuna-tag">Calama</span></td></tr>
+                <tr><td>Municipalidad de Mejillones</td><td>Autoridades y sector público</td><td><span class="comuna-tag">Mejillones</span></td></tr>
+                <tr class="cat-sep"><td colspan="3">Comunidad y Organización social</td></tr>
+                <tr><td>JJVV Augusto D'halmar</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV Ckaitchi</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Calama</span></td></tr>
+                <tr><td>JJVV Condominio Catalina Cruz</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV Condominio los Aromos</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Mejillones</span></td></tr>
+                <tr><td>JJVV El Golf</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV Estadio Regional</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV N°4 Baquedano</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Sierra Gorda</span></td></tr>
+                <tr><td>JJVV N°1 Baquedano</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Sierra Gorda</span></td></tr>
+                <tr><td>JJVV N°3 Sierra Gorda</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Sierra Gorda</span></td></tr>
+                <tr><td>JJVV Oriente</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV Portada Norte III</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV Villa Chuquicamata</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Calama</span></td></tr>
+                <tr><td>JJVV Villa Esmeralda</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Calama</span></td></tr>
+                <tr><td>JJVV Vista Hermosa Antofagasta</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>Restaurant El Baquedano</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Sierra Gorda</span></td></tr>
+                <tr class="cat-sep"><td colspan="3">Sector productivo, clientes y gremios</td></tr>
+                <tr><td>Asociación de industriales Mejillones</td><td>Sector productivo, clientes y gremios</td><td><span class="comuna-tag">Mejillones</span></td></tr>
+                <tr><td>Centro cultural estación Antofagasta</td><td>Sector productivo, clientes y gremios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>Corporación Cluster Minero</td><td>Sector productivo, clientes y gremios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr class="cat-sep"><td colspan="3">Sociedad civil, academia y medios</td></tr>
+                <tr><td>AIEP Calama</td><td>Sociedad civil, academia y medios</td><td><span class="comuna-tag">Calama</span></td></tr>
+                <tr><td>Alianza Antofagasta</td><td>Sociedad civil, academia y medios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>Colegio Técnico Industrial Don Bosco de Antofagasta</td><td>Sociedad civil, academia y medios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>El Mercurio Antofagasta y Calama</td><td>Sociedad civil, academia y medios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>Filzic</td><td>Sociedad civil, academia y medios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>Fundación Minera Escondida</td><td>Sociedad civil, academia y medios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>Líder de opinión Andrea Cox</td><td>Sociedad civil, academia y medios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>Museo Virtual Ferroviario</td><td>Sociedad civil, academia y medios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>Radio María Reina</td><td>Sociedad civil, academia y medios</td><td><span class="comuna-tag">Calama</span></td></tr>
+                <tr><td>Timeline</td><td>Sociedad civil, academia y medios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- CLUSTER 1 — VINCULADOS -->
+          <div class="actor-cluster-block">
+            <div class="actor-cluster-header hc1">
+              <span class="acl-emoji">🟢</span>
+              <span class="acl-title">Cluster 2 — Actores vinculados con relación positiva</span>
+              <span class="acl-count">33 actores</span>
+            </div>
+            <table class="actor-table">
+              <thead>
+                <tr>
+                  <th>Actor</th>
+                  <th>Categoría</th>
+                  <th>Comuna</th>
+                </tr>
+              </thead>
+              <tbody class="hc1">
+                <tr class="cat-sep"><td colspan="3">Autoridades y sector público</td></tr>
+                <tr><td>Municipalidad de Sierra Gorda</td><td>Autoridades y sector público</td><td><span class="comuna-tag">Sierra Gorda</span></td></tr>
+                <tr><td>Seremi de Economía</td><td>Autoridades y sector público</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>Seremi de Transportes</td><td>Autoridades y sector público</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>Seremi de Gobierno</td><td>Autoridades y sector público</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr class="cat-sep"><td colspan="3">Comunidad y Organización social</td></tr>
+                <tr><td>Agrupación Acapulco</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>Agrupación Mujeres por los Caminos de la Estación</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>Centro de Madres 8 de octubre</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV Bellavista</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV Centro N°19</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV Eleuterio Ramírez</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Calama</span></td></tr>
+                <tr><td>JJVV Estación</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV Ferrocarril N°8</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV José Papic</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV Manuel Rodríguez</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV Manuel Rodríguez</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Calama</span></td></tr>
+                <tr><td>JJVV Matta</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV Miramar Norte</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV Pablo Kruger</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV Sierra Nevada</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV Sur 1 N°7</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV Villa Ayquina N°14</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Calama</span></td></tr>
+                <tr><td>JJVV Villa Chuquicamata Antofagasta</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV Villa Doña Francisca</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>JJVV Villa El Loa</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Calama</span></td></tr>
+                <tr><td>JJVV Villa Florida</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>Segunda Compañía de bomberos Mejillones</td><td>Comunidad y Organización social</td><td><span class="comuna-tag">Mejillones</span></td></tr>
+                <tr class="cat-sep"><td colspan="3">Sector productivo, clientes y gremios</td></tr>
+                <tr><td>ATI</td><td>Sector productivo, clientes y gremios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>Aguas Antofagasta</td><td>Sector productivo, clientes y gremios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>Puerto Mejillones</td><td>Sector productivo, clientes y gremios</td><td><span class="comuna-tag">Mejillones</span></td></tr>
+                <tr class="cat-sep"><td colspan="3">Sociedad civil, academia y medios</td></tr>
+                <tr><td>Antofagasta televisión</td><td>Sociedad civil, academia y medios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>CREO</td><td>Sociedad civil, academia y medios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>PROLOA</td><td>Sociedad civil, academia y medios</td><td><span class="comuna-tag">Calama</span></td></tr>
+                <tr><td>Pacto global</td><td>Sociedad civil, academia y medios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- CLUSTER 2 — CENTRALES -->
+          <div class="actor-cluster-block">
+            <div class="actor-cluster-header hc2">
+              <span class="acl-emoji">🟣</span>
+              <span class="acl-title">Cluster 3 — Actores de alta centralidad y relación instrumental</span>
+              <span class="acl-count">8 actores</span>
+            </div>
+            <table class="actor-table">
+              <thead>
+                <tr>
+                  <th>Actor</th>
+                  <th>Categoría</th>
+                  <th>Comuna</th>
+                </tr>
+              </thead>
+              <tbody class="hc2">
+                <tr class="cat-sep"><td colspan="3">Autoridades y sector público</td></tr>
+                <tr><td>Gobierno Regional</td><td>Autoridades y sector público</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>Municipalidad Antofagasta</td><td>Autoridades y sector público</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr class="cat-sep"><td colspan="3">Sector productivo, clientes y gremios</td></tr>
+                <tr><td>Asociación de Industriales Antofagasta</td><td>Sector productivo, clientes y gremios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>BHP</td><td>Sector productivo, clientes y gremios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>Centinela</td><td>Sector productivo, clientes y gremios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>Cámara chilena de la construcción</td><td>Sector productivo, clientes y gremios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr><td>Puerto Antofagasta</td><td>Sector productivo, clientes y gremios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+                <tr class="cat-sep"><td colspan="3">Sociedad civil, academia y medios</td></tr>
+                <tr><td>Vinculación con el medio UCN</td><td>Sociedad civil, academia y medios</td><td><span class="comuna-tag">Antofagasta</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div><!-- /actor-listing -->
 
       </section>
 
