@@ -11,11 +11,12 @@ CHAPS = [
     ("01", "Introducción",                 "capitulo-01.html"),
     ("02", "Metodología",                  "capitulo-02.html"),
     ("03", "Análisis Descriptivo",         "capitulo-08.html"),
-    ("04", "Análisis Temático",            "capitulo-04.html"),
-    ("05", "Ecosistema de Actores",        "capitulo-06.html"),
-    ("06", "Análisis de Cluster",          "capitulo-03.html"),
-    ("07", "Recomendaciones Estratégicas", "capitulo-10.html"),
-    ("08", "Conclusiones",                 "capitulo-09.html"),
+    ("04", "Análisis Temático LDA",        "capitulo-04.html"),
+    ("05", "Temas Prevalentes",            "capitulo-05.html"),
+    ("06", "Ecosistema de Actores",        "capitulo-06.html"),
+    ("07", "Análisis de Cluster",          "capitulo-03.html"),
+    ("08", "Recomendaciones Estratégicas", "capitulo-10.html"),
+    ("09", "Conclusiones",                 "capitulo-09.html"),
 ]
 
 def read_file(path):

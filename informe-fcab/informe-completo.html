@@ -753,7 +753,7 @@
     }
     .desc-table tr:last-child td { border-bottom: none; }
     .desc-table tr:hover td { background: var(--surface-2); }
-    .desc-table .var-name { font-weight: 500; color: var(--text-1); }/* ── cap-04: Análisis Temático ── */
+    .desc-table .var-name { font-weight: 500; color: var(--text-1); }/* ── cap-04: Análisis Temático LDA ── */
 /* ── Corpus KPI bar ── */
     .corpus-kpi {
       display: grid;
@@ -1028,7 +1028,299 @@
 
     @media (max-width: 640px) {
       .corpus-kpi { grid-template-columns: repeat(2, 1fr); }
-    }/* ── cap-05: Ecosistema de Actores ── */
+    }/* ── cap-05: Temas Prevalentes ── */
+/* ── Corpus KPI bar ── */
+    .corpus-kpi {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 28px 0;
+    }
+    .ckpi {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 16px;
+      text-align: center;
+    }
+    .ckpi-num {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .ckpi-label {
+      font-size: .74rem;
+      color: var(--text-3);
+      line-height: 1.4;
+    }
+
+    /* ── Depuración steps ── */
+    .depuracion-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .dep-step {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 18px;
+    }
+    .dep-step .dep-num {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: rgba(99,102,241,.12);
+      color: var(--accent);
+      font-size: .85rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .dep-step h4 {
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--text-1);
+      margin: 0 0 7px;
+    }
+    .dep-step p {
+      font-size: .82rem;
+      color: var(--text-2);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* ── Origin type legend ── */
+    .origin-legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    .origin-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: .84rem;
+      color: var(--text-2);
+    }
+    .origin-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .dot-pure   { background: #10b981; }
+    .dot-espon  { background: #3b82f6; }
+    .dot-mixto  { background: #f59e0b; }
+    .origin-pill strong { color: var(--text-1); }
+
+    /* ── Origin badges (inline) ── */
+    .ob {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 6px;
+      font-size: .73rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .ob-pure  { background: rgba(16,185,129,.15); color: #10b981; }
+    .ob-espon { background: rgba(59,130,246,.15);  color: #3b82f6; }
+    .ob-mixto { background: rgba(245,158,11,.15);  color: #f59e0b; }
+
+    /* ── Top 3 highlight cards ── */
+    .top3-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 28px 0;
+    }
+    .top-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .top-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .top-card.rank1::before { background: #f59e0b; }
+    .top-card.rank2::before { background: #94a3b8; }
+    .top-card.rank3::before { background: #cd7c4b; }
+    .top-rank {
+      font-size: .7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-3);
+      margin-bottom: 8px;
+    }
+    .top-card h4 {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--text-1);
+      margin: 0 0 14px;
+      line-height: 1.4;
+    }
+    .top-stat-row {
+      display: flex;
+      gap: 12px;
+    }
+    .top-stat {
+      flex: 1;
+      text-align: center;
+      background: rgba(255,255,255,.04);
+      border-radius: 8px;
+      padding: 8px 6px;
+    }
+    .top-stat .ts-num {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .top-stat .ts-label {
+      font-size: .68rem;
+      color: var(--text-3);
+      margin-top: 3px;
+    }
+
+    /* ── Main prevalence chart table ── */
+    .prev-table-wrap {
+      margin: 28px 0;
+    }
+
+    /* Section tabs for filtering */
+    .origin-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .otab {
+      padding: 7px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--text-3);
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .otab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    /* Bar rows */
+    .prev-section-label {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      padding: 10px 0 6px;
+      margin-top: 8px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 4px;
+    }
+    .prev-section-label.lbl-pure  { color: #10b981; }
+    .prev-section-label.lbl-espon { color: #3b82f6; }
+    .prev-section-label.lbl-mixto { color: #f59e0b; }
+
+    .prev-row {
+      display: grid;
+      grid-template-columns: 2fr 52px 1fr 52px 1fr;
+      gap: 0 12px;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+    .prev-row:last-child { border-bottom: none; }
+    .prev-name {
+      font-size: .87rem;
+      font-weight: 500;
+      color: var(--text-1);
+      line-height: 1.4;
+    }
+    .prev-num {
+      font-size: .9rem;
+      font-weight: 700;
+      text-align: right;
+    }
+    .prev-num.n-actores { color: #60a5fa; }
+    .prev-num.n-menciones { color: var(--accent); }
+    .prev-bar-wrap {
+      height: 7px;
+      background: rgba(255,255,255,.06);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .prev-bar {
+      height: 100%;
+      border-radius: 999px;
+    }
+    .bar-actores   { background: #60a5fa; }
+    .bar-menciones { background: var(--accent); }
+
+    /* legend row */
+    .bar-legend {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 12px;
+      font-size: .78rem;
+      color: var(--text-3);
+      align-items: center;
+    }
+    .bl-dot {
+      width: 10px; height: 10px;
+      border-radius: 3px;
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+    /* ── Info box ── */
+    .info-box {
+      background: rgba(59,130,246,.07);
+      border: 1px solid rgba(59,130,246,.2);
+      border-left: 3px solid #3b82f6;
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: .86rem;
+      color: var(--text-2);
+      line-height: 1.55;
+      margin: 14px 0;
+    }
+    .warn-box {
+      background: rgba(245,158,11,.07);
+      border: 1px solid rgba(245,158,11,.2);
+      border-left: 3px solid #f59e0b;
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: .86rem;
+      color: var(--text-2);
+      line-height: 1.55;
+      margin: 14px 0;
+    }
+
+    @media (max-width: 700px) {
+      .corpus-kpi,
+      .top3-grid { grid-template-columns: 1fr 1fr; }
+      .depuracion-steps { grid-template-columns: 1fr; }
+      .prev-row { grid-template-columns: 1fr 40px 80px; }
+      .prev-row .prev-bar-wrap:last-child,
+      .prev-row .prev-num.n-actores,
+      .prev-row .prev-bar-wrap:nth-child(3) { display: none; }
+    }/* ── cap-06: Ecosistema de Actores ── */
 /* ── Estilos combinados Cap. 06 ── */
 
     /* Nivel badges */
@@ -1124,7 +1416,7 @@
     }
     @media (max-width: 480px) {
       .viz-frame iframe { height: 450px !important; }
-    }/* ── cap-06: Análisis de Cluster ── */
+    }/* ── cap-07: Análisis de Cluster ── */
 /* ── Intro stat bar ── */
     .cluster-kpi-row {
       display: grid;
@@ -1479,7 +1771,7 @@
       .var-split,
       .validation-grid,
       .cluster-card-body { grid-template-columns: 1fr; }
-    }/* ── cap-07: Recomendaciones Estratégicas ── */
+    }/* ── cap-08: Recomendaciones Estratégicas ── */
 /* ── Cluster header ── */
     .cluster-header {
       border-radius: var(--r);
@@ -1603,7 +1895,7 @@
       .cluster-header { padding: 16px 18px; }
       .rec-head { padding: 14px 16px 12px; }
       .rec-body { padding: 0 16px 4px; }
-    }/* ── cap-08: Conclusiones ── */
+    }/* ── cap-09: Conclusiones ── */
 /* ── Estilos específicos Cap. 09 ── */
 
     /* Balance estratégico — 2 columnas */
@@ -1819,11 +2111,12 @@
     <a class="sidebar-link" href="#cap-01"><span class="sidebar-num">01</span><span class="sidebar-link-title">Introducción</span></a>
     <a class="sidebar-link" href="#cap-02"><span class="sidebar-num">02</span><span class="sidebar-link-title">Metodología</span></a>
     <a class="sidebar-link" href="#cap-03"><span class="sidebar-num">03</span><span class="sidebar-link-title">Análisis Descriptivo</span></a>
-    <a class="sidebar-link" href="#cap-04"><span class="sidebar-num">04</span><span class="sidebar-link-title">Análisis Temático</span></a>
-    <a class="sidebar-link" href="#cap-05"><span class="sidebar-num">05</span><span class="sidebar-link-title">Ecosistema de Actores</span></a>
-    <a class="sidebar-link" href="#cap-06"><span class="sidebar-num">06</span><span class="sidebar-link-title">Análisis de Cluster</span></a>
-    <a class="sidebar-link" href="#cap-07"><span class="sidebar-num">07</span><span class="sidebar-link-title">Recomendaciones Estratégicas</span></a>
-    <a class="sidebar-link" href="#cap-08"><span class="sidebar-num">08</span><span class="sidebar-link-title">Conclusiones</span></a>
+    <a class="sidebar-link" href="#cap-04"><span class="sidebar-num">04</span><span class="sidebar-link-title">Análisis Temático LDA</span></a>
+    <a class="sidebar-link" href="#cap-05"><span class="sidebar-num">05</span><span class="sidebar-link-title">Temas Prevalentes</span></a>
+    <a class="sidebar-link" href="#cap-06"><span class="sidebar-num">06</span><span class="sidebar-link-title">Ecosistema de Actores</span></a>
+    <a class="sidebar-link" href="#cap-07"><span class="sidebar-num">07</span><span class="sidebar-link-title">Análisis de Cluster</span></a>
+    <a class="sidebar-link" href="#cap-08"><span class="sidebar-num">08</span><span class="sidebar-link-title">Recomendaciones Estratégicas</span></a>
+    <a class="sidebar-link" href="#cap-09"><span class="sidebar-num">09</span><span class="sidebar-link-title">Conclusiones</span></a>
     <div class="sidebar-footer">
       <div>DOS BARBAS</div>
       <div style="margin-top:4px;opacity:.7">2026 · Estudio FCAB</div>
@@ -3230,7 +3523,7 @@
   <div class="chapter-divider"></div>
 
   <!-- ════════════════════════════════════════════════════════════ -->
-  <!-- CAP 04: ANÁLISIS TEMÁTICO -->
+  <!-- CAP 04: ANÁLISIS TEMÁTICO LDA -->
   <!-- ════════════════════════════════════════════════════════════ -->
   <div id="cap-04" class="chapter-block">
 <!-- CHAPTER HEADER -->
@@ -3627,9 +3920,319 @@
   <div class="chapter-divider"></div>
 
   <!-- ════════════════════════════════════════════════════════════ -->
-  <!-- CAP 05: ECOSISTEMA DE ACTORES -->
+  <!-- CAP 05: TEMAS PREVALENTES -->
   <!-- ════════════════════════════════════════════════════════════ -->
   <div id="cap-05" class="chapter-block">
+<!-- CHAPTER HEADER -->
+      <header class="chapter-header">
+        <div class="chapter-meta">
+          <span class="chapter-num-label">Capítulo 05</span>
+        </div>
+        <h1>Análisis de Temas Prevalentes</h1>
+        <p class="chapter-lead">Identificación de los asuntos mencionados con mayor recurrencia por los actores de forma espontánea, complementando el modelamiento LDA con una lectura directa de la agenda discursiva del territorio.</p>
+      </header>
+
+      <!-- ── SECCIÓN 1: ENFOQUE ── -->
+      <section class="section" id="sec-intro">
+        <h2>Enfoque y diferencias con el análisis LDA</h2>
+        <p>De manera complementaria al modelamiento LDA, se realizó un <strong>análisis de prevalencia de temas espontáneos</strong> a partir de 73 entrevistas, aproximadamente 298.000 palabras y 2.344 citas codificadas. Este procedimiento permitió identificar los asuntos mencionados con mayor recurrencia por los actores, sin depender exclusivamente de las categorías previamente definidas en la pauta de entrevista.</p>
+
+        <div class="corpus-kpi">
+          <div class="ckpi">
+            <div class="ckpi-num">73</div>
+            <div class="ckpi-label">entrevistas analizadas</div>
+          </div>
+          <div class="ckpi">
+            <div class="ckpi-num">≈298K</div>
+            <div class="ckpi-label">palabras en el corpus</div>
+          </div>
+          <div class="ckpi">
+            <div class="ckpi-num">2.344</div>
+            <div class="ckpi-label">citas codificadas</div>
+          </div>
+          <div class="ckpi">
+            <div class="ckpi-num">16</div>
+            <div class="ckpi-label">temas prevalentes identificados</div>
+          </div>
+        </div>
+
+        <p>A diferencia del LDA, que identifica <em>patrones latentes de asociación entre términos</em> dentro del corpus, el análisis de prevalencia permite observar la <strong>aparición explícita de temas levantados espontáneamente</strong> por los entrevistados. En este sentido, constituye una herramienta útil para reconocer preocupaciones, expectativas y prioridades que emergen directamente desde el discurso de los actores.</p>
+
+        <p>Este análisis permite distinguir qué temas tienen mayor presencia transversal en el corpus y cuáles aparecen asociados a determinados territorios, tipos de actor o formas de vínculo con FCAB. Por ello, su valor no radica solo en cuantificar menciones, sino en <strong>complementar la lectura cualitativa del estudio</strong>, mostrando qué asuntos se instalan con mayor fuerza en la conversación territorial.</p>
+      </section>
+
+      <!-- ── SECCIÓN 2: DEPURACIÓN ── -->
+      <section class="section" id="sec-depuracion">
+        <h2>Proceso de depuración</h2>
+        <p>Para resguardar la calidad del análisis, se realizó un <strong>proceso de verificación en tres etapas</strong> orientado a corregir posibles sobreestimaciones en el conteo preliminar:</p>
+
+        <div class="depuracion-steps">
+          <div class="dep-step">
+            <div class="dep-num">1</div>
+            <h4>Control de contaminación por instrumento</h4>
+            <p>La pauta de entrevista incluía una lista de temas leída a los entrevistados —como patrimonio o sustentabilidad— que aparecía en la mayoría de las transcripciones y podía inflar artificialmente la frecuencia de ciertas palabras clave. Se controló esta contaminación distinguiendo menciones inducidas por la pauta de las surgidas espontáneamente.</p>
+          </div>
+          <div class="dep-step">
+            <div class="dep-num">2</div>
+            <h4>Depuración de palabras genéricas</h4>
+            <p>Términos como <em>seguridad</em>, <em>imagen</em> o <em>comunicación</em> podían aparecer en distintos contextos sin referirse necesariamente al tema analizado. Estos fueron filtrados mediante <strong>ventanas contextuales</strong>, considerando solo las menciones asociadas efectivamente a FCAB o al entorno ferroviario.</p>
+          </div>
+          <div class="dep-step">
+            <div class="dep-num">3</div>
+            <h4>Revisión de palabras ambiguas</h4>
+            <p>Palabras como <em>patio</em>, <em>metro</em> o <em>campamento</em> podían variar de significado según el uso. Se distinguió entre palabras <strong>unívocas</strong> —contabilizadas directamente— y <strong>ambiguas</strong> —contabilizadas solo cuando el contexto confirmaba su relación con el tema.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SECCIÓN 3: CLASIFICACIÓN DE ORIGEN ── -->
+      <section class="section" id="sec-clasificacion">
+        <h2>Clasificación de origen discursivo</h2>
+        <p>A partir de la depuración, los temas fueron clasificados según su <strong>origen discursivo</strong>, lo que determina el grado de espontaneidad y confiabilidad de la frecuencia registrada:</p>
+
+        <div class="origin-legend">
+          <div class="origin-pill">
+            <span class="origin-dot dot-pure"></span>
+            <div>
+              <div><strong>Espontáneo puro</strong></div>
+              <div style="font-size:.76rem;color:var(--text-3);margin-top:2px">Surgió sin pregunta directa, en relatos libres o digresiones del entrevistado. Mayor confiabilidad.</div>
+            </div>
+          </div>
+          <div class="origin-pill">
+            <span class="origin-dot dot-espon"></span>
+            <div>
+              <div><strong>Espontáneo</strong></div>
+              <div style="font-size:.76rem;color:var(--text-3);margin-top:2px">Apareció principalmente de forma libre, aunque alguna pregunta pudo rozarlo indirectamente.</div>
+            </div>
+          </div>
+          <div class="origin-pill">
+            <span class="origin-dot dot-mixto"></span>
+            <div>
+              <div><strong>Mixto</strong></div>
+              <div style="font-size:.76rem;color:var(--text-3);margin-top:2px">El instrumento contenía preguntas capaces de inducir su aparición. Interpretar la frecuencia con mayor cautela.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="warn-box">
+          ⚠️ Los temas clasificados como <strong>Mixto</strong> pueden tener su prevalencia cuantitativa inflada por el instrumento. Su presencia es real, pero el número de menciones debe interpretarse con cautela adicional.
+        </div>
+      </section>
+
+      <!-- ── SECCIÓN 4: TABLA DE PREVALENCIA ── -->
+      <section class="section" id="sec-prevalencia">
+        <h2>Temas prevalentes</h2>
+        <p>La tabla resume los <strong>16 temas prevalentes</strong> identificados en el corpus, ordenados por número total de menciones. Para cada tema se indica su origen discursivo, la cantidad de actores que lo mencionaron y el total de menciones registradas.</p>
+
+        <!-- Top 3 cards -->
+        <div class="top3-grid">
+          <div class="top-card rank1">
+            <div class="top-rank">🥇 Tema más mencionado</div>
+            <h4>Basura, suciedad y limpieza en el corredor ferroviario</h4>
+            <div style="margin-bottom:10px"><span class="ob ob-pure">Espontáneo puro</span></div>
+            <div class="top-stat-row">
+              <div class="top-stat">
+                <div class="ts-num">40</div>
+                <div class="ts-label">actores</div>
+              </div>
+              <div class="top-stat">
+                <div class="ts-num">231</div>
+                <div class="ts-label">menciones</div>
+              </div>
+            </div>
+          </div>
+          <div class="top-card rank2">
+            <div class="top-rank">🥈 2.° más mencionado</div>
+            <h4>Reconversión y recuperación de patios ferroviarios</h4>
+            <div style="margin-bottom:10px"><span class="ob ob-espon">Espontáneo</span></div>
+            <div class="top-stat-row">
+              <div class="top-stat">
+                <div class="ts-num">25</div>
+                <div class="ts-label">actores</div>
+              </div>
+              <div class="top-stat">
+                <div class="ts-num">161</div>
+                <div class="ts-label">menciones</div>
+              </div>
+            </div>
+          </div>
+          <div class="top-card rank3">
+            <div class="top-rank">🥉 3.° más mencionado</div>
+            <h4>Patrimonio histórico e identidad ferroviaria</h4>
+            <div style="margin-bottom:10px"><span class="ob ob-mixto">Mixto</span></div>
+            <div class="top-stat-row">
+              <div class="top-stat">
+                <div class="ts-num">37</div>
+                <div class="ts-label">actores</div>
+              </div>
+              <div class="top-stat">
+                <div class="ts-num">160</div>
+                <div class="ts-label">menciones</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full bar chart table -->
+        <div class="prev-table-wrap">
+          <div class="bar-legend">
+            <span><span class="bl-dot" style="background:#60a5fa"></span>N.° actores (máx. 40)</span>
+            <span><span class="bl-dot" style="background:var(--accent)"></span>N.° menciones (máx. 231)</span>
+          </div>
+
+          <!-- ESPONTÁNEO PURO -->
+          <div class="prev-section-label lbl-pure">● Espontáneo puro — máxima fiabilidad discursiva</div>
+
+          <div class="prev-row">
+            <div class="prev-name">Basura, suciedad y limpieza en el corredor ferroviario</div>
+            <div class="prev-num n-actores">40</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-actores" style="width:100%"></div></div>
+            <div class="prev-num n-menciones">231</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-menciones" style="width:100%"></div></div>
+          </div>
+
+          <div class="prev-row">
+            <div class="prev-name">Déficit de áreas verdes, plazas y espacios comunitarios</div>
+            <div class="prev-num n-actores">23</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-actores" style="width:57.5%"></div></div>
+            <div class="prev-num n-menciones">88</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-menciones" style="width:38.1%"></div></div>
+          </div>
+
+          <div class="prev-row">
+            <div class="prev-name">Seguridad, delincuencia y delitos en el entorno</div>
+            <div class="prev-num n-actores">28</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-actores" style="width:70%"></div></div>
+            <div class="prev-num n-menciones">67</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-menciones" style="width:29%"></div></div>
+          </div>
+
+          <div class="prev-row">
+            <div class="prev-name">Asentamientos irregulares, rucos y personas en situación de calle</div>
+            <div class="prev-num n-actores">15</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-actores" style="width:37.5%"></div></div>
+            <div class="prev-num n-menciones">68</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-menciones" style="width:29.4%"></div></div>
+          </div>
+
+          <div class="prev-row">
+            <div class="prev-name">Tren urbano, metro y transporte ferroviario de pasajeros</div>
+            <div class="prev-num n-actores">14</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-actores" style="width:35%"></div></div>
+            <div class="prev-num n-menciones">43</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-menciones" style="width:18.6%"></div></div>
+          </div>
+
+          <div class="prev-row">
+            <div class="prev-name">Hidrógeno verde e innovación tecnológica</div>
+            <div class="prev-num n-actores">18</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-actores" style="width:45%"></div></div>
+            <div class="prev-num n-menciones">38</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-menciones" style="width:16.5%"></div></div>
+          </div>
+
+          <div class="prev-row">
+            <div class="prev-name">Ruido y vibración operacional del tren</div>
+            <div class="prev-num n-actores">17</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-actores" style="width:42.5%"></div></div>
+            <div class="prev-num n-menciones">29</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-menciones" style="width:12.6%"></div></div>
+          </div>
+
+          <div class="prev-row">
+            <div class="prev-name">PROLOA y Cluster Minero como espacios de articulación territorial</div>
+            <div class="prev-num n-actores">5</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-actores" style="width:12.5%"></div></div>
+            <div class="prev-num n-menciones">23</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-menciones" style="width:10%"></div></div>
+          </div>
+
+          <div class="prev-row">
+            <div class="prev-name">Drogas y microtráfico en el entorno de la línea</div>
+            <div class="prev-num n-actores">6</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-actores" style="width:15%"></div></div>
+            <div class="prev-num n-menciones">21</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-menciones" style="width:9.1%"></div></div>
+          </div>
+
+          <div class="prev-row">
+            <div class="prev-name">Accidentabilidad y riesgos en cruces ferroviarios</div>
+            <div class="prev-num n-actores">10</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-actores" style="width:25%"></div></div>
+            <div class="prev-num n-menciones">15</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-menciones" style="width:6.5%"></div></div>
+          </div>
+
+          <!-- ESPONTÁNEO -->
+          <div class="prev-section-label lbl-espon" style="margin-top:20px">● Espontáneo — surgido libremente, rozado indirectamente por pauta</div>
+
+          <div class="prev-row">
+            <div class="prev-name">Reconversión y recuperación de patios ferroviarios</div>
+            <div class="prev-num n-actores">25</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-actores" style="width:62.5%"></div></div>
+            <div class="prev-num n-menciones">161</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-menciones" style="width:69.7%"></div></div>
+          </div>
+
+          <div class="prev-row">
+            <div class="prev-name">Visibilidad pública, comunicación e imagen institucional de FCAB</div>
+            <div class="prev-num n-actores">15</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-actores" style="width:37.5%"></div></div>
+            <div class="prev-num n-menciones">34</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-menciones" style="width:14.7%"></div></div>
+          </div>
+
+          <div class="prev-row">
+            <div class="prev-name">Compromisos incumplidos y obras sin terminar</div>
+            <div class="prev-num n-actores">14</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-actores" style="width:35%"></div></div>
+            <div class="prev-num n-menciones">28</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-menciones" style="width:12.1%"></div></div>
+          </div>
+
+          <!-- MIXTO -->
+          <div class="prev-section-label lbl-mixto" style="margin-top:20px">● Mixto — parcialmente inducido por la pauta · interpretar con cautela</div>
+
+          <div class="prev-row">
+            <div class="prev-name">Patrimonio histórico e identidad ferroviaria</div>
+            <div class="prev-num n-actores">37</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-actores" style="width:92.5%"></div></div>
+            <div class="prev-num n-menciones">160</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-menciones" style="width:69.3%"></div></div>
+          </div>
+
+          <div class="prev-row">
+            <div class="prev-name">WhatsApp como canal informal dominante de comunicación</div>
+            <div class="prev-num n-actores">33</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-actores" style="width:82.5%"></div></div>
+            <div class="prev-num n-menciones">129</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-menciones" style="width:55.8%"></div></div>
+          </div>
+
+          <div class="prev-row">
+            <div class="prev-name">Pacto Global, sostenibilidad y ODS</div>
+            <div class="prev-num n-actores">31</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-actores" style="width:77.5%"></div></div>
+            <div class="prev-num n-menciones">92</div>
+            <div class="prev-bar-wrap"><div class="prev-bar bar-menciones" style="width:39.8%"></div></div>
+          </div>
+
+        </div><!-- /prev-table-wrap -->
+
+        <div class="info-box">
+          📋 El <strong>detalle cualitativo de cada tema</strong>, incluyendo citas representativas, distribución por tipo de actor y territorio, está disponible en el Anexo del informe.
+        </div>
+
+      </section>
+
+      <!-- CHAPTER NAV -->
+  </div>
+  <div class="chapter-divider"></div>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- CAP 06: ECOSISTEMA DE ACTORES -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <div id="cap-06" class="chapter-block">
 <!-- ── ENCABEZADO ──────────────────────────────────────── -->
       <header class="chapter-header">
         <div class="chapter-meta">
@@ -3832,9 +4435,9 @@
   <div class="chapter-divider"></div>
 
   <!-- ════════════════════════════════════════════════════════════ -->
-  <!-- CAP 06: ANÁLISIS DE CLUSTER -->
+  <!-- CAP 07: ANÁLISIS DE CLUSTER -->
   <!-- ════════════════════════════════════════════════════════════ -->
-  <div id="cap-06" class="chapter-block">
+  <div id="cap-07" class="chapter-block">
 <!-- CHAPTER HEADER -->
       <header class="chapter-header">
         <div class="chapter-meta">
@@ -4235,9 +4838,9 @@
   <div class="chapter-divider"></div>
 
   <!-- ════════════════════════════════════════════════════════════ -->
-  <!-- CAP 07: RECOMENDACIONES ESTRATÉGICAS -->
+  <!-- CAP 08: RECOMENDACIONES ESTRATÉGICAS -->
   <!-- ════════════════════════════════════════════════════════════ -->
-  <div id="cap-07" class="chapter-block">
+  <div id="cap-08" class="chapter-block">
 <!-- ── ENCABEZADO ──────────────────────────────────────────── -->
       <header class="chapter-header">
         <div class="chapter-meta">
@@ -4634,9 +5237,9 @@
   <div class="chapter-divider"></div>
 
   <!-- ════════════════════════════════════════════════════════════ -->
-  <!-- CAP 08: CONCLUSIONES -->
+  <!-- CAP 09: CONCLUSIONES -->
   <!-- ════════════════════════════════════════════════════════════ -->
-  <div id="cap-08" class="chapter-block">
+  <div id="cap-09" class="chapter-block">
 <!-- ── ENCABEZADO ──────────────────────────────────────── -->
       <header class="chapter-header">
         <div class="chapter-meta">
