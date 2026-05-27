@@ -2141,129 +2141,301 @@
       .validation-grid,
       .cluster-card-body { grid-template-columns: 1fr; }
     }/* ── cap-09: Recomendaciones Estratégicas ── */
-/* ── Cluster header ── */
-    .cluster-header {
-      border-radius: var(--r);
-      padding: 20px 24px;
-      margin-bottom: 28px;
-      border-left: 4px solid;
+/* ── KPI intro bar ── */
+    .rec-kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 28px 0 40px;
     }
-    .cluster-header.c0 { background: rgba(220,38,38,0.05);  border-color: #DC2626; }
-    .cluster-header.c1 { background: rgba(37,99,235,0.05);  border-color: var(--accent); }
-    .cluster-header.c2 { background: rgba(124,58,237,0.05); border-color: #7C3AED; }
-
-    .cluster-eyebrow {
-      font-size: 10px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.1em; margin-bottom: 4px;
+    .rkpi {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 18px;
+      text-align: center;
     }
-    .c0 .cluster-eyebrow { color: #DC2626; }
-    .c1 .cluster-eyebrow { color: var(--accent); }
-    .c2 .cluster-eyebrow { color: #7C3AED; }
+    .rkpi-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .rkpi-label {
+      font-size: 0.72rem;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      line-height: 1.4;
+    }
 
-    .cluster-title { font-size: 17px; font-weight: 700; color: var(--text-1); margin-bottom: 8px; }
-    .cluster-desc  { font-size: 13px; color: var(--text-2); line-height: 1.65; margin: 0 0 12px; }
+    /* ── Cluster section blocks ── */
+    .cluster-section {
+      border-radius: 16px;
+      padding: 32px 32px 36px;
+      margin: 40px 0;
+    }
+    .cluster-section.c0 {
+      background: linear-gradient(135deg, rgba(239,68,68,.06) 0%, rgba(251,146,60,.04) 100%);
+      border: 1px solid rgba(239,68,68,.2);
+    }
+    .cluster-section.c1 {
+      background: linear-gradient(135deg, rgba(16,185,129,.06) 0%, rgba(14,165,233,.04) 100%);
+      border: 1px solid rgba(16,185,129,.2);
+    }
+    .cluster-section.c2 {
+      background: linear-gradient(135deg, rgba(139,92,246,.07) 0%, rgba(59,130,246,.04) 100%);
+      border: 1px solid rgba(139,92,246,.22);
+    }
 
     .cluster-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 12px; font-weight: 600; padding: 4px 12px;
-      border-radius: 20px; border: 1px solid;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
     }
-    .c0 .cluster-badge { background: rgba(220,38,38,0.08);  border-color: rgba(220,38,38,0.25);  color: #DC2626; }
-    .c1 .cluster-badge { background: rgba(37,99,235,0.08);  border-color: rgba(37,99,235,0.25);  color: var(--accent); }
-    .c2 .cluster-badge { background: rgba(124,58,237,0.08); border-color: rgba(124,58,237,0.25); color: #7C3AED; }
+    .cluster-badge.c0 { background: rgba(239,68,68,.12); color: #dc2626; }
+    .cluster-badge.c1 { background: rgba(16,185,129,.12); color: #059669; }
+    .cluster-badge.c2 { background: rgba(139,92,246,.12); color: #7c3aed; }
 
-    /* ── Sub-dimensión separador ── */
-    .dim-label {
-      font-size: 11px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.09em; color: var(--text-3);
-      display: flex; align-items: center; gap: 10px; margin: 28px 0 18px;
+    .cluster-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 0 0 6px;
+      color: var(--text-1);
     }
-    .dim-label::after {
-      content: ''; flex: 1; height: 1px; background: var(--border);
+    .cluster-lead {
+      font-size: 0.9rem;
+      color: var(--text-2);
+      line-height: 1.65;
+      margin: 0 0 28px;
     }
 
-    /* ── Tarjeta de recomendación ── */
+    /* ── Dimension sub-header ── */
+    .dimension-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 32px 0 16px;
+    }
+    .dimension-pill {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .c0 .dimension-pill { background: #ef4444; }
+    .c1 .dimension-pill { background: #10b981; }
+    .c2 .dimension-pill { background: #8b5cf6; }
+    .dimension-header h4 {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--text-3);
+      margin: 0;
+    }
+    .dimension-context {
+      font-size: 0.875rem;
+      color: var(--text-2);
+      line-height: 1.65;
+      margin: 0 0 20px;
+      padding: 14px 18px;
+      background: rgba(0,0,0,.025);
+      border-radius: 10px;
+      border-left: 3px solid var(--border);
+    }
+
+    /* ── Recommendation cards ── */
     .rec-card {
-      background: var(--surface-1);
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: var(--r);
+      border-radius: 14px;
       margin-bottom: 20px;
       overflow: hidden;
     }
-    .rec-head {
-      display: flex; align-items: flex-start; gap: 14px;
-      padding: 18px 22px 14px;
+    .rec-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 22px 16px;
       border-bottom: 1px solid var(--border);
-      background: var(--surface-2);
     }
-    .rec-code {
-      font-size: 11px; font-weight: 800; letter-spacing: 0.05em;
-      padding: 4px 10px; border-radius: var(--r-sm); flex-shrink: 0;
-      margin-top: 2px;
+    .rec-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
     }
-    .c0 .rec-code { background: rgba(220,38,38,0.1);  color: #DC2626; }
-    .c1 .rec-code { background: rgba(37,99,235,0.1);  color: var(--accent); }
-    .c2 .rec-code { background: rgba(124,58,237,0.1); color: #7C3AED; }
-
-    .rec-title { font-size: 14px; font-weight: 700; color: var(--text-1); line-height: 1.4; margin: 0; }
-
-    .rec-body { padding: 0 22px 4px; }
-
+    .c0 .rec-badge { background: rgba(239,68,68,.1); color: #dc2626; }
+    .c1 .rec-badge { background: rgba(16,185,129,.1); color: #059669; }
+    .c2 .rec-badge { background: rgba(139,92,246,.1); color: #7c3aed; }
+    .rec-card-header h3 {
+      font-size: 0.975rem;
+      font-weight: 600;
+      color: var(--text-1);
+      margin: 0;
+    }
+    .rec-body {
+      padding: 0;
+    }
     .rec-row {
-      display: grid; grid-template-columns: 130px 1fr;
-      gap: 14px; align-items: baseline;
-      padding: 12px 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .rec-cell {
+      padding: 18px 22px;
+      border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
-    .rec-row:last-child { border-bottom: none; }
-
-    .rec-tag {
-      font-size: 10px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.07em; padding: 3px 9px; border-radius: var(--r-sm);
-      border: 1px solid; white-space: nowrap; justify-self: start;
-      align-self: start;
+    .rec-cell:nth-child(even) { border-right: none; }
+    .rec-cell:nth-last-child(-n+2) { border-bottom: none; }
+    .rec-cell-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
     }
-    .tag-problem { background: rgba(220,38,38,0.06);  border-color: rgba(220,38,38,0.2);  color: #B91C1C; }
-    .tag-action  { background: rgba(37,99,235,0.06);  border-color: rgba(37,99,235,0.2);  color: #1D4ED8; }
-    .tag-result  { background: rgba(5,150,105,0.06);  border-color: rgba(5,150,105,0.2);  color: #065F46; }
-    .tag-risk    { background: rgba(217,119,6,0.06);  border-color: rgba(217,119,6,0.2);  color: #92400E; }
+    .c0 .rec-cell-label { color: #dc2626; }
+    .c1 .rec-cell-label { color: #059669; }
+    .c2 .rec-cell-label { color: #7c3aed; }
+    .rec-cell p {
+      font-size: 0.85rem;
+      color: var(--text-2);
+      line-height: 1.65;
+      margin: 0;
+    }
+    .rec-cell p strong {
+      color: var(--text-1);
+    }
 
-    .rec-row p  { font-size: 13px; color: var(--text-2); line-height: 1.65; margin: 0; }
-    .rec-row ul { margin: 0; padding-left: 18px; }
-    .rec-row ul li { font-size: 13px; color: var(--text-2); line-height: 1.65; margin-bottom: 4px; }
+    /* ── Action with sub-bullets ── */
+    .rec-actions {
+      font-size: 0.85rem;
+      color: var(--text-2);
+      line-height: 1.65;
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+    }
+    .rec-actions li {
+      padding-left: 1.1em;
+      position: relative;
+      margin-bottom: 4px;
+    }
+    .rec-actions li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      font-weight: 700;
+    }
+    .c0 .rec-actions li::before { color: #ef4444; }
+    .c1 .rec-actions li::before { color: #10b981; }
+    .c2 .rec-actions li::before { color: #8b5cf6; }
 
-    /* ── Tabla resumen ── */
-    .rec-summary-table {
-      width: 100%; border-collapse: collapse;
-      font-size: 13px; margin: 0 0 32px;
-      border-radius: var(--r); overflow: hidden;
+    /* ── Cluster 2 stat strip ── */
+    .c2-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 0 0 24px;
+    }
+    .c2-stat {
+      background: rgba(139,92,246,.06);
+      border: 1px solid rgba(139,92,246,.15);
+      border-radius: 10px;
+      padding: 14px 16px;
+      text-align: center;
+    }
+    .c2-stat-val {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #7c3aed;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+    .c2-stat-lbl {
+      font-size: 0.7rem;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    /* ── Strategic risk callout ── */
+    .risk-callout {
+      background: rgba(239,68,68,.05);
+      border: 1px solid rgba(239,68,68,.2);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 12px 0 0;
+    }
+    .risk-callout-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: #dc2626;
+      margin-bottom: 6px;
+    }
+    .risk-callout p {
+      font-size: 0.83rem;
+      color: var(--text-2);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── Actor tags ── */
+    .actor-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .actor-tag {
+      font-size: 0.71rem;
+      padding: 3px 10px;
+      border-radius: 999px;
       border: 1px solid var(--border);
+      color: var(--text-3);
+      background: var(--surface);
     }
-    .rec-summary-table th {
-      background: rgba(37,99,235,0.05); padding: 9px 16px;
-      text-align: left; font-size: 10px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3);
-      border-bottom: 1px solid var(--border-2);
-    }
-    .rec-summary-table td {
-      padding: 10px 16px; border-bottom: 1px solid var(--border);
-      color: var(--text-2); vertical-align: top;
-    }
-    .rec-summary-table tr:last-child td { border-bottom: none; }
-    .rec-summary-table tr:hover td { background: var(--surface-2); }
-    .rec-summary-table .code-cell {
-      font-weight: 700; font-size: 12px; white-space: nowrap;
-      padding: 10px 14px;
-    }
-    .code-c0 { color: #DC2626; }
-    .code-c1 { color: var(--accent); }
-    .code-c2 { color: #7C3AED; }
 
-    @media (max-width: 640px) {
-      .rec-row { grid-template-columns: 1fr; gap: 6px; }
-      .cluster-header { padding: 16px 18px; }
-      .rec-head { padding: 14px 16px 12px; }
-      .rec-body { padding: 0 16px 4px; }
+    /* ── Quote pull ── */
+    .pull-quote {
+      border-left: 3px solid;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 10px 0 0;
+    }
+    .c0 .pull-quote { border-color: #ef4444; background: rgba(239,68,68,.04); }
+    .c2 .pull-quote { border-color: #8b5cf6; background: rgba(139,92,246,.04); }
+    .pull-quote p {
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--text-2);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    @media (max-width: 700px) {
+      .rec-kpi-row { grid-template-columns: repeat(2, 1fr); }
+      .rec-row { grid-template-columns: 1fr; }
+      .rec-cell:nth-child(even) { border-right: 1px solid var(--border); }
+      .rec-cell:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+      .rec-cell:last-child { border-bottom: none; }
+      .c2-stats { grid-template-columns: repeat(2, 1fr); }
+      .cluster-section { padding: 22px 18px 26px; }
     }/* ── cap-10: Conclusiones ── */
 /* ── Estilos específicos Cap. 09 ── */
 
@@ -5422,398 +5594,486 @@
   <!-- CAP 09: RECOMENDACIONES ESTRATÉGICAS -->
   <!-- ════════════════════════════════════════════════════════════ -->
   <div id="cap-09" class="chapter-block">
-<!-- ── ENCABEZADO ──────────────────────────────────────────── -->
+<!-- CHAPTER HEADER -->
       <header class="chapter-header">
         <div class="chapter-meta">
-          <span class="chapter-num-label">Capítulo 07</span>
+          <span class="chapter-num-label">Capítulo 09</span>
         </div>
         <h1>Recomendaciones Estratégicas</h1>
-        <p class="chapter-lead">Las recomendaciones se organizan según los tres clusters identificados en el análisis empírico. Cada recomendación está anclada en hallazgos específicos del estudio y define problema, acción, resultado esperado y riesgo que mitiga.</p>
+        <p class="chapter-lead">Once recomendaciones organizadas por cluster relacional — Distantes/Críticos, Vinculados/Positivos y Centrales/Estratégicos — cada una con problema de base, acción concreta, resultado esperado y riesgo que mitiga.</p>
       </header>
 
-      <!-- ── TABLA RESUMEN ────────────────────────────────────────── -->
+      <!-- KPI BAR -->
       <section class="section">
-        <h2>1. Mapa de recomendaciones</h2>
-
-        <p>El estudio identifica once recomendaciones distribuidas en los tres perfiles relacionales del ecosistema. La tabla siguiente permite una lectura transversal antes de profundizar en cada cluster.</p>
-
-        <div style="overflow-x:auto; margin: 20px 0 8px;">
-          <table class="rec-summary-table">
-            <thead>
-              <tr>
-                <th>Código</th>
-                <th>Recomendación</th>
-                <th>Cluster / Dimensión</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="code-cell code-c0">R1</td>
-                <td>Desarrollo del vínculo comunitario sostenido</td>
-                <td>Cluster 0 — Comunitaria</td>
-              </tr>
-              <tr>
-                <td class="code-cell code-c0">R2</td>
-                <td>Definir gestión de impactos operacionales en Sierra Gorda y Baquedano</td>
-                <td>Cluster 0 — Comunitaria</td>
-              </tr>
-              <tr>
-                <td class="code-cell code-c0">R3</td>
-                <td>Estrategia de visibilidad institucional en el ecosistema de sociedad civil</td>
-                <td>Cluster 0 — Sociedad civil y medios</td>
-              </tr>
-              <tr>
-                <td class="code-cell code-c0">R4</td>
-                <td>Reactivación del vínculo con actores culturales y patrimoniales</td>
-                <td>Cluster 0 — Sociedad civil y medios</td>
-              </tr>
-              <tr>
-                <td class="code-cell code-c1">R5</td>
-                <td>Institucionalización y trazabilidad del vínculo comunitario</td>
-                <td>Cluster 1 — Comunitaria</td>
-              </tr>
-              <tr>
-                <td class="code-cell code-c1">R6</td>
-                <td>Profundización del relacionamiento en Mejillones</td>
-                <td>Cluster 1 — Comunitaria</td>
-              </tr>
-              <tr>
-                <td class="code-cell code-c1">R7</td>
-                <td>Articulación formal con actores públicos y de sociedad civil</td>
-                <td>Cluster 1 — Sector público</td>
-              </tr>
-              <tr>
-                <td class="code-cell code-c2">R8</td>
-                <td>Sistematización del vínculo institucional estratégico</td>
-                <td>Cluster 2 — Estratégicos</td>
-              </tr>
-              <tr>
-                <td class="code-cell code-c2">R10</td>
-                <td>Gestión proactiva de expectativas con sector productivo y gremios</td>
-                <td>Cluster 2 — Estratégicos</td>
-              </tr>
-              <tr>
-                <td class="code-cell code-c2">R11</td>
-                <td>Gestión del vínculo con Gobierno Regional y Municipalidad de Antofagasta</td>
-                <td>Cluster 2 — Estratégicos</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- ── CLUSTER 0 ────────────────────────────────────────────── -->
-      <section class="section">
-        <h2>2. Cluster 0 — Distantes / Críticos</h2>
-
-        <div class="cluster-header c0">
-          <div class="cluster-eyebrow">Perfil relacional</div>
-          <div class="cluster-title">Distantes / Críticos</div>
-          <p class="cluster-desc">Concentra el mayor número de organizaciones de base con percepción deteriorada. El hallazgo central es que la distancia no deriva de conflicto declarado, sino de ausencia: los actores no perciben a FCAB como vecino activo, y cuando ha habido relacionamiento previo, su interrupción dejó una huella negativa difícil de revertir sin un gesto explícito de reencuadre.</p>
-          <span class="cluster-badge">n = 32 actores</span>
-        </div>
-
-        <!-- Dimensión comunitaria -->
-        <div class="dim-label">Dimensión comunitaria · JJVV y organizaciones de base</div>
-
-        <!-- R1 -->
-        <div class="rec-card c0">
-          <div class="rec-head">
-            <span class="rec-code">R1</span>
-            <h3 class="rec-title">Desarrollo del vínculo comunitario sostenido</h3>
+        <div class="rec-kpi-row">
+          <div class="rkpi">
+            <div class="rkpi-value">3</div>
+            <div class="rkpi-label">Clusters relacionales</div>
           </div>
-          <div class="rec-body">
-            <div class="rec-row">
-              <span class="rec-tag tag-problem">Problema</span>
-              <p>JJVV aledañas a la vía ferroviaria evalúan la coherencia discurso/práctica con puntajes que promedian 3,55/7, evidenciando desconfianza acumulada, en parte asociada a cambios abruptos de política de relacionamiento en administraciones anteriores.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-action">Acción</span>
-              <p>Diseñar un sistema de vinculación sistemático y trazable con las juntas de vecinos del Cluster 0, que construya confianza y siente las bases para transferir este grupo al Cluster 2.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-result">Resultado esperado</span>
-              <p>Reducción de la percepción de abandono y establecimiento de un punto de inicio verificable para el nuevo ciclo relacional.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-risk">Riesgo que mitiga</span>
-              <p>Amplificación de percepciones negativas por parte de organizaciones de base con acceso a medios locales y redes sociales.</p>
-            </div>
+          <div class="rkpi">
+            <div class="rkpi-value">11</div>
+            <div class="rkpi-label">Recomendaciones específicas</div>
           </div>
-        </div>
-
-        <!-- R2 -->
-        <div class="rec-card c0">
-          <div class="rec-head">
-            <span class="rec-code">R2</span>
-            <h3 class="rec-title">Definir gestión de impactos operacionales en Sierra Gorda y Baquedano</h3>
+          <div class="rkpi">
+            <div class="rkpi-value">72</div>
+            <div class="rkpi-label">Actores del ecosistema</div>
           </div>
-          <div class="rec-body">
-            <div class="rec-row">
-              <span class="rec-tag tag-problem">Problema</span>
-              <p>En Sierra Gorda y Baquedano, los actores del Cluster 0 coinciden en que FCAB opera con presencia física diaria pero sin relacionamiento: <em>"vemos los trenes pasar pero no hay contacto"</em>. La pérdida del relacionador comunitario anterior dejó un vacío que no fue cubierto.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-action">Acción</span>
-              <p>Determinar el nivel de presencia e involucramiento en el territorio Sierra Gorda y Baquedano.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-result">Resultado esperado</span>
-              <p>FCAB presente con una estrategia declarada y conocida que balancee las expectativas del territorio.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-risk">Riesgo que mitiga</span>
-              <p>Consolidación de imagen de empresa ausente en el territorio.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Dimensión sociedad civil -->
-        <div class="dim-label">Dimensión sociedad civil, academia y medios</div>
-
-        <!-- R3 -->
-        <div class="rec-card c0">
-          <div class="rec-head">
-            <span class="rec-code">R3</span>
-            <h3 class="rec-title">Estrategia de visibilidad institucional en el ecosistema de sociedad civil</h3>
-          </div>
-          <div class="rec-body">
-            <div class="rec-row">
-              <span class="rec-tag tag-problem">Problema</span>
-              <p>Actores de alta capacidad de amplificación (medios, organizaciones de sociedad civil y culturales) califican la coherencia discurso/práctica con puntajes bajos (2,33–5,0/7) y reportan desconocimiento de la agenda, los liderazgos y los proyectos actuales de FCAB. El Mercurio declara no haber hablado con nadie de FCAB en años.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-action">Acción</span>
-              <ul>
-                <li><strong>Organizaciones de Sociedad Civil:</strong> Determinar las organizaciones críticas para la estrategia de relacionamiento, identificar socios estratégicos y facilitadores reputacionales; integrarlos con acciones individualizadas; realizar mapeo periódico de este segmento.</li>
-                <li><strong>Medios de Comunicación:</strong> Desarrollar una estrategia multipropósito de vinculación con medios: Plan de Medios, visitas protocolares y difusión sistemática.</li>
-              </ul>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-result">Resultado esperado</span>
-              <p>Presencia activa de FCAB en al menos tres instancias del ecosistema de sociedad civil, con cobertura mediática positiva documentada.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-risk">Riesgo que mitiga</span>
-              <p>Riesgo reputacional derivado de la narrativa de "empresa invisible" en un contexto regional donde otras empresas mineras mantienen relacionamiento activo con medios y sociedad civil.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- R4 -->
-        <div class="rec-card c0">
-          <div class="rec-head">
-            <span class="rec-code">R4</span>
-            <h3 class="rec-title">Reactivación del vínculo con actores culturales y patrimoniales</h3>
-          </div>
-          <div class="rec-body">
-            <div class="rec-row">
-              <span class="rec-tag tag-problem">Problema</span>
-              <p>El Museo Virtual Ferroviario, el Centro Cultural Estación y Filzic representan actores con identidad ligada a la historia de FCAB que hoy se sienten desvinculados o ignorados. La ruptura de esa alianza tiene costo simbólico específico: son actores con narrativa favorable predispuesta que hoy no activan esa narrativa porque no tienen relación activa.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-action">Acción</span>
-              <p>Gestionar el patrimonio ferroviario interno y periférico de FCAB. Identificar actores relevantes y formalizar acuerdos de colaboración con organizaciones culturales y patrimoniales vinculadas al ámbito ferroviario.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-result">Resultado esperado</span>
-              <p>Mejorar la percepción respecto de la gestión del patrimonio y la identidad regional.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-risk">Riesgo que mitiga</span>
-              <p>Pérdida de aliados naturales con capacidad de construir narrativa positiva sobre la historia y presencia de FCAB en el territorio.</p>
-            </div>
+          <div class="rkpi">
+            <div class="rkpi-value">6</div>
+            <div class="rkpi-label">Territorios cubiertos</div>
           </div>
         </div>
       </section>
 
-      <!-- ── CLUSTER 1 ────────────────────────────────────────────── -->
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <!-- CLUSTER 0 -->
+      <!-- ══════════════════════════════════════════════════════════ -->
       <section class="section">
-        <h2>3. Cluster 1 — Vinculados / Positivos</h2>
+        <div class="cluster-section c0">
+          <div class="cluster-badge c0">● Cluster 0</div>
+          <h2 class="cluster-title">Distantes / Críticos — n=32</h2>
+          <p class="cluster-lead">El hallazgo central de este cluster es que la distancia no deriva de conflicto declarado, sino de ausencia. Los actores no perciben a FCAB como vecino activo del barrio, y cuando ha habido relacionamiento previo, su interrupción dejó una huella negativa difícil de revertir sin un gesto explícito de reencuadre.</p>
 
-        <div class="cluster-header c1">
-          <div class="cluster-eyebrow">Perfil relacional</div>
-          <div class="cluster-title">Vinculados / Positivos</div>
-          <p class="cluster-desc">Este es el activo relacional más robusto de FCAB. Son organizaciones que validan la presencia de la empresa y mantienen canales activos, principalmente a través de contacto directo con el referente comunitario. El riesgo específico es la fragilidad del vínculo: está sostenido en personas, no en sistemas institucionales, y es sensible a rotaciones de personal.</p>
-          <span class="cluster-badge">n = 32 actores</span>
-        </div>
-
-        <!-- Dimensión comunitaria -->
-        <div class="dim-label">Dimensión comunitaria · JJVV con relación activa</div>
-
-        <!-- R5 -->
-        <div class="rec-card c1">
-          <div class="rec-head">
-            <span class="rec-code">R5</span>
-            <h3 class="rec-title">Institucionalización y trazabilidad del vínculo comunitario en Antofagasta y Calama</h3>
+          <!-- Dimensión comunitaria -->
+          <div class="dimension-header">
+            <div class="dimension-pill"></div>
+            <h4>Dimensión comunitaria — JJVV y organizaciones de base</h4>
           </div>
-          <div class="rec-body">
-            <div class="rec-row">
-              <span class="rec-tag tag-problem">Problema</span>
-              <p>La alta calidad relacional del Cluster 1 está mediada casi exclusivamente por contacto personal directo con el referente comunitario. Varios actores identifican por nombre a su contraparte en FCAB. Su riesgo queda evidenciado por los hallazgos del Cluster 0.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-action">Acción</span>
-              <p>Implementar un sistema de gestión de compromisos con trazabilidad documentada (plataforma o registro accesible), independiente de las personas. Cada organización del Cluster 1 debería tener una ficha de relación actualizada con compromisos vigentes, historial de interacciones, demandas activas y persona de contacto. Complementar con reuniones presenciales grupales por zona geográfica.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-result">Resultado esperado</span>
-              <p>Sistema operativo que garantice continuidad del vínculo ante cambios de personal, con al menos el 80% de las organizaciones del Cluster 1 con ficha actualizada.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-risk">Riesgo que mitiga</span>
-              <p>Degradación del Cluster 1 hacia el Cluster 0 ante una rotación de personal no gestionada, replicando el patrón ya observado en casos documentados en entrevistas.</p>
-            </div>
-          </div>
-        </div>
+          <p class="dimension-context">Este subgrupo concentra el mayor número de organizaciones de base con percepción deteriorada. JJVV aledañas a la vía ferroviaria evalúan la coherencia discurso/práctica con puntajes que promedian 3.55/7, evidenciando desconfianza acumulada, en parte asociada a cambios abruptos de política de relacionamiento en administraciones anteriores.</p>
 
-        <!-- R6 -->
-        <div class="rec-card c1">
-          <div class="rec-head">
-            <span class="rec-code">R6</span>
-            <h3 class="rec-title">Profundización del relacionamiento en Mejillones</h3>
-          </div>
-          <div class="rec-body">
-            <div class="rec-row">
-              <span class="rec-tag tag-problem">Problema</span>
-              <p>Mejillones presenta una distribución mixta: actores del Cluster 1 con relación positiva (Segunda Compañía de Bomberos, Puerto Mejillones, JJVV Manuel Rodríguez), pero también actores del Cluster 0 (Municipalidad, Asociación de Industriales). El rol histórico y patrimonial de FCAB en Mejillones es reconocido, pero no se traduce en presencia activa.</p>
+          <!-- R1 -->
+          <div class="rec-card c0">
+            <div class="rec-card-header">
+              <span class="rec-badge">R1</span>
+              <h3>Desarrollo del vínculo comunitario sostenido</h3>
             </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-action">Acción</span>
-              <p>Implementar una estrategia de relacionamiento sistemática, trazable y medible con el territorio. Fortalecer la participación activa de FCAB en las instituciones con las que ya posee vínculo, para reforzar el posicionamiento de su Estrategia de Relacionamiento Comunitario.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-result">Resultado esperado</span>
-              <p>FCAB posicionado como actor activo en el ecosistema de Mejillones, con participación en al menos dos iniciativas de desarrollo local con impacto documentado.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-risk">Riesgo que mitiga</span>
-              <p>Erosión de la base de confianza en Mejillones en un contexto donde la empresa tiene proyección estratégica de expansión en la comuna.</p>
+            <div class="rec-body">
+              <div class="rec-row">
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Problema / Hallazgo</div>
+                  <p>JJVV aledañas a la vía ferroviaria evalúan la coherencia discurso/práctica con puntajes que promedian <strong>3.55/7</strong>, evidenciando desconfianza acumulada. En parte asociada a cambios abruptos de política de relacionamiento en administraciones anteriores.</p>
+                  <div class="actor-tags">
+                    <span class="actor-tag">JJVV Antofagasta</span>
+                    <span class="actor-tag">JJVV Calama</span>
+                    <span class="actor-tag">Sierra Gorda</span>
+                    <span class="actor-tag">Mejillones</span>
+                  </div>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Acción</div>
+                  <p>Diseñar un sistema de vinculación, <strong>sistemático y trazable</strong>, con las juntas de vecinos del Cluster 0 que construya confianza y siente las bases para transferir este grupo al Cluster 2.</p>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Resultado esperado</div>
+                  <p>Reducción de la percepción de abandono y establecimiento de un punto de inicio verificable para el nuevo ciclo relacional.</p>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Riesgo que mitiga</div>
+                  <p>Amplificación de percepciones negativas por parte de organizaciones de base con acceso a medios locales y redes sociales.</p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- Dimensión sector público -->
-        <div class="dim-label">Dimensión sector público y sociedad civil</div>
+          <!-- R2 -->
+          <div class="rec-card c0">
+            <div class="rec-card-header">
+              <span class="rec-badge">R2</span>
+              <h3>Definir gestión de impactos operacionales en Sierra Gorda y Baquedano</h3>
+            </div>
+            <div class="rec-body">
+              <div class="rec-row">
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Problema / Hallazgo</div>
+                  <p>Los actores del Cluster 0 en Sierra Gorda y Baquedano coinciden en que FCAB opera con presencia física diaria pero sin relacionamiento. La pérdida del relacionador comunitario anterior dejó un vacío que no fue cubierto.</p>
+                  <div class="pull-quote">
+                    <p>"Vemos los trenes pasar pero no hay contacto."</p>
+                  </div>
+                  <div class="actor-tags" style="margin-top:10px">
+                    <span class="actor-tag">Concejal Torres</span>
+                    <span class="actor-tag">JJVV N°1</span>
+                    <span class="actor-tag">JJVV N°3</span>
+                    <span class="actor-tag">Restaurant El Baquedano</span>
+                  </div>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Acción</div>
+                  <p>Determinar el nivel de presencia e involucramiento en el territorio Sierra Gorda y Baquedano y definir una estrategia declarada que balancee las expectativas del territorio.</p>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Resultado esperado</div>
+                  <p>FCAB presente con una <strong>estrategia declarada y conocida</strong> en el territorio de Sierra Gorda y Baquedano.</p>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Riesgo que mitiga</div>
+                  <p>Consolidación de la imagen de empresa ausente en el territorio en zonas con presencia operacional diaria.</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <!-- R7 -->
-        <div class="rec-card c1">
-          <div class="rec-head">
-            <span class="rec-code">R7</span>
-            <h3 class="rec-title">Articulación formal con actores públicos y de sociedad civil del Cluster 1</h3>
+          <!-- Dimensión sociedad civil -->
+          <div class="dimension-header">
+            <div class="dimension-pill"></div>
+            <h4>Dimensión sociedad civil, academia y medios — Antofagasta, Calama</h4>
           </div>
-          <div class="rec-body">
-            <div class="rec-row">
-              <span class="rec-tag tag-problem">Problema</span>
-              <p>Actores como PROLOA, Pacto Global y la Municipalidad de Sierra Gorda tienen relación de alta calidad con FCAB, pero sin marcos formales de colaboración que permitan proyectar esa relación hacia iniciativas concretas. La Municipalidad de Sierra Gorda plantea explícitamente la necesidad de frecuencia sistemática de relacionamiento.</p>
+          <p class="dimension-context">Este subgrupo incluye los actores con mayor capacidad de amplificación pública: El Mercurio, Filzic, Timeline, Alianza Antofagasta, Fundación Minera Escondida, Museo Virtual Ferroviario, Radio María Reina. Varios de ellos reportan no saber quién trabaja en FCAB hoy, ni cuál es su agenda pública. La invisibilidad institucional de FCAB en los ecosistemas de sociedad civil es percibida como señal de repliegue deliberado.</p>
+
+          <!-- R3 -->
+          <div class="rec-card c0">
+            <div class="rec-card-header">
+              <span class="rec-badge">R3</span>
+              <h3>Desarrollo de estrategia de visibilidad institucional en el ecosistema de sociedad civil</h3>
             </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-action">Acción</span>
-              <p>Formalizar con gobernanza y operatividad al menos tres acuerdos de colaboración con actores del Cluster 1 en el ámbito público y de sociedad civil, con objetivos, plazos y responsabilidades definidas. Priorizar: PROLOA (articulación para desarrollo territorial en el corredor del Loa) y Pacto Global (adhesión o participación activa en iniciativas de sostenibilidad).</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-result">Resultado esperado</span>
-              <p>Prevalencia de la imagen de FCAB en actividades colaborativas con entidades determinantes para sumar valor y capital reputacional.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-risk">Riesgo que mitiga</span>
-              <p>Deterioro de relaciones de alta calidad por falta de contenido concreto que las sostenga en el tiempo.</p>
+            <div class="rec-body">
+              <div class="rec-row">
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Problema / Hallazgo</div>
+                  <p>Actores de alta capacidad de amplificación califican la coherencia discurso/práctica con puntajes bajos (<strong>2.33–5.0/7</strong>) y reportan desconocimiento de la agenda, los liderazgos y los proyectos actuales de FCAB. El Mercurio declara no haber hablado con nadie de FCAB en años.</p>
+                  <div class="actor-tags">
+                    <span class="actor-tag">El Mercurio</span>
+                    <span class="actor-tag">Filzic</span>
+                    <span class="actor-tag">Timeline</span>
+                    <span class="actor-tag">Alianza Antofagasta</span>
+                    <span class="actor-tag">FME</span>
+                    <span class="actor-tag">Radio María Reina</span>
+                  </div>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Acción</div>
+                  <ul class="rec-actions">
+                    <li><strong>Org. Sociedad Civil:</strong> Determinar organizaciones críticas para la estrategia de relacionamiento, socios estratégicos y facilitadores reputacionales. Integrarlos con acciones individualizadas y mapeo periódico.</li>
+                    <li><strong>Medios de Comunicación:</strong> Desarrollar una estrategia multipropósito de vinculación (Plan de Medios, Visitas protocolares, Difusión sistemática).</li>
+                  </ul>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Resultado esperado</div>
+                  <p>Presencia activa de FCAB en <strong>al menos tres instancias</strong> del ecosistema de sociedad civil, con cobertura mediática positiva documentada.</p>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Riesgo que mitiga</div>
+                  <p>Riesgo reputacional derivado de la narrativa de "empresa invisible" en un contexto regional donde otras empresas mineras mantienen relacionamiento activo con medios y sociedad civil.</p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+
+          <!-- R4 -->
+          <div class="rec-card c0">
+            <div class="rec-card-header">
+              <span class="rec-badge">R4</span>
+              <h3>Reactivación del vínculo con actores culturales y patrimoniales</h3>
+            </div>
+            <div class="rec-body">
+              <div class="rec-row">
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Problema / Hallazgo</div>
+                  <p>El Museo Virtual Ferroviario, el Centro Cultural Estación y Filzic representan actores con identidad ligada a la historia de FCAB que hoy se sienten desvinculados o ignorados. Son actores con narrativa favorable predispuesta que no la activan porque no tienen relación activa.</p>
+                  <div class="actor-tags">
+                    <span class="actor-tag">Museo Virtual Ferroviario</span>
+                    <span class="actor-tag">Centro Cultural Estación</span>
+                    <span class="actor-tag">Filzic</span>
+                  </div>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Acción</div>
+                  <p>Gestionar el patrimonio ferroviario interno y periférico de FCAB. Identificar actores relevantes y formalizar acuerdos de colaboración con organizaciones culturales y patrimoniales vinculadas al ámbito ferroviario.</p>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Resultado esperado</div>
+                  <p>Mejorar la percepción respecto de la <strong>gestión del patrimonio</strong> y la identidad regional de FCAB.</p>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Riesgo que mitiga</div>
+                  <p>Pérdida de aliados naturales con capacidad de construir narrativa positiva sobre la historia y presencia de FCAB en el territorio.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /cluster-section.c0 -->
       </section>
 
-      <!-- ── CLUSTER 2 ────────────────────────────────────────────── -->
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <!-- CLUSTER 1 -->
+      <!-- ══════════════════════════════════════════════════════════ -->
       <section class="section">
-        <h2>4. Cluster 2 — Centrales / Estratégicos</h2>
+        <div class="cluster-section c1">
+          <div class="cluster-badge c1">● Cluster 1</div>
+          <h2 class="cluster-title">Vinculados / Positivos — n=32</h2>
+          <p class="cluster-lead">Este es el activo relacional más robusto de FCAB. Son organizaciones que validan la presencia de la empresa y mantienen canales activos, principalmente a través de WhatsApp con el referente comunitario local. El riesgo específico es la fragilidad del vínculo: está sostenido en personas, no en sistemas institucionales, y es sensible a rotaciones de personal.</p>
 
-        <div class="cluster-header c2">
-          <div class="cluster-eyebrow">Perfil relacional</div>
-          <div class="cluster-title">Centrales / Estratégicos</div>
-          <p class="cluster-desc">Todos en Antofagasta. Todos con alta legitimidad, alta centralidad en la red y relación intermedia con FCAB. La expectativa de consulta más alta del estudio (6,25/7) combinada con evaluaciones de coherencia moderadas (4,33/7) configura el escenario de mayor riesgo institucional.</p>
-          <span class="cluster-badge">n = 8 actores</span>
-        </div>
+          <!-- Dimensión comunitaria -->
+          <div class="dimension-header">
+            <div class="dimension-pill"></div>
+            <h4>Dimensión comunitaria — JJVV con relación activa</h4>
+          </div>
+          <p class="dimension-context">JJVV activas en Antofagasta, Calama y Mejillones que validan la presencia de la empresa. La alta calidad relacional de este grupo está mediada casi exclusivamente por contacto personal directo con el referente comunitario: varios actores identifican por nombre a su contraparte en FCAB. Su riesgo es evidenciado por el estatus desprendido del Cluster 0.</p>
 
-        <!-- R8 -->
-        <div class="rec-card c2">
-          <div class="rec-head">
-            <span class="rec-code">R8</span>
-            <h3 class="rec-title">Sistematización del vínculo institucional estratégico</h3>
+          <!-- R5 -->
+          <div class="rec-card c1">
+            <div class="rec-card-header">
+              <span class="rec-badge">R5</span>
+              <h3>Institucionalización y trazabilidad del vínculo comunitario en Antofagasta y Calama</h3>
+            </div>
+            <div class="rec-body">
+              <div class="rec-row">
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Problema / Hallazgo</div>
+                  <p>La alta calidad relacional del Cluster 1 está mediada casi exclusivamente por contacto personal directo con el referente comunitario. El riesgo está evidenciado por los hallazgos del Cluster 0: rotaciones no gestionadas degradan relaciones activas.</p>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Acción</div>
+                  <ul class="rec-actions">
+                    <li>Implementar un sistema de gestión de compromisos con <strong>trazabilidad documentada</strong> (plataforma o registro accesible), independiente de las personas.</li>
+                    <li>Cada organización del Cluster 1 debe tener una ficha de relación con: compromisos vigentes, historial de interacciones, demandas activas y persona de contacto actualizada.</li>
+                    <li>Complementar con reuniones presenciales grupales (las 4 planificadas por norma) por zona geográfica.</li>
+                  </ul>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Resultado esperado</div>
+                  <p>Sistema operativo que garantice continuidad del vínculo ante cambios de personal, con al menos <strong>el 80% de las organizaciones</strong> del Cluster 1 con ficha actualizada.</p>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Riesgo que mitiga</div>
+                  <p>Degradación del Cluster 1 hacia el Cluster 0 ante una rotación de personal no gestionada, replicando el patrón ya observado en casos documentados en entrevistas.</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="rec-body">
-            <div class="rec-row">
-              <span class="rec-tag tag-problem">Problema</span>
-              <p>El Gobierno Regional, la Municipalidad de Antofagasta, BHP, Centinela, la Asociación de Industriales y la Cámara de la Construcción son los actores que el ecosistema identifica como más relevantes y, a la vez, tienen la expectativa más alta de ser consultados por FCAB. La ausencia de una instancia formal de diálogo estratégico hace que la relación quede sujeta a interacciones puntuales o reactivas.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-action">Acción</span>
-              <p>Formalizar y sistematizar las instancias de diálogo estratégico con los actores del Cluster 2. El contenido debe incluir: presentación de la agenda estratégica de FCAB, espacio de consulta sobre proyectos con impacto territorial y seguimiento de compromisos. La instancia debe ser convocada por FCAB, no esperada. Identificar y definir la participación en las mesas técnicas establecidas que tributen a los propósitos operacionales y reputacionales de FCAB.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-result">Resultado esperado</span>
-              <p>Instancia formal operativa con al menos 6 de los 8 actores del Cluster 2 participando activamente, con actas y compromisos registrados.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-risk">Riesgo que mitiga</span>
-              <p>Posicionamiento crítico de actores de alta incidencia (Gobierno Regional, Municipalidad) en la agenda pública, especialmente en contextos de decisiones sobre la franja ferroviaria, proyectos de expansión o instrumentos de planificación territorial.</p>
-            </div>
-          </div>
-        </div>
 
-        <!-- R10 -->
-        <div class="rec-card c2">
-          <div class="rec-head">
-            <span class="rec-code">R10</span>
-            <h3 class="rec-title">Gestión proactiva de expectativas con sector productivo y gremios estratégicos</h3>
+          <!-- R6 -->
+          <div class="rec-card c1">
+            <div class="rec-card-header">
+              <span class="rec-badge">R6</span>
+              <h3>Profundización del relacionamiento en Mejillones</h3>
+            </div>
+            <div class="rec-body">
+              <div class="rec-row">
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Problema / Hallazgo</div>
+                  <p>Mejillones presenta una distribución mixta: actores del Cluster 1 con relación positiva, pero también actores del Cluster 0 (Municipalidad, Asociación de Industriales). La Asociación de Industriales valora el vínculo pero lo califica como <strong>insuficiente en involucramiento</strong>. El rol histórico y patrimonial de FCAB en Mejillones es reconocido, pero no se traduce en presencia activa.</p>
+                  <div class="actor-tags">
+                    <span class="actor-tag">Segunda Compañía de Bomberos</span>
+                    <span class="actor-tag">Puerto Mejillones</span>
+                    <span class="actor-tag">JJVV Manuel Rodríguez</span>
+                  </div>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Acción</div>
+                  <p>Implementar una estrategia de relacionamiento sistemática, trazable y medible con el territorio. Fortalecer la participación activa de FCAB en las instituciones con las que ya posee vínculo, para reforzar el posicionamiento de su Estrategia de Relacionamiento Comunitario.</p>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Resultado esperado</div>
+                  <p>FCAB posicionado como actor activo en el ecosistema de Mejillones, con participación en <strong>al menos dos iniciativas</strong> de desarrollo local con impacto documentado.</p>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Riesgo que mitiga</div>
+                  <p>Erosión de la base de confianza en Mejillones en un contexto donde la empresa tiene proyección estratégica de expansión en la comuna.</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="rec-body">
-            <div class="rec-row">
-              <span class="rec-tag tag-problem">Problema</span>
-              <p>BHP, Centinela, la Asociación de Industriales Antofagasta y la Cámara de la Construcción son clientes, pares o interlocutores naturales de FCAB en el ecosistema productivo, pero evalúan la relación con puntajes intermedios (3,67–6,33/7) y reportan escasa participación de FCAB en las instancias que ellos generan. BHP señala explícitamente que hay "espacio de colaboración mayor" y que FCAB debería tener una "vocería aparte" en las conversaciones de desarrollo regional.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-action">Acción</span>
-              <p>Desarrollar una estrategia de vinculación activa de FCAB con clientes estratégicos, gremios y actores clave del ecosistema productivo regional. Definir actores y ejecutivos para abordar espacios clave: asistencia regular a la Asociación de Industriales Antofagasta, participación en la EMRA, entre otros. Complementar con comunicación proactiva de la agenda de FCAB hacia estos actores (proyectos, inversiones, posicionamiento en temas de política pública).</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-result">Resultado esperado</span>
-              <p>FCAB reconocido como actor activo en el ecosistema productivo regional.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-risk">Riesgo que mitiga</span>
-              <p>Marginalización de FCAB en conversaciones de desarrollo regional donde otros actores del sector productivo toman posiciones sobre infraestructura, logística y política territorial sin que FCAB tenga representación activa.</p>
-            </div>
-          </div>
-        </div>
 
-        <!-- R11 -->
-        <div class="rec-card c2">
-          <div class="rec-head">
-            <span class="rec-code">R11</span>
-            <h3 class="rec-title">Gestión del vínculo con Gobierno Regional y Municipalidad de Antofagasta</h3>
+          <!-- Dimensión sector público -->
+          <div class="dimension-header">
+            <div class="dimension-pill"></div>
+            <h4>Dimensión sector público y sociedad civil — Calama, Antofagasta</h4>
           </div>
-          <div class="rec-body">
-            <div class="rec-row">
-              <span class="rec-tag tag-problem">Problema</span>
-              <p>Ambos actores tienen influencia máxima (1,0) en la clasificación del estudio, son los más mencionados como actores relevantes por el ecosistema (18 menciones cada uno) y tienen una relación con FCAB de calidad intermedia. El Gobierno Regional describe un vínculo "normativo y de colaboración" marcado por una historia previa de cierre institucional. La Municipalidad de Antofagasta identifica problemas concretos irresueltos (faja ferroviaria, residuos, accesibilidad urbana) que condicionan la calidad del vínculo futuro.</p>
+          <p class="dimension-context">Actores como PROLOA, Pacto Global, Seremi de Economía y Gobierno, ATI y Municipalidad de Sierra Gorda están en el Cluster 1 con evaluaciones muy altas. Representan oportunidades de articulación formal que aún no se han aprovechado plenamente.</p>
+
+          <!-- R7 -->
+          <div class="rec-card c1">
+            <div class="rec-card-header">
+              <span class="rec-badge">R7</span>
+              <h3>Articulación formal con actores públicos y de sociedad civil del Cluster 1</h3>
             </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-action">Acción</span>
-              <p>Establecer una agenda bilateral sistemática con cada institución, con al menos una reunión trimestral a nivel de gerencia, seguimiento de los temas pendientes identificados (confinamiento de faja, solución de accesibilidad urbana) y participación activa de FCAB en los instrumentos de planificación territorial que estos actores lideran (PROT, Plan Regulador).</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-result">Resultado esperado</span>
-              <p>Agenda bilateral operativa con ambas instituciones, con temas concretos en seguimiento y compromisos documentados.</p>
-            </div>
-            <div class="rec-row">
-              <span class="rec-tag tag-risk">Riesgo que mitiga</span>
-              <p>Decisiones de planificación territorial o ambiental que afecten la operación o los proyectos de FCAB sin haber construido previamente una posición colaborativa con los actores con mayor poder de incidencia normativa en el territorio.</p>
+            <div class="rec-body">
+              <div class="rec-row">
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Problema / Hallazgo</div>
+                  <p>Actores como PROLOA, Pacto Global y la Municipalidad de Sierra Gorda tienen relación de alta calidad con FCAB pero <strong>sin marcos formales de colaboración</strong> que permitan proyectar esa relación hacia iniciativas concretas. La Municipalidad de Sierra Gorda plantea explícitamente la necesidad de frecuencia sistemática de relacionamiento.</p>
+                  <div class="actor-tags">
+                    <span class="actor-tag">PROLOA</span>
+                    <span class="actor-tag">Pacto Global</span>
+                    <span class="actor-tag">Mun. Sierra Gorda</span>
+                    <span class="actor-tag">Seremi Economía</span>
+                    <span class="actor-tag">ATI</span>
+                  </div>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Acción</div>
+                  <ul class="rec-actions">
+                    <li>Formalizar con gobernanza y operatividad <strong>al menos tres acuerdos de colaboración</strong> con actores del Cluster 1 en el ámbito público y de sociedad civil, con objetivos, plazos y responsabilidades definidas.</li>
+                    <li>Priorizar: PROLOA (articulación para desarrollo territorial en el corredor del Loa).</li>
+                    <li>Pacto Global (adhesión o participación activa en iniciativas de sostenibilidad).</li>
+                  </ul>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Resultado esperado</div>
+                  <p>Prevalencia de la imagen de FCAB en actividades colaborativas con entidades determinantes para sumar valor y capital reputacional.</p>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Riesgo que mitiga</div>
+                  <p>Deterioro de relaciones de alta calidad por falta de contenido concreto que las sostenga en el tiempo.</p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+
+        </div><!-- /cluster-section.c1 -->
       </section>
 
-      <!-- ── NAVEGACIÓN ────────────────────────────────────────────── -->
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <!-- CLUSTER 2 -->
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <section class="section">
+        <div class="cluster-section c2">
+          <div class="cluster-badge c2">● Cluster 2</div>
+          <h2 class="cluster-title">Centrales / Estratégicos — n=8</h2>
+          <p class="cluster-lead">Todos en Antofagasta. Todos con alta legitimidad, alta centralidad en la red y relación intermedia con FCAB. La configuración de mayor riesgo institucional del estudio: la expectativa de consulta más alta combinada con evaluaciones de coherencia moderadas.</p>
+
+          <!-- Cluster 2 stat strip -->
+          <div class="c2-stats">
+            <div class="c2-stat">
+              <div class="c2-stat-val">6.25/7</div>
+              <div class="c2-stat-lbl">Expectativa de escucha (más alta del estudio)</div>
+            </div>
+            <div class="c2-stat">
+              <div class="c2-stat-val">4.33/7</div>
+              <div class="c2-stat-lbl">Coherencia discurso/práctica</div>
+            </div>
+            <div class="c2-stat">
+              <div class="c2-stat-val">1.0</div>
+              <div class="c2-stat-lbl">Influencia máxima (Gob. Regional y Mun. Antofagasta)</div>
+            </div>
+          </div>
+
+          <!-- R8 -->
+          <div class="rec-card c2">
+            <div class="rec-card-header">
+              <span class="rec-badge">R8</span>
+              <h3>Sistematización del vínculo institucional</h3>
+            </div>
+            <div class="rec-body">
+              <div class="rec-row">
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Problema / Hallazgo</div>
+                  <p>El Gobierno Regional, la Municipalidad de Antofagasta, BHP, Centinela, la Asociación de Industriales y la Cámara de la Construcción son los actores que el ecosistema identifica como <strong>más relevantes</strong> y que, a la vez, tienen la expectativa más alta de ser consultados por FCAB. La ausencia de instancia formal de diálogo estratégico hace que la relación quede sujeta a interacciones puntuales o reactivas.</p>
+                  <div class="actor-tags">
+                    <span class="actor-tag">Gobierno Regional</span>
+                    <span class="actor-tag">Mun. Antofagasta</span>
+                    <span class="actor-tag">BHP</span>
+                    <span class="actor-tag">Centinela</span>
+                    <span class="actor-tag">Asoc. Industriales</span>
+                    <span class="actor-tag">Cámara Construcción</span>
+                  </div>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Acción</div>
+                  <ul class="rec-actions">
+                    <li>Formalizar y sistematizar las instancias de diálogo estratégico con los actores del Cluster 2.</li>
+                    <li>El contenido debe incluir: <strong>presentación de la agenda estratégica de FCAB</strong>, espacio de consulta sobre proyectos con impacto territorial, y seguimiento de compromisos adquiridos.</li>
+                    <li>La instancia debe ser convocada por FCAB, no esperada.</li>
+                    <li>Identificar y definir la participación en mesas técnicas establecidas que tributen a los propósitos operacionales y reputacionales de FCAB.</li>
+                  </ul>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Resultado esperado</div>
+                  <p>Instancia formal operativa con <strong>al menos 6 de los 8 actores</strong> del Cluster 2 participando activamente, con actas y compromisos registrados.</p>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Riesgo que mitiga</div>
+                  <p>Posicionamiento crítico de actores de alta incidencia (Gobierno Regional, Municipalidad) en la agenda pública, especialmente en contextos de decisiones sobre la franja ferroviaria, proyectos de expansión o instrumentos de planificación territorial.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- R10 -->
+          <div class="rec-card c2">
+            <div class="rec-card-header">
+              <span class="rec-badge">R10</span>
+              <h3>Gestión proactiva de expectativas con sector productivo y gremios estratégicos</h3>
+            </div>
+            <div class="rec-body">
+              <div class="rec-row">
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Problema / Hallazgo</div>
+                  <p>BHP, Centinela, la Asociación de Industriales Antofagasta y la Cámara de la Construcción evalúan la relación con puntajes intermedios (<strong>3.67–6.33/7</strong>) y reportan escasa participación de FCAB en las instancias que ellos generan.</p>
+                  <div class="pull-quote">
+                    <p>"Hay espacio de colaboración mayor. FCAB debería tener una vocería aparte en las conversaciones de desarrollo regional." — BHP</p>
+                  </div>
+                  <div class="actor-tags" style="margin-top:10px">
+                    <span class="actor-tag">BHP</span>
+                    <span class="actor-tag">Centinela</span>
+                    <span class="actor-tag">Asoc. Industriales AFA</span>
+                    <span class="actor-tag">Cámara Construcción</span>
+                  </div>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Acción</div>
+                  <ul class="rec-actions">
+                    <li>Desarrollar una estrategia de vinculación activa de FCAB con clientes estratégicos, gremios y actores clave del ecosistema productivo regional.</li>
+                    <li>Definir actores y ejecutivos para abordar espacios clave: asistencia regular a la Asociación de Industriales Antofagasta, participación en la EMRA, entre otros.</li>
+                    <li>Complementar con una <strong>comunicación proactiva de la agenda de FCAB</strong> hacia estos actores (proyectos, inversiones, posicionamiento en temas de política pública).</li>
+                  </ul>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Resultado esperado</div>
+                  <p>FCAB reconocido como <strong>actor activo en el ecosistema productivo regional</strong>, con representación en instancias sectoriales clave.</p>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Riesgo que mitiga</div>
+                  <p>Marginalización de FCAB en conversaciones de desarrollo regional donde otros actores del sector productivo toman posiciones sobre infraestructura, logística y política territorial sin que FCAB tenga representación activa.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- R11 -->
+          <div class="rec-card c2">
+            <div class="rec-card-header">
+              <span class="rec-badge">R11</span>
+              <h3>Gestión del vínculo con Gobierno Regional y Municipalidad de Antofagasta</h3>
+            </div>
+            <div class="rec-body">
+              <div class="rec-row">
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Problema / Hallazgo</div>
+                  <p>Ambos actores tienen <strong>influencia máxima (1.0)</strong> en la clasificación del estudio y son los más mencionados por el ecosistema (18 menciones cada uno). El Gobierno Regional describe un vínculo "normativo y de colaboración" marcado por historia previa de cierre institucional. La Municipalidad de Antofagasta identifica problemas concretos irresueltos que condicionan la calidad del vínculo futuro.</p>
+                  <div class="actor-tags">
+                    <span class="actor-tag">Faja ferroviaria</span>
+                    <span class="actor-tag">Residuos</span>
+                    <span class="actor-tag">Accesibilidad urbana</span>
+                    <span class="actor-tag">PROT</span>
+                    <span class="actor-tag">Plan Regulador</span>
+                  </div>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Acción</div>
+                  <ul class="rec-actions">
+                    <li>Establecer una <strong>agenda bilateral sistemática</strong> con cada una de estas instituciones, con al menos una reunión trimestral a nivel de gerencia.</li>
+                    <li>Seguimiento de los temas pendientes identificados: confinamiento de faja, solución de accesibilidad urbana.</li>
+                    <li>Participación activa de FCAB en los instrumentos de planificación territorial que estos actores lideran (PROT, Plan Regulador).</li>
+                  </ul>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Resultado esperado</div>
+                  <p>Agenda bilateral operativa con ambas instituciones, con <strong>temas concretos en seguimiento</strong> y compromisos documentados.</p>
+                </div>
+                <div class="rec-cell">
+                  <div class="rec-cell-label">Riesgo que mitiga</div>
+                  <p>Decisiones de planificación territorial o ambiental que afecten la operación o los proyectos de FCAB sin haber construido previamente una posición colaborativa con los actores con mayor poder de incidencia normativa en el territorio.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /cluster-section.c2 -->
+      </section>
+
+      <!-- NAVEGACIÓN -->
   </div>
   <div class="chapter-divider"></div>
 
