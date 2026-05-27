@@ -8,15 +8,16 @@ OUT  = r"C:\Users\hgonz\Downloads\Presentación mapeo\informe-fcab\informe-compl
 BASE = r"C:\Users\hgonz\Downloads\Presentación mapeo\informe-fcab\chapters"
 
 CHAPS = [
-    ("01", "Introducción",                 "capitulo-01.html"),
-    ("02", "Metodología",                  "capitulo-02.html"),
-    ("03", "Análisis Descriptivo",         "capitulo-08.html"),
-    ("04", "Análisis Temático LDA",        "capitulo-04.html"),
-    ("05", "Temas Prevalentes",            "capitulo-05.html"),
-    ("06", "Ecosistema de Actores",        "capitulo-06.html"),
-    ("07", "Análisis de Cluster",          "capitulo-03.html"),
-    ("08", "Recomendaciones Estratégicas", "capitulo-10.html"),
-    ("09", "Conclusiones",                 "capitulo-09.html"),
+    ("01", "Introducción",                      "capitulo-01.html"),
+    ("02", "Metodología",                       "capitulo-02.html"),
+    ("03", "Análisis Descriptivo",              "capitulo-08.html"),
+    ("04", "Análisis Temático LDA",             "capitulo-04.html"),
+    ("05", "Temas Prevalentes",                 "capitulo-05.html"),
+    ("06", "Ecosistema de Actores",             "capitulo-06.html"),
+    ("07", "Red de Coordinación",               "capitulo-07.html"),
+    ("08", "Análisis de Cluster",               "capitulo-03.html"),
+    ("09", "Recomendaciones Estratégicas",      "capitulo-10.html"),
+    ("10", "Conclusiones",                      "capitulo-09.html"),
 ]
 
 def read_file(path):

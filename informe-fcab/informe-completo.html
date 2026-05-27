@@ -1602,7 +1602,190 @@
       .actor-grid-lv1 { grid-template-columns: 1fr; }
       .actor-grid-lv2,
       .actor-grid-lv3 { grid-template-columns: 1fr 1fr; }
-    }/* ── cap-07: Análisis de Cluster ── */
+    }/* ── cap-07: Red de Coordinación ── */
+/* ── Iframe embed ── */
+    .viz-embed {
+      margin: 28px 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .viz-embed-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: .82rem;
+      color: var(--text-3);
+    }
+    .viz-embed-header strong { color: var(--text-2); }
+    .viz-embed iframe {
+      display: block;
+      width: 100%;
+      height: 560px;
+      border: none;
+    }
+
+    /* ── Method note ── */
+    .method-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 20px 22px;
+      margin: 22px 0;
+    }
+    .method-card h5 {
+      font-size: .76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--text-3);
+      margin: 0 0 10px;
+    }
+    .method-card p {
+      font-size: .87rem;
+      color: var(--text-2);
+      line-height: 1.65;
+      margin: 0 0 10px;
+    }
+    .method-card p:last-child { margin: 0; }
+    .method-card em { color: var(--text-1); font-style: italic; }
+
+    /* ── Coord split ── */
+    .coord-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 28px 0;
+    }
+    .coord-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .coord-panel-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .coord-panel-header.pub  { background: rgba(59,130,246,.07);  }
+    .coord-panel-header.priv { background: rgba(16,185,129,.07);  }
+    .coord-panel-header .cp-icon { font-size: 1.3rem; }
+    .coord-panel-header h4 {
+      font-size: .88rem;
+      font-weight: 700;
+      margin: 0 0 2px;
+    }
+    .coord-panel-header.pub  h4 { color: #3b82f6; }
+    .coord-panel-header.priv h4 { color: #10b981; }
+    .coord-panel-header .cp-sub {
+      font-size: .73rem;
+      color: var(--text-3);
+    }
+
+    /* ── Actor bar rows ── */
+    .actor-bars { padding: 14px 20px; }
+    .abar-row {
+      display: grid;
+      grid-template-columns: 1fr 36px;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .abar-row:last-child { margin-bottom: 0; }
+    .abar-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .abar-name {
+      font-size: .84rem;
+      font-weight: 600;
+      color: var(--text-1);
+    }
+    .abar-wrap {
+      height: 6px;
+      background: rgba(255,255,255,.06);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .abar-fill { height: 100%; border-radius: 999px; }
+    .fill-pub  { background: #3b82f6; }
+    .fill-priv { background: #10b981; }
+    .abar-num {
+      font-size: .9rem;
+      font-weight: 700;
+      text-align: right;
+    }
+    .abar-num.pub  { color: #3b82f6; }
+    .abar-num.priv { color: #10b981; }
+    .abar-sub-label {
+      font-size: .7rem;
+      color: var(--text-3);
+    }
+
+    /* ── Key finding box ── */
+    .finding-box {
+      border-radius: 13px;
+      padding: 20px 22px;
+      margin: 24px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .finding-box.fb-alert {
+      background: rgba(239,68,68,.07);
+      border: 1px solid rgba(239,68,68,.22);
+      border-left: 4px solid #ef4444;
+    }
+    .finding-box.fb-info {
+      background: rgba(59,130,246,.07);
+      border: 1px solid rgba(59,130,246,.22);
+      border-left: 4px solid #3b82f6;
+    }
+    .finding-box.fb-warn {
+      background: rgba(245,158,11,.07);
+      border: 1px solid rgba(245,158,11,.22);
+      border-left: 4px solid #f59e0b;
+    }
+    .finding-box h4 {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--text-1);
+      margin: 0 0 8px;
+    }
+    .finding-box p {
+      font-size: .86rem;
+      color: var(--text-2);
+      line-height: 1.65;
+      margin: 0 0 8px;
+    }
+    .finding-box p:last-child { margin: 0; }
+    .finding-box strong { color: var(--text-1); }
+
+    /* ── Limitation note ── */
+    .limit-note {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: .84rem;
+      color: var(--text-2);
+      line-height: 1.55;
+      margin: 18px 0;
+    }
+    .limit-note .ln-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+    @media (max-width: 640px) {
+      .coord-split { grid-template-columns: 1fr; }
+    }/* ── cap-08: Análisis de Cluster ── */
 /* ── Intro stat bar ── */
     .cluster-kpi-row {
       display: grid;
@@ -1957,7 +2140,7 @@
       .var-split,
       .validation-grid,
       .cluster-card-body { grid-template-columns: 1fr; }
-    }/* ── cap-08: Recomendaciones Estratégicas ── */
+    }/* ── cap-09: Recomendaciones Estratégicas ── */
 /* ── Cluster header ── */
     .cluster-header {
       border-radius: var(--r);
@@ -2081,7 +2264,7 @@
       .cluster-header { padding: 16px 18px; }
       .rec-head { padding: 14px 16px 12px; }
       .rec-body { padding: 0 16px 4px; }
-    }/* ── cap-09: Conclusiones ── */
+    }/* ── cap-10: Conclusiones ── */
 /* ── Estilos específicos Cap. 09 ── */
 
     /* Balance estratégico — 2 columnas */
@@ -2300,9 +2483,10 @@
     <a class="sidebar-link" href="#cap-04"><span class="sidebar-num">04</span><span class="sidebar-link-title">Análisis Temático LDA</span></a>
     <a class="sidebar-link" href="#cap-05"><span class="sidebar-num">05</span><span class="sidebar-link-title">Temas Prevalentes</span></a>
     <a class="sidebar-link" href="#cap-06"><span class="sidebar-num">06</span><span class="sidebar-link-title">Ecosistema de Actores</span></a>
-    <a class="sidebar-link" href="#cap-07"><span class="sidebar-num">07</span><span class="sidebar-link-title">Análisis de Cluster</span></a>
-    <a class="sidebar-link" href="#cap-08"><span class="sidebar-num">08</span><span class="sidebar-link-title">Recomendaciones Estratégicas</span></a>
-    <a class="sidebar-link" href="#cap-09"><span class="sidebar-num">09</span><span class="sidebar-link-title">Conclusiones</span></a>
+    <a class="sidebar-link" href="#cap-07"><span class="sidebar-num">07</span><span class="sidebar-link-title">Red de Coordinación</span></a>
+    <a class="sidebar-link" href="#cap-08"><span class="sidebar-num">08</span><span class="sidebar-link-title">Análisis de Cluster</span></a>
+    <a class="sidebar-link" href="#cap-09"><span class="sidebar-num">09</span><span class="sidebar-link-title">Recomendaciones Estratégicas</span></a>
+    <a class="sidebar-link" href="#cap-10"><span class="sidebar-num">10</span><span class="sidebar-link-title">Conclusiones</span></a>
     <div class="sidebar-footer">
       <div>DOS BARBAS</div>
       <div style="margin-top:4px;opacity:.7">2026 · Estudio FCAB</div>
@@ -4652,9 +4836,189 @@
   <div class="chapter-divider"></div>
 
   <!-- ════════════════════════════════════════════════════════════ -->
-  <!-- CAP 07: ANÁLISIS DE CLUSTER -->
+  <!-- CAP 07: RED DE COORDINACIÓN -->
   <!-- ════════════════════════════════════════════════════════════ -->
   <div id="cap-07" class="chapter-block">
+<!-- CHAPTER HEADER -->
+      <header class="chapter-header">
+        <div class="chapter-meta">
+          <span class="chapter-num-label">Capítulo 07</span>
+        </div>
+        <h1>Red de Coordinación Interorganizacional</h1>
+        <p class="chapter-lead">Visualización de la estructura relacional del ecosistema: actores con mayor centralidad, nodos articuladores, subgrupos de relación y zonas de desconexión dentro del sistema territorial vinculado a FCAB.</p>
+      </header>
+
+      <!-- ── SECCIÓN 1: VISUALIZACIÓN DE RED ── -->
+      <section class="section" id="sec-red">
+        <h2>Mapa de red de coordinación</h2>
+
+        <p>Con el propósito de visualizar la estructura relacional del ecosistema de actores, se elaboró un mapa de redes que permite observar los vínculos identificados entre actores. Esta representación permite reconocer <strong>actores con mayor centralidad, nodos articuladores, subgrupos de relación y posibles zonas de desconexión</strong> dentro del sistema territorial vinculado a FCAB.</p>
+
+        <div class="viz-embed">
+          <div class="viz-embed-header">
+            <span style="font-size:1rem">🕸️</span>
+            <strong>Visualización interactiva · Red de coordinación interorganizacional</strong>
+            <span style="margin-left:auto;font-size:.75rem">Arrastre los nodos para explorar la estructura relacional</span>
+          </div>
+          <iframe src="../../red_coordinacion.html" title="Red de coordinación interorganizacional FCAB" loading="lazy"></iframe>
+        </div>
+
+        <div class="method-card">
+          <h5>Metodología de construcción del mapa</h5>
+          <p>El gráfico se elaboró a partir de una pregunta incluida en las entrevistas semiestructuradas, formulada exclusivamente a <strong>organizaciones sociales</strong>:</p>
+          <p><em>"¿Con qué otras organizaciones sociales, ONGs, empresas o municipios se coordina o conversa su organización de manera frecuente?"</em></p>
+          <p>Los vínculos se visualizaron mediante el <strong>algoritmo Kamada-Kawai</strong>, que posiciona los nodos según su proximidad relacional: los actores que comparten más conexiones comunes aparecen más cercanos en el gráfico.</p>
+        </div>
+
+        <div class="limit-note">
+          <span class="ln-icon">⚠️</span>
+          <span>La red refleja <strong>coordinaciones auto-reportadas</strong>, por lo que su alcance está acotado a lo que los propios actores declaran y no representa necesariamente la totalidad de relaciones existentes en el territorio.</span>
+        </div>
+
+      </section>
+
+      <!-- ── SECCIÓN 2: SECTOR PÚBLICO ── -->
+      <section class="section" id="sec-publico">
+        <h2>Coordinación hacia el sector público</h2>
+
+        <p>Las relaciones de coordinación declaradas por las organizaciones sociales apuntan <strong>casi exclusivamente hacia instituciones del Estado</strong>. El municipio y el gobierno subnacional son el eje estructural de la coordinación comunitaria en el territorio:</p>
+
+        <div class="coord-split">
+          <div class="coord-panel">
+            <div class="coord-panel-header pub">
+              <span class="cp-icon">🏛️</span>
+              <div>
+                <h4>Sector público e institucional</h4>
+                <div class="cp-sub">Interlocutores más citados por las organizaciones sociales</div>
+              </div>
+            </div>
+            <div class="actor-bars">
+              <div class="abar-row">
+                <div class="abar-meta">
+                  <span class="abar-name">Municipalidad de Antofagasta</span>
+                  <div class="abar-wrap"><div class="abar-fill fill-pub" style="width:100%"></div></div>
+                  <span class="abar-sub-label">Interlocutor más citado del ecosistema</span>
+                </div>
+                <span class="abar-num pub">14</span>
+              </div>
+              <div class="abar-row">
+                <div class="abar-meta">
+                  <span class="abar-name">Gobierno Regional</span>
+                  <div class="abar-wrap"><div class="abar-fill fill-pub" style="width:71.4%"></div></div>
+                  <span class="abar-sub-label">Segundo eje de coordinación comunitaria</span>
+                </div>
+                <span class="abar-num pub">10</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="coord-panel">
+            <div class="coord-panel-header priv">
+              <span class="cp-icon">🏢</span>
+              <div>
+                <h4>Sector privado y empresas mixtas</h4>
+                <div class="cp-sub">Presencia secundaria y acotada en la red comunitaria</div>
+              </div>
+            </div>
+            <div class="actor-bars">
+              <div class="abar-row">
+                <div class="abar-meta">
+                  <span class="abar-name">Aguas Antofagasta</span>
+                  <div class="abar-wrap"><div class="abar-fill fill-priv" style="width:100%"></div></div>
+                  <span class="abar-sub-label">Actor privado más mencionado — servicios básicos</span>
+                </div>
+                <span class="abar-num priv">7</span>
+              </div>
+              <div class="abar-row">
+                <div class="abar-meta">
+                  <span class="abar-name">Oxiquim</span>
+                  <div class="abar-wrap"><div class="abar-fill fill-priv" style="width:42.8%"></div></div>
+                  <span class="abar-sub-label">Sector industrial — Mejillones</span>
+                </div>
+                <span class="abar-num priv">3</span>
+              </div>
+              <div class="abar-row">
+                <div class="abar-meta">
+                  <span class="abar-name">BHP</span>
+                  <div class="abar-wrap"><div class="abar-fill fill-priv" style="width:28.6%"></div></div>
+                  <span class="abar-sub-label">Minería — presencia acotada en red comunitaria</span>
+                </div>
+                <span class="abar-num priv">2</span>
+              </div>
+              <div class="abar-row">
+                <div class="abar-meta">
+                  <span class="abar-name">Copec</span>
+                  <div class="abar-wrap"><div class="abar-fill fill-priv" style="width:28.6%"></div></div>
+                  <span class="abar-sub-label">Sector combustibles — Mejillones</span>
+                </div>
+                <span class="abar-num priv">2</span>
+              </div>
+              <div class="abar-row">
+                <div class="abar-meta">
+                  <span class="abar-name">Molynor</span>
+                  <div class="abar-wrap"><div class="abar-fill fill-priv" style="width:28.6%"></div></div>
+                  <span class="abar-sub-label">Sector industrial — Mejillones</span>
+                </div>
+                <span class="abar-num priv">2</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="finding-box fb-info">
+          <h4>🏛️ El municipio como eje estructural de la coordinación comunitaria</h4>
+          <p>La <strong>Municipalidad de Antofagasta es el interlocutor más citado</strong> del ecosistema (14 organizaciones la mencionan), seguida del Gobierno Regional (10). Esto confirma que el vínculo con el municipio y el gobierno subnacional es el eje estructural de la coordinación comunitaria en el territorio.</p>
+          <p>Para FCAB, esta concentración en lo público tiene una implicancia estratégica directa: fortalecer los vínculos con ambas instituciones no es solo una buena práctica de relacionamiento — es posicionarse en el mismo espacio de confianza donde ya se mueven las comunidades.</p>
+        </div>
+
+      </section>
+
+      <!-- ── SECCIÓN 3: SECTOR PRIVADO ── -->
+      <section class="section" id="sec-privado">
+        <h2>Coordinación hacia el sector privado</h2>
+
+        <p>De forma secundaria a la coordinación con el Estado, las organizaciones sociales mencionan algunas <strong>empresas privadas de servicios</strong> como interlocutores frecuentes. Esta presencia es acotada y concentrada en actores con impacto directo en la vida cotidiana del territorio:</p>
+
+        <div class="finding-box fb-info">
+          <h4>💧 Aguas Antofagasta: el actor privado más presente en la red comunitaria</h4>
+          <p><strong>Aguas Antofagasta destaca con 7 vínculos</strong> —el mayor entre todas las empresas privadas— lo que sugiere que esta empresa prestadora de servicios básicos es reconocida como interlocutor activo por las organizaciones sociales. Su posición se explica por la naturaleza de los servicios que presta: agua potable y alcantarillado generan un contacto cotidiano y directo con las comunidades que ningún otro actor privado del ecosistema replica.</p>
+          <p>Esto ofrece una lectura relevante para FCAB: la empresa que logra presencia en la red comunitaria no es necesariamente la más grande o la más visible institucionalmente, sino aquella que mantiene contacto <strong>cotidiano, concreto y funcional</strong> con los actores del territorio.</p>
+        </div>
+
+        <div class="finding-box fb-warn">
+          <h4>🏭 Actores industriales de Mejillones: presencia acotada y sectorial</h4>
+          <p>En menor medida aparecen <strong>Oxiquim (3), BHP (2), Copec (2) y Molynor (2)</strong>, actores principalmente del sector industrial y minero de Mejillones. Su aparición es sectorial y geográficamente circunscrita: representan vínculos que existen en el entorno industrial de esa comuna, pero que no se proyectan como referentes transversales del ecosistema comunitario.</p>
+        </div>
+
+      </section>
+
+      <!-- ── SECCIÓN 4: HALLAZGO ESTRATÉGICO ── -->
+      <section class="section" id="sec-hallazgo">
+        <h2>Hallazgo estratégico: la posición de FCAB en la red</h2>
+
+        <div class="finding-box fb-alert">
+          <h4>🔴 FCAB no aparece en la red de coordinación comunitaria declarada</h4>
+          <p>El dato más relevante que emerge del mapa de coordinación interorganizacional no es quién aparece, sino <strong>quién no aparece</strong>. Las organizaciones sociales, al reportar sus vínculos de coordinación frecuente, no mencionan a FCAB como interlocutor activo en su red cotidiana.</p>
+          <p>Mientras la Municipalidad de Antofagasta es mencionada por 14 organizaciones y el Gobierno Regional por 10, <strong>FCAB no integra el mapa cognitivo de coordinación comunitaria</strong> de las organizaciones del territorio — a pesar de que su infraestructura atraviesa y bordea el espacio físico donde estas organizaciones operan.</p>
+          <p>Esto no implica que la relación sea inexistente — el análisis cualitativo muestra que hay vínculos activos con juntas de vecinos y organizaciones de base —, sino que esa relación <strong>no alcanza el estatus de coordinación frecuente y reconocida</strong> que merece figurar en el mapa relacional espontáneo de los actores.</p>
+        </div>
+
+        <div class="finding-box fb-warn">
+          <h4>📌 La dominancia del Estado como interlocutor es una oportunidad, no un obstáculo</h4>
+          <p>Que las coordinaciones apunten casi exclusivamente hacia el sector público no es una barrera para FCAB, sino una <strong>señal de dónde debe estar presente</strong>. Las organizaciones sociales se mueven en el espacio institucional del municipio y el gobierno regional — y es precisamente en ese espacio donde FCAB tiene mayor margen para posicionarse como actor complementario a la gestión pública.</p>
+          <p>La presencia activa de FCAB en instancias municipales, mesas comunales y espacios de coordinación territorial no solo mejora su relación con la institucionalidad: la acerca al ecosistema en el que las organizaciones sociales ya se mueven de manera natural.</p>
+        </div>
+
+      </section>
+
+      <!-- CHAPTER NAV -->
+  </div>
+  <div class="chapter-divider"></div>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- CAP 08: ANÁLISIS DE CLUSTER -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <div id="cap-08" class="chapter-block">
 <!-- CHAPTER HEADER -->
       <header class="chapter-header">
         <div class="chapter-meta">
@@ -5055,9 +5419,9 @@
   <div class="chapter-divider"></div>
 
   <!-- ════════════════════════════════════════════════════════════ -->
-  <!-- CAP 08: RECOMENDACIONES ESTRATÉGICAS -->
+  <!-- CAP 09: RECOMENDACIONES ESTRATÉGICAS -->
   <!-- ════════════════════════════════════════════════════════════ -->
-  <div id="cap-08" class="chapter-block">
+  <div id="cap-09" class="chapter-block">
 <!-- ── ENCABEZADO ──────────────────────────────────────────── -->
       <header class="chapter-header">
         <div class="chapter-meta">
@@ -5454,9 +5818,9 @@
   <div class="chapter-divider"></div>
 
   <!-- ════════════════════════════════════════════════════════════ -->
-  <!-- CAP 09: CONCLUSIONES -->
+  <!-- CAP 10: CONCLUSIONES -->
   <!-- ════════════════════════════════════════════════════════════ -->
-  <div id="cap-09" class="chapter-block">
+  <div id="cap-10" class="chapter-block">
 <!-- ── ENCABEZADO ──────────────────────────────────────── -->
       <header class="chapter-header">
         <div class="chapter-meta">
