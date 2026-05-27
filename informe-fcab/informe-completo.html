@@ -1321,101 +1321,287 @@
       .prev-row .prev-num.n-actores,
       .prev-row .prev-bar-wrap:nth-child(3) { display: none; }
     }/* ── cap-06: Ecosistema de Actores ── */
-/* ── Estilos combinados Cap. 06 ── */
-
-    /* Nivel badges */
-    .nivel-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
-      padding: 3px 10px; border-radius: 20px;
+/* ── Iframe embed ── */
+    .viz-embed {
+      margin: 28px 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
     }
-    .nivel-1 { background: rgba(37,99,235,0.08);  color: #1E40AF; border: 1px solid rgba(37,99,235,0.20); }
-    .nivel-2 { background: rgba(5,150,105,0.08);  color: #065F46; border: 1px solid rgba(5,150,105,0.20); }
-    .nivel-3 { background: rgba(217,119,6,0.08);  color: #92400E; border: 1px solid rgba(217,119,6,0.20); }
-
-    /* Ecosystem levels */
-    .eco-level { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-    .eco-level-header { padding: 14px 22px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-    .eco-level-range { font-size: 12px; color: var(--text-2); margin-left: auto; }
-    .eco-level-body { background: var(--surface-1); padding: 18px 22px 14px; }
-    .eco-level-body p { font-size: 13.5px; color: var(--text-2); line-height: 1.72; margin-bottom: 14px; }
-    .eco-level-body p:last-child { margin-bottom: 0; }
-    .lvl-1 .eco-level-header { background: #EFF6FF; border-bottom-color: rgba(37,99,235,0.12); }
-    .lvl-2 .eco-level-header { background: #ECFDF5; border-bottom-color: rgba(5,150,105,0.12); }
-    .lvl-3 .eco-level-header { background: #FFFBEB; border-bottom-color: rgba(217,119,6,0.12); }
-
-    /* Actor bubbles */
-    .actor-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
-    .actor-chip { display: flex; align-items: center; gap: 8px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 7px 12px; font-size: 12.5px; font-weight: 500; color: var(--text-1); }
-    .actor-chip .chip-count { font-size: 13px; font-weight: 700; min-width: 22px; text-align: center; padding: 1px 6px; border-radius: 6px; }
-    .lvl-1 .actor-chip .chip-count { background: rgba(37,99,235,0.10); color: #1E40AF; }
-    .lvl-2 .actor-chip .chip-count { background: rgba(5,150,105,0.10); color: #065F46; }
-    .lvl-3 .actor-chip .chip-count { background: rgba(217,119,6,0.10); color: #92400E; }
-
-    /* Visualization wrapper */
-    .viz-wrapper { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; margin: 24px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-    .viz-header { padding: 14px 20px; background: var(--surface-1); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-    .viz-title-block { flex: 1; min-width: 0; }
-    .viz-title { font-size: 14px; font-weight: 700; color: var(--text-1); display: block; }
-    .viz-sub   { font-size: 12px; color: var(--text-2); margin-top: 2px; display: block; }
-    .viz-stats { display: flex; gap: 12px; flex-shrink: 0; }
-    .viz-stat-chip { font-size: 11px; font-weight: 600; color: var(--text-2); background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; }
-    .viz-stat-chip strong { color: var(--text-1); }
-    .viz-pills { display: flex; gap: 8px; flex-shrink: 0; }
-    .viz-pill  { font-size: 11px; font-weight: 600; color: var(--text-2); background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; }
-    .viz-pill strong { color: var(--text-1); }
-    .viz-expand { font-size: 11px; font-weight: 600; color: var(--accent); text-decoration: none; padding: 5px 10px; border-radius: var(--r-sm); border: 1px solid rgba(37,99,235,0.25); background: rgba(37,99,235,0.05); white-space: nowrap; transition: all 0.15s; flex-shrink: 0; display: flex; align-items: center; gap: 5px; }
-    .viz-expand:hover { background: rgba(37,99,235,0.10); text-decoration: none; }
-    .viz-frame { background: #f5f7f6; }
-    .viz-frame iframe { width: 100%; border: none; display: block; }
-    .viz-footer { padding: 10px 20px; background: var(--surface-2); border-top: 1px solid var(--border); font-size: 12px; color: var(--text-3); display: flex; align-items: center; gap: 8px; }
-    .viz-footer svg { flex-shrink: 0; }
-
-    /* Read guide */
-    .read-guide { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0 0; }
-    .guide-item { display: flex; gap: 10px; align-items: flex-start; background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 12px 14px; }
-    .guide-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; border: 2px solid; }
-    .guide-dot.sm { width: 8px; height: 8px; margin-top: 5px; }
-    .guide-dot.lg { width: 16px; height: 16px; }
-    .guide-dot-teal-sm { background: #3dbfb0; border-color: #2a9d8f; }
-    .guide-dot-teal-lg { background: #3dbfb0; border-color: #2a9d8f; box-shadow: 0 0 6px rgba(42,157,143,0.4); }
-    .guide-line { width: 24px; height: 2px; background: rgba(42,157,143,0.5); flex-shrink: 0; margin-top: 7px; border-radius: 1px; }
-    .guide-text { font-size: 12px; color: var(--text-2); line-height: 1.45; }
-    .guide-text strong { color: var(--text-1); font-weight: 600; }
-
-    /* Net stats */
-    .net-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 24px 0 32px; }
-    .net-stat { background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r); padding: 18px 16px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
-    .net-stat .num { font-size: 30px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; display: block; }
-    .net-stat .lbl { font-size: 12px; color: var(--text-2); margin-top: 6px; display: block; line-height: 1.35; }
-    .net-stat.accent .num { color: var(--accent); }
-    .net-stat.green  .num { color: #059669; }
-    .net-stat.red    .num { color: #DC2626; }
-
-    /* Part divider */
-    .part-divider {
-      display: flex; align-items: center; gap: 14px;
-      margin: 52px 0 32px; padding: 22px 0 0;
-      border-top: 2px solid var(--accent);
+    .viz-embed-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: .82rem;
+      color: var(--text-3);
     }
-    .part-eyebrow {
-      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
-      color: var(--accent); background: rgba(37,99,235,0.07);
-      border: 1px solid rgba(37,99,235,0.18); padding: 4px 11px;
-      border-radius: 20px; white-space: nowrap; flex-shrink: 0;
+    .viz-embed-header .veh-icon { font-size: 1rem; }
+    .viz-embed-header strong { color: var(--text-2); }
+    .viz-embed iframe {
+      display: block;
+      width: 100%;
+      height: 540px;
+      border: none;
     }
-    .part-name { font-size: 20px; font-weight: 700; color: var(--text-1); line-height: 1.2; }
+
+    /* ── Interpretive implications ── */
+    .impl-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 18px 0;
+    }
+    .impl-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: .87rem;
+      color: var(--text-2);
+      line-height: 1.6;
+    }
+    .impl-num {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: rgba(99,102,241,.12);
+      color: var(--accent);
+      font-size: .75rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── Level section headers ── */
+    .level-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 48px 0 22px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--border);
+    }
+    .level-badge {
+      padding: 5px 14px;
+      border-radius: 8px;
+      font-size: .78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      flex-shrink: 0;
+    }
+    .lv1 .level-badge { background: rgba(245,158,11,.18); color: #f59e0b; }
+    .lv2 .level-badge { background: rgba(59,130,246,.14);  color: #3b82f6; }
+    .lv3 .level-badge { background: rgba(139,92,246,.14);  color: #8b5cf6; }
+    .level-title { font-size: .95rem; font-weight: 700; color: var(--text-1); }
+    .level-sub   { font-size: .8rem;  color: var(--text-3); margin-top: 2px; }
+
+    /* ── Actor cards — Level 1 ── */
+    .actor-grid-lv1 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+    .actor-card-lv1 {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px 22px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .actor-card-lv1::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: #f59e0b;
+    }
+    .actor-icon { font-size: 2rem; margin-bottom: 10px; }
+    .actor-name {
+      font-size: .92rem;
+      font-weight: 700;
+      color: var(--text-1);
+      margin-bottom: 14px;
+      line-height: 1.3;
+    }
+    .actor-mentions-big {
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: #f59e0b;
+      line-height: 1;
+    }
+    .actor-mentions-label {
+      font-size: .73rem;
+      color: var(--text-3);
+      margin-top: 4px;
+    }
+    .actor-bar-wrap {
+      margin-top: 14px;
+      height: 6px;
+      background: rgba(255,255,255,.06);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .actor-bar { height: 100%; border-radius: 999px; }
+    .bar-lv1 { background: #f59e0b; }
+    .bar-lv2 { background: #3b82f6; }
+    .bar-lv3 { background: #8b5cf6; }
+
+    /* ── Actor cards — Level 2 ── */
+    .actor-grid-lv2 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .actor-card-lv2 {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 18px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .actor-card-lv2::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: #3b82f6;
+    }
+    .actor-card-lv2 .actor-icon { font-size: 1.5rem; margin-bottom: 8px; }
+    .actor-card-lv2 .actor-name { font-size: .85rem; font-weight: 600; margin-bottom: 10px; }
+    .actor-mentions-mid {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #3b82f6;
+      line-height: 1;
+    }
+    .actor-mentions-mid-label {
+      font-size: .68rem;
+      color: var(--text-3);
+      margin-top: 3px;
+    }
+
+    /* ── Actor cards — Level 3 ── */
+    .actor-grid-lv3 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .actor-card-lv3 {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 14px 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .actor-card-lv3::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: #8b5cf6;
+    }
+    .actor-card-lv3 .actor-icon { font-size: 1.3rem; margin-bottom: 6px; }
+    .actor-card-lv3 .actor-name { font-size: .82rem; font-weight: 600; margin-bottom: 8px; }
+    .actor-mentions-sm {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #8b5cf6;
+      line-height: 1;
+    }
+    .actor-mentions-sm-label {
+      font-size: .65rem;
+      color: var(--text-3);
+      margin-top: 2px;
+    }
+
+    /* ── Insight boxes per level ── */
+    .insight-box {
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin: 20px 0;
+      font-size: .87rem;
+      color: var(--text-2);
+      line-height: 1.65;
+    }
+    .insight-box.ib-gold {
+      background: rgba(245,158,11,.07);
+      border: 1px solid rgba(245,158,11,.22);
+      border-left: 3px solid #f59e0b;
+    }
+    .insight-box.ib-blue {
+      background: rgba(59,130,246,.07);
+      border: 1px solid rgba(59,130,246,.22);
+      border-left: 3px solid #3b82f6;
+    }
+    .insight-box.ib-purple {
+      background: rgba(139,92,246,.07);
+      border: 1px solid rgba(139,92,246,.22);
+      border-left: 3px solid #8b5cf6;
+    }
+    .insight-box p { margin: 0 0 10px; }
+    .insight-box p:last-child { margin: 0; }
+    .insight-box strong { color: var(--text-1); }
+
+    /* ── Methodology note ── */
+    .method-note {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin: 22px 0;
+    }
+    .method-note h5 {
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text-3);
+      margin: 0 0 8px;
+    }
+    .method-note p {
+      font-size: .86rem;
+      color: var(--text-2);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── Scale legend ── */
+    .scale-legend {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      align-items: center;
+      font-size: .78rem;
+      color: var(--text-3);
+      flex-wrap: wrap;
+    }
+    .sl-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .sl-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
 
     @media (max-width: 700px) {
-      .net-stats { grid-template-columns: repeat(2, 1fr); }
-      .read-guide { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 640px) {
-      .viz-stats { display: none; }
-      .part-name { font-size: 17px; }
-    }
-    @media (max-width: 480px) {
-      .viz-frame iframe { height: 450px !important; }
+      .actor-grid-lv1 { grid-template-columns: 1fr; }
+      .actor-grid-lv2,
+      .actor-grid-lv3 { grid-template-columns: 1fr 1fr; }
     }/* ── cap-07: Análisis de Cluster ── */
 /* ── Intro stat bar ── */
     .cluster-kpi-row {
@@ -4233,204 +4419,235 @@
   <!-- CAP 06: ECOSISTEMA DE ACTORES -->
   <!-- ════════════════════════════════════════════════════════════ -->
   <div id="cap-06" class="chapter-block">
-<!-- ── ENCABEZADO ──────────────────────────────────────── -->
+<!-- CHAPTER HEADER -->
       <header class="chapter-header">
         <div class="chapter-meta">
-          <span class="chapter-num-label">Capítulo 05</span>
+          <span class="chapter-num-label">Capítulo 06</span>
         </div>
-        <h1>Ecosistema de Actores y Red de Coordinación</h1>
-        <p class="chapter-lead">Mapa del ecosistema institucional y social vinculado a FCAB: centralidad perceptual de los actores estratégicos y red de coordinación de las organizaciones comunitarias en el territorio.</p>
+        <h1>Ecosistema de Actores</h1>
+        <p class="chapter-lead">Mapa de visibilidad espontánea del ecosistema territorial: qué actores aparecen con mayor recurrencia en el imaginario relacional de los participantes institucionales y estratégicos.</p>
       </header>
 
-      <!-- ── PARTE I ──────────────────────────────────────────── -->
-      <div class="part-divider">
-        <span class="part-eyebrow">Parte I</span>
-        <span class="part-name">Ecosistema de Actores</span>
-      </div>
+      <!-- ── SECCIÓN 1: INTRO Y VISUALIZACIÓN ── -->
+      <section class="section" id="sec-intro">
+        <h2>Mapa de burbujas del ecosistema</h2>
+        <p>De manera complementaria, se construyó una <strong>visualización interactiva</strong> que presenta un mapa de burbujas construido a partir de las menciones realizadas por los entrevistados al identificar otros actores relevantes dentro del ecosistema territorial vinculado a FCAB.</p>
 
-      <!-- ── 1. DOS PERSPECTIVAS ──────────────────────────────── -->
-      <section class="section">
-        <h2>1. Dos perspectivas del ecosistema</h2>
-        <p>El ecosistema territorial de FCAB se puede leer desde dos perspectivas complementarias. La primera es <strong>descendente</strong>: qué actores son identificados espontáneamente por los actores institucionales y estratégicos como relevantes en el contexto regional. La segunda es <strong>ascendente</strong>: cómo se coordinan entre sí las organizaciones sociales y comunitarias, y con qué instituciones tienen vínculos activos.</p>
-
-        <div class="callout">
-          <p><strong>Nota metodológica:</strong> La pregunta que generó los datos de centralidad perceptual fue formulada exclusivamente a actores institucionales, empresariales y estratégicos —no a organizaciones sociales de base— con la siguiente formulación: <em>"Siendo conscientes que tanto FCAB como su organización son relevantes en el contexto regional, mencione otras organizaciones relevantes en el ecosistema."</em> El gráfico refleja, por tanto, el mapa cognitivo del ecosistema tal como lo construyen quienes tienen mayor capacidad de incidencia territorial, no la percepción comunitaria de base.</p>
+        <div class="method-note">
+          <h5>Pregunta que generó los datos</h5>
+          <p><em>"Siendo conscientes que tanto FCAB como su organización son relevantes en el contexto regional, mencione otras organizaciones relevantes en el ecosistema."</em></p>
         </div>
+
+        <p>Esta pregunta fue formulada <strong>exclusivamente a actores institucionales, empresariales y estratégicos</strong> —no a organizaciones sociales de base— lo que condiciona toda la lectura del gráfico con tres implicancias interpretativas:</p>
+
+        <div class="impl-list">
+          <div class="impl-item">
+            <div class="impl-num">1</div>
+            <div>El tamaño de cada burbuja representa el <strong>número de menciones recibidas</strong> por cada actor, permitiendo observar de manera rápida cuáles instituciones, organizaciones o referentes aparecen con mayor recurrencia en el imaginario relacional de los participantes.</div>
+          </div>
+          <div class="impl-item">
+            <div class="impl-num">2</div>
+            <div>Esta herramienta permite identificar <strong>actores con alta visibilidad espontánea</strong>, posibles nodos de articulación y posiciones de referencia dentro del ecosistema, complementando el análisis cualitativo y de redes.</div>
+          </div>
+          <div class="impl-item">
+            <div class="impl-num">3</div>
+            <div>Al tratarse de un universo de actores institucionales y estratégicos, el gráfico refleja el <strong>mapa cognitivo del ecosistema tal como lo construyen quienes tienen mayor capacidad de incidencia territorial</strong> —no la percepción comunitaria de base.</div>
+          </div>
+        </div>
+
+        <!-- Bubble map interactive embed -->
+        <div class="viz-embed">
+          <div class="viz-embed-header">
+            <span class="veh-icon">🫧</span>
+            <strong>Visualización interactiva · Mapa de burbujas del ecosistema</strong>
+            <span style="margin-left:auto;font-size:.75rem">Pase el cursor sobre cada burbuja para ver el detalle</span>
+          </div>
+          <iframe src="../../index.html" title="Mapa de burbujas del ecosistema de actores FCAB" loading="lazy"></iframe>
+        </div>
+
+        <!-- Network visualization embed -->
+        <div class="viz-embed" style="margin-top:24px">
+          <div class="viz-embed-header">
+            <span class="veh-icon">🕸️</span>
+            <strong>Mapa de red · Vínculos y coordinación entre actores</strong>
+            <span style="margin-left:auto;font-size:.75rem">Visualización interactiva — arrastre los nodos para explorar</span>
+          </div>
+          <iframe src="../../02_layout_fruchterman_reingold.html" title="Red de coordinación interorganizacional" loading="lazy"></iframe>
+        </div>
+
       </section>
 
-      <!-- ── 2. CENTRALIDAD INSTITUCIONAL ──────────────────────── -->
-      <section class="section">
-        <h2>2. Centralidad en el ecosistema institucional</h2>
-        <p>El tamaño de cada burbuja en el mapa representa el número de menciones recibidas por cada actor. Esta herramienta permite identificar actores con alta visibilidad espontánea, nodos de articulación y posiciones de referencia dentro del ecosistema. Los resultados se organizan en tres niveles de centralidad perceptual.</p>
+      <!-- ── NIVEL 1: ACTORES CENTRALES ── -->
+      <section class="section" id="sec-lv1">
 
-        <!-- Nivel 1 -->
-        <div class="eco-level lvl-1">
-          <div class="eco-level-header">
-            <span class="nivel-badge nivel-1">Nivel 1</span>
-            <span style="font-size:15px; font-weight:700; color:var(--text-1);">Actores centrales</span>
-            <span class="eco-level-range">Frecuencia ≥ 15 menciones</span>
-          </div>
-          <div class="eco-level-body">
-            <p>El <strong>Gobierno Regional</strong> y la <strong>Municipalidad de Antofagasta</strong> lideran con 18 menciones cada uno, seguidos por <strong>BHP</strong> con 15. El co-liderazgo de las dos instituciones públicas de mayor escala no sorprende, pero su equiparación con BHP sí es analíticamente relevante: en el imaginario de los actores institucionales y estratégicos, el poder económico privado de la gran minería tiene una centralidad perceptual comparable a la de la autoridad pública formal. Cualquier actor que aspire a incidir en el desarrollo regional debe relacionarse con ambos polos simultáneamente.</p>
-            <div class="actor-row">
-              <div class="actor-chip"><span class="chip-count">18</span>Gobierno Regional</div>
-              <div class="actor-chip"><span class="chip-count">18</span>Municipalidad de Antofagasta</div>
-              <div class="actor-chip"><span class="chip-count">15</span>BHP</div>
-            </div>
+        <div class="level-header lv1">
+          <div class="level-badge">Nivel 1</div>
+          <div>
+            <div class="level-title">Actores centrales</div>
+            <div class="level-sub">Frecuencia ≥ 15 menciones — máxima visibilidad en el imaginario relacional institucional</div>
           </div>
         </div>
 
-        <!-- Nivel 2 -->
-        <div class="eco-level lvl-2">
-          <div class="eco-level-header">
-            <span class="nivel-badge nivel-2">Nivel 2</span>
-            <span style="font-size:15px; font-weight:700; color:var(--text-1);">Presencia consolidada</span>
-            <span class="eco-level-range">Frecuencia 6–14 menciones</span>
+        <div class="scale-legend">
+          <span>Barras relativas a la frecuencia máxima del corpus (18 menciones)</span>
+          <span class="sl-item"><span class="sl-dot" style="background:#f59e0b"></span>Nivel 1</span>
+          <span class="sl-item"><span class="sl-dot" style="background:#3b82f6"></span>Nivel 2</span>
+          <span class="sl-item"><span class="sl-dot" style="background:#8b5cf6"></span>Nivel 3</span>
+        </div>
+
+        <div class="actor-grid-lv1">
+          <div class="actor-card-lv1">
+            <div class="actor-icon">🏛️</div>
+            <div class="actor-name">Gobierno Regional de Antofagasta</div>
+            <div class="actor-mentions-big">18</div>
+            <div class="actor-mentions-label">menciones</div>
+            <div class="actor-bar-wrap"><div class="actor-bar bar-lv1" style="width:100%"></div></div>
           </div>
-          <div class="eco-level-body">
-            <p>La <strong>Asociación de Industriales</strong> lidera este nivel con 10 menciones, seguida por <strong>AMSA</strong> con 9 y <strong>Aguas Antofagasta</strong> con 8. La mención de AMSA como entidad autónoma —separada de FCAB y por encima de SQM, CODELCO y la propia Delegación Presidencial— es el hallazgo más relevante de este nivel: los actores del ecosistema reconocen a AMSA y a FCAB como entidades distintas, lo que plantea una oportunidad de diferenciación de identidad pública.</p>
-            <p>La presencia equiparada de las <strong>municipalidades de Antofagasta, Calama y Mejillones</strong> con 6 menciones cada una refleja que los pares institucionales de FCAB reconocen la dimensión plurimunicipal del ecosistema y esperan que los actores con presencia extendida mantengan vínculos activos con los tres gobiernos locales, no solo con el metropolitano. El <strong>Puerto Antofagasta</strong> —con 6 menciones— aparece como el aliado natural más subutilizado del relacionamiento estratégico de FCAB, dada su función complementaria en la cadena logística regional.</p>
-            <div class="actor-row">
-              <div class="actor-chip"><span class="chip-count">10</span>Asociación de Industriales</div>
-              <div class="actor-chip"><span class="chip-count">9</span>AMSA</div>
-              <div class="actor-chip"><span class="chip-count">8</span>Aguas Antofagasta</div>
-              <div class="actor-chip"><span class="chip-count">6</span>Mun. Antofagasta</div>
-              <div class="actor-chip"><span class="chip-count">6</span>Mun. Calama</div>
-              <div class="actor-chip"><span class="chip-count">6</span>Mun. Mejillones</div>
-              <div class="actor-chip"><span class="chip-count">6</span>Puerto Antofagasta</div>
-            </div>
+          <div class="actor-card-lv1">
+            <div class="actor-icon">🏙️</div>
+            <div class="actor-name">Municipalidad de Antofagasta</div>
+            <div class="actor-mentions-big">18</div>
+            <div class="actor-mentions-label">menciones</div>
+            <div class="actor-bar-wrap"><div class="actor-bar bar-lv1" style="width:100%"></div></div>
+          </div>
+          <div class="actor-card-lv1">
+            <div class="actor-icon">⛏️</div>
+            <div class="actor-name">BHP</div>
+            <div class="actor-mentions-big">15</div>
+            <div class="actor-mentions-label">menciones</div>
+            <div class="actor-bar-wrap"><div class="actor-bar bar-lv1" style="width:83.3%"></div></div>
           </div>
         </div>
 
-        <!-- Nivel 3 -->
-        <div class="eco-level lvl-3">
-          <div class="eco-level-header">
-            <span class="nivel-badge nivel-3">Nivel 3</span>
-            <span style="font-size:15px; font-weight:700; color:var(--text-1);">Presencia emergente o sectorial</span>
-            <span class="eco-level-range">Frecuencia 4–5 menciones</span>
-          </div>
-          <div class="eco-level-body">
-            <p>La aparición de <strong>Carabineros</strong> y <strong>CESFAM</strong> en este nivel —en un universo predominantemente institucional y empresarial— indica que incluso entre actores estratégicos existe conciencia de que el ecosistema territorial incluye dimensiones de seguridad y salud que no pueden reducirse al ámbito productivo.</p>
-            <p>La mención separada de <strong>Fundación Minera Escondida</strong> respecto de BHP —siendo el mismo grupo— indica que su rol diferenciado en responsabilidad social e inversión comunitaria es percibido y valorado por actores de alta sofisticación institucional. Es un modelo que FCAB podría observar: construir una presencia pública propia en el ámbito del relacionamiento territorial que opere con identidad separada de AMSA, sin necesidad de contradicción con el grupo. <strong>PROLOA</strong>, con 4 menciones concentradas en actores del interior, confirma su rol como espacio de articulación en la cuenca de El Loa, aunque su visibilidad en el conjunto del ecosistema sigue siendo acotada.</p>
-            <div class="actor-row">
-              <div class="actor-chip"><span class="chip-count">5</span>Carabineros</div>
-              <div class="actor-chip"><span class="chip-count">5</span>CESFAM</div>
-              <div class="actor-chip"><span class="chip-count">4</span>Fundación Minera Escondida</div>
-              <div class="actor-chip"><span class="chip-count">4</span>PROLOA</div>
-            </div>
-          </div>
+        <div class="insight-box ib-gold">
+          <p>El co-liderazgo de las dos instituciones públicas de mayor escala no sorprende, pero su <strong>equiparación con BHP sí es analíticamente relevante</strong>: en el imaginario de los actores institucionales y estratégicos de la región, el poder económico privado de la gran minería tiene una centralidad perceptual comparable a la de la autoridad pública formal.</p>
+          <p>Cualquier actor que aspire a incidir en el desarrollo regional debe relacionarse con <strong>ambos polos simultáneamente</strong>: la institucionalidad pública y la gran empresa minera no son mundos separados en el mapa cognitivo del ecosistema.</p>
         </div>
+
       </section>
 
-      <!-- ── 3. VISUALIZACIÓN DEL ECOSISTEMA ──────────────────── -->
-      <section class="section">
-        <h2>3. Visualización del ecosistema institucional</h2>
-        <p>La visualización siguiente mapea los <strong>vínculos de coordinación activos entre organizaciones sociales y comunitarias</strong> de la región y sus conexiones con actores institucionales. Cada nodo representa una organización; el tamaño refleja el número de vínculos recibidos (centralidad de entrada). Los actores con mayor centralidad son los nodos de mayor peso relacional dentro de la red comunitaria.</p>
+      <!-- ── NIVEL 2: PRESENCIA CONSOLIDADA ── -->
+      <section class="section" id="sec-lv2">
 
-        <div class="viz-wrapper">
-          <div class="viz-header">
-            <div class="viz-title-block">
-              <span class="viz-title">Mapa de visibilidad del ecosistema institucional</span>
-              <span class="viz-sub">Actores mencionados espontáneamente por actores institucionales y estratégicos — Región de Antofagasta</span>
-            </div>
-            <div class="viz-stats">
-              <div class="viz-stat-chip">Universo: <strong>actores institucionales</strong></div>
-              <div class="viz-stat-chip">Tamaño = <strong>n.° de menciones</strong></div>
-            </div>
-            <a href="../../index.html" target="_blank" class="viz-expand">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              Pantalla completa
-            </a>
-          </div>
-          <div class="viz-frame">
-            <iframe src="../../index.html" scrolling="auto" title="Mapa de visibilidad del ecosistema institucional" style="height:620px"></iframe>
-          </div>
-          <div class="viz-footer">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            Interactivo: pasa el cursor sobre una burbuja para ver el nombre del actor y su número de menciones · Scroll para hacer zoom · Clic y arrastrar para mover la vista.
+        <div class="level-header lv2">
+          <div class="level-badge">Nivel 2</div>
+          <div>
+            <div class="level-title">Actores con presencia consolidada</div>
+            <div class="level-sub">Frecuencia 6–10 menciones — referentes sectoriales e institucionales de segunda línea</div>
           </div>
         </div>
 
-        <h3>Cómo leer el mapa</h3>
-        <div class="read-guide">
-          <div class="guide-item">
-            <div class="guide-dot lg guide-dot-teal-lg"></div>
-            <div class="guide-text"><strong>Burbuja grande</strong><br>Actor mencionado con mayor frecuencia por los entrevistados institucionales. Mayor tamaño = mayor centralidad perceptual.</div>
+        <div class="actor-grid-lv2">
+          <div class="actor-card-lv2">
+            <div class="actor-icon">🏭</div>
+            <div class="actor-name">Asociación de Industriales</div>
+            <div class="actor-mentions-mid">10</div>
+            <div class="actor-mentions-mid-label">menciones</div>
+            <div class="actor-bar-wrap" style="margin-top:10px"><div class="actor-bar bar-lv2" style="width:55.5%"></div></div>
           </div>
-          <div class="guide-item">
-            <div class="guide-dot sm guide-dot-teal-sm"></div>
-            <div class="guide-text"><strong>Burbuja pequeña</strong><br>Actor con menor número de menciones espontáneas. Presencia emergente o sectorial en el imaginario del ecosistema.</div>
+          <div class="actor-card-lv2">
+            <div class="actor-icon">🏢</div>
+            <div class="actor-name">AMSA</div>
+            <div class="actor-mentions-mid">9</div>
+            <div class="actor-mentions-mid-label">menciones</div>
+            <div class="actor-bar-wrap" style="margin-top:10px"><div class="actor-bar bar-lv2" style="width:50%"></div></div>
           </div>
-          <div class="guide-item">
-            <div class="guide-line"></div>
-            <div class="guide-text"><strong>Universo de la pregunta</strong><br>Solo actores institucionales, empresariales y estratégicos fueron consultados. No refleja la percepción comunitaria de base.</div>
+          <div class="actor-card-lv2">
+            <div class="actor-icon">💧</div>
+            <div class="actor-name">Aguas Antofagasta</div>
+            <div class="actor-mentions-mid">8</div>
+            <div class="actor-mentions-mid-label">menciones</div>
+            <div class="actor-bar-wrap" style="margin-top:10px"><div class="actor-bar bar-lv2" style="width:44.4%"></div></div>
+          </div>
+          <div class="actor-card-lv2">
+            <div class="actor-icon">🚢</div>
+            <div class="actor-name">Puerto Antofagasta</div>
+            <div class="actor-mentions-mid">6</div>
+            <div class="actor-mentions-mid-label">menciones</div>
+            <div class="actor-bar-wrap" style="margin-top:10px"><div class="actor-bar bar-lv2" style="width:33.3%"></div></div>
+          </div>
+          <div class="actor-card-lv2">
+            <div class="actor-icon">🏙️</div>
+            <div class="actor-name">Municipalidad de Antofagasta</div>
+            <div class="actor-mentions-mid">6</div>
+            <div class="actor-mentions-mid-label">menciones</div>
+            <div class="actor-bar-wrap" style="margin-top:10px"><div class="actor-bar bar-lv2" style="width:33.3%"></div></div>
+          </div>
+          <div class="actor-card-lv2">
+            <div class="actor-icon">🏙️</div>
+            <div class="actor-name">Municipalidad de Calama</div>
+            <div class="actor-mentions-mid">6</div>
+            <div class="actor-mentions-mid-label">menciones</div>
+            <div class="actor-bar-wrap" style="margin-top:10px"><div class="actor-bar bar-lv2" style="width:33.3%"></div></div>
+          </div>
+          <div class="actor-card-lv2">
+            <div class="actor-icon">🏙️</div>
+            <div class="actor-name">Municipalidad de Mejillones</div>
+            <div class="actor-mentions-mid">6</div>
+            <div class="actor-mentions-mid-label">menciones</div>
+            <div class="actor-bar-wrap" style="margin-top:10px"><div class="actor-bar bar-lv2" style="width:33.3%"></div></div>
           </div>
         </div>
+
+        <div class="insight-box ib-blue">
+          <p>La <strong>mención de AMSA como entidad autónoma</strong> —separada de FCAB y por encima de SQM, CODELCO y la propia Delegación Presidencial— es el hallazgo más relevante de este nivel. Su posición en el imaginario institucional confirma la percepción de que el Grupo AMSA tiene mayor visibilidad que las empresas que lo componen individualmente, lo que genera una oportunidad para que FCAB construya una <strong>identidad propia diferenciada dentro del grupo</strong>, como lo ha hecho Fundación Minera Escondida respecto de BHP.</p>
+          <p>La <strong>presencia equiparada de las tres municipalidades</strong> (Antofagasta, Calama y Mejillones con 6 menciones cada una) es igualmente significativa: refleja que los actores institucionales reconocen la dimensión plurimunicipal del ecosistema y esperan que actores con presencia extendida en el territorio —como FCAB— mantengan vínculos activos con los <strong>tres gobiernos locales</strong>, no solo con el metropolitano.</p>
+          <p>El <strong>Puerto Antofagasta</strong>, con 6 menciones, aparece con una frecuencia que su función complementaria a FCAB en la cadena logística regional haría esperar incluso mayor. Su mención confirma que los actores institucionales lo perciben como parte del mismo ecosistema de infraestructura y conectividad, lo que lo convierte en el <strong>aliado natural más subutilizado</strong> del relacionamiento estratégico de FCAB.</p>
+        </div>
+
       </section>
 
-      <!-- ── PARTE II ─────────────────────────────────────────── -->
-      <div class="part-divider">
-        <span class="part-eyebrow">Parte II</span>
-        <span class="part-name">Red de Coordinación Interorganizacional</span>
-      </div>
+      <!-- ── NIVEL 3: PRESENCIA EMERGENTE ── -->
+      <section class="section" id="sec-lv3">
 
-      <!-- ── 4. DISEÑO METODOLÓGICO ────────────────────────────── -->
-      <section class="section">
-        <h2>4. Diseño metodológico</h2>
-        <p>La red se construyó a partir de una pregunta incluida en las entrevistas semiestructuradas, formulada a cada organización social participante:</p>
-
-        <div class="callout">
-          <p><em>"¿Con qué otras organizaciones sociales, ONGs, empresas o municipios se coordina o conversa su organización de manera frecuente?"</em></p>
-        </div>
-
-        <p>Las relaciones declaradas se visualizan mediante el <strong>algoritmo Kamada-Kawai</strong>, que posiciona los nodos según su proximidad relacional: los actores con mayor conectividad mutua aparecen más cercanos en el mapa. La red refleja <strong>coordinaciones auto-reportadas</strong>, por lo que su alcance está acotado a lo que los propios actores declaran y no representa la totalidad de relaciones existentes en el territorio.</p>
-
-
-        <div class="callout callout-amber">
-          <p><strong>Alcance del análisis:</strong> Las organizaciones sociales entrevistadas fueron la fuente emisora de los vínculos declarados. Algunas instituciones como Municipalidad de Antofagasta, Gobierno Regional o Aguas Antofagasta no fueron entrevistadas directamente como parte de esta red: aparecen como destinos mencionados por las organizaciones de base. Los resultados reflejan la perspectiva comunitaria sobre sus relaciones, no la totalidad del ecosistema institucional.</p>
-        </div>
-      </section>
-
-      <!-- ── 5. MAPA INTERACTIVO ───────────────────────────────── -->
-      <section class="section">
-        <h2>5. Mapa interactivo de la red</h2>
-        <p>El gráfico muestra la red completa de coordinaciones declaradas. El tamaño de cada nodo refleja su <strong>grado de entrada</strong> (cuántas organizaciones lo mencionan como interlocutor). Los nodos de mayor tamaño son los actores que más organizaciones identifican como referente de coordinación.</p>
-
-        <div class="viz-wrapper">
-          <div class="viz-header">
-            <div class="viz-title-block">
-              <span class="viz-title">Red de Coordinación Interorganizacional</span>
-              <span class="viz-sub">Algoritmo Kamada-Kawai · Coordinaciones auto-reportadas · Organizaciones sociales, Región de Antofagasta</span>
-            </div>
-            <div class="viz-pills">
-              <div class="viz-pill"><strong>80</strong> nodos</div>
-              <div class="viz-pill"><strong>98</strong> vínculos</div>
-            </div>
-            <a href="../../red_coordinacion.html" target="_blank" class="viz-expand">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              Pantalla completa
-            </a>
-          </div>
-          <div class="viz-frame">
-            <iframe src="../../red_coordinacion.html" scrolling="no" title="Red de Coordinación Interorganizacional" style="height:680px"></iframe>
-          </div>
-          <div class="viz-footer">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            Arrastrar para mover nodos · Scroll para zoom · Pasar el cursor para ver detalles · Usar el buscador (esquina superior izquierda) para localizar una organización.
+        <div class="level-header lv3">
+          <div class="level-badge">Nivel 3</div>
+          <div>
+            <div class="level-title">Actores con presencia emergente o sectorial</div>
+            <div class="level-sub">Frecuencia 4–5 menciones — visibilidad acotada pero analíticamente relevante</div>
           </div>
         </div>
+
+        <div class="actor-grid-lv3">
+          <div class="actor-card-lv3">
+            <div class="actor-icon">🚔</div>
+            <div class="actor-name">Carabineros</div>
+            <div class="actor-mentions-sm">4–5</div>
+            <div class="actor-mentions-sm-label">menciones</div>
+            <div class="actor-bar-wrap" style="margin-top:10px"><div class="actor-bar bar-lv3" style="width:25%"></div></div>
+          </div>
+          <div class="actor-card-lv3">
+            <div class="actor-icon">🏥</div>
+            <div class="actor-name">CESFAM</div>
+            <div class="actor-mentions-sm">4–5</div>
+            <div class="actor-mentions-sm-label">menciones</div>
+            <div class="actor-bar-wrap" style="margin-top:10px"><div class="actor-bar bar-lv3" style="width:25%"></div></div>
+          </div>
+          <div class="actor-card-lv3">
+            <div class="actor-icon">🤝</div>
+            <div class="actor-name">Fundación Minera Escondida</div>
+            <div class="actor-mentions-sm">4–5</div>
+            <div class="actor-mentions-sm-label">menciones</div>
+            <div class="actor-bar-wrap" style="margin-top:10px"><div class="actor-bar bar-lv3" style="width:25%"></div></div>
+          </div>
+          <div class="actor-card-lv3">
+            <div class="actor-icon">🏔️</div>
+            <div class="actor-name">PROLOA</div>
+            <div class="actor-mentions-sm">4</div>
+            <div class="actor-mentions-sm-label">menciones</div>
+            <div class="actor-bar-wrap" style="margin-top:10px"><div class="actor-bar bar-lv3" style="width:22.2%"></div></div>
+          </div>
+        </div>
+
+        <div class="insight-box ib-purple">
+          <p>La aparición de <strong>Carabineros y CESFAM</strong> en este nivel —aun siendo el universo entrevistado predominantemente institucional y empresarial— es un indicador de que incluso entre actores estratégicos existe conciencia de que el ecosistema territorial incluye <strong>dimensiones de seguridad y salud</strong> que no pueden reducirse al ámbito productivo.</p>
+          <p>La mención separada de <strong>Fundación Minera Escondida respecto de BHP</strong> —aun siendo el mismo grupo— indica que su rol diferenciado en responsabilidad social e inversión comunitaria es percibido y valorado incluso entre actores de alta sofisticación institucional. Es un <strong>modelo de diferenciación que FCAB podría observar</strong>: construir una presencia pública propia en el ámbito del relacionamiento territorial que opere con identidad separada de AMSA, sin necesidad de contradicción con el grupo.</p>
+          <p><strong>PROLOA</strong>, con 4 menciones concentradas en actores del interior, confirma su rol como espacio de articulación reconocido por quienes tienen incidencia en la cuenca de El Loa, aunque su visibilidad en el conjunto del ecosistema sigue siendo acotada.</p>
+        </div>
+
       </section>
 
-      <!-- ── 6. OBSERVACIONES ──────────────────────────────────── -->
-      <section class="section">
-        <h2>6. Observaciones</h2>
-        <ul style="display:flex; flex-direction:column; gap:16px; padding-left:22px;">
-          <li><strong>Hacia el sector público:</strong> La Municipalidad de Antofagasta es el interlocutor más citado (14 organizaciones la mencionan), seguida del Gobierno Regional (10). Esto confirma que el vínculo con el municipio y el gobierno subnacional es el eje estructural de la coordinación comunitaria en el territorio.</li>
-          <li><strong>Hacia empresas privadas y mixtas:</strong> Aguas Antofagasta destaca como el actor privado más mencionado (7 vínculos), lo que sugiere que esta empresa —prestadora de servicios básicos— es reconocida como interlocutor activo. En menor medida aparecen Oxiquim (3), BHP (2), Copec (2) y Molynor (2), actores principalmente del sector industrial y minero de Mejillones.</li>
-        </ul>
-      </section>
-
-      <!-- ── NAVEGACIÓN ──────────────────────────────────────────── -->
+      <!-- CHAPTER NAV -->
   </div>
   <div class="chapter-divider"></div>
 
