@@ -754,196 +754,280 @@
     .desc-table tr:last-child td { border-bottom: none; }
     .desc-table tr:hover td { background: var(--surface-2); }
     .desc-table .var-name { font-weight: 500; color: var(--text-1); }/* ── cap-04: Análisis Temático ── */
-/* ── Estilos específicos Cap. 04 ── */
+/* ── Corpus KPI bar ── */
+    .corpus-kpi {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 28px 0;
+    }
+    .ckpi {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 16px;
+      text-align: center;
+    }
+    .ckpi-num {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .ckpi-label {
+      font-size: .74rem;
+      color: var(--text-3);
+      line-height: 1.4;
+    }
 
-    /* Part dividers */
-    .part-divider { display: flex; align-items: center; gap: 14px; margin: 52px 0 32px; padding: 22px 0 0; border-top: 2px solid var(--accent); }
-    .part-eyebrow { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); background: rgba(37,99,235,0.07); border: 1px solid rgba(37,99,235,0.18); padding: 4px 11px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
-    .part-name { font-size: 20px; font-weight: 700; color: var(--text-1); line-height: 1.2; }
+    /* ── Topic axes table ── */
+    .axis-table-wrap {
+      margin: 28px 0;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .axis-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .87rem;
+    }
+    .axis-table thead tr { background: var(--card); }
+    .axis-table th {
+      padding: 12px 18px;
+      text-align: left;
+      font-size: .76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--text-3);
+      border-bottom: 1px solid var(--border);
+    }
+    .axis-table td {
+      padding: 13px 18px;
+      color: var(--text-2);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .axis-table tr:last-child td { border-bottom: none; }
+    .axis-label {
+      font-weight: 600;
+      color: var(--text-1);
+    }
+    .topic-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+    .t-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 24px;
+      border-radius: 6px;
+      font-size: .72rem;
+      font-weight: 700;
+    }
+    .t-badge.ax1 { background: rgba(59,130,246,.15); color: #3b82f6; }
+    .t-badge.ax2 { background: rgba(139,92,246,.15); color: #8b5cf6; }
+    .t-badge.ax3 { background: rgba(245,158,11,.15); color: #f59e0b; }
 
-    /* Corpus stats row */
-    .corpus-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 24px 0 32px;
+    /* ── Axis sections ── */
+    .axis-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 48px 0 24px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
     }
-    .corpus-card {
-      background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r);
-      padding: 18px 16px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    .axis-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
     }
-    .corpus-card .num {
-      font-size: 28px; font-weight: 700; color: var(--accent);
-      letter-spacing: -0.04em; line-height: 1; display: block;
+    .ax1 .axis-icon { background: rgba(59,130,246,.12); }
+    .ax2 .axis-icon { background: rgba(139,92,246,.12); }
+    .ax3 .axis-icon { background: rgba(245,158,11,.12); }
+    .axis-title-wrap h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-1);
+      margin: 0 0 3px;
     }
-    .corpus-card .lbl { font-size: 12px; color: var(--text-2); margin-top: 6px; display: block; line-height: 1.35; }
+    .axis-title-wrap .axis-sub {
+      font-size: .82rem;
+      color: var(--text-3);
+    }
 
-    /* Method params mini-grid */
-    .param-row {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0;
+    /* ── Topic cards ── */
+    .topic-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 24px;
     }
-    .param-item {
-      display: flex; gap: 10px; align-items: flex-start;
-      background: var(--surface-1); border: 1px solid var(--border);
-      border-radius: var(--r-sm); padding: 12px 16px;
+    .topic-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
     }
-    .param-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
-    .param-label { font-size: 13px; font-weight: 600; color: var(--text-1); margin-bottom: 2px; }
-    .param-val { font-size: 12px; color: var(--text-2); }
+    .topic-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .topic-num.ax1 { background: rgba(59,130,246,.15); color: #3b82f6; }
+    .topic-num.ax2 { background: rgba(139,92,246,.15); color: #8b5cf6; }
+    .topic-num.ax3 { background: rgba(245,158,11,.15); color: #f59e0b; }
+    .topic-card-header h4 {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--text-1);
+      margin: 0;
+    }
+    .topic-card-body {
+      padding: 22px 24px;
+    }
+    .topic-card-body p {
+      font-size: .88rem;
+      color: var(--text-2);
+      line-height: 1.7;
+      margin: 0 0 14px;
+    }
+    .topic-card-body p:last-child { margin: 0; }
 
-    /* Axis sections */
-    .axis-section {
-      margin-bottom: 28px; border: 1px solid var(--border);
-      border-radius: var(--r); overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-    .axis-header { padding: 18px 24px; border-bottom: 1px solid var(--border); }
-    .axis-eyebrow {
-      font-size: 10px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.12em; margin-bottom: 6px;
-    }
-    .axis-title { font-size: 17px; font-weight: 700; color: var(--text-1); margin: 0; }
-    .axis-topics { font-size: 12px; color: var(--text-2); margin-top: 4px; }
-
-    /* Axis color tokens */
-    .axis-com  .axis-header { background: #ECFDF5; border-bottom-color: rgba(5,150,105,0.15); }
-    .axis-com  .axis-eyebrow { color: #065F46; }
-    .axis-inst .axis-header { background: #EFF6FF; border-bottom-color: rgba(37,99,235,0.15); }
-    .axis-inst .axis-eyebrow { color: #1E40AF; }
-    .axis-per  .axis-header { background: #FEF3C7; border-bottom-color: rgba(217,119,6,0.15); }
-    .axis-per  .axis-eyebrow { color: #92400E; }
-
-    /* Topic blocks */
-    .topic-block {
-      padding: 22px 24px; border-bottom: 1px solid var(--border);
-      background: var(--surface-1);
-    }
-    .topic-block:last-child { border-bottom: none; }
-    .topic-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-    .topic-badge {
-      font-size: 11px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.07em; padding: 3px 10px; border-radius: 20px;
-    }
-    .axis-com  .topic-badge { background: rgba(5,150,105,0.10);  color: #065F46; border: 1px solid rgba(5,150,105,0.22); }
-    .axis-inst .topic-badge { background: rgba(37,99,235,0.08);  color: #1E40AF; border: 1px solid rgba(37,99,235,0.20); }
-    .axis-per  .topic-badge { background: rgba(217,119,6,0.08);  color: #92400E; border: 1px solid rgba(217,119,6,0.22); }
-
-    .topic-title { font-size: 15px; font-weight: 700; color: var(--text-1); }
-    .topic-body p { font-size: 13.5px; color: var(--text-2); line-height: 1.75; margin-bottom: 12px; }
-    .topic-body p:last-child { margin-bottom: 0; }
-
-    /* Pull quotes */
+    /* ── Pull quotes ── */
     .pull-quote {
-      margin: 14px 0 12px; padding: 14px 20px;
-      background: var(--surface-2); border-radius: 0 var(--r-sm) var(--r-sm) 0;
-      border-left: 3px solid var(--border-2);
-    }
-    .pull-quote p { font-size: 13px; font-style: italic; color: var(--text-2); margin: 0; line-height: 1.65; }
-    .axis-com  .pull-quote { border-left-color: rgba(5,150,105,0.45); }
-    .axis-inst .pull-quote { border-left-color: rgba(37,99,235,0.40); }
-    .axis-per  .pull-quote { border-left-color: rgba(217,119,6,0.45); }
-
-    /* Tension tag */
-    .tension-tag {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 11.5px; font-weight: 600; color: var(--text-3);
-      background: var(--surface-2); border: 1px solid var(--border);
-      border-radius: var(--r-sm); padding: 5px 11px; margin-top: 14px;
+      border-left: 3px solid var(--accent);
+      background: rgba(255,255,255,.03);
+      padding: 12px 18px;
+      border-radius: 0 10px 10px 0;
+      margin: 16px 0;
+      font-size: .87rem;
+      color: var(--text-2);
+      font-style: italic;
+      line-height: 1.6;
     }
 
-    /* Topics table row colors */
-    .row-com  td:first-child { font-weight: 600; color: #065F46; }
-    .row-inst td:first-child { font-weight: 600; color: #1E40AF; }
-    .row-per  td:first-child { font-weight: 600; color: #92400E; }
-
-    /* Origin badges */
-    .orig-badge { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
-    .orig-puro { background: rgba(5,150,105,0.10);  color: #065F46; border: 1px solid rgba(5,150,105,0.22); }
-    .orig-esp  { background: rgba(37,99,235,0.08);  color: #1E40AF; border: 1px solid rgba(37,99,235,0.20); }
-    .orig-mix  { background: rgba(217,119,6,0.08);  color: #92400E; border: 1px solid rgba(217,119,6,0.22); }
-
-    /* Ranking table */
-    .rank-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; margin: 20px 0; }
-    .rank-row {
-      display: grid; grid-template-columns: 36px 1fr 56px 200px 106px;
-      align-items: center; gap: 0;
-      padding: 0; border-bottom: 1px solid var(--border);
-      background: var(--surface-1);
-      transition: background 0.12s;
+    /* ── Strategic implication ── */
+    .strat-box {
+      margin-top: 18px;
+      background: rgba(99,102,241,.07);
+      border: 1px solid rgba(99,102,241,.2);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: .85rem;
+      color: var(--text-2);
+      line-height: 1.55;
     }
-    .rank-row:last-child { border-bottom: none; }
-    .rank-row:hover { background: var(--surface-2); }
+    .strat-box strong { color: var(--text-1); }
 
-    .rank-num {
-      font-size: 11px; font-weight: 700; color: var(--text-3);
-      text-align: center; padding: 14px 0; border-right: 1px solid var(--border);
-      align-self: stretch; display: flex; align-items: center; justify-content: center;
+    /* ── Hallazgos cards ── */
+    .hallazgo-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 28px 0;
     }
-    .rank-row:nth-child(2) .rank-num { color: var(--accent); }
-    .rank-row:nth-child(3) .rank-num,
-    .rank-row:nth-child(4) .rank-num { color: var(--text-2); }
-
-    .rank-tema { padding: 14px 16px; font-size: 13px; font-weight: 500; color: var(--text-1); line-height: 1.35; }
-
-    .rank-actores {
-      padding: 14px 8px; text-align: center;
-      font-size: 13px; font-weight: 600; color: var(--text-2);
-      border-left: 1px solid var(--border);
+    .hallazgo-card {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      position: relative;
+      overflow: hidden;
     }
-    .rank-actores span { font-size: 10px; font-weight: 400; color: var(--text-3); display: block; }
-
-    .rank-bar-col {
-      padding: 14px 16px; border-left: 1px solid var(--border);
-      display: flex; align-items: center; gap: 8px;
+    .hallazgo-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--accent);
     }
-    .rank-bar-wrap { flex: 1; height: 6px; background: var(--surface-2); border-radius: 3px; overflow: hidden; }
-    .rank-bar { height: 100%; border-radius: 3px; background: var(--accent); opacity: 0.7; }
-    .rank-bar-num { font-size: 12px; font-weight: 700; color: var(--text-2); min-width: 28px; text-align: right; }
-
-    .rank-orig { padding: 14px 12px; border-left: 1px solid var(--border); display: flex; align-items: center; justify-content: flex-end; }
-
-    /* Group sections */
-    .group-section {
-      border: 1px solid var(--border); border-radius: var(--r); overflow: hidden;
-      margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    .hallazgo-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(99,102,241,.12);
+      color: var(--accent);
+      font-size: .85rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
-    .group-header { padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-    .group-eyebrow { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; }
-    .group-title { font-size: 15px; font-weight: 700; color: var(--text-1); }
-    .group-meta { font-size: 12px; color: var(--text-2); margin-left: auto; }
-    .group-body { background: var(--surface-1); padding: 16px 20px; }
-    .group-body p { font-size: 13.5px; color: var(--text-2); line-height: 1.7; margin-bottom: 0; }
-    .group-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
-    .group-tag { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
-
-    /* Group color tokens */
-    .g-fisico  .group-header { background: #FEF3C7; border-bottom-color: rgba(217,119,6,0.15); }
-    .g-fisico  .group-eyebrow { color: #92400E; }
-    .g-fisico  .group-tag { background: rgba(217,119,6,0.08); color: #92400E; border: 1px solid rgba(217,119,6,0.20); }
-
-    .g-relac   .group-header { background: #EFF6FF; border-bottom-color: rgba(37,99,235,0.15); }
-    .g-relac   .group-eyebrow { color: #1E40AF; }
-    .g-relac   .group-tag { background: rgba(37,99,235,0.08); color: #1E40AF; border: 1px solid rgba(37,99,235,0.20); }
-
-    .g-inst    .group-header { background: #ECFDF5; border-bottom-color: rgba(5,150,105,0.15); }
-    .g-inst    .group-eyebrow { color: #065F46; }
-    .g-inst    .group-tag { background: rgba(5,150,105,0.08); color: #065F46; border: 1px solid rgba(5,150,105,0.20); }
-
-    /* Legend */
-    .legend { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 12px; }
-    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-2); }
-
-    @media (max-width: 760px) {
-      .rank-row { grid-template-columns: 36px 1fr 48px 100px; }
-      .rank-orig { display: none; }
+    .hallazgo-body h4 {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--text-1);
+      margin: 0 0 7px;
+      line-height: 1.4;
     }
-    @media (max-width: 700px) {
-      .corpus-grid { grid-template-columns: repeat(2, 1fr); }
-      .param-row   { grid-template-columns: 1fr; }
+    .hallazgo-body p {
+      font-size: .85rem;
+      color: var(--text-2);
+      line-height: 1.65;
+      margin: 0;
     }
-    @media (max-width: 560px) {
-      .rank-row { grid-template-columns: 36px 1fr 48px; }
-      .rank-bar-col { display: none; }
+
+    /* ── Caution / info boxes ── */
+    .warn-box {
+      background: rgba(245,158,11,.07);
+      border: 1px solid rgba(245,158,11,.2);
+      border-left: 3px solid #f59e0b;
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: .86rem;
+      color: var(--text-2);
+      line-height: 1.55;
+      margin: 14px 0;
     }
-    @media (max-width: 380px) {
-      .corpus-grid { grid-template-columns: 1fr; }
+    .method-detail {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin: 18px 0;
+    }
+    .method-detail ul {
+      margin: 8px 0 0;
+      padding: 0 0 0 18px;
+    }
+    .method-detail ul li {
+      font-size: .86rem;
+      color: var(--text-2);
+      line-height: 1.6;
+      margin-bottom: 4px;
+    }
+    .method-detail h5 {
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--text-3);
+      margin: 0 0 4px;
+    }
+
+    @media (max-width: 640px) {
+      .corpus-kpi { grid-template-columns: repeat(2, 1fr); }
     }/* ── cap-05: Ecosistema de Actores ── */
 /* ── Estilos combinados Cap. 06 ── */
 
@@ -3149,90 +3233,59 @@
   <!-- CAP 04: ANÁLISIS TEMÁTICO -->
   <!-- ════════════════════════════════════════════════════════════ -->
   <div id="cap-04" class="chapter-block">
-<!-- ── ENCABEZADO ──────────────────────────────────────── -->
+<!-- CHAPTER HEADER -->
       <header class="chapter-header">
         <div class="chapter-meta">
           <span class="chapter-num-label">Capítulo 04</span>
         </div>
-        <h1>Análisis temático: tópicos latentes y temas espontáneos</h1>
-        <p class="chapter-lead">Modelamiento LDA e identificación de temas espontáneos aplicados sobre el corpus completo de entrevistas para revelar estructuras discursivas latentes y los asuntos que los actores instalan con mayor fuerza en la conversación territorial.</p>
+        <h1>Análisis de Patrones Temáticos Latentes</h1>
+        <p class="chapter-lead">Modelamiento LDA (<em>Latent Dirichlet Allocation</em>) aplicado al corpus completo de entrevistas para identificar los patrones discursivos que estructuran el relacionamiento territorial de FCAB.</p>
       </header>
 
-      <!-- ════════════════════════════════════════════════════════
-           PARTE I — ANÁLISIS LDA
-           ════════════════════════════════════════════════════════ -->
-      <div class="part-divider">
-        <span class="part-eyebrow">Parte I</span>
-        <span class="part-name">Análisis LDA</span>
-      </div>
+      <!-- ── SECCIÓN 1: INTRO Y METODOLOGÍA ── -->
+      <section class="section" id="sec-intro">
+        <h2>Metodología LDA</h2>
+        <p>Junto con el análisis de variables estructuradas, se aplicó un <strong>modelamiento de tópicos mediante LDA</strong> para identificar patrones latentes en los contenidos discursivos levantados durante las entrevistas. Este procedimiento permitió reconocer conjuntos de palabras y temas que tienden a aparecer asociados, entregando una aproximación sistemática a las principales áreas de preocupación, expectativa o valoración presentes en el discurso de los actores.</p>
 
-      <!-- ── 1. DISEÑO DEL ANÁLISIS ─────────────────────────── -->
-      <section class="section">
-        <h2>1. Diseño del análisis</h2>
-        <p>Se aplicó un modelamiento de tópicos mediante <strong>LDA (Latent Dirichlet Allocation)</strong> para identificar patrones latentes en los contenidos discursivos de las entrevistas. El procedimiento reconoce conjuntos de palabras que tienden a aparecer asociados, entregando una lectura sistemática de las principales áreas de preocupación, expectativa y valoración presentes en el discurso de los actores, sin imponer categorías previas.</p>
-
-        <div class="corpus-grid">
-          <div class="corpus-card">
-            <span class="num">73</span>
-            <span class="lbl">Transcripciones analizadas</span>
+        <div class="corpus-kpi">
+          <div class="ckpi">
+            <div class="ckpi-num">73</div>
+            <div class="ckpi-label">transcripciones analizadas</div>
           </div>
-          <div class="corpus-card">
-            <span class="num">~298K</span>
-            <span class="lbl">Palabras en el corpus</span>
+          <div class="ckpi">
+            <div class="ckpi-num">≈298K</div>
+            <div class="ckpi-label">palabras en el corpus</div>
           </div>
-          <div class="corpus-card">
-            <span class="num">7</span>
-            <span class="lbl">Tópicos latentes modelados</span>
+          <div class="ckpi">
+            <div class="ckpi-num">9</div>
+            <div class="ckpi-label">tópicos latentes configurados</div>
           </div>
-          <div class="corpus-card">
-            <span class="num">2.344</span>
-            <span class="lbl">Citas codificadas de apoyo</span>
+          <div class="ckpi">
+            <div class="ckpi-num">2.344</div>
+            <div class="ckpi-label">citas codificadas complementarias</div>
           </div>
         </div>
 
-        <div class="param-row">
-          <div class="param-item">
-            <div class="param-dot"></div>
-            <div>
-              <div class="param-label">Parámetros del modelo</div>
-              <div class="param-val">7 tópicos · 25 iteraciones · alpha y eta adaptativos (automáticos)</div>
-            </div>
-          </div>
-          <div class="param-item">
-            <div class="param-dot"></div>
-            <div>
-              <div class="param-label">Interpretación semántica</div>
-              <div class="param-val">Términos con mayor peso probabilístico + códigos analíticos + citas representativas</div>
-            </div>
-          </div>
-          <div class="param-item">
-            <div class="param-dot"></div>
-            <div>
-              <div class="param-label">Exclusiones del corpus</div>
-              <div class="param-val">Palabras funcionales, marcadores de transcripción oral y términos ferroviarios de alto uso general</div>
-            </div>
-          </div>
-          <div class="param-item">
-            <div class="param-dot"></div>
-            <div>
-              <div class="param-label">Carácter del análisis</div>
-              <div class="param-val">Exploratorio. Los tópicos son no excluyentes: cada entrevista contiene trazas de múltiples temas</div>
-            </div>
-          </div>
+        <p>El análisis LDA fue aplicado sobre el corpus completo de 73 transcripciones, complementado con la base de 2.344 citas codificadas provenientes de la matriz cualitativa del estudio. El modelo fue configurado con 9 tópicos latentes, 25 iteraciones de entrenamiento y parámetros adaptativos (<em>alpha</em> y <em>eta</em> automáticos), lo que permite capturar la distribución probabilística de temas sin imponer categorías previas.</p>
+
+        <div class="method-detail">
+          <h5>Criterios de interpretación semántica de tópicos</h5>
+          <ul>
+            <li>Términos con <strong>mayor peso probabilístico</strong> dentro de cada tópico</li>
+            <li>Códigos analíticos con <strong>mayor frecuencia</strong> en el cluster de documentos asociados</li>
+            <li>Citas representativas seleccionadas por su <strong>densidad interpretativa</strong></li>
+          </ul>
         </div>
 
-        <div class="callout callout-amber">
-          <p><strong>Nota metodológica:</strong> Las etiquetas asignadas a los tópicos corresponden a una interpretación del equipo investigador a partir de las palabras dominantes y documentos asociados. Dado que el corpus contiene características propias del discurso oral y que las juntas de vecinos representan una proporción relevante de las entrevistas, los resultados requieren triangulación con el análisis cualitativo. El análisis no establece causalidad ni jerarquías definitivas de importancia.</p>
+        <p>Los tópicos resultantes <strong>no son excluyentes</strong>: cada entrevista contiene trazas de múltiples temas, aunque el análisis identifica el tópico dominante por documento. El análisis excluye palabras funcionales, marcadores de transcripción oral y términos propios del corpus ferroviario de alto uso general (FCAB, ferrocarril, Antofagasta, Calama, entre otras), priorizando términos con carga semántica sustantiva.</p>
+
+        <div class="warn-box">
+          ⚠️ <strong>Alcance exploratorio:</strong> El análisis LDA fue utilizado como herramienta exploratoria para identificar patrones temáticos latentes, no para establecer causalidad ni jerarquías definitivas de importancia. El corpus corresponde a entrevistas transcritas con características propias del discurso oral. La composición no es completamente equilibrada —las juntas de vecinos representan una proporción relevante—, lo que puede aumentar el peso de temas comunitarios. Las etiquetas asignadas a los tópicos corresponden a una interpretación del equipo investigador.
         </div>
-      </section>
 
-      <!-- ── 2. ESTRUCTURA TEMÁTICA ─────────────────────────── -->
-      <section class="section">
-        <h2>2. Estructura temática</h2>
-        <p>Los nueve tópicos resultantes se organizan en tres ejes temáticos que estructuran el análisis posterior.</p>
-
-        <div class="table-wrap">
-          <table>
+        <h3 style="margin-top:32px">Agrupación de tópicos por eje temático</h3>
+        <div class="axis-table-wrap">
+          <table class="axis-table">
             <thead>
               <tr>
                 <th>Eje temático</th>
@@ -3241,440 +3294,335 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="row-com">
-                <td>Relacionamiento comunitario urbano</td>
-                <td>T1, T2</td>
-                <td>Vinculación con actores en entornos urbanos inmediatos a la línea ferroviaria. Demandas de convivencia, espacio público y comunicación directa.</td>
+              <tr>
+                <td><span class="axis-label">🏘️ Relacionamiento comunitario urbano</span></td>
+                <td>
+                  <div class="topic-badges">
+                    <span class="t-badge ax1">T1</span>
+                    <span class="t-badge ax1">T2</span>
+                  </div>
+                </td>
+                <td>Vinculación con actores asociados a temas urbanos: espacios públicos, convivencia barrial y demandas de proximidad.</td>
               </tr>
-              <tr class="row-inst">
-                <td>Gobernanza territorial e institucional</td>
-                <td>T3, T4, T5</td>
-                <td>Articulación con actores estratégicos, institucionales y de gobernanza regional. Rol de FCAB en la ciudad y en el ecosistema de sostenibilidad.</td>
+              <tr>
+                <td><span class="axis-label">🏛️ Gobernanza territorial e institucional</span></td>
+                <td>
+                  <div class="topic-badges">
+                    <span class="t-badge ax2">T3</span>
+                    <span class="t-badge ax2">T4</span>
+                    <span class="t-badge ax2">T5</span>
+                  </div>
+                </td>
+                <td>Articulación con actores estratégicos, institucionales y de gobernanza regional: coordinación, desarrollo urbano y sostenibilidad.</td>
               </tr>
-              <tr class="row-per">
-                <td>Territorios periféricos y clientes industriales</td>
-                <td>T6, T7</td>
-                <td>Relacionamiento en comunas alejadas del eje central y vinculación con actores del sector minero, logístico y productivo.</td>
+              <tr>
+                <td><span class="axis-label">🏭 Territorios periféricos y clientes industriales</span></td>
+                <td>
+                  <div class="topic-badges">
+                    <span class="t-badge ax3">T6</span>
+                    <span class="t-badge ax3">T7</span>
+                  </div>
+                </td>
+                <td>Relacionamiento en comunas alejadas del eje central, y vinculación con actores del sector minero y productivo.</td>
               </tr>
             </tbody>
           </table>
         </div>
       </section>
 
-      <!-- ── 3. EJE 1: RELACIONAMIENTO COMUNITARIO URBANO ───── -->
-      <section class="section">
-        <h2>3. Relacionamiento comunitario urbano</h2>
+      <!-- ── EJE 1: RELACIONAMIENTO COMUNITARIO URBANO ── -->
+      <section class="section" id="sec-eje1">
 
-        <div class="axis-section axis-com">
-          <div class="axis-header">
-            <div class="axis-eyebrow">Eje 1 · T1 — T2</div>
-            <div class="axis-title">Relacionamiento comunitario urbano</div>
-            <div class="axis-topics">Actores con presencia directa en el entorno inmediato de la línea ferroviaria en Antofagasta y Calama</div>
+        <div class="axis-header ax1">
+          <div class="axis-icon">🏘️</div>
+          <div class="axis-title-wrap">
+            <h3>Eje 1 · Relacionamiento comunitario urbano</h3>
+            <div class="axis-sub">Tópicos T1 y T2 — Juntas de vecinos, comunidades próximas a la línea férrea</div>
           </div>
+        </div>
 
-          <!-- T1 -->
-          <div class="topic-block">
-            <div class="topic-meta">
-              <span class="topic-badge">T1</span>
-              <span class="topic-title">Espacios públicos y demanda de escucha activa</span>
-            </div>
-            <div class="topic-body">
-              <p>Este tópico reúne discursos de actores que vinculan la presencia territorial de FCAB con una demanda concreta por recuperación de espacios públicos, áreas verdes y mejoramiento barrial. La conversación no se limita a problemas operacionales: se proyecta hacia el uso social del suelo, la calidad urbana y las oportunidades de desarrollo comunitario en sectores aledaños a terrenos ferroviarios.</p>
-              <p>La percepción central es que FCAB posee o ha estado históricamente vinculada a terrenos con potencial de transformación urbana. Para los actores comunitarios, esos espacios representan la oportunidad de habilitar plazas, áreas verdes y lugares de encuentro en barrios con déficit de equipamiento, pero esa posibilidad permanece sin concretar. La tensión principal se configura entre el potencial territorial atribuido a FCAB y la percepción de falta de concreción: compromisos mencionados que no llegan a materializarse.</p>
-              <div class="pull-quote">
-                <p>"Acá nosotros tenemos serias cantidades de áreas verdes que también fue parte en algún momento del ferrocarril, y no le echa una gota."</p>
-              </div>
-              <div class="pull-quote">
-                <p>"Tratamos de hacer un diálogo, pero ellos tenían el diálogo cortado."</p>
-              </div>
-              <p>Desde el punto de vista estratégico, la gestión del suelo colindante tiene un peso relacional significativo. El tópico señala la necesidad de avanzar desde una comunicación declarativa hacia mecanismos de priorización, factibilidad, seguimiento y devolución clara frente a solicitudes sobre espacios públicos.</p>
-              <span class="tension-tag">⚡ Tensión central: potencial territorial percibido vs. ausencia de concreción</span>
-            </div>
+        <!-- T1 -->
+        <div class="topic-card">
+          <div class="topic-card-header">
+            <div class="topic-num ax1">T1</div>
+            <h4>Espacios públicos y demanda de escucha activa</h4>
           </div>
+          <div class="topic-card-body">
+            <p>Este tópico reúne discursos de actores que vinculan la presencia territorial de FCAB con una <strong>demanda concreta por recuperación de espacios públicos</strong>, áreas verdes y mejoramiento barrial. Las transcripciones muestran que la conversación no se limita a problemas operacionales de la línea férrea, sino que se proyecta hacia el uso social del suelo, la calidad urbana y las oportunidades de desarrollo comunitario en sectores aledaños a terrenos ferroviarios.</p>
 
-          <!-- T2 -->
-          <div class="topic-block">
-            <div class="topic-meta">
-              <span class="topic-badge">T2</span>
-              <span class="topic-title">Convivencia cotidiana y demandas de proximidad</span>
-            </div>
-            <div class="topic-body">
-              <p>Este tópico concentra la voz de dieciséis organizaciones comunitarias con presencia directa en el entorno inmediato de la línea ferroviaria. Su rasgo distintivo es que el ferrocarril no es aquí un actor institucional distante: es el vecino de enfrente, cuyas locomotoras se escuchan de noche y cuyos terrenos definen el paisaje del barrio. Esta proximidad física define tanto el tipo de relacionamiento que los actores esperan como el parámetro con el que miden sus decepciones.</p>
-              <p>Los problemas más recurrentes son físicos y de convivencia: basura acumulada, asentamientos irregulares, consumo de drogas, falta de iluminación y riesgo de accidentes en cruces. Estos problemas se perciben como una cadena de riesgos que se retroalimentan. Los operativos de limpieza existen, pero son reactivos: el problema reaparece porque no hay estrategia de mantención permanente ni corresponsabilidad formalizada con los vecinos.</p>
-              <div class="pull-quote">
-                <p>"Si usted se da una vuelta, pasa por todas las poblaciones y todos estamos viviendo exactamente el mismo problema: basurales, los okupas, la aridez del desierto que está ahí marcado. Y son años y años y años [...] Nunca se limpian del todo."</p>
-              </div>
-              <p>El corpus también contiene hitos positivos reconocidos con genuinidad: mejoras de infraestructura en sedes, instalación de cámaras, operativos de salud, construcción de plazas, capacitaciones. Estos hitos son los que sostienen la disposición al diálogo incluso cuando el vínculo cotidiano se ha debilitado. El problema es la ausencia de sistematicidad: ocurren de manera episódica, sin responder a un plan de relacionamiento sostenido.</p>
-              <div class="pull-quote">
-                <p>"Cuando se requiere, sí, hay una muy buena respuesta."</p>
-              </div>
-              <p><strong>Canal crítico:</strong> WhatsApp con personas específicas de FCAB es el canal dominante en este cluster. Si bien facilita respuestas rápidas, el vínculo está atado a individuos. Sin proceso detrás, no hay trazabilidad, no hay registro de compromisos y no hay continuidad institucional posible cuando esos referentes cambian de cargo.</p>
-              <div class="pull-quote">
-                <p>"Creo que la presencia de Ferrocarril debería ser más presencial en los territorios, sobre todo donde hay mayor problemática de seguridad."</p>
-              </div>
-              <span class="tension-tag">⚡ Tensión central: relacionamiento episódico y personalizado vs. necesidad de presencia sostenida e institucionalizada</span>
+            <p>En estos relatos aparece la percepción de que FCAB posee o ha estado vinculada históricamente a terrenos con potencial de transformación urbana. Para los actores comunitarios, esos espacios son oportunidades para habilitar plazas, áreas verdes, lugares de encuentro, actividades para niños y mejoras en barrios que presentan déficit de equipamiento.</p>
+
+            <div class="pull-quote">"Acá nosotros tenemos serias cantidades de áreas verdes que también fue parte en algún momento del ferrocarril, y no le echa una gota."</div>
+
+            <p>El tópico también incorpora una crítica a la forma en que la empresa comunica y gestiona sus vínculos con las comunidades. La demanda no apunta únicamente a recibir información, sino a establecer un <strong>diálogo más genuino</strong>, con capacidad de respuesta, seguimiento y concreción.</p>
+
+            <div class="pull-quote">"Tratamos de hacer un diálogo, pero ellos tenían el diálogo cortado."</div>
+
+            <p>La tensión principal se configura entre el potencial territorial atribuido a FCAB y la percepción de falta de concreción. Los actores observan terrenos o espacios percibidos como abandonados, subutilizados o expuestos a deterioro.</p>
+
+            <div class="pull-quote">"Ese terreno está perdido. No quiero que se agrupen carpas y cosas ahí."</div>
+            <div class="pull-quote">"Me dijeron que me iban a hacer una pergolita ahí y me iban a arreglar bonito ese espacio."</div>
+
+            <div class="strat-box">
+              🎯 <strong>Implicancia estratégica:</strong> La gestión del suelo y los espacios colindantes a la infraestructura ferroviaria tiene un peso relacional significativo. Para FCAB, esto implica avanzar desde una comunicación declarativa hacia mecanismos de <strong>priorización, factibilidad, seguimiento y devolución clara</strong> frente a solicitudes comunitarias sobre espacios públicos y áreas verdes.
             </div>
           </div>
+        </div>
+
+        <!-- T2 -->
+        <div class="topic-card">
+          <div class="topic-card-header">
+            <div class="topic-num ax1">T2</div>
+            <h4>Convivencia cotidiana y demandas de proximidad</h4>
+          </div>
+          <div class="topic-card-body">
+            <p>Este tópico concentra la voz de <strong>dieciséis organizaciones comunitarias</strong> con presencia directa en el entorno inmediato de la línea ferroviaria en Antofagasta y Calama. Su rasgo distintivo es que el ferrocarril no es aquí un actor institucional distante: es el vecino de enfrente, el propietario del terreno colindante y la empresa cuyas locomotoras se escuchan de noche. Esta proximidad física define tanto el tipo de relacionamiento que los actores esperan como el parámetro con el que miden sus decepciones.</p>
+
+            <p>La percepción dominante no es positiva ni negativa, sino <strong>ambivalente en su estructura</strong>. Los mismos actores que reconocen hitos concretos de colaboración expresan, en la misma entrevista, malestar por problemas no resueltos o por la sensación de que la empresa ha retrocedido respecto a un vínculo que en algún momento fue más estrecho. Los actores no piden que FCAB haga algo que nunca ha hecho, sino que <strong>retome y sostenga lo que alguna vez hizo bien</strong>.</p>
+
+            <p>El contenido más recurrente es un conjunto de problemas físicos y de convivencia que los actores experimentan cotidianamente: <strong>basura acumulada, asentamientos irregulares, consumo de drogas, falta de iluminación y riesgo de accidentes en cruces</strong>. Estos problemas no se perciben como fenómenos independientes, sino como una cadena de riesgos que se retroalimenta. Los operativos de limpieza existen, pero son reactivos: el problema reaparece porque no hay estrategia de mantención permanente ni corresponsabilidad formalizada con los vecinos.</p>
+
+            <div class="pull-quote">"Si usted se da una vuelta, pasa por todas las poblaciones y todos estamos viviendo exactamente el mismo problema: basurales, los okupas, la aridez del desierto que está ahí marcado. Y son años y años y años [...] Nunca se limpian del todo. Solamente vienen, sacan los colchones, sacan a los rucos, y al otro día están de nuevo."</div>
+
+            <p>Otra problemática concreta con consecuencias físicas directas es un <strong>muro perimetral construido sin apertura</strong> que deja a una población sin conexión directa con el resto del barrio. Los vecinos lo han derribado parcialmente de manera informal para poder pasar, pero la solución no existe en términos formales ni seguros. El impacto más grave es la circulación de emergencia: cuando hay incendios, los carros de bomberos deben dar una vuelta significativa, con los minutos que eso implica en una emergencia activa.</p>
+
+            <p>Frente a este cuadro, el corpus contiene también un conjunto notable de hitos positivos que los actores mencionan con reconocimiento genuino: mejoras de infraestructura en sedes, instalación de cámaras, operativos de salud, construcción de plazas, capacitaciones y actividades comunitarias. Estos hitos sostienen la disposición al diálogo incluso cuando el vínculo cotidiano se ha debilitado. El problema es la ausencia de sistematicidad: los hitos ocurren de manera episódica, sin responder a un plan de relacionamiento sostenido.</p>
+
+            <div class="pull-quote">"Cuando se requiere, sí, hay una muy buena respuesta."</div>
+            <div class="pull-quote">"De hecho, ellos me hicieron la plaza, me pusieron maceteros y después me hicieron una pérgola."</div>
+
+            <p>El efecto más disruptivo del tópico es la <strong>rotación de personal</strong>. Varios actores describen el cambio de referentes en FCAB como un evento que interrumpe abruptamente relaciones construidas con años de trabajo, deja compromisos en suspenso y obliga a empezar desde cero. Lo que queda tras el cambio es el número de WhatsApp y la memoria de los vecinos, porque el vínculo no está institucionalizado en procesos ni documentado en compromisos formales.</p>
+
+            <p>WhatsApp con personas específicas de FCAB es el <strong>canal dominante</strong> en este cluster. Algunos actores lo valoran positivamente por su inmediatez, lo que revela que el problema no es el canal en sí, sino que sea el único canal y que esté atado a individuos. Sin proceso detrás, no hay trazabilidad, no hay registro de compromisos y no hay continuidad institucional posible.</p>
+
+            <div class="pull-quote">"Creo que la presencia de Ferrocarril debería ser más presencial en los territorios, sobre todo donde hay mayor problemática de seguridad."</div>
+
+            <p>Un elemento que distingue a varios actores asociados a este tópico es la <strong>dimensión identitaria y afectiva del vínculo</strong>. Aquí, el ferrocarril es parte constitutiva de la historia del barrio y de la memoria de sus dirigentes.</p>
+
+            <div class="pull-quote">"Mi vida siempre ha estado ligada al ferrocarril, en todo sentido. Sin el apoyo de Ferrocarril no podría funcionar. A pesar de que tenemos otras empresas que nos apoyan, el ferrocarril es el que nos da el apoyo más grande."</div>
+
+            <div class="strat-box">
+              🎯 <strong>Implicancia estratégica:</strong> Los actores piden presencia regular, canales claros, compromisos escritos, mantención del entorno físico y continuidad en las personas, incluso por sobre grandes inversiones. La confianza se reconstituye sobre la <strong>memoria de vínculos anteriores</strong>, no desde cero.
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ── EJE 2: GOBERNANZA TERRITORIAL E INSTITUCIONAL ── -->
+      <section class="section" id="sec-eje2">
+
+        <div class="axis-header ax2">
+          <div class="axis-icon">🏛️</div>
+          <div class="axis-title-wrap">
+            <h3>Eje 2 · Gobernanza territorial e institucional</h3>
+            <div class="axis-sub">Tópicos T3, T4 y T5 — Actores estratégicos, institucionales y de desarrollo regional</div>
+          </div>
+        </div>
+
+        <!-- T3 -->
+        <div class="topic-card">
+          <div class="topic-card-header">
+            <div class="topic-num ax2">T3</div>
+            <h4>Coordinación institucional y ecosistema de actores</h4>
+          </div>
+          <div class="topic-card-body">
+            <p>Este tópico reúne actores de perfiles diversos —una corporación de desarrollo, una organización de articulación minero-regional, una compañía de bomberos con historia ferroviaria y organizaciones vecinales— que se articulan principalmente por la posición que ocupan dentro del ecosistema de relacionamiento territorial de FCAB. En todos los casos existe, o ha existido, algún punto de contacto con la empresa a través de espacios de coordinación colectiva, como la EMRA, corporaciones, mesas sectoriales, convenios institucionales o instancias comunitarias.</p>
+
+            <p>Desde la perspectiva de los actores institucionales, <strong>FCAB participa en instancias estratégicas de gobernanza y esa presencia es reconocida como relevante; sin embargo, también es percibida como insuficientemente activa</strong>. La empresa está presente en los espacios de conversación, pero no siempre aparece liderando propuestas, impulsando agendas o capitalizando su posición territorial.</p>
+
+            <div class="pull-quote">"FCAB participa en círculos de conversación y trabajo, que son los espacios en los cuales se define el desarrollo de la región."</div>
+            <div class="pull-quote">"Necesitamos que sean más participativos en las mesas que se generan en la región."</div>
+
+            <p>La percepción de bajo protagonismo se vuelve más crítica cuando los actores identifican oportunidades concretas que FCAB podría desarrollar con mayor decisión. El transporte de pasajeros, la ampliación de la red de carga y la modernización del rol ferroviario aparecen como ámbitos donde la empresa cuenta con infraestructura, historia y posición estratégica, pero donde no siempre es percibida como un actor que impulse activamente nuevas posibilidades.</p>
+
+            <div class="pull-quote">"Ferrocarril tiene la sensación de que en la región es una entidad que es obsoleta y antigua."</div>
+            <div class="pull-quote">"Si no se hace nada, nada pasa; pero si se hace algo, eso puede potenciarse."</div>
+
+            <div class="strat-box">
+              🎯 <strong>Implicancia estratégica:</strong> FCAB cuenta con presencia en espacios de gobernanza regional, historia compartida con actores relevantes, infraestructura territorial y capacidad de articulación. No obstante, los discursos muestran que esa posición no siempre se traduce en <strong>iniciativa visible</strong>. Los actores esperan que ese lugar se ejerza con mayor liderazgo, propuesta y continuidad territorial.
+            </div>
+          </div>
+        </div>
+
+        <!-- T4 -->
+        <div class="topic-card">
+          <div class="topic-card-header">
+            <div class="topic-num ax2">T4</div>
+            <h4>Ciudad, desarrollo territorial y rol estratégico de FCAB</h4>
+          </div>
+          <div class="topic-card-body">
+            <p>Este tópico reúne a actores que observan a FCAB desde una <strong>escala urbana y regional</strong>. La empresa es leída como un actor con capacidad de incidir en el desarrollo de Antofagasta: por su historia, por su infraestructura, por su presencia territorial y por su potencial para participar en conversaciones estratégicas sobre ciudad, movilidad, patrimonio, espacio público y desarrollo regional. La pregunta que atraviesa este tópico es si FCAB está ejerciendo, con suficiente decisión, el rol que distintos actores esperan de ella.</p>
+
+            <p>Uno de los elementos más persistentes es la <strong>distancia entre el peso histórico de FCAB y su presencia pública actual</strong>. Diversos actores reconocen que el ferrocarril forma parte de la estructura fundacional de Antofagasta: la ciudad se desarrolló en torno a sus líneas, su puerto, la minería y la actividad ferroviaria. Sin embargo, ese capital histórico no siempre se traduce en visibilidad contemporánea ni en liderazgo territorial.</p>
+
+            <div class="pull-quote">"Antofagasta no existe si no existe el ferrocarril."</div>
+            <div class="pull-quote">"La presencia de FCAB es casi inexistente en muchos planos."</div>
+
+            <p>El <strong>proyecto de reconversión de patios ferroviarios</strong> concentra buena parte de esta expectativa. Para los actores de este tópico, se trata de una de las transformaciones urbanas más relevantes impulsadas por FCAB en las últimas décadas, tanto por su escala como por su ubicación en el corazón de la ciudad. No obstante, el reconocimiento del proyecto convive con una crítica clara: su comunicación ha sido <strong>insuficiente frente a la magnitud de lo que está en juego</strong>. Algunos actores señalan que existe bajo conocimiento ciudadano sobre el avance, los alcances y el destino del proyecto.</p>
+
+            <p>La línea ferroviaria aparece, además, como una imagen ambivalente: es <strong>patrimonio e identidad, pero también frontera urbana</strong>. En los discursos se repite la idea de una infraestructura que cruza y divide la ciudad, deteriora ciertos bordes, acumula problemas de limpieza y marca una separación física entre sectores. Las propuestas de áreas verdes, iluminación, mejoramiento paisajístico y uso comunitario de ciertos espacios son leídas como formas concretas de transformar una infraestructura percibida como barrera en un activo para la ciudad.</p>
+
+            <p>Otro eje relevante es la <strong>baja proactividad comunicacional de FCAB</strong>. Actores vinculados a medios, academia, cultura y opinión pública señalan que la empresa suele responder cuando es convocada, pero rara vez toma la iniciativa para instalar temas, proponer conversaciones o participar de manera más visible en espacios públicos. En una ciudad donde el debate sobre desarrollo urbano, transporte, sostenibilidad y uso del suelo es cada vez más relevante, la ausencia de una voz más activa de FCAB permite que otros actores definan el marco de interpretación sobre su rol.</p>
+
+            <div class="strat-box">
+              🎯 <strong>Implicancia estratégica:</strong> La tensión central es la del <strong>liderazgo estratégico subejercido</strong>. FCAB cuenta con historia, infraestructura, suelo y legitimidad potencial. La demanda que emerge no es principalmente por recursos ni intervenciones menores, sino por presencia más decidida: liderazgo urbano, comunicación clara y capacidad de convertir su patrimonio ferroviario en contribución visible al desarrollo de la ciudad.
+            </div>
+          </div>
+        </div>
+
+        <!-- T5 -->
+        <div class="topic-card">
+          <div class="topic-card-header">
+            <div class="topic-num ax2">T5</div>
+            <h4>Sostenibilidad, gobernanza territorial y liderazgo en el Pacto Global Norte</h4>
+          </div>
+          <div class="topic-card-body">
+            <p>Este tópico aborda el posicionamiento de FCAB en el ecosistema de sostenibilidad del norte de Chile. Muestra que FCAB ha construido un activo institucional relevante, pero que su consolidación depende de una mayor coherencia entre liderazgo público, comunicación y gestión territorial cotidiana.</p>
+
+            <p>El eje central es el <strong>rol de FCAB como impulsor y líder del Consejo Norte de Pacto Global</strong>. Esta posición es reconocida por distintas organizaciones como una contribución a la creación y sustento de un espacio de gobernanza regional que reúne actores de sectores diversos. En un territorio donde la agenda de sostenibilidad suele estar dominada por la minería, este liderazgo permite a FCAB instalar una identidad propia y proyectarse como articulador de una agenda más amplia, vinculada a empresas, instituciones, organizaciones sociales y desarrollo regional.</p>
+
+            <p>Este reconocimiento aparece también en actores externos al Consejo, que identifican a Pacto Global como un nicho que FCAB ha sabido ocupar y que debería seguir potenciando. Sin embargo, se identifica que <strong>FCAB suele responder y estar presente, pero no siempre lidera, convoca o instala agenda por iniciativa propia</strong>.</p>
+
+            <p>Los hitos de sostenibilidad de FCAB —como la <strong>locomotora de hidrógeno verde</strong> o la reconversión de patios— circulan como señales positivas de modernización. No obstante, esa imagen puede tensionarse cuando los actores del territorio perciben brechas entre el discurso sostenible y la gestión cotidiana. Las críticas apuntan a la necesidad de que la sostenibilidad no se exprese solo en proyectos emblemáticos, sino también en prácticas visibles como <strong>limpieza de franjas, manejo de residuos, mejoramiento del entorno, comunicación clara de proyectos y mayor conexión con las comunidades</strong> próximas a la operación.</p>
+
+            <div class="strat-box">
+              🎯 <strong>Implicancia estratégica:</strong> El riesgo más amplio es que el liderazgo institucional no logre traducirse en credibilidad territorial si no se conecta con acciones concretas. FCAB podría ampliar su participación en mesas temáticas del Pacto Global y formalizar colaboraciones interempresariales en torno a infraestructura compartida, residuos, agua, proveedores locales y desarrollo urbano. La tensión central es la de un activo que existe y es valorado, pero que requiere <strong>mayor iniciativa, comunicación y coherencia operacional</strong> para consolidarse como liderazgo territorial creíble.
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ── EJE 3: TERRITORIOS PERIFÉRICOS Y CLIENTES INDUSTRIALES ── -->
+      <section class="section" id="sec-eje3">
+
+        <div class="axis-header ax3">
+          <div class="axis-icon">🏭</div>
+          <div class="axis-title-wrap">
+            <h3>Eje 3 · Territorios periféricos y clientes industriales</h3>
+            <div class="axis-sub">Tópicos T6 y T7 — Comunas alejadas del eje central, sector minero y logístico</div>
+          </div>
+        </div>
+
+        <!-- T6 -->
+        <div class="topic-card">
+          <div class="topic-card-header">
+            <div class="topic-num ax3">T6</div>
+            <h4>Relacionamiento en territorios distintos a Antofagasta</h4>
+          </div>
+          <div class="topic-card-body">
+            <p>Este tópico reúne a actores ubicados fuera del eje urbano central de Antofagasta. Su rasgo común es una <strong>distancia relacional marcada</strong>: la empresa está físicamente presente en estos territorios, pero en muchos casos no aparece como un interlocutor activo, cercano o reconocible para los actores locales.</p>
+
+            <p>La principal paradoja del tópico es la <strong>presencia sin relación</strong>. El tren pasa, la infraestructura existe y los rieles estructuran parte importante del paisaje local, pero varios actores declaran no tener vínculos formales ni canales de comunicación con FCAB. En Sierra Gorda, algunas organizaciones vecinales señalan que históricamente no ha existido diálogo con la empresa; en Ollagüe, se identifican solicitudes y propuestas que no han logrado traducirse en respuestas favorables. Esta ausencia instala una forma de <strong>indiferencia relacional</strong>: FCAB es parte del territorio, pero no siempre parte de la conversación territorial.</p>
+
+            <p>Lo anterior resulta especialmente relevante porque estos territorios poseen una fuerte <strong>identidad ferroviaria</strong>. Baquedano y Sierra Gorda tienen una memoria local profundamente vinculada al ferrocarril, sus estaciones, sus líneas y su historia productiva. Ese capital identitario no necesita ser creado por FCAB; ya existe. Sin embargo, aparece como un activo poco activado desde la estrategia de relacionamiento.</p>
+
+            <p>El tópico también muestra que las acciones puntuales, cuando no tienen continuidad, pueden quedar debilitadas. El caso del <strong>vagón patrimonial en Baquedano</strong> ilustra esta tensión: la entrega o concesión de un activo con valor simbólico fue leída positivamente, pero la falta de seguimiento posterior terminó reduciendo su impacto. De manera más crítica, el recuerdo de incidentes no cerrados —como el <strong>descarrilamiento con derrame de ácido</strong> mencionado en Baquedano— evidencia que los compromisos incumplidos o las respuestas inconclusas pueden permanecer durante años en la memoria local, especialmente en comunidades pequeñas donde los hitos se transmiten oralmente.</p>
+
+            <p>Al mismo tiempo, varios actores de estos territorios muestran alta disposición al diálogo y cuentan con iniciativas concretas que podrían involucrar a FCAB; sin embargo, surge como problema la <strong>ausencia de canales claros</strong> para transformar esa disposición en colaboración efectiva.</p>
+
+            <div class="strat-box">
+              🎯 <strong>Implicancia estratégica:</strong> FCAB es una empresa fundacional pero relacionalmente distante en estos territorios. La oportunidad estratégica consiste en activar una relación más estable con actores locales, recuperar el patrimonio ferroviario como puente de vinculación y <strong>cerrar adecuadamente los compromisos o incidentes que permanecen abiertos</strong> en la memoria comunitaria.
+            </div>
+          </div>
+        </div>
+
+        <!-- T7 -->
+        <div class="topic-card">
+          <div class="topic-card-header">
+            <div class="topic-num ax3">T7</div>
+            <h4>FCAB como actor logístico-industrial</h4>
+          </div>
+          <div class="topic-card-body">
+            <p>Este tópico reúne a actores con una vinculación operacional directa con FCAB, principalmente desde el mundo industrial, portuario y logístico. A diferencia de los tópicos comunitarios, aquí la relación no se evalúa desde la cercanía barrial o la confianza cotidiana, sino desde la <strong>eficiencia del servicio, la coordinación entre empresas y la capacidad de resolver problemas</strong>.</p>
+
+            <p>El vínculo con empresas portuarias muestra una relación funcional que ha mejorado con el tiempo. Los conflictos operacionales del pasado han dado paso a una coordinación más colaborativa, especialmente a través de <strong>mesas tripartitas</strong> entre FCAB, el puerto y clientes compartidos. Sin embargo, persiste una diferencia entre los equipos operativos locales, percibidos como colaborativos, y las áreas comerciales centrales, vistas como más defensivas frente a los clientes.</p>
+
+            <p>Uno de los hallazgos más importantes del tópico es la <strong>percepción de baja visibilidad institucional de FCAB</strong> dentro del ecosistema industrial. Varios actores reconocen que la empresa cuenta con activos singulares —línea férrea, presencia regional, infraestructura en Mejillones, historia logística y capacidad de conectar territorios—, pero señalan que esos atributos no se traducen en una narrativa clara de valor. Parte de esta invisibilidad se asocia a que los anuncios y vocerías relevantes aparecen frecuentemente vinculados al grupo AMSA, lo que <strong>diluye la identidad específica de FCAB como empresa ferroviaria</strong>.</p>
+
+            <div class="pull-quote">"Estamos hablando de más de cien millones de toneladas desde el corredor bioceánico. ¿Cómo eso lo llevo? Con los ferrocarriles que hoy tengo no lo puedo hacer con camiones: es imposible. El actor relevante pasa a ser el ferrocarril. Pero ¿cómo lo modernizo para que opere de manera más eficiente?"</div>
+
+            <p>El tópico también identifica <strong>oportunidades logísticas no suficientemente aprovechadas</strong>. El desarrollo de carga con Bolivia y Argentina —logística agroindustrial, minerales y productos del sur andino que requieren salida al Pacífico— aparece como una oportunidad que FCAB no ha explorado con la profundidad que su infraestructura permitiría.</p>
+
+            <div class="pull-quote">"Con Bolivia, con todo el sur de Bolivia, que es una zona muy amplia, no ha habido un desarrollo mayor con respecto a incrementar esa vía de carga y salir por el Pacífico. Creo que se ha dejado estancado el desarrollo que pudiera haber tenido."</div>
+            <div class="pull-quote">"¿Cuál es la posición de FCAB frente al futuro del Puerto Antofagasta? ¿Cómo nos hacemos cargo de la carga argentina? ¿Cuál es la oferta para eso? Hay una conversación particularmente potente donde deberían tener una alta presencia."</div>
+
+            <div class="strat-box">
+              🎯 <strong>Implicancia estratégica:</strong> La tensión central es el <strong>potencial subutilizado</strong>. FCAB es reconocida como actor relevante dentro del ecosistema industrial del norte, pero esa relevancia no siempre se expresa en liderazgo logístico, presencia comunicacional o propuesta de valor diferenciada. La oportunidad está en fortalecer su rol como socio logístico, ampliar mecanismos colaborativos como las mesas tripartitas y construir una narrativa propia que visibilice su aporte a la conectividad, la industria y el desarrollo regional.
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ── HALLAZGOS PRINCIPALES ── -->
+      <section class="section" id="sec-hallazgos">
+        <h2>Hallazgos principales del análisis LDA</h2>
+        <p>A partir de los tópicos identificados, emergen <strong>siete hallazgos principales</strong> que sintetizan las brechas y oportunidades más relevantes para el relacionamiento territorial de la empresa:</p>
+
+        <div class="hallazgo-list">
+
+          <div class="hallazgo-card">
+            <div class="hallazgo-num">1</div>
+            <div class="hallazgo-body">
+              <h4>El relacionamiento de FCAB opera en dos capas con brechas de articulación</h4>
+              <p>El análisis muestra una separación clara entre el relacionamiento comunitario-barrial y el relacionamiento institucional-estratégico. En el primer nivel, FCAB aparece como una empresa presente pero con vínculos discontinuos, informales y dependientes de personas específicas. En el segundo nivel, la empresa participa en espacios de gobernanza aunque suele ser percibida con baja iniciativa propositiva. Esta doble capa deja un vacío en el nivel intermedio: la conexión entre las demandas comunitarias concretas y las decisiones estratégicas de largo plazo.</p>
+            </div>
+          </div>
+
+          <div class="hallazgo-card">
+            <div class="hallazgo-num">2</div>
+            <div class="hallazgo-body">
+              <h4>La reconversión de patios ferroviarios es el hito relacional de mayor consenso transversal</h4>
+              <p>La reconversión de patios ferroviarios aparece como el proyecto con mayor capacidad de generar expectativas positivas en distintos tipos de actores. Para algunas comunidades, representa una intervención concreta en el entorno barrial; para actores estratégicos, funciona como señal de integración urbana, modernización y apertura hacia la ciudad. Este consenso es un activo relacional relevante, pero no debe darse por garantizado. Su continuidad, la comunicación clara de avances y la capacidad de conectar el proyecto con nuevas agendas urbanas serán claves. Por su escala, la gestión debería abordarse como una oportunidad de articulación desde una lógica de Grupo AMSA y no solo de FCAB.</p>
+            </div>
+          </div>
+
+          <div class="hallazgo-card">
+            <div class="hallazgo-num">3</div>
+            <div class="hallazgo-body">
+              <h4>La seguridad y la limpieza en el corredor son el principal generador de imagen negativa a nivel comunitario</h4>
+              <p>En los tópicos de base comunitaria, las demandas más recurrentes se relacionan con condiciones físicas y de convivencia en torno a la línea férrea: basura, asentamientos irregulares, delincuencia, accidentes, falta de iluminación y déficit de áreas verdes. Aunque estas problemáticas no siempre son atribuidas exclusivamente a FCAB, la empresa es considerada responsable o corresponsable por su condición de propietaria, administradora o actor visible asociado al espacio ferroviario. Esta brecha tiene alto impacto relacional porque afecta la experiencia cotidiana de los vecinos, deteriorando la percepción comunitaria con más fuerza que otros déficits comunicacionales.</p>
+            </div>
+          </div>
+
+          <div class="hallazgo-card">
+            <div class="hallazgo-num">4</div>
+            <div class="hallazgo-body">
+              <h4>La invisibilidad institucional de FCAB es un riesgo reputacional latente</h4>
+              <p>Los discursos de actores estratégicos e industriales coinciden en que FCAB posee activos significativos —historia, infraestructura, suelo, presencia territorial y capacidad logística—, pero no los traduce suficientemente en posicionamiento público. La baja vocería propia, la sombra comunicacional del Grupo AMSA y la escasa proactividad para instalar agenda hacen que la empresa sea percibida como menos relevante de lo que efectivamente es. En un contexto regional donde se discuten temas como desarrollo urbano, integración territorial, movilidad y sostenibilidad, la ausencia de FCAB permite que otros actores definan la narrativa sobre su rol.</p>
+            </div>
+          </div>
+
+          <div class="hallazgo-card">
+            <div class="hallazgo-num">5</div>
+            <div class="hallazgo-body">
+              <h4>El rol de liderazgo en sostenibilidad es un activo frágil que requiere inversión sostenida</h4>
+              <p>El análisis evidencia que FCAB ha construido un capital relacional importante en el ecosistema de sostenibilidad del norte de Chile, particularmente a través de su liderazgo en el Consejo Norte de Pacto Global. Este rol es reconocido externamente y le permite diferenciarse en un territorio donde la sostenibilidad suele asociarse principalmente a la minería. Sin embargo, este activo requiere inversión sostenida. Si FCAB reduce su presencia o debilita su liderazgo en estos espacios, el costo reputacional podría ser relevante, precisamente porque los demás actores ya la reconocen como impulsora, referente y articuladora.</p>
+            </div>
+          </div>
+
+          <div class="hallazgo-card">
+            <div class="hallazgo-num">6</div>
+            <div class="hallazgo-body">
+              <h4>El relacionamiento con la institucionalidad pública provincial y municipal es la brecha de gobernanza más crítica</h4>
+              <p>Los tópicos vinculados a territorios intermedios muestran que la relación de FCAB con autoridades provinciales y municipios como Sierra Gorda, Ollagüe o Baquedano es débil, inexistente o mediada por terceros. Esta ausencia no necesariamente genera conflicto inmediato, pero sí limita oportunidades de coordinación en desarrollo local, gestión de riesgos, infraestructura, patrimonio y planificación territorial. El riesgo principal aparece en escenarios de crisis, permisos, negociaciones o proyectos de alto impacto: sin vínculos previos, la empresa queda con menor capital institucional para anticipar conflictos o construir acuerdos con legitimidad territorial.</p>
+            </div>
+          </div>
+
+          <div class="hallazgo-card">
+            <div class="hallazgo-num">7</div>
+            <div class="hallazgo-body">
+              <h4>La comunicación con actores comunitarios descansa sobre canales informales y personas específicas</h4>
+              <p>En los tópicos comunitarios, WhatsApp aparece como uno de los canales principales de contacto entre juntas de vecinos y FCAB. Si bien este tipo de comunicación facilita respuestas rápidas, también evidencia una relación altamente personalizada y poco institucionalizada. El vínculo suele depender de personas específicas dentro de la empresa, lo que vuelve frágil la continuidad del relacionamiento. Cuando esos referentes cambian de cargo o dejan de participar, los actores comunitarios perciben interrupciones, pérdida de seguimiento y deterioro de la relación. FCAB necesita rutas de contacto más claras, formales y conocidas, capaces de sostener el vínculo más allá de las personas que las ocupen.</p>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      <!-- ── 4. EJE 2: GOBERNANZA TERRITORIAL E INSTITUCIONAL ── -->
-      <section class="section">
-        <h2>4. Gobernanza territorial e institucional</h2>
-
-        <div class="axis-section axis-inst">
-          <div class="axis-header">
-            <div class="axis-eyebrow">Eje 2 · T3 — T4 — T5</div>
-            <div class="axis-title">Gobernanza territorial e institucional</div>
-            <div class="axis-topics">Actores estratégicos, regionales e institucionales que observan a FCAB desde una escala urbana, logística o de política territorial</div>
-          </div>
-
-          <!-- T3 -->
-          <div class="topic-block">
-            <div class="topic-meta">
-              <span class="topic-badge">T3</span>
-              <span class="topic-title">Coordinación institucional y ecosistema de actores</span>
-            </div>
-            <div class="topic-body">
-              <p>Este tópico reúne actores de perfiles diversos —corporaciones de desarrollo, organizaciones de articulación minero-regional, compañías de bomberos con historia ferroviaria y organizaciones vecinales— que se articulan principalmente por la posición que ocupan dentro del ecosistema de relacionamiento territorial. En todos los casos existe, o ha existido, algún punto de contacto con FCAB a través de espacios de coordinación colectiva: EMRA, corporaciones, mesas sectoriales, convenios institucionales.</p>
-              <p>La demanda que distingue a este tópico es una expectativa de mayor presencia propositiva de FCAB en los espacios donde se discuten y definen prioridades de desarrollo regional. Los actores reconocen la participación de FCAB en instancias estratégicas de gobernanza, pero también la perciben como insuficientemente activa: la empresa está presente en las conversaciones, pero no siempre aparece liderando propuestas ni impulsando agendas.</p>
-              <div class="pull-quote">
-                <p>"FCAB participa en círculos de conversación y trabajo, que son los espacios en los cuales se define el desarrollo de la región."</p>
-              </div>
-              <div class="pull-quote">
-                <p>"Ferrocarril tiene la sensación de que en la región es una entidad que es obsoleta y antigua."</p>
-              </div>
-              <span class="tension-tag">⚡ Tensión central: presencia reconocida en gobernanza vs. liderazgo propositivo subejercido</span>
-            </div>
-          </div>
-
-          <!-- T4 -->
-          <div class="topic-block">
-            <div class="topic-meta">
-              <span class="topic-badge">T4</span>
-              <span class="topic-title">Ciudad, desarrollo territorial y rol estratégico de FCAB</span>
-            </div>
-            <div class="topic-body">
-              <p>Este tópico reúne a actores que observan a FCAB desde una escala urbana y regional: la empresa es leída como un actor con capacidad de incidir en el desarrollo de Antofagasta por su historia, infraestructura, presencia territorial y potencial para participar en conversaciones sobre ciudad, movilidad, patrimonio y espacio público. La pregunta que atraviesa el tópico es si FCAB está ejerciendo, con suficiente decisión, el rol que distintos actores esperan de ella.</p>
-              <p>La <strong>reconversión de patios ferroviarios</strong> concentra buena parte de esta expectativa: es reconocida como una de las transformaciones urbanas más relevantes impulsadas por FCAB en las últimas décadas, tanto por su escala como por su ubicación en el corazón de la ciudad. No obstante, su comunicación ha sido insuficiente frente a la magnitud de lo que está en juego, dejando incertidumbre sobre proporciones de áreas públicas y privadas, impactos urbanos y coherencia entre discurso de integración y decisiones efectivas de diseño.</p>
-              <div class="pull-quote">
-                <p>"Antofagasta no existe si no existe el ferrocarril."</p>
-              </div>
-              <div class="pull-quote">
-                <p>"La presencia de FCAB es casi inexistente en muchos planos."</p>
-              </div>
-              <p>La línea ferroviaria aparece además como imagen ambivalente: es patrimonio e identidad, pero también frontera urbana. Las propuestas de áreas verdes, iluminación y mejoramiento paisajístico no son leídas como gestos accesorios, sino como formas de transformar una infraestructura percibida como barrera en un activo para la ciudad. La baja proactividad comunicacional permite que otros actores definan el marco de interpretación sobre el rol de FCAB.</p>
-              <span class="tension-tag">⚡ Tensión central: peso histórico y activos estratégicos vs. liderazgo urbano subejercido</span>
-            </div>
-          </div>
-
-          <!-- T5 -->
-          <div class="topic-block">
-            <div class="topic-meta">
-              <span class="topic-badge">T5</span>
-              <span class="topic-title">Sostenibilidad, gobernanza territorial y liderazgo en el Pacto Global Norte</span>
-            </div>
-            <div class="topic-body">
-              <p>Este tópico aborda el posicionamiento de FCAB en el ecosistema de sostenibilidad del norte de Chile. El eje central es el rol de FCAB como impulsor y líder del <strong>Consejo Norte de Pacto Global</strong>: una posición reconocida por distintas organizaciones como una contribución a crear y sostener un espacio de gobernanza regional que reúne actores de sectores diversos. En un territorio donde la agenda de sostenibilidad suele estar dominada por la minería, este liderazgo permite a FCAB instalar una identidad propia y proyectarse como articulador de una agenda más amplia.</p>
-              <p>Los hitos de sostenibilidad de FCAB —la locomotora de hidrógeno verde, la reconversión de patios— circulan como señales positivas de modernización. Sin embargo, esa imagen puede tensionarse cuando los actores perciben brechas entre el discurso sostenible y la gestión cotidiana: limpieza de franjas, manejo de residuos, mejoramiento del entorno y comunicación clara de proyectos.</p>
-              <p>El riesgo más relevante es que el liderazgo institucional no logre traducirse en credibilidad territorial si no se conecta con acciones concretas y continuas para los actores locales. La oportunidad estratégica está en profundizar el liderazgo existente: ampliar participación en mesas temáticas del Pacto Global y formalizar colaboraciones interempresariales en torno a infraestructura compartida, proveedores locales y desarrollo urbano.</p>
-              <span class="tension-tag">⚡ Tensión central: activo institucional valorado externamente vs. brecha entre discurso sostenible y gestión cotidiana</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── 5. EJE 3: TERRITORIOS PERIFÉRICOS E INDUSTRIALES ── -->
-      <section class="section">
-        <h2>5. Territorios periféricos y clientes industriales</h2>
-
-        <div class="axis-section axis-per">
-          <div class="axis-header">
-            <div class="axis-eyebrow">Eje 3 · T6 — T7</div>
-            <div class="axis-title">Territorios periféricos y clientes industriales</div>
-            <div class="axis-topics">Actores en comunas alejadas del eje central y actores del mundo industrial, portuario y logístico</div>
-          </div>
-
-          <!-- T6 -->
-          <div class="topic-block">
-            <div class="topic-meta">
-              <span class="topic-badge">T6</span>
-              <span class="topic-title">Relacionamiento en territorios distintos a Antofagasta</span>
-            </div>
-            <div class="topic-body">
-              <p>Este tópico reúne a actores ubicados fuera del eje urbano central: Sierra Gorda, Baquedano, Ollagüe y Mejillones. Su rasgo común es una <strong>distancia relacional marcada</strong>: la empresa está físicamente presente —el tren pasa, la infraestructura existe, los rieles estructuran parte del paisaje local— pero en muchos casos no aparece como un interlocutor activo ni reconocible para los actores locales.</p>
-              <p>La paradoja central del tópico es la <strong>presencia sin relación</strong>. Varias organizaciones vecinales de Sierra Gorda señalan que históricamente no ha existido diálogo con la empresa; en Ollagüe, solicitudes y propuestas no han logrado traducirse en respuestas favorables. Esta ausencia instala una forma de indiferencia relacional: FCAB es parte del territorio, pero no siempre parte de la conversación territorial.</p>
-              <p>Estos territorios poseen además una fuerte identidad ferroviaria. Baquedano y Sierra Gorda tienen una memoria local profundamente vinculada al ferrocarril, sus estaciones y su historia productiva. Ese capital identitario no necesita ser creado; ya existe. Sin embargo, aparece como un activo poco activado desde la estrategia de relacionamiento. El caso del vagón patrimonial en Baquedano ilustra la tensión: la entrega fue leída positivamente, pero la falta de seguimiento posterior redujo su impacto. Compromisos incumplidos —como el descarrilamiento con derrame de ácido— pueden permanecer durante años en la memoria de comunidades pequeñas donde los hitos se transmiten oralmente.</p>
-              <span class="tension-tag">⚡ Tensión central: empresa fundacional del territorio vs. relación inexistente o discontinua con actores locales</span>
-            </div>
-          </div>
-
-          <!-- T7 -->
-          <div class="topic-block">
-            <div class="topic-meta">
-              <span class="topic-badge">T7</span>
-              <span class="topic-title">FCAB como actor logístico-industrial</span>
-            </div>
-            <div class="topic-body">
-              <p>Este tópico reúne a actores con una vinculación operacional directa: empresas portuarias, clientes industriales y actores del ecosistema logístico. Aquí la relación no se evalúa desde la cercanía barrial, sino desde la eficiencia del servicio, la coordinación entre empresas y el posicionamiento de FCAB como actor industrial con identidad propia.</p>
-              <p>El vínculo con empresas portuarias muestra una relación funcional que ha mejorado con el tiempo. Las mesas tripartitas (FCAB, puerto y clientes compartidos) son valoradas porque permiten resolver problemas con foco en la continuidad del servicio y no en la atribución de responsabilidades. Sin embargo, persiste una diferencia entre los equipos operativos locales —percibidos como colaborativos— y las áreas comerciales centrales, vistas como más defensivas frente a los clientes.</p>
-              <p>Uno de los hallazgos más importantes es la <strong>baja visibilidad institucional de FCAB</strong> dentro del ecosistema industrial. Los actores reconocen que la empresa cuenta con activos singulares —línea férrea, infraestructura en Mejillones, historia logística, capacidad de conectar territorios— pero señalan que esos atributos no se traducen en una narrativa clara de valor. Parte de esta invisibilidad se asocia a que los anuncios y vocerías relevantes aparecen frecuentemente vinculados al Grupo AMSA, diluyendo la identidad específica de FCAB como empresa ferroviaria.</p>
-              <div class="pull-quote">
-                <p>"Estamos hablando de más de cien millones de toneladas desde el corredor bioceánico. ¿Cómo eso lo llevo? Con los ferrocarriles que hoy tengo no lo puedo hacer con camiones: es imposible. El actor relevante pasa a ser el ferrocarril."</p>
-              </div>
-              <div class="pull-quote">
-                <p>"Con Bolivia, con todo el sur de Bolivia, que es una zona muy amplia, no ha habido un desarrollo mayor con respecto a incrementar esa vía de carga y salir por el Pacífico. Creo que se ha dejado estancado el desarrollo que pudiera haber tenido."</p>
-              </div>
-              <span class="tension-tag">⚡ Tensión central: potencial logístico reconocido vs. narrativa de valor propia poco visible</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── 6. HALLAZGOS PRINCIPALES ───────────────────────── -->
-      <section class="section">
-        <h2>6. Hallazgos principales</h2>
-        <p>A partir de los tópicos identificados, emergen siete hallazgos que sintetizan las brechas y oportunidades más relevantes para el relacionamiento territorial de FCAB.</p>
-
-        <div class="finding">
-          <div class="finding-label">Hallazgo 1 — Dos capas de relacionamiento con brecha de articulación</div>
-          <p>El análisis muestra una separación clara entre el relacionamiento comunitario-barrial y el relacionamiento institucional-estratégico. En el primer nivel, FCAB aparece con vínculos discontinuos, informales y dependientes de personas específicas. En el segundo, participa en espacios de gobernanza con baja iniciativa propositiva. Esta doble capa deja un vacío en el nivel intermedio: la conexión entre las demandas comunitarias concretas y las decisiones estratégicas de largo plazo.</p>
-        </div>
-
-        <div class="finding">
-          <div class="finding-label">Hallazgo 2 — Reconversión de patios: hito con mayor consenso transversal</div>
-          <p>La reconversión de patios ferroviarios aparece como el proyecto con mayor capacidad de generar expectativas positivas en distintos tipos de actores: para algunas comunidades representa una intervención concreta en el entorno barrial; para actores estratégicos, funciona como señal de integración urbana y modernización. No obstante, su comunicación ha sido insuficiente frente a la magnitud del proyecto. Por la escala y naturaleza de la iniciativa, su gestión debería abordarse desde una lógica de Grupo AMSA y no solo de FCAB.</p>
-        </div>
-
-        <div class="finding">
-          <div class="finding-label">Hallazgo 3 — Seguridad y limpieza en el corredor: principal fuente de imagen negativa comunitaria</div>
-          <p>Las demandas más recurrentes en los tópicos comunitarios se relacionan con condiciones físicas y de convivencia: basura, asentamientos irregulares, delincuencia, accidentes, falta de iluminación y déficit de áreas verdes. Aunque estas problemáticas no siempre se atribuyen exclusivamente a FCAB, la empresa es considerada responsable o corresponsable por ser propietaria o administradora visible del espacio ferroviario. La inacción en seguridad y limpieza deteriora la percepción comunitaria con más fuerza que otros déficits comunicacionales.</p>
-        </div>
-
-        <div class="finding">
-          <div class="finding-label">Hallazgo 4 — Invisibilidad institucional como riesgo reputacional latente</div>
-          <p>Los discursos de actores estratégicos e industriales coinciden en que FCAB posee activos significativos —historia, infraestructura, suelo, presencia territorial y capacidad logística— pero no los traduce suficientemente en posicionamiento público. La baja vocería propia, la sombra comunicacional del Grupo AMSA y la escasa proactividad para instalar agenda hacen que la empresa sea percibida como menos relevante de lo que efectivamente es. En un contexto donde se discuten desarrollo urbano, movilidad, sostenibilidad y logística, la ausencia permite que otros actores definan la narrativa sobre su rol.</p>
-        </div>
-
-        <div class="finding">
-          <div class="finding-label">Hallazgo 5 — Liderazgo en sostenibilidad: activo frágil que requiere inversión sostenida</div>
-          <p>FCAB ha construido un capital relacional importante en el ecosistema de sostenibilidad del norte, particularmente a través del Consejo Norte de Pacto Global. Este rol es reconocido externamente y le permite diferenciarse en un territorio donde la sostenibilidad suele asociarse principalmente a la minería. Sin embargo, el activo requiere inversión sostenida: si FCAB reduce su presencia o debilita su liderazgo, el costo reputacional puede ser relevante, precisamente porque los demás actores ya la reconocen como impulsora y articuladora.</p>
-        </div>
-
-        <div class="finding">
-          <div class="finding-label">Hallazgo 6 — Brecha de gobernanza con municipios e institucionalidad pública local</div>
-          <p>La relación de FCAB con autoridades provinciales y municipios como Sierra Gorda, Ollagüe o Baquedano es débil, inexistente o mediada por terceros. Esta ausencia no necesariamente genera conflicto inmediato, pero limita oportunidades de coordinación en desarrollo local, gestión de riesgos, infraestructura y planificación territorial. El riesgo principal aparece en escenarios de crisis o proyectos de alto impacto: sin vínculos previos con autoridades públicas locales, la empresa queda con menor capital institucional para anticipar conflictos y gestionar contingencias con legitimidad territorial.</p>
-        </div>
-
-        <div class="finding">
-          <div class="finding-label">Hallazgo 7 — Canales informales como única vía de contacto comunitario</div>
-          <p>WhatsApp con personas específicas de FCAB es el canal principal de contacto entre juntas de vecinos y la empresa. Si bien facilita respuestas rápidas, evidencia una relación altamente personalizada y poco institucionalizada. El vínculo depende de personas específicas dentro de la empresa: cuando esos referentes cambian de cargo, los actores comunitarios perciben interrupciones, pérdida de seguimiento y deterioro de la relación. FCAB necesita rutas de contacto más claras, formales y conocidas, capaces de sostener el vínculo más allá de las personas que lo encarnen.</p>
-        </div>
-      </section>
-
-      <!-- ════════════════════════════════════════════════════════
-           PARTE II — PREVALENCIA DE TEMAS
-           ════════════════════════════════════════════════════════ -->
-      <div class="part-divider">
-        <span class="part-eyebrow">Parte II</span>
-        <span class="part-name">Prevalencia de Temas</span>
-      </div>
-
-      <!-- ── 7. DISEÑO DEL ANÁLISIS ─────────────────────────── -->
-      <section class="section">
-        <h2>7. Diseño del análisis</h2>
-        <p>De manera complementaria al modelamiento LDA, se realizó un análisis de prevalencia de temas espontáneos sobre el mismo corpus de entrevistas. A diferencia del LDA —que identifica patrones latentes de asociación entre términos—, este análisis permite observar la <strong>aparición explícita de temas levantados de forma libre por los entrevistados</strong>. Su valor radica no solo en cuantificar menciones, sino en mostrar qué asuntos se instalan con mayor fuerza en la conversación territorial, con independencia de las categorías definidas en la pauta.</p>
-
-        <div class="corpus-grid">
-          <div class="corpus-card">
-            <span class="num">73</span>
-            <span class="lbl">Entrevistas analizadas</span>
-          </div>
-          <div class="corpus-card">
-            <span class="num">~298K</span>
-            <span class="lbl">Palabras en el corpus</span>
-          </div>
-          <div class="corpus-card">
-            <span class="num">2.344</span>
-            <span class="lbl">Citas codificadas</span>
-          </div>
-          <div class="corpus-card">
-            <span class="num">16</span>
-            <span class="lbl">Temas prevalentes identificados</span>
-          </div>
-        </div>
-
-        <h3>Proceso de depuración y clasificación</h3>
-        <p>Para asegurar la validez del conteo, se aplicaron tres controles de calidad antes de clasificar los temas:</p>
-
-        <div class="limit-list" style="border:1px solid var(--border); border-radius:var(--r); overflow:hidden; margin:16px 0;">
-          <div style="display:flex; gap:16px; align-items:flex-start; padding:14px 20px; border-bottom:1px solid var(--border); background:var(--surface-1);">
-            <div style="font-size:12px; font-weight:700; color:var(--text-3); width:20px; flex-shrink:0; padding-top:2px;">01</div>
-            <div><div style="font-size:13.5px; font-weight:600; color:var(--text-1); margin-bottom:3px;">Control de contaminación del instrumento</div><div style="font-size:13px; color:var(--text-2); line-height:1.6;">La pauta incluía una lista de temas leída a los entrevistados (como patrimonio o sustentabilidad), lo que podía inflar artificialmente la frecuencia de ciertas palabras. Se identificaron y separaron estos casos.</div></div>
-          </div>
-          <div style="display:flex; gap:16px; align-items:flex-start; padding:14px 20px; border-bottom:1px solid var(--border); background:var(--surface-1);">
-            <div style="font-size:12px; font-weight:700; color:var(--text-3); width:20px; flex-shrink:0; padding-top:2px;">02</div>
-            <div><div style="font-size:13.5px; font-weight:600; color:var(--text-1); margin-bottom:3px;">Depuración de palabras genéricas</div><div style="font-size:13px; color:var(--text-2); line-height:1.6;">Términos como seguridad, imagen o comunicación fueron filtrados mediante ventanas contextuales: solo se contabilizaron menciones asociadas efectivamente a FCAB o al entorno ferroviario.</div></div>
-          </div>
-          <div style="display:flex; gap:16px; align-items:flex-start; padding:14px 20px; background:var(--surface-1);">
-            <div style="font-size:12px; font-weight:700; color:var(--text-3); width:20px; flex-shrink:0; padding-top:2px;">03</div>
-            <div><div style="font-size:13.5px; font-weight:600; color:var(--text-1); margin-bottom:3px;">Tratamiento de palabras ambiguas</div><div style="font-size:13px; color:var(--text-2); line-height:1.6;">Términos como patio, metro o campamento se contabilizaron solo cuando el contexto confirmaba su relación con el tema analizado. Se distinguió entre palabras clave unívocas y ambiguas.</div></div>
-          </div>
-        </div>
-
-        <div class="legend">
-          <div class="legend-item"><span class="orig-badge orig-puro">Espontáneo puro</span> Surge sin pregunta directa, en relatos libres o digresiones</div>
-          <div class="legend-item"><span class="orig-badge orig-esp">Espontáneo</span> Aparece de forma libre, aunque alguna pregunta pueda rozarlo</div>
-          <div class="legend-item"><span class="orig-badge orig-mix">Mixto</span> La pauta contiene preguntas que pueden inducirlo — interpretar con cautela</div>
-        </div>
-      </section>
-
-      <!-- ── 8. TEMAS PREVALENTES ───────────────────────────── -->
-      <section class="section">
-        <h2>8. Temas prevalentes</h2>
-        <p>La siguiente tabla presenta los 16 temas identificados, ordenados por número de menciones totales en el corpus. Las barras son proporcionales al máximo (231 menciones).</p>
-
-        <div class="rank-list">
-          <!-- Header -->
-          <div class="rank-row" style="background:var(--surface-2); pointer-events:none;">
-            <div class="rank-num" style="font-size:10px; color:var(--text-3);">#</div>
-            <div class="rank-tema" style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-3);">Tema</div>
-            <div class="rank-actores" style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-3);">Act.</div>
-            <div class="rank-bar-col" style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-3);">Menciones</div>
-            <div class="rank-orig" style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-3);">Origen</div>
-          </div>
-
-          <div class="rank-row">
-            <div class="rank-num">1</div>
-            <div class="rank-tema">Basura, suciedad y limpieza en el corredor ferroviario</div>
-            <div class="rank-actores">40<span>actores</span></div>
-            <div class="rank-bar-col"><div class="rank-bar-wrap"><div class="rank-bar" style="width:100%"></div></div><div class="rank-bar-num">231</div></div>
-            <div class="rank-orig"><span class="orig-badge orig-puro">Esp. puro</span></div>
-          </div>
-
-          <div class="rank-row">
-            <div class="rank-num">2</div>
-            <div class="rank-tema">Reconversión y recuperación de patios ferroviarios</div>
-            <div class="rank-actores">25<span>actores</span></div>
-            <div class="rank-bar-col"><div class="rank-bar-wrap"><div class="rank-bar" style="width:69.7%"></div></div><div class="rank-bar-num">161</div></div>
-            <div class="rank-orig"><span class="orig-badge orig-esp">Espontáneo</span></div>
-          </div>
-
-          <div class="rank-row">
-            <div class="rank-num">3</div>
-            <div class="rank-tema">Patrimonio histórico e identidad ferroviaria</div>
-            <div class="rank-actores">37<span>actores</span></div>
-            <div class="rank-bar-col"><div class="rank-bar-wrap"><div class="rank-bar" style="width:69.3%"></div></div><div class="rank-bar-num">160</div></div>
-            <div class="rank-orig"><span class="orig-badge orig-mix">Mixto</span></div>
-          </div>
-
-          <div class="rank-row">
-            <div class="rank-num">4</div>
-            <div class="rank-tema">WhatsApp como canal informal dominante de comunicación</div>
-            <div class="rank-actores">33<span>actores</span></div>
-            <div class="rank-bar-col"><div class="rank-bar-wrap"><div class="rank-bar" style="width:55.8%"></div></div><div class="rank-bar-num">129</div></div>
-            <div class="rank-orig"><span class="orig-badge orig-mix">Mixto</span></div>
-          </div>
-
-          <div class="rank-row">
-            <div class="rank-num">5</div>
-            <div class="rank-tema">Pacto Global, sostenibilidad y ODS</div>
-            <div class="rank-actores">31<span>actores</span></div>
-            <div class="rank-bar-col"><div class="rank-bar-wrap"><div class="rank-bar" style="width:39.8%"></div></div><div class="rank-bar-num">92</div></div>
-            <div class="rank-orig"><span class="orig-badge orig-mix">Mixto</span></div>
-          </div>
-
-          <div class="rank-row">
-            <div class="rank-num">6</div>
-            <div class="rank-tema">Déficit de áreas verdes, plazas y espacios comunitarios</div>
-            <div class="rank-actores">23<span>actores</span></div>
-            <div class="rank-bar-col"><div class="rank-bar-wrap"><div class="rank-bar" style="width:38.1%"></div></div><div class="rank-bar-num">88</div></div>
-            <div class="rank-orig"><span class="orig-badge orig-puro">Esp. puro</span></div>
-          </div>
-
-          <div class="rank-row">
-            <div class="rank-num">7</div>
-            <div class="rank-tema">Asentamientos irregulares, rucos y personas en situación de calle</div>
-            <div class="rank-actores">15<span>actores</span></div>
-            <div class="rank-bar-col"><div class="rank-bar-wrap"><div class="rank-bar" style="width:29.4%"></div></div><div class="rank-bar-num">68</div></div>
-            <div class="rank-orig"><span class="orig-badge orig-puro">Esp. puro</span></div>
-          </div>
-
-          <div class="rank-row">
-            <div class="rank-num">8</div>
-            <div class="rank-tema">Seguridad, delincuencia y delitos en el entorno</div>
-            <div class="rank-actores">28<span>actores</span></div>
-            <div class="rank-bar-col"><div class="rank-bar-wrap"><div class="rank-bar" style="width:29.0%"></div></div><div class="rank-bar-num">67</div></div>
-            <div class="rank-orig"><span class="orig-badge orig-puro">Esp. puro</span></div>
-          </div>
-
-          <div class="rank-row">
-            <div class="rank-num">9</div>
-            <div class="rank-tema">Tren urbano, metro y transporte ferroviario de pasajeros</div>
-            <div class="rank-actores">14<span>actores</span></div>
-            <div class="rank-bar-col"><div class="rank-bar-wrap"><div class="rank-bar" style="width:18.6%"></div></div><div class="rank-bar-num">43</div></div>
-            <div class="rank-orig"><span class="orig-badge orig-puro">Esp. puro</span></div>
-          </div>
-
-          <div class="rank-row">
-            <div class="rank-num">10</div>
-            <div class="rank-tema">Hidrógeno verde e innovación tecnológica</div>
-            <div class="rank-actores">18<span>actores</span></div>
-            <div class="rank-bar-col"><div class="rank-bar-wrap"><div class="rank-bar" style="width:16.5%"></div></div><div class="rank-bar-num">38</div></div>
-            <div class="rank-orig"><span class="orig-badge orig-puro">Esp. puro</span></div>
-          </div>
-
-          <div class="rank-row">
-            <div class="rank-num">11</div>
-            <div class="rank-tema">Visibilidad pública, comunicación e imagen institucional de FCAB</div>
-            <div class="rank-actores">15<span>actores</span></div>
-            <div class="rank-bar-col"><div class="rank-bar-wrap"><div class="rank-bar" style="width:14.7%"></div></div><div class="rank-bar-num">34</div></div>
-            <div class="rank-orig"><span class="orig-badge orig-esp">Espontáneo</span></div>
-          </div>
-
-          <div class="rank-row">
-            <div class="rank-num">12</div>
-            <div class="rank-tema">Ruido y vibración operacional del tren</div>
-            <div class="rank-actores">17<span>actores</span></div>
-            <div class="rank-bar-col"><div class="rank-bar-wrap"><div class="rank-bar" style="width:12.6%"></div></div><div class="rank-bar-num">29</div></div>
-            <div class="rank-orig"><span class="orig-badge orig-puro">Esp. puro</span></div>
-          </div>
-
-          <div class="rank-row">
-            <div class="rank-num">13</div>
-            <div class="rank-tema">Compromisos incumplidos y obras sin terminar</div>
-            <div class="rank-actores">14<span>actores</span></div>
-            <div class="rank-bar-col"><div class="rank-bar-wrap"><div class="rank-bar" style="width:12.1%"></div></div><div class="rank-bar-num">28</div></div>
-            <div class="rank-orig"><span class="orig-badge orig-esp">Espontáneo</span></div>
-          </div>
-
-          <div class="rank-row">
-            <div class="rank-num">14</div>
-            <div class="rank-tema">PROLOA y Cluster Minero como espacios de articulación territorial</div>
-            <div class="rank-actores">5<span>actores</span></div>
-            <div class="rank-bar-col"><div class="rank-bar-wrap"><div class="rank-bar" style="width:10.0%"></div></div><div class="rank-bar-num">23</div></div>
-            <div class="rank-orig"><span class="orig-badge orig-puro">Esp. puro</span></div>
-          </div>
-
-          <div class="rank-row">
-            <div class="rank-num">15</div>
-            <div class="rank-tema">Drogas y microtráfico en el entorno de la línea</div>
-            <div class="rank-actores">6<span>actores</span></div>
-            <div class="rank-bar-col"><div class="rank-bar-wrap"><div class="rank-bar" style="width:9.1%"></div></div><div class="rank-bar-num">21</div></div>
-            <div class="rank-orig"><span class="orig-badge orig-puro">Esp. puro</span></div>
-          </div>
-
-          <div class="rank-row">
-            <div class="rank-num">16</div>
-            <div class="rank-tema">Accidentabilidad y riesgos en cruces ferroviarios</div>
-            <div class="rank-actores">10<span>actores</span></div>
-            <div class="rank-bar-col"><div class="rank-bar-wrap"><div class="rank-bar" style="width:6.5%"></div></div><div class="rank-bar-num">15</div></div>
-            <div class="rank-orig"><span class="orig-badge orig-puro">Esp. puro</span></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── NAVEGACIÓN ──────────────────────────────────────── -->
+      <!-- CHAPTER NAV -->
   </div>
   <div class="chapter-divider"></div>
 
