@@ -11,7 +11,7 @@ CHAPS = [
     ("01", "Introducción",                      "capitulo-01.html"),
     ("02", "Metodología",                       "capitulo-02.html"),
     ("03", "Análisis Descriptivo",              "capitulo-08.html"),
-    ("04", "Análisis Temático LDA",             "capitulo-04.html"),
+    ("04", "Análisis LDA",                       "capitulo-04.html"),
     ("05", "Temas Prevalentes",                 "capitulo-05.html"),
     ("06", "Ecosistema de Actores",             "capitulo-06.html"),
     ("07", "Red de Coordinación",               "capitulo-07.html"),
