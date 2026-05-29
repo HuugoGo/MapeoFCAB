@@ -1,0 +1,707 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cap. 03B &mdash; Influencia Territorial Percibida | Estudio FCAB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+
+    /* ── Breadcrumb sub-cap ── */
+    .subcap-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .78rem;
+      color: var(--text-3);
+      margin-bottom: 6px;
+    }
+    .subcap-breadcrumb a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .subcap-breadcrumb a:hover { text-decoration: underline; }
+    .subcap-breadcrumb .sep { opacity: .4; }
+
+    /* ── Variable intro card ── */
+    .var-intro-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin: 28px 0;
+    }
+    .var-intro-accent {
+      width: 6px;
+      background: linear-gradient(180deg, var(--accent) 0%, #7c3aed 100%);
+    }
+    .var-intro-body {
+      padding: 22px 26px;
+    }
+    .var-intro-label {
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .var-intro-body p {
+      font-size: .9rem;
+      color: var(--text-2);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .var-stat-row {
+      display: flex;
+      gap: 24px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .var-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .var-stat-num {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .var-stat-label {
+      font-size: .7rem;
+      color: var(--text-3);
+      white-space: nowrap;
+    }
+
+    /* ── Distribución de frecuencias ── */
+    .dist-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 26px 0;
+    }
+    .dist-card {
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 20px 16px;
+      text-align: center;
+      background: var(--card);
+      position: relative;
+      overflow: hidden;
+    }
+    .dist-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .dist-card.muy-alta::before { background: #10b981; }
+    .dist-card.alta::before     { background: var(--accent); }
+    .dist-card.media::before    { background: #f59e0b; }
+    .dist-card.baja::before     { background: #ef4444; }
+    .dist-pct {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .dist-card.muy-alta .dist-pct { color: #10b981; }
+    .dist-card.alta     .dist-pct { color: var(--accent); }
+    .dist-card.media    .dist-pct { color: #f59e0b; }
+    .dist-card.baja     .dist-pct { color: #ef4444; }
+    .dist-rango {
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--text-2);
+      margin-bottom: 4px;
+    }
+    .dist-label {
+      font-size: .72rem;
+      color: var(--text-3);
+      line-height: 1.3;
+    }
+    .dist-bar-wrap {
+      margin-top: 12px;
+      height: 6px;
+      background: var(--surface-2);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .dist-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+    .dist-card.muy-alta .dist-bar-fill { background: #10b981; }
+    .dist-card.alta     .dist-bar-fill { background: var(--accent); }
+    .dist-card.media    .dist-bar-fill { background: #f59e0b; }
+    .dist-card.baja     .dist-bar-fill { background: #ef4444; }
+
+    /* ── Iframe embed ── */
+    .viz-embed {
+      margin: 28px 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .viz-embed-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: .82rem;
+      color: var(--text-3);
+    }
+    .viz-embed-header .veh-icon { font-size: 1rem; }
+    .viz-embed-header strong { color: var(--text-2); }
+    .viz-embed iframe {
+      display: block;
+      width: 100%;
+      height: 480px;
+      border: none;
+    }
+    .viz-embed iframe.tall { height: 560px; }
+
+    /* ── Tarjetas por tipo de actor ── */
+    .actor-type-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin: 26px 0;
+    }
+    .actor-type-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .atc-score-wrap {
+      flex-shrink: 0;
+      text-align: center;
+    }
+    .atc-score {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .atc-max {
+      font-size: .68rem;
+      color: var(--text-3);
+    }
+    .atc-body {}
+    .atc-label {
+      font-size: .86rem;
+      font-weight: 600;
+      color: var(--text-1);
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+    .atc-note {
+      font-size: .76rem;
+      color: var(--text-3);
+      line-height: 1.45;
+    }
+    .atc-bar-wrap {
+      margin-top: 8px;
+      height: 4px;
+      background: var(--surface-2);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .atc-bar-fill { height: 100%; border-radius: 2px; }
+    .atc-above .atc-score  { color: var(--accent); }
+    .atc-above .atc-bar-fill { background: var(--accent); }
+    .atc-below .atc-score  { color: #f59e0b; }
+    .atc-below .atc-bar-fill { background: #f59e0b; }
+
+    /* ── Bullet insight ── */
+    .insight-list {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .insight-list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: .87rem;
+      color: var(--text-2);
+      line-height: 1.6;
+    }
+    .insight-list li .il-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── Tarjetas de territorio ── */
+    .territory-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 26px 0;
+    }
+    .terr-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 16px;
+      text-align: center;
+      position: relative;
+    }
+    .terr-card.leader { border-color: rgba(16,185,129,.4); background: rgba(16,185,129,.04); }
+    .terr-card.low    { border-color: rgba(245,158,11,.35); background: rgba(245,158,11,.04); }
+    .terr-name {
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--text-1);
+      margin-bottom: 10px;
+    }
+    .terr-score {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .terr-card.leader .terr-score { color: #10b981; }
+    .terr-card.low    .terr-score { color: #f59e0b; }
+    .terr-card:not(.leader):not(.low) .terr-score { color: var(--accent); }
+    .terr-max { font-size: .68rem; color: var(--text-3); }
+    .terr-chip {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: .65rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+    .terr-card.leader .terr-chip { background: rgba(16,185,129,.12); color: #10b981; }
+    .terr-card.low    .terr-chip { background: rgba(245,158,11,.12); color: #d97706; }
+    .terr-card:not(.leader):not(.low) .terr-chip { background: rgba(37,99,235,.08); color: var(--accent); }
+    .terr-bar-wrap { margin-top: 10px; height: 4px; background: var(--surface-2); border-radius: 2px; overflow: hidden; }
+    .terr-bar-fill { height: 100%; border-radius: 2px; }
+    .terr-card.leader .terr-bar-fill { background: #10b981; }
+    .terr-card.low    .terr-bar-fill { background: #f59e0b; }
+    .terr-card:not(.leader):not(.low) .terr-bar-fill { background: var(--accent); }
+
+    /* ── Cuadro de síntesis ── */
+    .synthesis-box {
+      background: linear-gradient(135deg, rgba(37,99,235,.06) 0%, rgba(124,58,237,.06) 100%);
+      border: 1px solid rgba(37,99,235,.2);
+      border-radius: 14px;
+      padding: 26px 28px;
+      margin: 32px 0;
+    }
+    .synthesis-box-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .synthesis-box-icon { font-size: 1.3rem; }
+    .synthesis-box-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-1);
+    }
+    .synthesis-box p {
+      font-size: .88rem;
+      color: var(--text-2);
+      line-height: 1.7;
+      margin: 0 0 10px;
+    }
+    .synthesis-box p:last-child { margin: 0; }
+
+    /* ── Info note ── */
+    .info-note {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: rgba(37,99,235,.05);
+      border: 1px solid rgba(37,99,235,.15);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin: 22px 0;
+      font-size: .84rem;
+      color: var(--text-2);
+      line-height: 1.55;
+    }
+    .info-note .in-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+    @media (max-width: 700px) {
+      .dist-grid      { grid-template-columns: repeat(2, 1fr); }
+      .actor-type-grid { grid-template-columns: 1fr; }
+      .territory-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <button class="header-toggle" id="sidebar-toggle" aria-label="Abrir menu">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <a href="../index.html" class="header-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Indice
+    </a>
+    <span class="header-sep"></span>
+    <span class="header-chapter">Cap. 03 &mdash; Influencia Territorial Percibida</span>
+    <div class="header-right">
+      <img src="../assets/img/logo-fcab.jpg" alt="FCAB" class="header-logo">
+      <span class="header-sep"></span>
+      <img src="../assets/img/logo-dos-barbas.png" alt="Dos Barbas" class="header-logo">
+    </div>
+  </header>
+
+  <!-- SIDEBAR (generado por navigation.js) -->
+  <nav class="sidebar" id="sidebar" aria-label="Navegacion del capitulo"></nav>
+
+  <!-- CONTENT -->
+  <main class="chapter-main">
+    <div class="chapter-content">
+
+      <!-- CHAPTER HEADER -->
+      <header class="chapter-header">
+        <div class="subcap-breadcrumb">
+          <a href="capitulo-08.html">Cap. 03 &mdash; Analisis Descriptivo de Datos</a>
+          <span class="sep">/</span>
+          <span>Sub-capitulo B</span>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-num-label">Cap. 03 &middot; Sub-capitulo B</span>
+          <span class="badge badge-borrador">Borrador</span>
+        </div>
+        <h1>Influencia Territorial Percibida</h1>
+        <p class="chapter-lead">Nivel de influencia que los actores del ecosistema atribuyen a FCAB sobre su territorio: distribucion global, segmentacion por tipo de actor y analisis por zona geografica.</p>
+      </header>
+
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <!-- SECCIÓN 1: DESCRIPCIÓN DE LA VARIABLE -->
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <section class="section" id="sec-overview">
+        <h2>1. Descripcion de la variable</h2>
+
+        <div class="var-intro-card">
+          <div class="var-intro-accent"></div>
+          <div class="var-intro-body">
+            <div class="var-intro-label">&#128205; Variable relacional</div>
+            <p>Esta variable evalua el nivel de influencia que el actor atribuye a FCAB sobre su territorio. Mide el reconocimiento de FCAB como actor con capacidad de incidencia territorial, independientemente del tipo o calidad de la relacion que el actor mantenga con la empresa.</p>
+            <div class="var-stat-row">
+              <div class="var-stat">
+                <div class="var-stat-num">5,0</div>
+                <div class="var-stat-label">Promedio general</div>
+              </div>
+              <div class="var-stat">
+                <div class="var-stat-num">1,54</div>
+                <div class="var-stat-label">Desviacion estandar</div>
+              </div>
+              <div class="var-stat">
+                <div class="var-stat-num">72</div>
+                <div class="var-stat-label">N validos</div>
+              </div>
+              <div class="var-stat">
+                <div class="var-stat-num">1 &ndash; 7</div>
+                <div class="var-stat-label">Rango de escala</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <!-- SECCIÓN 2: DISTRIBUCIÓN GLOBAL 1-7 -->
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <section class="section" id="sec-distribucion">
+        <h2>2. Distribucion de frecuencias (escala 1&ndash;7)</h2>
+
+        <p>El 58% de los actores evalua la influencia de FCAB en el territorio en el rango 5&ndash;6 (alta), y el 21% en 7 (muy alta). En conjunto, <strong>el 79% de los actores reconoce una influencia alta o muy alta</strong> de FCAB en el territorio. Solo el 5% la califica como baja (1&ndash;2).</p>
+
+        <!-- Distribución en 4 tarjetas -->
+        <div class="dist-grid">
+          <div class="dist-card muy-alta">
+            <div class="dist-pct">21%</div>
+            <div class="dist-rango">Puntuacion 7</div>
+            <div class="dist-label">Muy alta</div>
+            <div class="dist-bar-wrap"><div class="dist-bar-fill" style="width:21%"></div></div>
+          </div>
+          <div class="dist-card alta">
+            <div class="dist-pct">58%</div>
+            <div class="dist-rango">Puntuacion 5&ndash;6</div>
+            <div class="dist-label">Alta</div>
+            <div class="dist-bar-wrap"><div class="dist-bar-fill" style="width:58%"></div></div>
+          </div>
+          <div class="dist-card media">
+            <div class="dist-pct">16%</div>
+            <div class="dist-rango">Puntuacion 3&ndash;4</div>
+            <div class="dist-label">Media</div>
+            <div class="dist-bar-wrap"><div class="dist-bar-fill" style="width:16%"></div></div>
+          </div>
+          <div class="dist-card baja">
+            <div class="dist-pct">5%</div>
+            <div class="dist-rango">Puntuacion 1&ndash;2</div>
+            <div class="dist-label">Baja</div>
+            <div class="dist-bar-wrap"><div class="dist-bar-fill" style="width:5%"></div></div>
+          </div>
+        </div>
+
+        <!-- Visualizacion interactiva -->
+        <div class="viz-embed">
+          <div class="viz-embed-header">
+            <span class="veh-icon">&#128202;</span>
+            <strong>Distribucion de frecuencias &middot; Influencia territorial percibida (escala 1&ndash;7)</strong>
+            <span style="margin-left:auto;font-size:.75rem">Interactivo</span>
+          </div>
+          <iframe src="../../influencia_fcab_territorio_segmentacion_1_7.html"
+                  title="Distribucion de frecuencias influencia territorial FCAB"
+                  loading="lazy"></iframe>
+        </div>
+
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <!-- SECCIÓN 3: POR TIPO DE ACTOR -->
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <section class="section" id="sec-actores">
+        <h2>3. Analisis por tipo de actor</h2>
+
+        <p>Al desagregar la variable por tipo de actor, el <strong>sector productivo, clientes y gremios</strong> lidera con 5,12, seguido de la <strong>sociedad civil, academia y medios</strong> con 5,09. Son los actores con mayor conocimiento del funcionamiento economico regional &mdash;no necesariamente los mas cercanos a FCAB&mdash; quienes reconocen con mayor claridad su peso territorial.</p>
+
+        <!-- Tarjetas de promedio por tipo -->
+        <div class="actor-type-grid">
+          <div class="actor-type-card atc-above">
+            <div class="atc-score-wrap">
+              <div class="atc-score">5,12</div>
+              <div class="atc-max">de 7</div>
+              <div class="atc-bar-wrap" style="width:56px"><div class="atc-bar-fill" style="width:73.1%"></div></div>
+            </div>
+            <div class="atc-body">
+              <div class="atc-label">&#127970; Sector productivo, clientes y gremios</div>
+              <div class="atc-note">Reconocen a FCAB como actor estructural en la economia regional. El reconocimiento es claro aunque no derive en una relacion satisfactoria.</div>
+            </div>
+          </div>
+
+          <div class="actor-type-card atc-above">
+            <div class="atc-score-wrap">
+              <div class="atc-score">5,09</div>
+              <div class="atc-max">de 7</div>
+              <div class="atc-bar-wrap" style="width:56px"><div class="atc-bar-fill" style="width:72.7%"></div></div>
+            </div>
+            <div class="atc-body">
+              <div class="atc-label">&#127979; Sociedad civil, academia y medios</div>
+              <div class="atc-note">Los gremios industriales y organizaciones academicas comprenden el rol de FCAB como actor estructural de la region.</div>
+            </div>
+          </div>
+
+          <div class="actor-type-card atc-below">
+            <div class="atc-score-wrap">
+              <div class="atc-score">4,93</div>
+              <div class="atc-max">de 7</div>
+              <div class="atc-bar-wrap" style="width:56px"><div class="atc-bar-fill" style="width:70.4%"></div></div>
+            </div>
+            <div class="atc-body">
+              <div class="atc-label">&#127968; Comunidad y organizacion social</div>
+              <div class="atc-note">La influencia percibida es concreta pero acotada a aspectos fisicos: ruido, faja, cruces. No se extiende a un rol de desarrollo territorial amplio.</div>
+            </div>
+          </div>
+
+          <div class="actor-type-card atc-below">
+            <div class="atc-score-wrap">
+              <div class="atc-score">4,61</div>
+              <div class="atc-max">de 7</div>
+              <div class="atc-bar-wrap" style="width:56px"><div class="atc-bar-fill" style="width:65.9%"></div></div>
+            </div>
+            <div class="atc-body">
+              <div class="atc-label">&#127963; Autoridades</div>
+              <div class="atc-note">Distinguen entre la influencia economica de FCAB &mdash;que reconocen como alta&mdash; y su influencia en el desarrollo comunitario local.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Insights cualitativos -->
+        <ul class="insight-list">
+          <li>
+            <span class="il-icon">&#128269;</span>
+            <span>El liderazgo del sector productivo y gremios <strong>no refleja mayor cercania a FCAB</strong>, sino mayor comprension de su peso economico estructural en la region.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#127968;</span>
+            <span>Para muchas juntas de vecinos (JJVV), la influencia de FCAB es <strong>concreta pero acotada a aspectos fisicos</strong>: ruido, faja de via, cruces, y no a un rol de desarrollo territorial mas amplio.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#127963;</span>
+            <span>Las autoridades realizan una distincion deliberada entre la <strong>influencia economica</strong> de FCAB &mdash;que reconocen como alta&mdash; y su <strong>influencia en el desarrollo comunitario local</strong>, que califican como menor.</span>
+          </li>
+        </ul>
+
+        <!-- Visualizacion por tipo de actor -->
+        <div class="viz-embed">
+          <div class="viz-embed-header">
+            <span class="veh-icon">&#128200;</span>
+            <strong>Promedio por categoria de actor &middot; Influencia territorial percibida (escala 1&ndash;7)</strong>
+            <span style="margin-left:auto;font-size:.75rem">Interactivo</span>
+          </div>
+          <iframe src="../../influencia_fcab_territorio_promedio_categoria_1_7.html"
+                  title="Promedio por categoria actor influencia territorial FCAB"
+                  loading="lazy"></iframe>
+        </div>
+
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <!-- SECCIÓN 4: POR TERRITORIO -->
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <section class="section" id="sec-territorio">
+        <h2>4. Analisis por territorio</h2>
+
+        <p>Desde una perspectiva territorial, <strong>Mejillones (5,7) y Calama (5,67)</strong> lideran en percepcion de influencia, aunque por razones distintas. En el extremo opuesto, <strong>Sierra Gorda (4,33)</strong> registra el valor mas bajo pese a que la linea ferroviaria atraviesa fisicamente la comuna.</p>
+
+        <!-- Tarjetas de territorio -->
+        <div class="territory-grid">
+          <div class="terr-card leader">
+            <div class="terr-name">&#127757; Mejillones</div>
+            <div class="terr-score">5,7</div>
+            <div class="terr-max">de 7</div>
+            <div class="terr-bar-wrap"><div class="terr-bar-fill" style="width:81.4%"></div></div>
+            <div class="terr-chip">Maximo</div>
+          </div>
+          <div class="terr-card leader">
+            <div class="terr-name">&#9935; Calama</div>
+            <div class="terr-score">5,67</div>
+            <div class="terr-max">de 7</div>
+            <div class="terr-bar-wrap"><div class="terr-bar-fill" style="width:81%"></div></div>
+            <div class="terr-chip">Lider</div>
+          </div>
+          <div class="terr-card">
+            <div class="terr-name">&#127961; Antofagasta</div>
+            <div class="terr-score">4,76</div>
+            <div class="terr-max">de 7</div>
+            <div class="terr-bar-wrap"><div class="terr-bar-fill" style="width:68%"></div></div>
+            <div class="terr-chip">Heterogeneo</div>
+          </div>
+          <div class="terr-card low">
+            <div class="terr-name">&#128739; Sierra Gorda</div>
+            <div class="terr-score">4,33</div>
+            <div class="terr-max">de 7</div>
+            <div class="terr-bar-wrap"><div class="terr-bar-fill" style="width:61.9%"></div></div>
+            <div class="terr-chip">Minimo</div>
+          </div>
+        </div>
+
+        <!-- Insights por territorio -->
+        <ul class="insight-list">
+          <li>
+            <span class="il-icon">&#9935;</span>
+            <span><strong>Calama (5,67):</strong> la influencia de FCAB se asocia a una historia de presencia economica e identitaria de largo plazo, vinculada a la mineria y al transporte de carga.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#127757;</span>
+            <span><strong>Mejillones (5,7):</strong> el puerto y la industria del combustible generan la percepcion de que el ferrocarril es un eslabon central de la cadena logistica local, elevando su influencia percibida.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#128739;</span>
+            <span><strong>Sierra Gorda (4,33):</strong> los actores reconocen la existencia del ferrocarril en su territorio, pero <em>no lo describen como un actor que incide en sus decisiones comunitarias, en su desarrollo local ni en sus oportunidades</em>. La influencia se percibe como de paso &mdash;literal y figuradamente&mdash; antes que como anclada al territorio.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#127961;</span>
+            <span><strong>Antofagasta (4,76):</strong> conviven actores con percepciones de influencia muy alta &mdash;especialmente los que tienen contacto directo con la linea, los patios o la infraestructura portuaria&mdash; con actores de barrios donde el ferrocarril es fisicamente cercano pero cuya presencia en la vida institucional local se percibe como reducida.</span>
+          </li>
+        </ul>
+
+        <!-- Visualizacion mapa territorial -->
+        <div class="viz-embed">
+          <div class="viz-embed-header">
+            <span class="veh-icon">&#128205;</span>
+            <strong>Distribucion territorial &middot; Influencia percibida por zona geografica</strong>
+            <span style="margin-left:auto;font-size:.75rem">Interactivo</span>
+          </div>
+          <iframe src="../../1. influencia terrritorio mapa.html"
+                  title="Mapa territorial de influencia percibida FCAB"
+                  loading="lazy"
+                  class="tall"></iframe>
+        </div>
+
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <!-- SECCIÓN 5: DIAGNÓSTICO CONVERGENTE -->
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <section class="section" id="sec-diagnostico">
+        <h2>5. Diagnostico convergente</h2>
+
+        <p>Los tres graficos &mdash;distribucion global, promedio por tipo de actor y mapa territorial&mdash; convergen en un diagnostico comun.</p>
+
+        <div class="synthesis-box">
+          <div class="synthesis-box-header">
+            <span class="synthesis-box-icon">&#128270;</span>
+            <span class="synthesis-box-title">Diagnostico estrategico &mdash; Influencia territorial percibida</span>
+          </div>
+          <p>FCAB es reconocido como un actor con presencia e influencia en el territorio regional, pero esa influencia es percibida como <strong>economico-operacional mas que como territorial-comunitaria</strong>.</p>
+          <p>La mayoria de los actores situa la influencia en el rango alto (5&ndash;6), pero pocos llegan al nivel maximo, lo que sugiere que el reconocimiento del peso de FCAB <strong>no alcanza a configurar una percepcion de agencia real sobre el desarrollo de las comunidades</strong>.</p>
+        </div>
+
+        <ul class="insight-list">
+          <li>
+            <span class="il-icon">&#9989;</span>
+            <span>El <strong>79% de los actores</strong> atribuye una influencia alta o muy alta a FCAB, lo que representa un activo reputacional significativo.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#9888;</span>
+            <span>La brecha entre <strong>reconocimiento economico</strong> e <strong>influencia comunitaria percibida</strong> es el principal punto de tension: FCAB es visto como actor de infraestructura, no como actor de desarrollo local.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#128205;</span>
+            <span>El caso de Sierra Gorda ilustra que <strong>la presencia fisica del ferrocarril no garantiza percepcion de influencia</strong>: el tren puede atravesar un territorio sin que sus actores lo perciban como un agente que incide en su realidad comunitaria.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#128269;</span>
+            <span>Antofagasta, como capital regional, presenta la mayor <strong>heterogeneidad interna</strong>, con actores institucionales que reconocen alta influencia junto a actores barriales que la perciben como distante.</span>
+          </li>
+        </ul>
+
+        <div class="info-note">
+          <span class="in-icon">&#128196;</span>
+          <span>Este sub-capitulo corresponde a la variable <em>Influencia territorial percibida de FCAB</em> del analisis descriptivo multivariable. Para el contexto completo de los estadisticos y la estrategia analitica integrada, ver <a href="capitulo-08.html">Cap. 03 &mdash; Analisis Descriptivo de Datos</a>.</span>
+        </div>
+
+      </section>
+
+      <!-- CHAPTER NAV -->
+      <nav class="chapter-nav">
+        <a class="nav-btn nav-prev" href="capitulo-08.html">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          Cap.03 Analisis Descriptivo
+        </a>
+        <a class="nav-btn nav-center" href="../index.html">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 9 12 2 21 9"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Indice
+        </a>
+        <a class="nav-btn nav-next" href="capitulo-04.html">
+          Cap.04 Analisis LDA
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>
