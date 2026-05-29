@@ -1,0 +1,494 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cap. 03D &mdash; Expectativa de Consideracion | Estudio FCAB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    .subcap-breadcrumb { display:flex; align-items:center; gap:6px; font-size:.78rem; color:var(--text-3); margin-bottom:6px; }
+    .subcap-breadcrumb a { color:var(--accent); text-decoration:none; }
+    .subcap-breadcrumb a:hover { text-decoration:underline; }
+    .subcap-breadcrumb .sep { opacity:.4; }
+
+    /* ── Var intro card ── */
+    .var-intro-card { display:grid; grid-template-columns:auto 1fr; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; margin:28px 0; }
+    .var-intro-accent { width:6px; background:linear-gradient(180deg,#10b981 0%,#2563eb 100%); }
+    .var-intro-body { padding:22px 26px; }
+    .var-intro-label { font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:#10b981; margin-bottom:8px; }
+    .var-intro-body p { font-size:.9rem; color:var(--text-2); line-height:1.6; margin:0; }
+    .var-stat-row { display:flex; gap:24px; margin-top:16px; flex-wrap:wrap; }
+    .var-stat { display:flex; flex-direction:column; gap:2px; }
+    .var-stat-num { font-size:1.5rem; font-weight:700; color:#10b981; line-height:1; }
+    .var-stat-label { font-size:.7rem; color:var(--text-3); white-space:nowrap; }
+
+    /* ── Banner "la más favorable" ── */
+    .best-banner {
+      display:flex; align-items:center; gap:16px;
+      background:linear-gradient(135deg,rgba(16,185,129,.08) 0%,rgba(37,99,235,.08) 100%);
+      border:1px solid rgba(16,185,129,.3); border-radius:12px;
+      padding:18px 22px; margin:22px 0;
+    }
+    .best-banner-icon { font-size:2rem; flex-shrink:0; }
+    .best-banner-body { font-size:.87rem; color:var(--text-2); line-height:1.6; }
+    .best-banner-body strong { color:var(--text-1); }
+
+    /* ── Distribución ── */
+    .dist-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:26px 0; }
+    .dist-card { border-radius:12px; border:1px solid var(--border); padding:20px 16px; text-align:center; background:var(--card); position:relative; overflow:hidden; }
+    .dist-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+    .dist-card.d-max::before  { background:#10b981; }
+    .dist-card.d-alta::before { background:var(--accent); }
+    .dist-card.d-med::before  { background:#f59e0b; }
+    .dist-card.d-baja::before { background:#ef4444; }
+    .dist-pct { font-size:2rem; font-weight:700; line-height:1; margin-bottom:4px; }
+    .dist-card.d-max  .dist-pct { color:#10b981; }
+    .dist-card.d-alta .dist-pct { color:var(--accent); }
+    .dist-card.d-med  .dist-pct { color:#f59e0b; }
+    .dist-card.d-baja .dist-pct { color:#ef4444; }
+    .dist-rango { font-size:.78rem; font-weight:600; color:var(--text-2); margin-bottom:4px; }
+    .dist-label { font-size:.72rem; color:var(--text-3); line-height:1.3; }
+    .dist-bar-wrap { margin-top:12px; height:6px; background:var(--surface-2); border-radius:3px; overflow:hidden; }
+    .dist-bar-fill { height:100%; border-radius:3px; }
+    .dist-card.d-max  .dist-bar-fill { background:#10b981; }
+    .dist-card.d-alta .dist-bar-fill { background:var(--accent); }
+    .dist-card.d-med  .dist-bar-fill { background:#f59e0b; }
+    .dist-card.d-baja .dist-bar-fill { background:#ef4444; }
+
+    /* ── Zona positiva acumulada ── */
+    .zona-positiva {
+      display:flex; align-items:center; gap:0;
+      border:1px solid rgba(16,185,129,.3); border-radius:12px;
+      overflow:hidden; margin:20px 0; font-size:.84rem;
+    }
+    .zp-label {
+      padding:14px 20px; background:rgba(16,185,129,.08);
+      color:#10b981; font-weight:700; font-size:.78rem;
+      text-transform:uppercase; letter-spacing:.06em;
+      flex-shrink:0; border-right:1px solid rgba(16,185,129,.2);
+    }
+    .zp-content { padding:14px 20px; color:var(--text-2); line-height:1.5; }
+    .zp-content strong { color:var(--text-1); }
+    .zp-pct { font-size:2rem; font-weight:700; color:#10b981; margin-right:8px; }
+
+    /* ── Iframe ── */
+    .viz-embed { margin:28px 0; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+    .viz-embed-header { display:flex; align-items:center; gap:10px; padding:13px 20px; border-bottom:1px solid var(--border); font-size:.82rem; color:var(--text-3); }
+    .viz-embed-header .veh-icon { font-size:1rem; }
+    .viz-embed-header strong { color:var(--text-2); }
+    .viz-embed iframe { display:block; width:100%; height:480px; border:none; }
+    .viz-embed iframe.tall { height:560px; }
+
+    /* ── Grid actor tipo ── */
+    .actor-type-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin:26px 0; }
+    .actor-type-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 20px; display:flex; align-items:flex-start; gap:16px; }
+    .atc-score-wrap { flex-shrink:0; text-align:center; min-width:56px; }
+    .atc-score { font-size:2rem; font-weight:700; line-height:1; }
+    .atc-max { font-size:.68rem; color:var(--text-3); }
+    .atc-bar-wrap { margin-top:8px; height:4px; background:var(--surface-2); border-radius:2px; overflow:hidden; }
+    .atc-bar-fill { height:100%; border-radius:2px; }
+    .atc-label { font-size:.86rem; font-weight:600; color:var(--text-1); margin-bottom:4px; line-height:1.3; }
+    .atc-note { font-size:.76rem; color:var(--text-3); line-height:1.45; }
+    .atc-top  .atc-score { color:#10b981; } .atc-top  .atc-bar-fill { background:#10b981; }
+    .atc-high .atc-score { color:var(--accent); } .atc-high .atc-bar-fill { background:var(--accent); }
+    .atc-mid  .atc-score { color:#f59e0b; } .atc-mid  .atc-bar-fill { background:#f59e0b; }
+    .atc-low  .atc-score { color:#ef4444; } .atc-low  .atc-bar-fill { background:#ef4444; }
+
+    /* ── Callout resignacion ── */
+    .resignation-callout {
+      display:flex; gap:14px; align-items:flex-start;
+      background:rgba(245,158,11,.06); border:1px solid rgba(245,158,11,.25);
+      border-radius:12px; padding:18px 22px; margin:20px 0;
+    }
+    .resignation-callout .rc-icon { font-size:1.4rem; flex-shrink:0; }
+    .resignation-callout .rc-body { font-size:.85rem; color:var(--text-2); line-height:1.65; }
+    .resignation-callout .rc-body strong { color:#d97706; }
+    .resignation-callout .rc-title { font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#d97706; margin-bottom:6px; }
+
+    /* ── Logica cards (2 razones del liderazgo) ── */
+    .logica-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:20px 0; }
+    .logica-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 20px; }
+    .logica-card-header { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+    .logica-card-icon { font-size:1.3rem; }
+    .logica-card-title { font-size:.85rem; font-weight:700; color:var(--text-1); }
+    .logica-card p { font-size:.82rem; color:var(--text-2); line-height:1.6; margin:0; }
+
+    /* ── Territorio ── */
+    .territory-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:26px 0; }
+    .terr-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 16px; text-align:center; }
+    .terr-card.leader  { border-color:rgba(16,185,129,.4); background:rgba(16,185,129,.04); }
+    .terr-card.danger  { border-color:rgba(239,68,68,.35); background:rgba(239,68,68,.04); }
+    .terr-name { font-size:.8rem; font-weight:600; color:var(--text-1); margin-bottom:10px; }
+    .terr-score { font-size:2rem; font-weight:700; line-height:1; margin-bottom:4px; }
+    .terr-card.leader .terr-score { color:#10b981; }
+    .terr-card.danger .terr-score { color:#ef4444; }
+    .terr-card:not(.leader):not(.danger) .terr-score { color:var(--accent); }
+    .terr-max { font-size:.68rem; color:var(--text-3); }
+    .terr-bar-wrap { margin-top:10px; height:4px; background:var(--surface-2); border-radius:2px; overflow:hidden; }
+    .terr-bar-fill { height:100%; border-radius:2px; }
+    .terr-card.leader .terr-bar-fill { background:#10b981; }
+    .terr-card.danger .terr-bar-fill { background:#ef4444; }
+    .terr-card:not(.leader):not(.danger) .terr-bar-fill { background:var(--accent); }
+    .terr-chip { display:inline-block; margin-top:10px; font-size:.65rem; font-weight:600; padding:2px 8px; border-radius:20px; }
+    .terr-card.leader .terr-chip { background:rgba(16,185,129,.12); color:#10b981; }
+    .terr-card.danger .terr-chip { background:rgba(239,68,68,.1); color:#dc2626; }
+    .terr-card:not(.leader):not(.danger) .terr-chip { background:rgba(37,99,235,.08); color:var(--accent); }
+
+    /* ── Insight list ── */
+    .insight-list { list-style:none; padding:0; margin:20px 0; display:flex; flex-direction:column; gap:10px; }
+    .insight-list li { display:flex; gap:12px; align-items:flex-start; font-size:.87rem; color:var(--text-2); line-height:1.6; }
+    .insight-list li .il-icon { font-size:1rem; flex-shrink:0; margin-top:1px; }
+
+    /* ── Callout resignacion territorial ── */
+    .terr-callout {
+      background:rgba(239,68,68,.05); border:1px solid rgba(239,68,68,.2);
+      border-radius:12px; padding:18px 22px; margin:22px 0;
+      font-size:.86rem; color:var(--text-2); line-height:1.65;
+    }
+    .terr-callout strong { color:#dc2626; }
+
+    /* ── Synthesis box ── */
+    .synthesis-box { background:linear-gradient(135deg,rgba(16,185,129,.06) 0%,rgba(37,99,235,.06) 100%); border:1px solid rgba(16,185,129,.2); border-radius:14px; padding:26px 28px; margin:32px 0; }
+    .synthesis-box-header { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+    .synthesis-box-icon { font-size:1.3rem; }
+    .synthesis-box-title { font-size:1rem; font-weight:700; color:var(--text-1); }
+    .synthesis-box p { font-size:.88rem; color:var(--text-2); line-height:1.7; margin:0 0 10px; }
+    .synthesis-box p:last-child { margin:0; }
+
+    /* ── Info note ── */
+    .info-note { display:flex; gap:12px; align-items:flex-start; background:rgba(37,99,235,.05); border:1px solid rgba(37,99,235,.15); border-radius:10px; padding:14px 18px; margin:22px 0; font-size:.84rem; color:var(--text-2); line-height:1.55; }
+    .info-note .in-icon { font-size:1.1rem; flex-shrink:0; margin-top:1px; }
+
+    @media(max-width:700px) {
+      .dist-grid{grid-template-columns:repeat(2,1fr);}
+      .actor-type-grid{grid-template-columns:1fr;}
+      .territory-grid{grid-template-columns:repeat(2,1fr);}
+      .logica-grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <button class="header-toggle" id="sidebar-toggle" aria-label="Abrir menu">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <a href="../index.html" class="header-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Indice
+    </a>
+    <span class="header-sep"></span>
+    <span class="header-chapter">Cap. 03 &mdash; Expectativa de Consideracion</span>
+    <div class="header-right">
+      <img src="../assets/img/logo-fcab.jpg" alt="FCAB" class="header-logo">
+      <span class="header-sep"></span>
+      <img src="../assets/img/logo-dos-barbas.png" alt="Dos Barbas" class="header-logo">
+    </div>
+  </header>
+  <nav class="sidebar" id="sidebar" aria-label="Navegacion del capitulo"></nav>
+  <main class="chapter-main">
+    <div class="chapter-content">
+      <header class="chapter-header">
+        <div class="subcap-breadcrumb">
+          <a href="capitulo-08.html">Cap. 03 &mdash; Analisis Descriptivo de Datos</a>
+          <span class="sep">/</span>
+          <span>Sub-capitulo D</span>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-num-label">Cap. 03 &middot; Sub-capitulo D</span>
+          <span class="badge badge-borrador">Borrador</span>
+        </div>
+        <h1>Expectativa de Consideracion</h1>
+        <p class="chapter-lead">Que tan esperable o legitimo considera el actor que FCAB tome en cuenta su opinion en decisiones que afectan el territorio: la variable con la distribucion mas favorable de todo el analisis descriptivo.</p>
+      </header>
+      <!-- SEC 1 -->
+      <section class="section" id="sec-overview">
+        <h2>1. Descripcion de la variable</h2>
+        <div class="var-intro-card">
+          <div class="var-intro-accent"></div>
+          <div class="var-intro-body">
+            <div class="var-intro-label">&#127919; Variable relacional</div>
+            <p>Esta variable mide que tan esperable o legitimo considera el actor que FCAB tome en cuenta su opinion en decisiones que afectan el territorio. No evalua si FCAB escucha o no, sino la <strong>expectativa previa</strong> de que esa consideracion sea un derecho o una practica esperable.</p>
+            <div class="var-stat-row">
+              <div class="var-stat"><div class="var-stat-num">5,3</div><div class="var-stat-label">Promedio general</div></div>
+              <div class="var-stat"><div class="var-stat-num">1,75</div><div class="var-stat-label">Desviacion estandar</div></div>
+              <div class="var-stat"><div class="var-stat-num">3,05</div><div class="var-stat-label">Varianza</div></div>
+              <div class="var-stat"><div class="var-stat-num">71</div><div class="var-stat-label">N validos</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEC 2 -->
+      <section class="section" id="sec-distribucion">
+        <h2>2. Distribucion de frecuencias (escala 1&ndash;7)</h2>
+
+        <div class="best-banner">
+          <span class="best-banner-icon">&#127942;</span>
+          <div class="best-banner-body">
+            El grafico de segmentacion revela la <strong>distribucion mas favorable de las cuatro variables analizadas</strong>: el 43% otorga nota maxima (7) y el 32% se ubica en el rango alto (5&ndash;6). Solo el 8% evalua esta expectativa como baja (1&ndash;2), el porcentaje mas reducido de todas las variables.
+          </div>
+        </div>
+
+        <div class="dist-grid">
+          <div class="dist-card d-max">
+            <div class="dist-pct">43%</div>
+            <div class="dist-rango">Puntuacion 7</div>
+            <div class="dist-label">Muy alta</div>
+            <div class="dist-bar-wrap"><div class="dist-bar-fill" style="width:43%"></div></div>
+          </div>
+          <div class="dist-card d-alta">
+            <div class="dist-pct">32%</div>
+            <div class="dist-rango">Puntuacion 5&ndash;6</div>
+            <div class="dist-label">Alta</div>
+            <div class="dist-bar-wrap"><div class="dist-bar-fill" style="width:32%"></div></div>
+          </div>
+          <div class="dist-card d-med">
+            <div class="dist-pct">17%</div>
+            <div class="dist-rango">Puntuacion 3&ndash;4</div>
+            <div class="dist-label">Media</div>
+            <div class="dist-bar-wrap"><div class="dist-bar-fill" style="width:17%"></div></div>
+          </div>
+          <div class="dist-card d-baja">
+            <div class="dist-pct">8%</div>
+            <div class="dist-rango">Puntuacion 1&ndash;2</div>
+            <div class="dist-label">Baja &mdash; minimo del estudio</div>
+            <div class="dist-bar-wrap"><div class="dist-bar-fill" style="width:8%"></div></div>
+          </div>
+        </div>
+
+        <!-- Zona positiva acumulada -->
+        <div class="zona-positiva">
+          <div class="zp-label">Zona positiva</div>
+          <div class="zp-content">
+            <span class="zp-pct">75%</span>
+            de los actores se concentra en los rangos 5&ndash;7, la proporcion mas alta de todas las variables del analisis descriptivo.
+          </div>
+        </div>
+
+        <div class="viz-embed">
+          <div class="viz-embed-header">
+            <span class="veh-icon">&#128202;</span>
+            <strong>Distribucion de frecuencias &middot; Expectativa de consideracion (escala 1&ndash;7)</strong>
+            <span style="margin-left:auto;font-size:.75rem">Interactivo</span>
+          </div>
+          <iframe src="../../expectativa_escucha_fcab_segmentacion_1_7.html" title="Distribucion expectativa de consideracion FCAB" loading="lazy"></iframe>
+        </div>
+      </section>
+
+      <!-- SEC 3 -->
+      <section class="section" id="sec-actores">
+        <h2>3. Analisis por tipo de actor</h2>
+        <p>Al desagregar por categoria de actor, el <strong>sector productivo (5,61)</strong> y la <strong>sociedad civil, academia y medios (5,58)</strong> lideran, mientras que las <strong>autoridades quedan ultimas (5,13)</strong> pese a tener el rol normativo mas directo sobre la empresa.</p>
+
+        <div class="actor-type-grid">
+          <div class="actor-type-card atc-top">
+            <div class="atc-score-wrap">
+              <div class="atc-score">5,61</div>
+              <div class="atc-max">de 7</div>
+              <div class="atc-bar-wrap"><div class="atc-bar-fill" style="width:80.1%"></div></div>
+            </div>
+            <div class="atc-body">
+              <div class="atc-label">&#127970; Sector productivo, clientes y gremios</div>
+              <div class="atc-note">Opera con la logica de quien reconoce la interdependencia: si las decisiones de FCAB los afectan directamente en terminos operacionales, la expectativa de ser considerados en esas decisiones es alta y se percibe como estructuralmente logica.</div>
+            </div>
+          </div>
+          <div class="actor-type-card atc-high">
+            <div class="atc-score-wrap">
+              <div class="atc-score">5,58</div>
+              <div class="atc-max">de 7</div>
+              <div class="atc-bar-wrap"><div class="atc-bar-fill" style="width:79.7%"></div></div>
+            </div>
+            <div class="atc-body">
+              <div class="atc-label">&#127979; Sociedad civil, academia y medios</div>
+              <div class="atc-note">Fundan esta expectativa en la logica del rol publico de FCAB: la empresa con infraestructura en el territorio genera, a su juicio, una obligacion de transparencia y consulta que no depende de si existe una relacion previa.</div>
+            </div>
+          </div>
+          <div class="actor-type-card atc-mid">
+            <div class="atc-score-wrap">
+              <div class="atc-score">5,13</div>
+              <div class="atc-max">de 7</div>
+              <div class="atc-bar-wrap"><div class="atc-bar-fill" style="width:73.3%"></div></div>
+            </div>
+            <div class="atc-body">
+              <div class="atc-label">&#127968; Comunidad y organizacion social</div>
+              <div class="atc-note">Expectativa moderada-alta, ligada a la presencia fisica de FCAB en el barrio y la percepcion de que la empresa deberia rendir cuentas ante quienes conviven con su infraestructura.</div>
+            </div>
+          </div>
+          <div class="actor-type-card atc-low">
+            <div class="atc-score-wrap">
+              <div class="atc-score">5,13</div>
+              <div class="atc-max">de 7</div>
+              <div class="atc-bar-wrap"><div class="atc-bar-fill" style="width:73.3%"></div></div>
+            </div>
+            <div class="atc-body">
+              <div class="atc-label">&#127963; Autoridades y sector publico</div>
+              <div class="atc-note">Pese a tener el rol normativo mas directo sobre la empresa, registran la menor expectativa del grupo. No por desinteres, sino por ajuste a una experiencia historica de no participacion.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Callout resignación aprendida -->
+        <div class="resignation-callout">
+          <span class="rc-icon">&#128565;</span>
+          <div class="rc-body">
+            <div class="rc-title">Hallazgo: resignacion aprendida en autoridades</div>
+            El resultado de las autoridades merece atencion especial. Que sean el grupo con <strong>menor expectativa de consideracion no significa desinteres</strong>: las transcripciones muestran que varios representantes del sector publico distinguen entre lo que seria deseable y lo que es realista dado el caracter privado de la empresa. Algunos actores <strong>normalizan la exclusion</strong> con expresiones que dan cuenta de una resignacion aprendida: reconocen que FCAB opera con logica empresarial y que sus terrenos y decisiones son propios, lo que rebaja la expectativa de consulta a niveles que no reflejan preferencia sino <strong>ajuste a una experiencia historica de no participacion</strong>.
+          </div>
+        </div>
+
+        <!-- Dos lógicas del liderazgo -->
+        <p>El liderazgo conjunto del sector productivo y la sociedad civil responde a dos logicas radicalmente distintas:</p>
+        <div class="logica-grid">
+          <div class="logica-card">
+            <div class="logica-card-header">
+              <span class="logica-card-icon">&#9939;</span>
+              <div class="logica-card-title">Logica de la interdependencia &mdash; Sector productivo</div>
+            </div>
+            <p>El sector productivo lidera no porque tenga una relacion mas satisfactoria con FCAB, sino porque opera con la logica de quien reconoce la interdependencia: si las decisiones de FCAB los afectan directamente en terminos operacionales, la expectativa de ser considerados en esas decisiones es alta y se percibe como <strong>estructuralmente logica</strong>.</p>
+          </div>
+          <div class="logica-card">
+            <div class="logica-card-header">
+              <span class="logica-card-icon">&#9878;&#65039;</span>
+              <div class="logica-card-title">Logica de la obligacion publica &mdash; Sociedad civil</div>
+            </div>
+            <p>La sociedad civil y los medios fundan esta expectativa en una dinamica distinta: el <strong>rol publico de FCAB</strong> como empresa con infraestructura en el territorio genera, a su juicio, una obligacion de transparencia y consulta que <strong>no depende de si existe una relacion previa</strong>.</p>
+          </div>
+        </div>
+
+        <div class="viz-embed">
+          <div class="viz-embed-header">
+            <span class="veh-icon">&#128200;</span>
+            <strong>Promedio por categoria de actor &middot; Expectativa de consideracion (escala 1&ndash;7)</strong>
+            <span style="margin-left:auto;font-size:.75rem">Interactivo</span>
+          </div>
+          <iframe src="../../expectativa_escucha_fcab_promedio_categoria_1_7.html" title="Promedio por categoria expectativa consideracion FCAB" loading="lazy"></iframe>
+        </div>
+      </section>
+
+      <!-- SEC 4 -->
+      <section class="section" id="sec-territorio">
+        <h2>4. Analisis por territorio</h2>
+        <p>Desde el punto de vista territorial, <strong>Antofagasta (5,54)</strong> lidera, seguido de Mejillones (5,33) y Calama (5,17), mientras que <strong>Sierra Gorda (3,78)</strong> presenta el valor mas bajo con diferencia.</p>
+
+        <div class="territory-grid">
+          <div class="terr-card leader">
+            <div class="terr-name">&#127961; Antofagasta</div>
+            <div class="terr-score">5,54</div>
+            <div class="terr-max">de 7</div>
+            <div class="terr-bar-wrap"><div class="terr-bar-fill" style="width:79.1%"></div></div>
+            <div class="terr-chip">Maximo</div>
+          </div>
+          <div class="terr-card">
+            <div class="terr-name">&#127757; Mejillones</div>
+            <div class="terr-score">5,33</div>
+            <div class="terr-max">de 7</div>
+            <div class="terr-bar-wrap"><div class="terr-bar-fill" style="width:76.1%"></div></div>
+            <div class="terr-chip">Alto</div>
+          </div>
+          <div class="terr-card">
+            <div class="terr-name">&#9935; Calama</div>
+            <div class="terr-score">5,17</div>
+            <div class="terr-max">de 7</div>
+            <div class="terr-bar-wrap"><div class="terr-bar-fill" style="width:73.9%"></div></div>
+            <div class="terr-chip">Alto</div>
+          </div>
+          <div class="terr-card danger">
+            <div class="terr-name">&#128739; Sierra Gorda</div>
+            <div class="terr-score">3,78</div>
+            <div class="terr-max">de 7</div>
+            <div class="terr-bar-wrap"><div class="terr-bar-fill" style="width:54%"></div></div>
+            <div class="terr-chip">Minimo</div>
+          </div>
+        </div>
+
+        <ul class="insight-list">
+          <li>
+            <span class="il-icon">&#127961;</span>
+            <span><strong>Antofagasta (5,54) encabeza</strong> esta variable: la densidad institucional de la capital regional genera actores con mayor conciencia y claridad sobre lo que esperan de una empresa con la presencia territorial de FCAB. Los actores del sector productivo, la academia y los medios articulan esta expectativa en terminos de <em>legitimidad corporativa y responsabilidad social</em>, no simplemente como demanda.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#127757;</span>
+            <span><strong>Mejillones (5,33)</strong> y <strong>Calama (5,17)</strong> mantienen niveles altos, coherentes con el patron general del estudio para esta variable.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#128739;</span>
+            <span><strong>Sierra Gorda (3,78) registra el puntaje mas bajo</strong> de la variable y se ubica muy por debajo del resto de los territorios. Las entrevistas revelan que en estas localidades opera una <em>resignacion institucional</em>: la experiencia repetida de no ser consultados ni informados ha reducido la expectativa hasta el punto en que algunos actores ni siquiera la formulan como una demanda legitima.</span>
+          </li>
+        </ul>
+
+        <div class="terr-callout">
+          <strong>Resignacion institucional en Sierra Gorda:</strong> la brecha entre Sierra Gorda (3,78) y Antofagasta (5,54) equivale a 1,76 puntos &mdash;casi dos desviaciones estandar de la variable. No se trata de indiferencia: se trata de una expectativa <strong>erosionada por la experiencia historica de exclusion</strong>. Los actores de Sierra Gorda y Baquedano no formulan demandas de consulta porque han aprendido que esas demandas no tienen respuesta.
+        </div>
+
+        <div class="viz-embed">
+          <div class="viz-embed-header">
+            <span class="veh-icon">&#128205;</span>
+            <strong>Distribucion territorial &middot; Expectativa de consideracion por zona geografica</strong>
+            <span style="margin-left:auto;font-size:.75rem">Interactivo</span>
+          </div>
+          <iframe src="../../3.expectativa conideraici&#xF3;n mapa.html" title="Mapa territorial expectativa de consideracion FCAB" loading="lazy" class="tall"></iframe>
+        </div>
+      </section>
+
+      <!-- SEC 5 -->
+      <section class="section" id="sec-diagnostico">
+        <h2>5. Diagnostico convergente</h2>
+
+        <div class="synthesis-box">
+          <div class="synthesis-box-header">
+            <span class="synthesis-box-icon">&#128270;</span>
+            <span class="synthesis-box-title">Diagnostico estrategico &mdash; Expectativa de consideracion</span>
+          </div>
+          <p>La expectativa de consideracion es la variable mas favorable del analisis: el 75% de los actores se ubica en la zona positiva (5&ndash;7) y solo el 8% la califica como baja. Este resultado es un activo estrategico significativo: la mayoria del ecosistema considera <strong>legitimo y esperable</strong> ser tomado en cuenta por FCAB.</p>
+          <p>Sin embargo, el caso de Sierra Gorda revela el riesgo opuesto: cuando la expectativa es erosionada por la experiencia historica de exclusion, los actores dejan de demandar consulta. Una expectativa baja no equivale a satisfaccion &mdash;equivale a <strong>resignacion</strong>.</p>
+        </div>
+
+        <ul class="insight-list">
+          <li>
+            <span class="il-icon">&#9989;</span>
+            <span>El <strong>75% de los actores</strong> concentrado en la zona positiva (5&ndash;7) representa una base amplia de interlocutores que se sienten legitimados para participar, lo que constituye un capital relacional disponible para FCAB.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#9888;&#65039;</span>
+            <span>Las <strong>autoridades registran la menor expectativa</strong> del grupo (5,13) pese a tener el mayor rol normativo. Su resignacion aprendida es una senal de que el vinculo entre FCAB y el sector publico ha operado historizamente con baja participacion e interlocucion.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#128739;</span>
+            <span><strong>Sierra Gorda (3,78)</strong> es el unico territorio que se ubica por debajo del promedio de la variable. La resignacion institucional documentada en las entrevistas senala que la empresa no solo no ha construido relacion: ha <em>destruido la expectativa de que sea posible</em>.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#128270;</span>
+            <span>Las <strong>dos logicas del liderazgo</strong> &mdash;interdependencia (sector productivo) y obligacion publica (sociedad civil)&mdash; ofrecen dos marcos distintos desde los cuales FCAB puede anclar su estrategia de relacionamiento con cada tipo de actor.</span>
+          </li>
+        </ul>
+
+        <div class="info-note">
+          <span class="in-icon">&#128196;</span>
+          <span>Este sub-capitulo corresponde a la variable <em>Expectativa de consideracion</em> del analisis descriptivo multivariable. Para el contexto completo de los estadisticos y la estrategia analitica integrada, ver <a href="capitulo-08.html">Cap. 03 &mdash; Analisis Descriptivo de Datos</a>.</span>
+        </div>
+      </section>
+
+      <!-- NAV -->
+      <nav class="chapter-nav">
+        <a class="nav-btn nav-prev" href="capitulo-08c.html">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          Sub-cap C &mdash; Afectacion organizacional
+        </a>
+        <a class="nav-btn nav-center" href="../index.html">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 9 12 2 21 9"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Indice
+        </a>
+        <a class="nav-btn nav-next" href="capitulo-04.html">
+          Cap.04 Analisis LDA
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>
