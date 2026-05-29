@@ -534,6 +534,9 @@
 
   <!-- HEADER -->
   <header class="site-header">
+    <button class="header-toggle" id="sidebar-toggle" aria-label="Abrir menú">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
     <a href="../index.html" class="header-back">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
       Índice
@@ -546,6 +549,9 @@
       <img src="../assets/img/logo-dos-barbas.png" alt="Dos Barbas" class="header-logo">
     </div>
   </header>
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar" aria-label="Navegación del informe"></nav>
 
   <main class="chapter-main">
     <div class="chapter-content">
@@ -898,5 +904,6 @@
     </div>
   </main>
 
+  <script src="../assets/js/navigation.js"></script>
 </body>
 </html>
