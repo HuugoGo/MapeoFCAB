@@ -1,0 +1,513 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sub-Cap. J — Resumen análisis descriptivo | Estudio FCAB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    /* ── Insight box ─────────────────────────────────────────────── */
+    .insight-box {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: var(--surface-1); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 20px; margin: 20px 0;
+      font-size: 14px; line-height: 1.6; color: var(--text-2);
+    }
+    .insight-icon { font-size: 20px; flex-shrink: 0; }
+
+    /* ── Disociación callout ─────────────────────────────────────── */
+    .disoc-callout {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: linear-gradient(135deg,#f5f3ff,#ede9fe);
+      border: 1px solid #c4b5fd; border-radius: 14px;
+      padding: 20px 22px; margin: 24px 0;
+      font-size: 14px; line-height: 1.6; color: var(--text-2);
+    }
+    .disoc-callout strong { color: #5b21b6; }
+
+    /* ── Section label ───────────────────────────────────────────── */
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--text-3);
+      margin: 32px 0 14px; display: flex; align-items: center; gap: 8px;
+    }
+    .section-label::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+
+    /* ── Actor profile cards ─────────────────────────────────────── */
+    .actor-profiles { display: flex; flex-direction: column; gap: 16px; margin: 20px 0; }
+    .actor-profile-card {
+      border: 1px solid var(--border); border-radius: 14px;
+      overflow: hidden; background: var(--surface-1);
+    }
+    .apc-header {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 20px; border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+    .apc-icon   { font-size: 22px; flex-shrink: 0; }
+    .apc-name   { font-size: 14px; font-weight: 700; color: var(--text-1); flex: 1; }
+    .apc-n      { font-size: 12px; color: var(--text-3); font-weight: 500;
+                  background: var(--surface-1); border: 1px solid var(--border);
+                  border-radius: 20px; padding: 2px 10px; }
+    .apc-body   { padding: 16px 20px; }
+    .apc-stats  { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .apc-stat-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      border-radius: 20px; padding: 5px 12px;
+      font-size: 12px; font-weight: 600; border: 1px solid transparent;
+    }
+    .pill-green  { background:#d1fae5; color:#065f46; border-color:#6ee7b7; }
+    .pill-blue   { background:#dbeafe; color:#1e40af; border-color:#93c5fd; }
+    .pill-amber  { background:#fef3c7; color:#92400e; border-color:#fde68a; }
+    .pill-red    { background:#fee2e2; color:#991b1b; border-color:#fca5a5; }
+    .pill-purple { background:#ede9fe; color:#5b21b6; border-color:#c4b5fd; }
+    .pill-gray   { background:var(--surface-2); color:var(--text-2); border-color:var(--border); }
+    .apc-text   { font-size: 13.5px; color: var(--text-2); line-height: 1.65; }
+    .apc-brecha {
+      margin-top: 12px; padding: 10px 14px; border-radius: 10px;
+      font-size: 13px; line-height: 1.55;
+    }
+    .brecha-amber { background:#fef9c3; border:1px solid #fde68a; color:#92400e; }
+    .brecha-red   { background:#fee2e2; border:1px solid #fca5a5; color:#991b1b; }
+    .brecha-blue  { background:#dbeafe; border:1px solid #93c5fd; color:#1e40af; }
+
+    /* ── Territory grid ──────────────────────────────────────────── */
+    .territory-grid {
+      display: grid; grid-template-columns: repeat(2,1fr); gap: 14px;
+      margin: 20px 0;
+    }
+    @media(max-width:640px){ .territory-grid { grid-template-columns: 1fr; } }
+    .territory-card {
+      border: 1px solid var(--border); border-radius: 14px;
+      overflow: hidden; background: var(--surface-1);
+    }
+    .tc-head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 16px; border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+    .tc-name  { font-size: 13.5px; font-weight: 700; color: var(--text-1); }
+    .tc-n     { font-size: 11px; color: var(--text-3); }
+    .tc-body  { padding: 14px 16px; }
+    .tc-stat-list { display: flex; flex-direction: column; gap: 7px; margin-bottom: 12px; }
+    .tc-stat-row  { display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+    .tc-stat-var  { color: var(--text-2); }
+    .tc-stat-val  {
+      font-weight: 700; font-size: 13.5px; color: var(--text-1);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .stat-bar-sm  { width: 48px; height: 4px; border-radius: 2px; background: var(--surface-2); overflow: hidden; }
+    .stat-bar-sm-fill { height: 100%; border-radius: 2px; }
+    .bar-green  { background: #10b981; }
+    .bar-amber  { background: #f59e0b; }
+    .bar-red    { background: #ef4444; }
+    .tc-nota { font-size: 12.5px; color: var(--text-2); line-height: 1.55; border-top: 1px solid var(--border); padding-top: 10px; }
+    .tc-badge {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      padding: 3px 10px; border-radius: 20px; margin-top: 8px;
+    }
+    .badge-leader   { background:#d1fae5; color:#065f46; }
+    .badge-concern  { background:#fee2e2; color:#991b1b; }
+    .badge-critical { background:#fecaca; color:#7f1d1d; }
+
+    /* ── Transversal findings ────────────────────────────────────── */
+    .hallazgo-grid {
+      display: grid; grid-template-columns: repeat(2,1fr); gap: 16px;
+      margin: 20px 0;
+    }
+    @media(max-width:640px){ .hallazgo-grid { grid-template-columns: 1fr; } }
+    .hallazgo-card {
+      border-radius: 14px; padding: 24px; border: 1px solid transparent;
+    }
+    .hallazgo-card.h1 {
+      background: linear-gradient(135deg,#eff6ff,#dbeafe);
+      border-color: #93c5fd;
+    }
+    .hallazgo-card.h2 {
+      background: linear-gradient(135deg,#ecfdf5,#d1fae5);
+      border-color: #6ee7b7;
+    }
+    .hallazgo-num   { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+    .h1 .hallazgo-num { color: #1d4ed8; }
+    .h2 .hallazgo-num { color: #059669; }
+    .hallazgo-icon  { font-size: 28px; margin-bottom: 10px; }
+    .hallazgo-title { font-size: 15px; font-weight: 700; color: var(--text-1); margin-bottom: 10px; }
+    .hallazgo-text  { font-size: 13.5px; color: var(--text-2); line-height: 1.65; }
+    .hallazgo-vars  { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .hallazgo-var-chip {
+      font-size: 11.5px; font-weight: 600; padding: 4px 12px;
+      border-radius: 20px; background: rgba(255,255,255,.7);
+      border: 1px solid rgba(0,0,0,.1);
+    }
+    .pct-big {
+      font-size: 40px; font-weight: 900; color: #059669;
+      line-height: 1; margin: 10px 0 6px;
+    }
+
+    /* ── Closing implication box ─────────────────────────────────── */
+    .implication-box {
+      border: 1px solid var(--border); border-radius: 14px;
+      overflow: hidden; margin: 28px 0;
+    }
+    .implication-header {
+      background: var(--surface-2); padding: 12px 20px;
+      font-size: 13px; font-weight: 700; color: var(--text-1);
+      border-bottom: 1px solid var(--border);
+    }
+    .implication-body {
+      padding: 18px 20px; font-size: 14px;
+      color: var(--text-2); line-height: 1.7;
+    }
+
+    /* ── Scroll progress ─────────────────────────────────────────── */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0; height: 2px;
+      background: var(--accent); z-index: 9999; transition: width .1s linear;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menú">&#9776;</button>
+
+  <header class="topbar">
+    <div class="topbar-left">
+      <img src="../assets/img/logo-fcab.jpg" alt="FCAB" class="topbar-logo-img">
+      <span class="topbar-title">Estudio FCAB</span>
+    </div>
+    <div class="topbar-right">
+      <img src="../assets/img/logo-dos-barbas.png" alt="Dos Barbas" class="topbar-logo-img">
+    </div>
+  </header>
+
+  <div class="layout-root">
+    <nav class="sidebar" id="sidebar"></nav>
+
+    <main class="chapter-main">
+      <div class="chapter-content">
+
+        <div class="chapter-header">
+          <div class="chapter-breadcrumb">
+            <a href="capitulo-08.html">Cap. 03 — Análisis Descriptivo</a>
+            <span class="breadcrumb-sep">›</span>
+            Sub-capítulo J
+          </div>
+          <h1 class="chapter-title">Resumen del análisis descriptivo</h1>
+          <p class="chapter-lead">
+            Lectura integrada de las ocho variables relacionales: perfiles por tipo de actor, gradiente territorial y hallazgos transversales que emergen de la combinación de dimensiones.
+          </p>
+          <div class="chapter-meta-row">
+            <span class="chapter-meta-item">👥 73 actores evaluados</span>
+            <span class="chapter-meta-item">📐 8 variables relacionales</span>
+            <span class="chapter-meta-item">🗺️ 4 territorios</span>
+          </div>
+        </div>
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 1: INTRODUCCIÓN
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-intro">
+          <h2>1. De variables a perfiles</h2>
+
+          <div class="insight-box">
+            <span class="insight-icon">🔗</span>
+            <div>
+              El análisis variable por variable permite identificar en qué dimensiones específicas el relacionamiento de FCAB es más sólido o más débil. Sin embargo, las variables no operan de forma aislada. Para capturar esa combinación, este resumen examina los perfiles relacionales de forma integrada, agrupando los resultados por tipo de actor y por comuna. Este análisis revela que las brechas identificadas variable por variable se distribuyen de forma <strong>desigual en el territorio y entre categorías de actores</strong>, lo que tiene implicancias directas para la priorización del relacionamiento.
+            </div>
+          </div>
+
+          <div class="disoc-callout">
+            <span style="font-size:24px;flex-shrink:0">⚡</span>
+            <div>
+              <strong>Disociación estructural por categoría:</strong> Los actores con mejor calidad de relación y cercanía son los de <em>menor afectación</em>, mientras quienes tienen mayor interdependencia operacional con FCAB evalúan el vínculo con más distancia. El vínculo es más fuerte donde el impacto operacional es menor, y más débil donde la dependencia es mayor.
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 2: PERFILES POR CATEGORÍA DE ACTOR
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-actores">
+          <h2>2. Perfiles por categoría de actor</h2>
+
+          <div class="actor-profiles">
+
+            <!-- Comunidad -->
+            <div class="actor-profile-card">
+              <div class="apc-header">
+                <div class="apc-icon">🏘️</div>
+                <div class="apc-name">Comunidad y organizaciones sociales</div>
+                <div class="apc-n">n = 37</div>
+              </div>
+              <div class="apc-body">
+                <div class="apc-stats">
+                  <span class="apc-stat-pill pill-green">✓ Calidad relación 5,58</span>
+                  <span class="apc-stat-pill pill-green">✓ Cercanía 5,27</span>
+                  <span class="apc-stat-pill pill-amber">↓ Afectación 3,70</span>
+                </div>
+                <p class="apc-text">Concentra las evaluaciones más favorables en calidad de relación (5,58/7) y cercanía (5,27/7), pero registra la afectación más baja (3,70/7): valoran el vínculo con FCAB sin percibir que las decisiones de la empresa incidan de forma significativa en su quehacer cotidiano.</p>
+              </div>
+            </div>
+
+            <!-- Sociedad civil -->
+            <div class="actor-profile-card">
+              <div class="apc-header">
+                <div class="apc-icon">📰</div>
+                <div class="apc-name">Sociedad civil, academia y medios</div>
+                <div class="apc-n">n = 15</div>
+              </div>
+              <div class="apc-body">
+                <div class="apc-stats">
+                  <span class="apc-stat-pill pill-red">↓ Cercanía 4,05</span>
+                  <span class="apc-stat-pill pill-blue">↑ Expectativa 5,58</span>
+                  <span class="apc-stat-pill pill-amber">↓ Escucha 4,69</span>
+                </div>
+                <p class="apc-text">Presenta la cercanía más baja del estudio (4,05/7) y una brecha activa entre expectativa de consulta alta (5,58/7) y escucha percibida baja (4,69/7): quieren ser consultados, pero no se sienten escuchados.</p>
+                <div class="apc-brecha brecha-amber">
+                  ⚠️ <strong>Brecha coherente con percepción de invisibilidad institucional</strong> documentada en las entrevistas en profundidad.
+                </div>
+              </div>
+            </div>
+
+            <!-- Sector productivo -->
+            <div class="actor-profile-card">
+              <div class="apc-header">
+                <div class="apc-icon">🏭</div>
+                <div class="apc-name">Sector productivo y gremios</div>
+                <div class="apc-n">n = 11</div>
+              </div>
+              <div class="apc-body">
+                <div class="apc-stats">
+                  <span class="apc-stat-pill pill-green">✓ Escucha 5,12</span>
+                  <span class="apc-stat-pill pill-red">↓ Coherencia 4,47</span>
+                </div>
+                <p class="apc-text">Combina la escucha más alta del estudio (5,12/7) con la coherencia discurso-práctica más baja (4,47/7): los actores con mayor cercanía operacional a FCAB son simultáneamente los más críticos respecto a la consistencia entre lo que la empresa declara y lo que efectivamente hace.</p>
+                <div class="apc-brecha brecha-blue">
+                  💡 <strong>La mayor proximidad genera mayor exigencia de coherencia:</strong> no es rechazo, es demanda de consistencia entre discurso y práctica.
+                </div>
+              </div>
+            </div>
+
+            <!-- Autoridades -->
+            <div class="actor-profile-card">
+              <div class="apc-header">
+                <div class="apc-icon">🏛️</div>
+                <div class="apc-name">Autoridades y sector público</div>
+                <div class="apc-n">n = 9</div>
+              </div>
+              <div class="apc-body">
+                <div class="apc-stats">
+                  <span class="apc-stat-pill pill-blue">↑ Afectación 5,39</span>
+                  <span class="apc-stat-pill pill-green">✓ Coherencia 5,33</span>
+                  <span class="apc-stat-pill pill-amber">↓ Escucha 4,63</span>
+                </div>
+                <p class="apc-text">Registra la afectación más alta (5,39/7) y la coherencia percibida más favorable (5,33/7), pero una escucha baja (4,63/7): reconocen el peso de FCAB en el territorio y valoran la consistencia de su discurso, pero no se sienten activamente consultadas en las decisiones que les competen.</p>
+                <div class="apc-brecha brecha-amber">
+                  ⚠️ <strong>Mayor poder normativo, menor consulta percibida:</strong> los actores con mayor capacidad regulatoria sobre las operaciones de FCAB son los que menos sienten que la empresa los busca activamente.
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 3: PERFILES TERRITORIALES
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-territorio">
+          <h2>3. Perfiles territoriales</h2>
+
+          <div class="territory-grid">
+
+            <!-- Calama -->
+            <div class="territory-card">
+              <div class="tc-head">
+                <span class="tc-name">📍 Calama</span>
+                <span class="tc-n">n = 12</span>
+              </div>
+              <div class="tc-body">
+                <div class="tc-stat-list">
+                  <div class="tc-stat-row">
+                    <span class="tc-stat-var">Calidad relación</span>
+                    <div class="tc-stat-val">
+                      <div class="stat-bar-sm"><div class="stat-bar-sm-fill bar-green" style="width:84%"></div></div>
+                      5,91
+                    </div>
+                  </div>
+                  <div class="tc-stat-row">
+                    <span class="tc-stat-var">Coherencia percibida</span>
+                    <div class="tc-stat-val">
+                      <div class="stat-bar-sm"><div class="stat-bar-sm-fill bar-green" style="width:77%"></div></div>
+                      5,39
+                    </div>
+                  </div>
+                </div>
+                <div class="tc-nota">
+                  Lidera en calidad de relación (5,91/7) y coherencia percibida (5,39/7), resultado del trabajo sostenido de relacionamiento en terreno. Alta dispersión interna: coexisten vínculos muy estrechos con otros distantes dentro del mismo territorio.
+                </div>
+                <span class="tc-badge badge-leader">Líder en calidad relacional</span>
+              </div>
+            </div>
+
+            <!-- Antofagasta -->
+            <div class="territory-card">
+              <div class="tc-head">
+                <span class="tc-name">📍 Antofagasta</span>
+                <span class="tc-n">n = 50</span>
+              </div>
+              <div class="tc-body">
+                <div class="tc-stat-list">
+                  <div class="tc-stat-row">
+                    <span class="tc-stat-var">Expectativa de consulta</span>
+                    <div class="tc-stat-val">
+                      <div class="stat-bar-sm"><div class="stat-bar-sm-fill bar-green" style="width:80%"></div></div>
+                      5,57
+                    </div>
+                  </div>
+                  <div class="tc-stat-row">
+                    <span class="tc-stat-var">Valores relacionales</span>
+                    <div class="tc-stat-val">
+                      <div class="stat-bar-sm"><div class="stat-bar-sm-fill bar-green" style="width:70%"></div></div>
+                      Medios-altos
+                    </div>
+                  </div>
+                </div>
+                <div class="tc-nota">
+                  Presenta valores intermedios-altos en todas las variables, con la expectativa de consulta más elevada (5,57/7). Reflejo de su densidad institucional y la presencia de actores con alta legitimidad y expectativas de participación en decisiones territoriales.
+                </div>
+              </div>
+            </div>
+
+            <!-- Mejillones -->
+            <div class="territory-card">
+              <div class="tc-head">
+                <span class="tc-name">📍 Mejillones</span>
+                <span class="tc-n">n = 5</span>
+              </div>
+              <div class="tc-body">
+                <div class="tc-stat-list">
+                  <div class="tc-stat-row">
+                    <span class="tc-stat-var">Cercanía relacional</span>
+                    <div class="tc-stat-val">
+                      <div class="stat-bar-sm"><div class="stat-bar-sm-fill bar-amber" style="width:54%"></div></div>
+                      3,80
+                    </div>
+                  </div>
+                  <div class="tc-stat-row">
+                    <span class="tc-stat-var">Escucha percibida</span>
+                    <div class="tc-stat-val">
+                      <div class="stat-bar-sm"><div class="stat-bar-sm-fill bar-amber" style="width:50%"></div></div>
+                      3,53
+                    </div>
+                  </div>
+                  <div class="tc-stat-row">
+                    <span class="tc-stat-var">Influencia en territorio</span>
+                    <div class="tc-stat-val">
+                      <div class="stat-bar-sm"><div class="stat-bar-sm-fill bar-green" style="width:78%"></div></div>
+                      5,45
+                    </div>
+                  </div>
+                </div>
+                <div class="tc-nota">
+                  El perfil más preocupante: los actores reconocen la influencia de FCAB en el territorio (5,45/7) pero no se sienten escuchados (3,53/7) ni cercanos (3,80/7). Configura una brecha entre <strong>peso percibido y vínculo efectivo</strong>.
+                </div>
+                <span class="tc-badge badge-concern">Brecha influencia-vínculo</span>
+              </div>
+            </div>
+
+            <!-- Sierra Gorda -->
+            <div class="territory-card">
+              <div class="tc-head">
+                <span class="tc-name">📍 Sierra Gorda</span>
+                <span class="tc-n">n = 6</span>
+              </div>
+              <div class="tc-body">
+                <div class="tc-stat-list">
+                  <div class="tc-stat-row">
+                    <span class="tc-stat-var">Expectativa de consulta</span>
+                    <div class="tc-stat-val">
+                      <div class="stat-bar-sm"><div class="stat-bar-sm-fill bar-red" style="width:54%"></div></div>
+                      3,78
+                    </div>
+                  </div>
+                  <div class="tc-stat-row">
+                    <span class="tc-stat-var">Variables relacionales</span>
+                    <div class="tc-stat-val">
+                      <div class="stat-bar-sm"><div class="stat-bar-sm-fill bar-red" style="width:45%"></div></div>
+                      Más bajas
+                    </div>
+                  </div>
+                </div>
+                <div class="tc-nota">
+                  Registra los valores más bajos en <em>todas</em> las variables relacionales. La expectativa de consulta de 3,78/7 es el indicador más revelador: los actores no solo perciben un vínculo deteriorado, sino que han <strong>ajustado a la baja sus expectativas</strong> respecto a lo que FCAB puede ofrecerles.
+                </div>
+                <span class="tc-badge badge-critical">Brecha crítica acumulada</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 4: HALLAZGOS TRANSVERSALES
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-transversales">
+          <h2>4. Hallazgos transversales</h2>
+
+          <div class="hallazgo-grid">
+
+            <div class="hallazgo-card h1">
+              <div class="hallazgo-num">Hallazgo 1</div>
+              <div class="hallazgo-icon">🔄</div>
+              <div class="hallazgo-title">Coherencia entre variables relacionales positivas</div>
+              <div class="hallazgo-text">
+                Existe una relación positiva entre la coherencia discurso-práctica percibida, la escucha percibida, la calidad percibida de la relación y la cercanía relacional. En general, los actores que evalúan positivamente una de estas variables tienden a hacer lo mismo en las demás.
+              </div>
+              <div class="hallazgo-vars">
+                <span class="hallazgo-var-chip">Coherencia</span>
+                <span class="hallazgo-var-chip">Escucha</span>
+                <span class="hallazgo-var-chip">Calidad relación</span>
+                <span class="hallazgo-var-chip">Cercanía</span>
+              </div>
+            </div>
+
+            <div class="hallazgo-card h2">
+              <div class="hallazgo-num">Hallazgo 2</div>
+              <div class="hallazgo-icon">🏗️</div>
+              <div class="hallazgo-title">La disposición al diálogo como suelo firme</div>
+              <div class="pct-big">91%</div>
+              <div class="hallazgo-text">
+                La disposición al diálogo es el suelo firme sobre el que FCAB puede construir toda su estrategia de relacionamiento. Que el 91% de los actores esté completamente dispuesto a participar formalmente —incluidos los más críticos— es la condición habilitante más robusta que este diagnóstico identifica.
+              </div>
+            </div>
+
+          </div>
+
+          <div class="implication-box">
+            <div class="implication-header">📋 Implicancia estratégica del resumen descriptivo</div>
+            <div class="implication-body">
+              Las brechas identificadas variable por variable se distribuyen de forma desigual en el territorio y entre categorías de actores, lo que tiene implicancias directas para la priorización del relacionamiento. La disociación estructural entre afectación y calidad de vínculo, la brecha entre influencia percibida y escucha efectiva en Mejillones, y el deterioro acumulado de expectativas en Sierra Gorda definen los focos de intervención prioritarios. Al mismo tiempo, la disposición universal al diálogo establece que el punto de partida para cualquier estrategia es sólido: los actores están abiertos, incluso donde la relación está deteriorada.
+            </div>
+          </div>
+        </section>
+
+      </div><!-- /.chapter-content -->
+    </main>
+  </div><!-- /.layout-root -->
+
+  <nav class="chapter-nav">
+    <a href="capitulo-08i.html" class="chapter-nav-btn">
+      ← Sub-capítulo I: Disposición al diálogo
+    </a>
+    <a href="capitulo-08.html" class="chapter-nav-btn">
+      Volver al Análisis Descriptivo →
+    </a>
+  </nav>
+
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>
