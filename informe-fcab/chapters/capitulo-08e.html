@@ -1,0 +1,513 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cap. 03E &mdash; Escucha Percibida | Estudio FCAB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    .subcap-breadcrumb { display:flex; align-items:center; gap:6px; font-size:.78rem; color:var(--text-3); margin-bottom:6px; }
+    .subcap-breadcrumb a { color:var(--accent); text-decoration:none; }
+    .subcap-breadcrumb a:hover { text-decoration:underline; }
+    .subcap-breadcrumb .sep { opacity:.4; }
+
+    /* ── Var intro ── */
+    .var-intro-card { display:grid; grid-template-columns:auto 1fr; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; margin:28px 0; }
+    .var-intro-accent { width:6px; background:linear-gradient(180deg,#7c3aed 0%,#2563eb 100%); }
+    .var-intro-body { padding:22px 26px; }
+    .var-intro-label { font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:#7c3aed; margin-bottom:8px; }
+    .var-intro-body p { font-size:.9rem; color:var(--text-2); line-height:1.6; margin:0; }
+    .var-stat-row { display:flex; gap:24px; margin-top:16px; flex-wrap:wrap; }
+    .var-stat { display:flex; flex-direction:column; gap:2px; }
+    .var-stat-num { font-size:1.5rem; font-weight:700; color:#7c3aed; line-height:1; }
+    .var-stat-label { font-size:.7rem; color:var(--text-3); white-space:nowrap; }
+
+    /* ── Distribución tarjetas ── */
+    .dist-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:26px 0; }
+    .dist-card { border-radius:12px; border:1px solid var(--border); padding:20px 16px; text-align:center; background:var(--card); position:relative; overflow:hidden; }
+    .dist-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+    .dist-card.d-max::before  { background:#10b981; }
+    .dist-card.d-alta::before { background:var(--accent); }
+    .dist-card.d-med::before  { background:#f59e0b; }
+    .dist-card.d-baja::before { background:#ef4444; }
+    .dist-pct { font-size:2rem; font-weight:700; line-height:1; margin-bottom:4px; }
+    .dist-card.d-max  .dist-pct { color:#10b981; }
+    .dist-card.d-alta .dist-pct { color:var(--accent); }
+    .dist-card.d-med  .dist-pct { color:#f59e0b; }
+    .dist-card.d-baja .dist-pct { color:#ef4444; }
+    .dist-rango { font-size:.78rem; font-weight:600; color:var(--text-2); margin-bottom:4px; }
+    .dist-label { font-size:.72rem; color:var(--text-3); line-height:1.3; }
+    .dist-bar-wrap { margin-top:12px; height:6px; background:var(--surface-2); border-radius:3px; overflow:hidden; }
+    .dist-bar-fill { height:100%; border-radius:3px; }
+    .dist-card.d-max  .dist-bar-fill { background:#10b981; }
+    .dist-card.d-alta .dist-bar-fill { background:var(--accent); }
+    .dist-card.d-med  .dist-bar-fill { background:#f59e0b; }
+    .dist-card.d-baja .dist-bar-fill { background:#ef4444; }
+
+    /* ── Lectura cualitativa por banda ── */
+    .banda-grid { display:grid; grid-template-columns:1fr; gap:12px; margin:24px 0; }
+    .banda-card { display:flex; gap:16px; align-items:flex-start; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 20px; }
+    .banda-pct-col { flex-shrink:0; text-align:center; min-width:64px; }
+    .banda-pct { font-size:1.6rem; font-weight:700; line-height:1; }
+    .banda-pct.c-max  { color:#10b981; }
+    .banda-pct.c-alta { color:var(--accent); }
+    .banda-pct.c-med  { color:#f59e0b; }
+    .banda-pct.c-baja { color:#ef4444; }
+    .banda-rango { font-size:.65rem; color:var(--text-3); margin-top:2px; }
+    .banda-body { flex:1; }
+    .banda-title { font-size:.84rem; font-weight:700; color:var(--text-1); margin-bottom:5px; display:flex; align-items:center; gap:7px; }
+    .banda-title .bt-icon { font-size:.9rem; }
+    .banda-body p { font-size:.82rem; color:var(--text-2); line-height:1.6; margin:0; }
+    /* highlight banda media */
+    .banda-card.highlight-med { border-color:rgba(245,158,11,.4); background:rgba(245,158,11,.03); }
+    .banda-card.highlight-med .banda-title { color:#d97706; }
+    .highlight-tag {
+      display:inline-block; font-size:.62rem; font-weight:700; text-transform:uppercase;
+      letter-spacing:.06em; padding:2px 7px; border-radius:20px;
+      background:rgba(245,158,11,.15); color:#d97706; margin-left:4px;
+    }
+
+    /* ── Iframe ── */
+    .viz-embed { margin:28px 0; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+    .viz-embed-header { display:flex; align-items:center; gap:10px; padding:13px 20px; border-bottom:1px solid var(--border); font-size:.82rem; color:var(--text-3); }
+    .viz-embed-header .veh-icon { font-size:1rem; }
+    .viz-embed-header strong { color:var(--text-2); }
+    .viz-embed iframe { display:block; width:100%; height:480px; border:none; }
+    .viz-embed iframe.tall { height:560px; }
+
+    /* ── Actor grid ── */
+    .actor-type-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin:26px 0; }
+    .actor-type-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 20px; display:flex; align-items:flex-start; gap:16px; }
+    .atc-score-wrap { flex-shrink:0; text-align:center; min-width:56px; }
+    .atc-score { font-size:2rem; font-weight:700; line-height:1; }
+    .atc-max { font-size:.68rem; color:var(--text-3); }
+    .atc-bar-wrap { margin-top:8px; height:4px; background:var(--surface-2); border-radius:2px; overflow:hidden; }
+    .atc-bar-fill { height:100%; border-radius:2px; }
+    .atc-label { font-size:.86rem; font-weight:600; color:var(--text-1); margin-bottom:4px; line-height:1.3; }
+    .atc-note  { font-size:.76rem; color:var(--text-3); line-height:1.45; }
+    .atc-top  .atc-score { color:#7c3aed; } .atc-top  .atc-bar-fill { background:#7c3aed; }
+    .atc-high .atc-score { color:var(--accent); } .atc-high .atc-bar-fill { background:var(--accent); }
+    .atc-mid  .atc-score { color:#f59e0b; } .atc-mid  .atc-bar-fill { background:#f59e0b; }
+    .atc-low  .atc-score { color:#ef4444; } .atc-low  .atc-bar-fill { background:#ef4444; }
+
+    /* ── Referente callout ── */
+    .referente-callout {
+      background:rgba(124,58,237,.06); border:1px solid rgba(124,58,237,.25);
+      border-radius:14px; padding:22px 24px; margin:24px 0;
+    }
+    .referente-header { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+    .referente-icon { font-size:1.5rem; }
+    .referente-title { font-size:.9rem; font-weight:700; color:#7c3aed; }
+    .referente-callout p { font-size:.86rem; color:var(--text-2); line-height:1.65; margin:0 0 8px; }
+    .referente-callout p:last-child { margin:0; }
+    .referente-callout strong { color:#7c3aed; }
+
+    /* ── Rango mínimo banner ── */
+    .min-rango-banner {
+      display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+      background:var(--card); border:1px solid var(--border);
+      border-radius:12px; padding:16px 22px; margin:22px 0;
+    }
+    .mrb-label { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--text-3); flex-shrink:0; }
+    .mrb-values { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+    .mrb-pill { display:flex; align-items:center; gap:6px; background:var(--surface-2); border-radius:8px; padding:6px 12px; font-size:.84rem; }
+    .mrb-pill .mp-score { font-weight:700; color:#7c3aed; }
+    .mrb-pill .mp-name { color:var(--text-3); font-size:.75rem; }
+    .mrb-diff { font-size:1.1rem; font-weight:700; color:var(--accent); padding:0 4px; }
+    .mrb-diff-label { font-size:.72rem; color:var(--text-3); }
+
+    /* ── Territorio ── */
+    .territory-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin:26px 0; }
+    .terr-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:20px 22px; }
+    .terr-card.leader  { border-color:rgba(124,58,237,.35); background:rgba(124,58,237,.04); }
+    .terr-card.danger  { border-color:rgba(239,68,68,.3);   background:rgba(239,68,68,.04); }
+    .terr-card.warning { border-color:rgba(245,158,11,.3);  background:rgba(245,158,11,.04); }
+    .terr-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+    .terr-name { font-size:.9rem; font-weight:700; color:var(--text-1); }
+    .terr-score-badge { font-size:1.5rem; font-weight:700; }
+    .terr-card.leader  .terr-score-badge { color:#7c3aed; }
+    .terr-card.warning .terr-score-badge { color:#f59e0b; }
+    .terr-card.danger  .terr-score-badge { color:#ef4444; }
+    .terr-card:not(.leader):not(.warning):not(.danger) .terr-score-badge { color:var(--accent); }
+    .terr-bar-wrap { height:4px; background:var(--surface-2); border-radius:2px; overflow:hidden; margin-bottom:12px; }
+    .terr-bar-fill { height:100%; border-radius:2px; }
+    .terr-card.leader  .terr-bar-fill { background:#7c3aed; }
+    .terr-card.warning .terr-bar-fill { background:#f59e0b; }
+    .terr-card.danger  .terr-bar-fill { background:#ef4444; }
+    .terr-card:not(.leader):not(.warning):not(.danger) .terr-bar-fill { background:var(--accent); }
+    .terr-body { font-size:.82rem; color:var(--text-2); line-height:1.6; }
+    .terr-body strong { color:var(--text-1); }
+
+    /* ── Insight list ── */
+    .insight-list { list-style:none; padding:0; margin:20px 0; display:flex; flex-direction:column; gap:10px; }
+    .insight-list li { display:flex; gap:12px; align-items:flex-start; font-size:.87rem; color:var(--text-2); line-height:1.6; }
+    .insight-list li .il-icon { font-size:1rem; flex-shrink:0; margin-top:1px; }
+
+    /* ── Synthesis ── */
+    .synthesis-box { background:linear-gradient(135deg,rgba(124,58,237,.06) 0%,rgba(37,99,235,.06) 100%); border:1px solid rgba(124,58,237,.2); border-radius:14px; padding:26px 28px; margin:32px 0; }
+    .synthesis-box-header { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+    .synthesis-box-icon { font-size:1.3rem; }
+    .synthesis-box-title { font-size:1rem; font-weight:700; color:var(--text-1); }
+    .synthesis-box p { font-size:.88rem; color:var(--text-2); line-height:1.7; margin:0 0 10px; }
+    .synthesis-box p:last-child { margin:0; }
+
+    /* ── Info note ── */
+    .info-note { display:flex; gap:12px; align-items:flex-start; background:rgba(37,99,235,.05); border:1px solid rgba(37,99,235,.15); border-radius:10px; padding:14px 18px; margin:22px 0; font-size:.84rem; color:var(--text-2); line-height:1.55; }
+    .info-note .in-icon { font-size:1.1rem; flex-shrink:0; margin-top:1px; }
+
+    @media(max-width:700px) {
+      .dist-grid{grid-template-columns:repeat(2,1fr);}
+      .actor-type-grid{grid-template-columns:1fr;}
+      .territory-grid{grid-template-columns:1fr;}
+      .banda-card { flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <button class="header-toggle" id="sidebar-toggle" aria-label="Abrir menu">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <a href="../index.html" class="header-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Indice
+    </a>
+    <span class="header-sep"></span>
+    <span class="header-chapter">Cap. 03 &mdash; Escucha Percibida</span>
+    <div class="header-right">
+      <img src="../assets/img/logo-fcab.jpg" alt="FCAB" class="header-logo">
+      <span class="header-sep"></span>
+      <img src="../assets/img/logo-dos-barbas.png" alt="Dos Barbas" class="header-logo">
+    </div>
+  </header>
+  <nav class="sidebar" id="sidebar" aria-label="Navegacion del capitulo"></nav>
+  <main class="chapter-main">
+    <div class="chapter-content">
+      <header class="chapter-header">
+        <div class="subcap-breadcrumb">
+          <a href="capitulo-08.html">Cap. 03 &mdash; Analisis Descriptivo de Datos</a>
+          <span class="sep">/</span>
+          <span>Sub-capitulo E</span>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-num-label">Cap. 03 &middot; Sub-capitulo E</span>
+          <span class="badge badge-borrador">Borrador</span>
+        </div>
+        <h1>Escucha Percibida</h1>
+        <p class="chapter-lead">Si el actor percibe que FCAB escucha, recibe y toma en cuenta sus preocupaciones o propuestas: la dimension con mayor heterogeneidad entre tipos de actores y el hallazgo del referente personalizado como factor determinante.</p>
+      </header>
+      <!-- SEC 1 -->
+      <section class="section" id="sec-overview">
+        <h2>1. Descripcion de la variable</h2>
+        <div class="var-intro-card">
+          <div class="var-intro-accent"></div>
+          <div class="var-intro-body">
+            <div class="var-intro-label">&#128247; Variable relacional</div>
+            <p>Esta variable evalua si el actor percibe que FCAB escucha, recibe y toma en cuenta sus preocupaciones o propuestas. El promedio general se ubica en 4,80. Esta es la dimension donde FCAB presenta <strong>mayor heterogeneidad entre tipos de actores</strong>: no refleja una percepcion uniforme sino patrones de escucha altamente segmentados segun el tipo de vinculo y la existencia de un canal de contacto personalizado.</p>
+            <div class="var-stat-row">
+              <div class="var-stat"><div class="var-stat-num">4,80</div><div class="var-stat-label">Promedio general</div></div>
+              <div class="var-stat"><div class="var-stat-num">1,96</div><div class="var-stat-label">Desviacion estandar</div></div>
+              <div class="var-stat"><div class="var-stat-num">3,83</div><div class="var-stat-label">Varianza</div></div>
+              <div class="var-stat"><div class="var-stat-num">72</div><div class="var-stat-label">N validos</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEC 2 -->
+      <section class="section" id="sec-distribucion">
+        <h2>2. Distribucion de frecuencias (escala 1&ndash;7)</h2>
+        <p>El grafico de segmentacion muestra una percepcion mas heterogenea que otras variables: los extremos tienen peso relevante, y el tramo medio (3&ndash;4) concentra los casos cualitativamente mas significativos del analisis.</p>
+
+        <div class="dist-grid">
+          <div class="dist-card d-max">
+            <div class="dist-pct">34%</div>
+            <div class="dist-rango">Puntuacion 7</div>
+            <div class="dist-label">Muy alta</div>
+            <div class="dist-bar-wrap"><div class="dist-bar-fill" style="width:34%"></div></div>
+          </div>
+          <div class="dist-card d-alta">
+            <div class="dist-pct">32%</div>
+            <div class="dist-rango">Puntuacion 5&ndash;6</div>
+            <div class="dist-label">Alta</div>
+            <div class="dist-bar-wrap"><div class="dist-bar-fill" style="width:32%"></div></div>
+          </div>
+          <div class="dist-card d-med">
+            <div class="dist-pct">21%</div>
+            <div class="dist-rango">Puntuacion 3&ndash;4</div>
+            <div class="dist-label">Media &mdash; mas relevante cualitativamente</div>
+            <div class="dist-bar-wrap"><div class="dist-bar-fill" style="width:21%"></div></div>
+          </div>
+          <div class="dist-card d-baja">
+            <div class="dist-pct">14%</div>
+            <div class="dist-rango">Puntuacion 1&ndash;2</div>
+            <div class="dist-label">Baja</div>
+            <div class="dist-bar-wrap"><div class="dist-bar-fill" style="width:14%"></div></div>
+          </div>
+        </div>
+
+        <!-- Lectura cualitativa por banda -->
+        <p>Cada banda de la escala corresponde a un perfil cualitativo distinto, identificado a partir de las transcripciones:</p>
+        <div class="banda-grid">
+          <div class="banda-card">
+            <div class="banda-pct-col">
+              <div class="banda-pct c-max">34%</div>
+              <div class="banda-rango">Puntuacion 7</div>
+            </div>
+            <div class="banda-body">
+              <div class="banda-title"><span class="bt-icon">&#9989;</span> Vinculo operacional activo y contacto personalizado</div>
+              <p>Actores con vinculos operacionales activos y contacto personalizado con FCAB, que describen la escucha como <strong>inmediata y efectiva</strong>. Son quienes tienen canales establecidos, contacto regular con el equipo de relacionamiento, y cuyas demandas se atienden con continuidad.</p>
+            </div>
+          </div>
+          <div class="banda-card">
+            <div class="banda-pct-col">
+              <div class="banda-pct c-alta">32%</div>
+              <div class="banda-rango">Puntuacion 5&ndash;6</div>
+            </div>
+            <div class="banda-body">
+              <div class="banda-title"><span class="bt-icon">&#128200;</span> Escucha parcial o intermitente</div>
+              <p>Actores con percepcion positiva pero no maxima: perciben que FCAB atiende solicitudes puntuales, aunque la consideracion de sus posiciones en decisiones estrategicas es evaluada como mas limitada.</p>
+            </div>
+          </div>
+          <div class="banda-card highlight-med">
+            <div class="banda-pct-col">
+              <div class="banda-pct c-med">21%</div>
+              <div class="banda-rango">Puntuacion 3&ndash;4</div>
+            </div>
+            <div class="banda-body">
+              <div class="banda-title"><span class="bt-icon">&#9888;&#65039;</span> El tramo mas relevante cualitativamente <span class="highlight-tag">Clave</span></div>
+              <p>Son actores que <strong>han intentado transmitir preguntas o propuestas y no han recibido respuesta</strong>, o cuya respuesta fue parcial. Las entrevistas de este grupo articulan una distincion clara: evaluan bien la <em>atencion ante solicitudes puntuales</em>, pero evaluan como baja la <em>consideracion real de sus posiciones en decisiones estrategicas</em>. Esta distincion es el hallazgo cualitativo mas relevante de la variable.</p>
+            </div>
+          </div>
+          <div class="banda-card">
+            <div class="banda-pct-col">
+              <div class="banda-pct c-baja">14%</div>
+              <div class="banda-rango">Puntuacion 1&ndash;2</div>
+            </div>
+            <div class="banda-body">
+              <div class="banda-title"><span class="bt-icon">&#128683;</span> Sin canal ni ocasion de transmitir preocupaciones</div>
+              <p>Actores que directamente reportan <strong>no haber tenido ocasion de transmitir preocupaciones a FCAB</strong>, sea por ausencia de canales o porque nunca han necesitado hacerlo. No necesariamente expresan insatisfaccion: algunos simplemente no tienen relacion con la empresa.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="viz-embed">
+          <div class="viz-embed-header">
+            <span class="veh-icon">&#128202;</span>
+            <strong>Distribucion de frecuencias &middot; Escucha percibida (escala 1&ndash;7)</strong>
+            <span style="margin-left:auto;font-size:.75rem">Interactivo</span>
+          </div>
+          <iframe src="../../percepcion_escucha_fcab_segmentacion_1_7.html" title="Distribucion escucha percibida FCAB" loading="lazy"></iframe>
+        </div>
+      </section>
+
+      <!-- SEC 3 -->
+      <section class="section" id="sec-actores">
+        <h2>3. Analisis por tipo de actor</h2>
+        <p>Al desagregar por categoria de actor, el rango entre categorias es el mas estrecho de todas las variables analizadas: <strong>0,49 puntos</strong> separan al sector productivo (5,12) de las autoridades (4,63). Pero esa convergencia en los promedios oculta una logica subyacente comun: <strong>la percepcion de escucha depende casi completamente de la existencia de un referente personalizado en FCAB</strong>.</p>
+
+        <!-- Banner rango mínimo -->
+        <div class="min-rango-banner">
+          <div class="mrb-label">Rango entre categorias</div>
+          <div class="mrb-values">
+            <div class="mrb-pill"><span class="mp-score">5,12</span><span class="mp-name">Sector productivo</span></div>
+            <div class="mrb-diff">↕ 0,49 pts</div>
+            <div class="mrb-pill"><span class="mp-score">4,63</span><span class="mp-name">Autoridades</span></div>
+            <div class="mrb-diff-label">el rango mas estrecho del analisis</div>
+          </div>
+        </div>
+
+        <div class="actor-type-grid">
+          <div class="actor-type-card atc-top">
+            <div class="atc-score-wrap">
+              <div class="atc-score">5,12</div>
+              <div class="atc-max">de 7</div>
+              <div class="atc-bar-wrap"><div class="atc-bar-fill" style="width:73.1%"></div></div>
+            </div>
+            <div class="atc-body">
+              <div class="atc-label">&#127970; Sector productivo, clientes y gremios</div>
+              <div class="atc-note">Explicado principalmente por los <strong>clientes con contrato operacional activo</strong>, quienes tienen canales establecidos y contacto regular. Los actores gremiales, sin ese vinculo directo, presentan una percepcion de escucha mas moderada.</div>
+            </div>
+          </div>
+          <div class="actor-type-card atc-high">
+            <div class="atc-score-wrap">
+              <div class="atc-score">4,75</div>
+              <div class="atc-max">de 7</div>
+              <div class="atc-bar-wrap"><div class="atc-bar-fill" style="width:67.9%"></div></div>
+            </div>
+            <div class="atc-body">
+              <div class="atc-label">&#127968; Comunidad y organizacion social</div>
+              <div class="atc-note">Muy proximo al promedio general. La percepcion de escucha depende de la existencia de un referente personalizado: cuando ese vinculo esta activo, la escucha se evalua alta; cuando no existe o se ha interrumpido, baja de forma marcada.</div>
+            </div>
+          </div>
+          <div class="actor-type-card atc-mid">
+            <div class="atc-score-wrap">
+              <div class="atc-score">4,69</div>
+              <div class="atc-max">de 7</div>
+              <div class="atc-bar-wrap"><div class="atc-bar-fill" style="width:67%"></div></div>
+            </div>
+            <div class="atc-body">
+              <div class="atc-label">&#127979; Sociedad civil, academia y medios</div>
+              <div class="atc-note">Converge con la comunidad en valores similares y proximos al promedio. La misma logica del referente personalizado aplica: las organizaciones con mejor percepcion de escucha son aquellas con contacto frecuente y directo con una persona especifica del equipo de relacionamiento comunitario.</div>
+            </div>
+          </div>
+          <div class="actor-type-card atc-low">
+            <div class="atc-score-wrap">
+              <div class="atc-score">4,63</div>
+              <div class="atc-max">de 7</div>
+              <div class="atc-bar-wrap"><div class="atc-bar-fill" style="width:66.1%"></div></div>
+            </div>
+            <div class="atc-body">
+              <div class="atc-label">&#127963; Autoridades y sector publico</div>
+              <div class="atc-note">El menor valor pese a tener el rol normativo mas directo. La percepcion de escucha de las autoridades es moderada-positiva pero no maxima: hay contacto formal pero no siempre consideracion real en decisiones estrategicas.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Referente personalizado -->
+        <div class="referente-callout">
+          <div class="referente-header">
+            <span class="referente-icon">&#128101;</span>
+            <div class="referente-title">Hallazgo transversal: el referente personalizado como variable determinante</div>
+          </div>
+          <p>En comunidad, organizacion social y sociedad civil, la percepcion de escucha depende casi completamente de la existencia de <strong>un referente personalizado en FCAB</strong>: cuando ese vinculo esta activo, la escucha se evalua alta; cuando no existe o se ha interrumpido, baja de forma marcada.</p>
+          <p>Las organizaciones sociales con mejor percepcion de escucha son precisamente aquellas que describen una relacion de <strong>contacto frecuente y directo con una persona especifica</strong> del equipo de relacionamiento comunitario. Este hallazgo indica que la escucha percibida no es una percepcion difusa de la empresa como institucion, sino una <strong>evaluacion concreta de una relacion interpersonal</strong>.</p>
+        </div>
+
+        <div class="viz-embed">
+          <div class="viz-embed-header">
+            <span class="veh-icon">&#128200;</span>
+            <strong>Promedio por categoria de actor &middot; Escucha percibida (escala 1&ndash;7)</strong>
+            <span style="margin-left:auto;font-size:.75rem">Interactivo</span>
+          </div>
+          <iframe src="../../percepcion_escucha_fcab_promedio_categoria_1_7.html" title="Promedio por categoria escucha percibida FCAB" loading="lazy"></iframe>
+        </div>
+      </section>
+
+      <!-- SEC 4 -->
+      <section class="section" id="sec-territorio">
+        <h2>4. Analisis por territorio</h2>
+        <p>El mapa territorial revela patrones distintos en cada zona, todos articulados alrededor del mismo mecanismo: <strong>la escucha funciona cuando hay un referente activo y cuando la demanda esta asociada a un proyecto concreto</strong>.</p>
+
+        <div class="territory-grid">
+          <div class="terr-card leader">
+            <div class="terr-header">
+              <div class="terr-name">&#127961; Calama &amp; Antofagasta</div>
+              <div class="terr-score-badge">Similares</div>
+            </div>
+            <div class="terr-bar-wrap"><div class="terr-bar-fill" style="width:75%"></div></div>
+            <div class="terr-body">Las transcripciones apuntan al mismo patron en ambas ciudades: <strong>la escucha funciona cuando hay un referente activo y cuando la demanda esta asociada a un proyecto concreto</strong>. Cuando ese mecanismo existe, la evaluacion sube; a la inversa, la percepcion cae incluso dentro del mismo territorio.</div>
+          </div>
+          <div class="terr-card">
+            <div class="terr-header">
+              <div class="terr-name">&#9935; Calama</div>
+              <div class="terr-score-badge">&#8593; Promedio</div>
+            </div>
+            <div class="terr-bar-wrap"><div class="terr-bar-fill" style="width:71%"></div></div>
+            <div class="terr-body">Percepcion moderadamente positiva con alta variabilidad interna. La escucha se concentra en actores con vinculo operacional directo. Actores sin ese vinculo reportan menor acceso a canales de interlocucion.</div>
+          </div>
+          <div class="terr-card warning">
+            <div class="terr-header">
+              <div class="terr-name">&#127757; Mejillones</div>
+              <div class="terr-score-badge">4,24</div>
+            </div>
+            <div class="terr-bar-wrap"><div class="terr-bar-fill" style="width:60.6%"></div></div>
+            <div class="terr-body">De las entrevistas emerge que <strong>FCAB participa formalmente en instancias locales</strong>, pero esa participacion no se traduce en capacidad de incidencia reciproca. Los actores perciben presencia institucional de FCAB pero no escucha real de sus posiciones.</div>
+          </div>
+          <div class="terr-card danger">
+            <div class="terr-header">
+              <div class="terr-name">&#128739; Sierra Gorda</div>
+              <div class="terr-score-badge">3,89</div>
+            </div>
+            <div class="terr-bar-wrap"><div class="terr-bar-fill" style="width:55.6%"></div></div>
+            <div class="terr-body">La baja percepcion de escucha es coherente con la <strong>ausencia de canales de contacto sistematicos</strong> y con la experiencia de intervenciones puntuales y reactivas. Los actores de Baquedano, en particular, no describen una relacion de escucha activa sino <em>episodios aislados de atencion a demandas urgentes, sin continuidad</em>.</div>
+          </div>
+        </div>
+
+        <ul class="insight-list">
+          <li>
+            <span class="il-icon">&#128101;</span>
+            <span>El patron territorial confirma el hallazgo por tipo de actor: <strong>la escucha no es percibida como una practica institucional de FCAB</strong> sino como el resultado de la existencia o ausencia de un referente personal activo en cada territorio.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#127757;</span>
+            <span><strong>Mejillones (4,24)</strong> ilustra el caso de <em>participacion formal sin escucha real</em>: FCAB asiste a instancias pero esa asistencia no se traduce en que los actores sientan que sus posiciones sean consideradas.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#128739;</span>
+            <span><strong>Sierra Gorda (3,89)</strong> representa el caso de <em>atencion reactiva sin continuidad</em>: los actores son atendidos en emergencias pero no en el dia a dia, lo que impide construir percepcion de escucha sostenida.</span>
+          </li>
+        </ul>
+
+        <div class="viz-embed">
+          <div class="viz-embed-header">
+            <span class="veh-icon">&#128205;</span>
+            <strong>Distribucion territorial &middot; Escucha percibida por zona geografica</strong>
+            <span style="margin-left:auto;font-size:.75rem">Interactivo</span>
+          </div>
+          <iframe src="../../4. escucha percibida mapa.html" title="Mapa territorial escucha percibida FCAB" loading="lazy" class="tall"></iframe>
+        </div>
+      </section>
+
+      <!-- SEC 5 -->
+      <section class="section" id="sec-diagnostico">
+        <h2>5. Diagnostico convergente</h2>
+
+        <div class="synthesis-box">
+          <div class="synthesis-box-header">
+            <span class="synthesis-box-icon">&#128270;</span>
+            <span class="synthesis-box-title">Diagnostico estrategico &mdash; Escucha percibida</span>
+          </div>
+          <p>La escucha percibida es la dimension con mayor heterogeneidad entre tipos de actores. El hallazgo central no esta en los promedios sino en la logica subyacente que los genera: <strong>la percepcion de escucha es una evaluacion de relaciones interpersonales, no de practicas institucionales</strong>. Cuando existe un referente personalizado, la escucha se evalua alta; cuando no existe, baja de forma marcada independientemente del territorio o tipo de actor.</p>
+          <p>El tramo 3&ndash;4 (21%) es el mas relevante cualitativamente: revela actores que articulan con claridad la distincion entre <strong>atencion a solicitudes puntuales</strong> &mdash;que evaluan bien&mdash; y <strong>consideracion real en decisiones estrategicas</strong> &mdash;que evaluan como baja. Esta distincion es el hallazgo mas preciso y accionable de la variable.</p>
+        </div>
+
+        <ul class="insight-list">
+          <li>
+            <span class="il-icon">&#128101;</span>
+            <span>El <strong>referente personalizado</strong> es el principal predictor de escucha percibida: su existencia o ausencia explica gran parte de la variabilidad entre actores del mismo tipo y territorio.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#9888;&#65039;</span>
+            <span>El <strong>21% en el tramo 3&ndash;4</strong> concentra el aprendizaje cualitativo mas valioso: actores que saben lo que esperan, lo han intentado transmitir y no han obtenido respuesta satisfactoria. Son el segmento con mayor potencial de conversion relacional.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#127757;</span>
+            <span><strong>Mejillones</strong> representa el riesgo de la <em>presencia sin escucha</em>: FCAB participa formalmente pero esa participacion no genera percepcion de incidencia reciproca en los actores locales.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#128739;</span>
+            <span><strong>Sierra Gorda</strong> acumula los dos patrones mas criticos: ausencia de canal sistematico + intervencion solo reactiva. La combinacion genera percepcion de escucha como excepcion, no como practica.</span>
+          </li>
+        </ul>
+
+        <div class="info-note">
+          <span class="in-icon">&#128196;</span>
+          <span>Este sub-capitulo corresponde a la variable <em>Escucha percibida</em> del analisis descriptivo multivariable. Para el contexto completo de los estadisticos y la estrategia analitica integrada, ver <a href="capitulo-08.html">Cap. 03 &mdash; Analisis Descriptivo de Datos</a>.</span>
+        </div>
+      </section>
+
+      <!-- NAV -->
+      <nav class="chapter-nav">
+        <a class="nav-btn nav-prev" href="capitulo-08d.html">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          Sub-cap D &mdash; Expectativa de consideracion
+        </a>
+        <a class="nav-btn nav-center" href="../index.html">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 9 12 2 21 9"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Indice
+        </a>
+        <a class="nav-btn nav-next" href="capitulo-04.html">
+          Cap.04 Analisis LDA
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>
