@@ -15,9 +15,10 @@ CHAPS = [
     ("05", "Temas Prevalentes",                 "capitulo-05.html"),
     ("06", "Ecosistema de Actores",             "capitulo-06.html"),
     ("07", "Red de Coordinación",               "capitulo-07.html"),
-    ("08", "Análisis de Cluster",               "capitulo-03.html"),
-    ("09", "Recomendaciones Estratégicas",      "capitulo-10.html"),
-    ("10", "Conclusiones",                      "capitulo-09.html"),
+    ("08", "Temas pendientes: Baquedano, Sierra Gorda y Ollagüe", "capitulo-11.html"),
+    ("09", "Análisis de Cluster",               "capitulo-03.html"),
+    ("10", "Recomendaciones Estratégicas",      "capitulo-10.html"),
+    ("11", "Conclusiones",                      "capitulo-09.html"),
 ]
 
 def read_file(path):

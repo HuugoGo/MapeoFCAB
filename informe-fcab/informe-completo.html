@@ -1705,7 +1705,141 @@
 
     @media (max-width: 640px) {
       .coord-split { grid-template-columns: 1fr; }
-    }/* ── cap-08: Análisis de Cluster ── */
+    }/* ── cap-08: Temas pendientes: Baquedano, Sierra Gorda y Ollagüe ── */
+/* ── Territory banner ────────────────────────────────────────── */
+    .territory-banner {
+      display: flex; align-items: center; gap: 18px;
+      border-radius: 16px; padding: 24px 28px; margin: 0 0 28px;
+      border: 1px solid transparent;
+    }
+    .territory-banner.t-baquedano {
+      background: linear-gradient(135deg,#fffbeb,#fef3c7);
+      border-color: #fde68a;
+    }
+    .territory-banner.t-sierra {
+      background: linear-gradient(135deg,#eff6ff,#dbeafe);
+      border-color: #bfdbfe;
+    }
+    .territory-banner.t-ollagüe {
+      background: linear-gradient(135deg,#fff5f5,#fee2e2);
+      border-color: #fecaca;
+    }
+    .tb-icon   { font-size: 40px; flex-shrink: 0; }
+    .tb-body   {}
+    .tb-label  {
+      font-size: 10.5px; font-weight: 800; letter-spacing: .1em;
+      text-transform: uppercase; margin-bottom: 4px;
+    }
+    .t-baquedano .tb-label { color: #92400e; }
+    .t-sierra    .tb-label { color: #1e40af; }
+    .t-ollagüe   .tb-label { color: #991b1b; }
+    .tb-title  { font-size: 22px; font-weight: 800; color: var(--text-1); margin-bottom: 6px; }
+    .tb-lead   { font-size: 14px; color: var(--text-2); line-height: 1.55; }
+
+    /* ── Context box ─────────────────────────────────────────────── */
+    .context-box {
+      border-radius: 12px; padding: 18px 22px; margin-bottom: 28px;
+      border-left: 4px solid transparent; font-size: 14px;
+      color: var(--text-2); line-height: 1.7; background: var(--surface-1);
+      border: 1px solid var(--border);
+    }
+    .context-box.cb-baquedano { border-left: 4px solid #f59e0b; }
+    .context-box.cb-sierra    { border-left: 4px solid #3b82f6; }
+    .context-box.cb-ollagüe   { border-left: 4px solid #ef4444; }
+
+    /* ── Ejes count chip ─────────────────────────────────────────── */
+    .ejes-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      border-radius: 20px; padding: 6px 16px; margin-bottom: 22px;
+      font-size: 12.5px; font-weight: 700;
+    }
+    .chip-amber  { background:#fef3c7; color:#92400e; border:1px solid #fde68a; }
+    .chip-blue   { background:#dbeafe; color:#1e40af; border:1px solid #bfdbfe; }
+    .chip-red    { background:#fee2e2; color:#991b1b; border:1px solid #fecaca; }
+
+    /* ── Quote callout ───────────────────────────────────────────── */
+    .quote-callout {
+      display: flex; gap: 16px; align-items: flex-start;
+      border-radius: 14px; padding: 20px 24px; margin-bottom: 28px;
+      border: 1px solid transparent; font-size: 15px; font-weight: 600;
+      line-height: 1.55;
+    }
+    .quote-callout.qc-red {
+      background: linear-gradient(135deg,#fff5f5,#fee2e2);
+      border-color: #fca5a5; color: #991b1b;
+    }
+    .qc-icon { font-size: 28px; flex-shrink: 0; }
+
+    /* ── Axis card ───────────────────────────────────────────────── */
+    .axis-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 12px; }
+    .axis-card {
+      border: 1px solid var(--border); border-radius: 14px;
+      overflow: hidden; background: var(--surface-1);
+    }
+    .axis-header {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 20px; border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+    .axis-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800; flex-shrink: 0;
+    }
+    .num-amber { background:#fde68a; color:#78350f; }
+    .num-blue  { background:#bfdbfe; color:#1e3a8a; }
+    .num-red   { background:#fecaca; color:#7f1d1d; }
+    .axis-icon { font-size: 22px; flex-shrink: 0; }
+    .axis-title {
+      font-size: 14px; font-weight: 700; color: var(--text-1);
+      flex: 1; line-height: 1.35;
+    }
+    .axis-body {
+      padding: 18px 20px; font-size: 14px;
+      color: var(--text-2); line-height: 1.72;
+    }
+    .axis-body p { margin: 0 0 12px; }
+    .axis-body p:last-child { margin-bottom: 0; }
+
+    /* ── Key-point chips inside axis ─────────────────────────────── */
+    .axis-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
+    .axis-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 600; padding: 4px 12px;
+      border-radius: 20px; border: 1px solid transparent;
+    }
+    .chip-point-amber { background:#fef9c3; color:#78350f; border-color:#fde68a; }
+    .chip-point-blue  { background:#dbeafe; color:#1e3a8a; border-color:#bfdbfe; }
+    .chip-point-red   { background:#fee2e2; color:#7f1d1d; border-color:#fca5a5; }
+
+    /* ── Demand box ──────────────────────────────────────────────── */
+    .demand-box {
+      margin-top: 14px; padding: 12px 16px; border-radius: 10px;
+      font-size: 13px; line-height: 1.6; border: 1px solid transparent;
+    }
+    .demand-amber { background:#fef9c3; border-color:#fde68a; color:#78350f; }
+    .demand-blue  { background:#dbeafe; border-color:#93c5fd; color:#1e3a8a; }
+    .demand-red   { background:#fee2e2; border-color:#fca5a5; color:#7f1d1d; }
+
+    /* ── Highlight inline ─────────────────────────────────────────── */
+    .hl-amber { color: #92400e; font-weight: 600; }
+    .hl-blue  { color: #1e40af; font-weight: 600; }
+    .hl-red   { color: #991b1b; font-weight: 600; }
+
+    /* ── Opportunity flag ────────────────────────────────────────── */
+    .opp-flag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700; padding: 3px 10px;
+      border-radius: 20px; margin-bottom: 8px;
+    }
+    .opp-amber { background:#d1fae5; color:#065f46; border:1px solid #6ee7b7; }
+    .opp-blue  { background:#d1fae5; color:#065f46; border:1px solid #6ee7b7; }
+
+    /* ── Scroll progress ─────────────────────────────────────────── */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0; height: 2px;
+      background: var(--accent); z-index: 9999; transition: width .1s linear;
+    }/* ── cap-09: Análisis de Cluster ── */
 /* ── Intro stat bar ── */
     .cluster-kpi-row {
       display: grid;
@@ -2172,7 +2306,7 @@
     @media (max-width: 600px) {
       .actor-table th:nth-child(3),
       .actor-table td:nth-child(3) { display: none; }
-    }/* ── cap-09: Recomendaciones Estratégicas ── */
+    }/* ── cap-10: Recomendaciones Estratégicas ── */
 /* ── KPI intro bar ── */
     .rec-kpi-row {
       display: grid;
@@ -2468,7 +2602,7 @@
       .rec-cell:last-child { border-bottom: none; }
       .c2-stats { grid-template-columns: repeat(2, 1fr); }
       .cluster-section { padding: 22px 18px 26px; }
-    }/* ── cap-10: Conclusiones ── */
+    }/* ── cap-11: Conclusiones ── */
 /* ── Opening thesis card ── */
     .thesis-card {
       background: linear-gradient(135deg, var(--accent-soft, rgba(99,102,241,.07)) 0%, rgba(14,165,233,.05) 100%);
@@ -3018,9 +3152,10 @@
     <a class="sidebar-link" href="#cap-05"><span class="sidebar-num">05</span><span class="sidebar-link-title">Temas Prevalentes</span></a>
     <a class="sidebar-link" href="#cap-06"><span class="sidebar-num">06</span><span class="sidebar-link-title">Ecosistema de Actores</span></a>
     <a class="sidebar-link" href="#cap-07"><span class="sidebar-num">07</span><span class="sidebar-link-title">Red de Coordinación</span></a>
-    <a class="sidebar-link" href="#cap-08"><span class="sidebar-num">08</span><span class="sidebar-link-title">Análisis de Cluster</span></a>
-    <a class="sidebar-link" href="#cap-09"><span class="sidebar-num">09</span><span class="sidebar-link-title">Recomendaciones Estratégicas</span></a>
-    <a class="sidebar-link" href="#cap-10"><span class="sidebar-num">10</span><span class="sidebar-link-title">Conclusiones</span></a>
+    <a class="sidebar-link" href="#cap-08"><span class="sidebar-num">08</span><span class="sidebar-link-title">Temas pendientes: Baquedano, Sierra Gorda y Ollagüe</span></a>
+    <a class="sidebar-link" href="#cap-09"><span class="sidebar-num">09</span><span class="sidebar-link-title">Análisis de Cluster</span></a>
+    <a class="sidebar-link" href="#cap-10"><span class="sidebar-num">10</span><span class="sidebar-link-title">Recomendaciones Estratégicas</span></a>
+    <a class="sidebar-link" href="#cap-11"><span class="sidebar-num">11</span><span class="sidebar-link-title">Conclusiones</span></a>
     <div class="sidebar-footer">
       <div>DOS BARBAS</div>
       <div style="margin-top:4px;opacity:.7">2026 · Estudio FCAB</div>
@@ -4923,9 +5058,342 @@
   <div class="chapter-divider"></div>
 
   <!-- ════════════════════════════════════════════════════════════ -->
-  <!-- CAP 08: ANÁLISIS DE CLUSTER -->
+  <!-- CAP 08: TEMAS PENDIENTES: BAQUEDANO, SIERRA GORDA Y OLLAGÜE -->
   <!-- ════════════════════════════════════════════════════════════ -->
   <div id="cap-08" class="chapter-block">
+<div class="chapter-header">
+          <div class="chapter-breadcrumb">
+            <a href="../index.html">Índice</a>
+            <span class="breadcrumb-sep">›</span>
+            Capítulo 08
+          </div>
+          <h1 class="chapter-title">Temas pendientes en Baquedano, Sierra Gorda y Ollagüe</h1>
+          <p class="chapter-lead">
+            Diagnóstico de los ejes críticos de relacionamiento territorial en tres comunidades directamente expuestas a la operación de FCAB: brechas acumuladas, demandas estructurales y oportunidades de integración estratégica.
+          </p>
+          <div class="chapter-meta-row">
+            <span class="chapter-meta-item">📍 3 territorios</span>
+            <span class="chapter-meta-item">⚡ 13 ejes críticos</span>
+            <span class="chapter-meta-item">🚂 Corredor Bioceánico como factor común</span>
+          </div>
+        </div>
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 1: BAQUEDANO
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-baquedano">
+
+          <div class="territory-banner t-baquedano">
+            <div class="tb-icon">🏚️</div>
+            <div class="tb-body">
+              <div class="tb-label">Territorio 1</div>
+              <div class="tb-title">Baquedano</div>
+              <div class="tb-lead">Desconexión relacional y comunitaria pese a presencia física de FCAB. Cinco ejes críticos para la sostenibilidad operacional y comunitaria.</div>
+            </div>
+          </div>
+
+          <div class="context-box cb-baquedano">
+            Si bien la compañía opera físicamente en el territorio, se evidencia una desconexión desde una perspectiva relacional y comunitaria. Históricamente, este vínculo ha sufrido un desgaste significativo, caracterizándose por una marcada distancia corporativa y una postura reactiva, orientada principalmente a la gestión de crisis o a la respuesta de solicitudes transaccionales. Esta fragmentación tiene un origen fundacional asociado a una segregación socioespacial, materializada en el pasado por barreras físicas —como el antiguo cierre de calaminas— que dividían las instalaciones industriales del radio urbano. En la actualidad, esta distancia representa un <strong>riesgo inminente</strong> frente a los cambios estructurales que experimentará la zona, haciendo imperativo transitar desde un modelo de separación hacia uno de <strong>integración estratégica y desarrollo compartido</strong>.
+          </div>
+
+          <div class="ejes-chip chip-amber">⚡ 5 ejes críticos identificados para Baquedano</div>
+
+          <div class="axis-list">
+
+            <!-- Eje 1 -->
+            <div class="axis-card">
+              <div class="axis-header">
+                <div class="axis-num num-amber">1</div>
+                <div class="axis-icon">🔇</div>
+                <div class="axis-title">Ausencia de Interlocución y Comunicación Proactiva</div>
+              </div>
+              <div class="axis-body">
+                <p>Los actores locales perciben a la organización como un ente encapsulado que opera <span class="hl-amber">"de puertas hacia adentro"</span>. Existe un consenso transversal en la comunidad respecto a la falta de claridad sobre los canales oficiales de comunicación corporativa; los residentes y autoridades desconocen a quién dirigirse formalmente para plantear propuestas, colaboraciones o inquietudes.</p>
+                <p>Esta situación se agudizó con la <strong>desaparición de la figura institucional del relacionador comunitario</strong>, dejando un vacío que no ha sido cubierto. Como resultado directo de esta carencia, los escasos vínculos activos dependen exclusivamente de relaciones interpersonales e informales entre dirigentes y exfuncionarios, las cuales tienden a disolverse ante la rotación de personal.</p>
+                <div class="axis-chips">
+                  <span class="axis-chip chip-point-amber">🚫 Canales formales inexistentes</span>
+                  <span class="axis-chip chip-point-amber">👤 Relacionador comunitario ausente</span>
+                  <span class="axis-chip chip-point-amber">⚠️ Vínculos informales y frágiles</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Eje 2 -->
+            <div class="axis-card">
+              <div class="axis-header">
+                <div class="axis-num num-amber">2</div>
+                <div class="axis-icon">🏛️</div>
+                <div class="axis-title">Deuda Patrimonial y Memoria de Segregación</div>
+              </div>
+              <div class="axis-body">
+                <p>La lógica histórica de enclave ha sedimentado una percepción de despojo respecto a los activos culturales de la zona. La infraestructura patrimonial local —que incluye el <strong>museo y las maestranzas</strong>— es vista por la comunidad como un bien <span class="hl-amber">"secuestrado"</span> bajo la titularidad privada de la empresa.</p>
+                <p>Sumado a esto, se percibe una <strong>asimetría en la inversión comunitaria</strong>: mientras en Antofagasta se financian y abren espacios culturales de forma constante, en Baquedano las iniciativas son discontinuas. Frente a este escenario, el municipio plantea la necesidad urgente de establecer <strong>comodatos o servidumbres de paso turístico</strong> que permitan el acceso cotidiano al patrimonio ferroviario —y no solo en fechas conmemorativas—, impulsando así la diversificación económica local.</p>
+                <div class="demand-box demand-amber">
+                  🎯 <strong>Demanda concreta:</strong> Comodatos o servidumbres de paso turístico para acceso cotidiano al patrimonio ferroviario, no solo en fechas conmemorativas.
+                </div>
+              </div>
+            </div>
+
+            <!-- Eje 3 -->
+            <div class="axis-card">
+              <div class="axis-header">
+                <div class="axis-num num-amber">3</div>
+                <div class="axis-icon">⚠️</div>
+                <div class="axis-title">Gestión de Externalidades y Riesgos Operacionales</div>
+              </div>
+              <div class="axis-body">
+                <p>El relacionamiento se ve tensionado por el impacto directo de las operaciones diarias. Persiste un <strong>malestar latente en la población</strong> derivado de incidentes históricos —como el volcamiento de carros con ácido— lo que se suma a un malestar crónico por las externalidades regulares, destacando particularmente el <strong>problema del polvo en suspensión</strong>. La sensación de vulnerabilidad ciudadana frente al tránsito de materiales peligrosos por el radio urbano es alta.</p>
+                <p>Por consiguiente, existe una exigencia comunitaria orientada a la implementación de protocolos estándar y transparentes de vinculación industrial, además de la ejecución de <strong>programas preventivos</strong> para los habitantes ante posibles emergencias.</p>
+                <div class="axis-chips">
+                  <span class="axis-chip chip-point-amber">🌫️ Polvo en suspensión crónico</span>
+                  <span class="axis-chip chip-point-amber">🧪 Historial de incidentes con materiales peligrosos</span>
+                  <span class="axis-chip chip-point-amber">📋 Protocolos de emergencia inexistentes</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Eje 4 -->
+            <div class="axis-card">
+              <div class="axis-header">
+                <div class="axis-num num-amber">4</div>
+                <div class="axis-icon">💼</div>
+                <div class="axis-title">Transición del Asistencialismo a la Integración Sociolaboral</div>
+              </div>
+              <div class="axis-body">
+                <p>La interacción actual se ha limitado a <strong>ayudas puntuales</strong> solicitadas por la junta de vecinos. Sin embargo, la demanda estructural apunta a una verdadera integración de la localidad en la cadena de valor y empleabilidad de la compañía. En este ámbito, se destaca la situación del <span class="hl-amber">"adulto joven"</span>, un grupo demográfico que se percibe marginado de los programas tradicionales de inversión social del Estado y de los privados.</p>
+                <p>La comunidad requiere <strong>capacitación técnica y oportunidades de empleo directo</strong> que frenen la migración forzada de su fuerza laboral activa. De lo contrario, se consolidará la imagen de una operación extractiva que utiliza el territorio sin generar una retribución económica local proporcional.</p>
+                <div class="demand-box demand-amber">
+                  🎯 <strong>Demanda estructural:</strong> Integración en cadena de valor ferroviaria, capacitación técnica y empleo directo. Foco en adultos jóvenes excluidos de programas estatales y privados.
+                </div>
+              </div>
+            </div>
+
+            <!-- Eje 5 -->
+            <div class="axis-card">
+              <div class="axis-header">
+                <div class="axis-num num-amber">5</div>
+                <div class="axis-icon">🚂</div>
+                <div class="axis-title">Ventana Estratégica: Plan Maestro Logístico y Corredor Bioceánico</div>
+              </div>
+              <div class="axis-body">
+                <div class="opp-flag opp-amber">✅ Oportunidad estratégica</div>
+                <p>Baquedano atraviesa una <strong>ventana de oportunidad irrepetible</strong> en su configuración territorial. Actualmente, el municipio avanza en el diseño de un <strong>plan maestro logístico</strong> para hacer frente al aumento proyectado de flujo vehicular —especialmente camiones— producto del avance del Corredor Bioceánico.</p>
+                <p>Pese a que la operación ferroviaria es un elemento estructural en este nuevo escenario de transporte de carga, <span class="hl-amber">la empresa aún no ha sido convocada formalmente a este proceso de planificación</span>. La no participación en este proceso representa un riesgo de quedar fuera de la planificación territorial del período más transformador de la zona.</p>
+                <div class="axis-chips">
+                  <span class="axis-chip chip-point-amber">🗺️ Plan maestro logístico municipal en diseño</span>
+                  <span class="axis-chip chip-point-amber">🚛 Aumento proyectado de flujo de carga</span>
+                  <span class="axis-chip chip-point-amber">⚡ FCAB aún no convocada formalmente</span>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /.axis-list -->
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 2: SIERRA GORDA
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-sierra">
+
+          <div class="territory-banner t-sierra">
+            <div class="tb-icon">⛏️</div>
+            <div class="tb-body">
+              <div class="tb-label">Territorio 2</div>
+              <div class="tb-title">Sierra Gorda</div>
+              <div class="tb-lead">Percepción diferenciada según actor: aliado institucional para la Municipalidad, presencia insuficiente para la comunidad de base.</div>
+            </div>
+          </div>
+
+          <div class="context-box cb-sierra">
+            El diagnóstico en Sierra Gorda muestra distintas percepciones respecto al modelo de relacionamiento territorial de la compañía. Se observa una diferencia según el actor con el que se interactúa. A nivel institucional, la Municipalidad identifica a la empresa como un <strong>aliado estratégico</strong>, destacando su participación colaborativa en el Comité Estratégico Minero (CEM). Sin embargo, a nivel comunitario, las bases sociales y Juntas de Vecinos perciben una menor cercanía.
+          </div>
+
+          <div class="ejes-chip chip-blue">⚡ 3 ejes críticos identificados para Sierra Gorda</div>
+
+          <div class="axis-list">
+
+            <!-- Eje 1 -->
+            <div class="axis-card">
+              <div class="axis-header">
+                <div class="axis-num num-blue">1</div>
+                <div class="axis-icon">⚖️</div>
+                <div class="axis-title">Diferencias en la Percepción del Relacionamiento: Institucional vs. Comunitaria</div>
+              </div>
+              <div class="axis-body">
+                <p>Se observa un contraste entre el buen relacionamiento corporativo con las autoridades y el vínculo directo con la comunidad. Mientras la Alcaldía evalúa positivamente el contacto debido al trabajo conjunto en el <strong>CEM (Comité Estratégico Minero)</strong>, los líderes vecinales reportan una vinculación más bien escasa.</p>
+                <p>Parte de la población percibe a la organización con <strong>menor presencia en el día a día</strong>, señalando que faltan canales de comunicación más visibles y accesibles para que los vecinos puedan plantear inquietudes o sugerencias operativas. Esta situación genera ciertas expectativas, especialmente cuando la ciudadanía <span class="hl-blue">compara los tiempos de respuesta con los estándares que la industria minera ha establecido en la zona</span>. Esto sugiere la oportunidad de facilitar y ampliar las vías de contacto ciudadano.</p>
+                <div class="axis-chips">
+                  <span class="axis-chip chip-point-blue">🏛️ Alcaldía: aliado estratégico (CEM)</span>
+                  <span class="axis-chip chip-point-blue">🏘️ Juntas de vecinos: vinculación escasa</span>
+                  <span class="axis-chip chip-point-blue">📣 Canales ciudadanos insuficientes</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Eje 2 -->
+            <div class="axis-card">
+              <div class="axis-header">
+                <div class="axis-num num-blue">2</div>
+                <div class="axis-icon">🏗️</div>
+                <div class="axis-title">Oportunidad de Transformar Infraestructura en Activos Socio-Patrimoniales</div>
+              </div>
+              <div class="axis-body">
+                <div class="opp-flag opp-blue">✅ Oportunidad estratégica</div>
+                <p>La <strong>infraestructura histórica inactiva</strong> de la empresa en el territorio representa tanto un desafío como una gran oportunidad. Desde la perspectiva vecinal, las estaciones en desuso generan preocupación por su mantenimiento y el cuidado del entorno urbano, lo que puede afectar la percepción sobre la calidad de vida local.</p>
+                <p>En contraste, el municipio identifica estas mismas instalaciones como espacios de <strong>alto valor patrimonial</strong>, con potencial para impulsar la economía local a través de su Plan de Desarrollo Turístico (Pladetur). Avanzar en la posibilidad de ceder estos espacios en <strong>comodato</strong> no solo ayudaría a resolver la necesidad comunitaria de contar con lugares para uso civil —como sedes sociales—, sino que representaría un aporte significativo y muy valorado para la reputación de la compañía.</p>
+                <div class="demand-box demand-blue">
+                  🎯 <strong>Oportunidad concreta:</strong> Cesión en comodato de estaciones en desuso para uso civil y turístico, articulado con el Pladetur municipal. Alta rentabilidad reputacional para FCAB con bajo costo operacional.
+                </div>
+              </div>
+            </div>
+
+            <!-- Eje 3 -->
+            <div class="axis-card">
+              <div class="axis-header">
+                <div class="axis-num num-blue">3</div>
+                <div class="axis-icon">🗺️</div>
+                <div class="axis-title">Planificación Logística y Acompañamiento frente al Corredor Bioceánico</div>
+              </div>
+              <div class="axis-body">
+                <div class="opp-flag opp-blue">✅ Oportunidad estratégica</div>
+                <p>Al igual que en otras localidades de la región, Sierra Gorda se prepara para los cambios que traerá el avance del <strong>Corredor Bioceánico</strong>. Se proyecta un incremento importante en el flujo de transporte de carga, lo que supone un desafío para la infraestructura pública local y un posible aumento de externalidades como <strong>ruido, polvo y mayor tráfico vial</strong>.</p>
+                <p>Frente a este escenario, resulta muy valioso formalizar <strong>mesas de trabajo técnico y preventivo</strong> entre la empresa y la Municipalidad (en particular con la SECPLAN). Integrar este factor logístico de manera anticipada en la planificación de la empresa es clave para cuidar el desarrollo armónico de la localidad, asegurando decisiones conjuntas que beneficien tanto a la operación como a la comunidad.</p>
+                <div class="axis-chips">
+                  <span class="axis-chip chip-point-blue">🚛 Aumento proyectado de carga</span>
+                  <span class="axis-chip chip-point-blue">🏗️ Mesa técnica con SECPLAN pendiente</span>
+                  <span class="axis-chip chip-point-blue">🤝 Decisiones conjuntas anticipadas</span>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /.axis-list -->
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 3: OLLAGÜE
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-ollagüe">
+
+          <div class="territory-banner t-ollagüe">
+            <div class="tb-icon">🏜️</div>
+            <div class="tb-body">
+              <div class="tb-label">Territorio 3</div>
+              <div class="tb-title">Ollagüe</div>
+              <div class="tb-lead">Punto fronterizo con mayor exposición directa a las operaciones de FCAB. Profunda disonancia estratégica: presencia física sin retribución proporcional.</div>
+            </div>
+          </div>
+
+          <div class="quote-callout qc-red">
+            <div class="qc-icon">💬</div>
+            <div>
+              La empresa es percibida como un <strong>"terrateniente ausente"</strong>: se reconoce una gestión comunitaria fluida en el ámbito asistencial, pero existe un marcado letargo corporativo frente a resoluciones críticas. En la práctica, la compañía opera en el territorio sin generar una retribución que sea proporcional a su extensa presencia física.
+            </div>
+          </div>
+
+          <div class="context-box cb-ollagüe">
+            El diagnóstico del ecosistema institucional en Ollagüe evidencia una profunda <strong>disonancia estratégica</strong> en el relacionamiento actual con FCAB. A pesar de que la localidad tiene un origen intrínsecamente ligado al ferrocarril y es el punto fronterizo con mayor exposición directa a sus operaciones, la brecha entre presencia operacional y vínculo comunitario es la más pronunciada del estudio.
+          </div>
+
+          <div class="ejes-chip chip-red">⚡ 5 ejes críticos identificados para Ollagüe</div>
+
+          <div class="axis-list">
+
+            <!-- Eje 1 -->
+            <div class="axis-card">
+              <div class="axis-header">
+                <div class="axis-num num-red">1</div>
+                <div class="axis-icon">🔒</div>
+                <div class="axis-title">Burocracia Corporativa y Bloqueo de Infraestructura Crítica</div>
+              </div>
+              <div class="axis-body">
+                <p>Existe una frustración transversal ante la <strong>asimetría en los tiempos de respuesta</strong> de la compañía. Mientras las solicitudes asistenciales se resuelven con agilidad, la lentitud institucional de FCAB se ha convertido en un obstáculo concreto para el desarrollo comunal.</p>
+                <p>El caso más crítico es el <strong>proyecto de alcantarillado definitivo</strong>, una iniciativa sanitaria vital que no requiere inyección de capital por parte de la empresa, sino únicamente agilidad administrativa para autorizar permisos. Esta solicitud fue ingresada a las plataformas formales y <span class="hl-red">tardó meses, e incluso más de un año, solo en recibir un primer contacto</span>, evidenciando una desconexión severa con la Secretaría Comunal de Planificación (SECOPLAN) y una disparidad entre los tiempos de urgencia del territorio y los de la empresa.</p>
+                <div class="axis-chips">
+                  <span class="axis-chip chip-point-red">🚰 Alcantarillado definitivo bloqueado</span>
+                  <span class="axis-chip chip-point-red">⏳ +1 año para primer contacto</span>
+                  <span class="axis-chip chip-point-red">💧 Sin inversión requerida, solo permisos</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Eje 2 -->
+            <div class="axis-card">
+              <div class="axis-header">
+                <div class="axis-num num-red">2</div>
+                <div class="axis-icon">🏚️</div>
+                <div class="axis-title">Degradación del Espacio Público y Pasivos Patrimoniales</div>
+              </div>
+              <div class="axis-body">
+                <p>La infraestructura de FCAB cruza y divide la comuna, constituyendo la <strong>primera imagen visual para visitantes y turistas</strong>. Sin embargo, este entorno presenta un deterioro significativo: espacios que la empresa clasifica como áreas de acopio son percibidos por el municipio derechamente como <span class="hl-red">focos de chatarra o "microbasurales"</span>.</p>
+                <p>A esto se suma la alarmante <strong>falta de cierre perimetral</strong>, lo que genera riesgos de seguridad directos al permitir que la población infantil acceda libremente a zonas con despuntes de fierro y materiales peligrosos. Simultáneamente, existe un fuerte reclamo sobre activos como el <strong>antiguo galpón amarillo y los vagones históricos</strong>: la comunidad exige el rescate identitario y la co-gestión de estos espacios patrimoniales mediante comodatos o cesiones de uso. El prolongado abandono de estas instalaciones contrasta negativamente con las nuevas inversiones municipales.</p>
+                <div class="demand-box demand-red">
+                  🎯 <strong>Demandas concretas:</strong> Cierre perimetral en zonas de riesgo para menores · Co-gestión del galpón amarillo y vagones históricos · Reactivación patrimonial mediante comodato.
+                </div>
+              </div>
+            </div>
+
+            <!-- Eje 3 -->
+            <div class="axis-card">
+              <div class="axis-header">
+                <div class="axis-num num-red">3</div>
+                <div class="axis-icon">👷</div>
+                <div class="axis-title">Oportunidad de Encadenamiento Local y Empleabilidad</div>
+              </div>
+              <div class="axis-body">
+                <p>A pesar de la magnitud de la operación en la zona, la participación de los residentes de Ollagüe en la dotación laboral de la empresa es <span class="hl-red">prácticamente nula, estimándose en apenas cuatro trabajadores locales</span>. Esta desconexión económica agrava la dinámica de vaciamiento demográfico que sufre la localidad.</p>
+                <p>La comunidad demanda no solo empleos directos, sino también oportunidades de <strong>prácticas profesionales y capacitación técnica</strong> que faciliten la integración de la población, particularmente de <strong>mujeres jefas de hogar</strong>, a la cadena de valor ferroviaria. La ausencia de la empresa como motor de empleo refuerza la tendencia emigratoria del segmento activo de la población.</p>
+                <div class="axis-chips">
+                  <span class="axis-chip chip-point-red">👥 Solo 4 trabajadores locales estimados</span>
+                  <span class="axis-chip chip-point-red">👩 Foco en mujeres jefas de hogar</span>
+                  <span class="axis-chip chip-point-red">📉 Vaciamiento demográfico acelerado</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Eje 4 -->
+            <div class="axis-card">
+              <div class="axis-header">
+                <div class="axis-num num-red">4</div>
+                <div class="axis-icon">⚖️</div>
+                <div class="axis-title">Asimetría Transaccional y Gestión de Externalidades</div>
+              </div>
+              <div class="axis-body">
+                <p>En paralelo a la falta de integración económica, la operación diaria genera <strong>externalidades no mitigadas</strong>: el constante ruido nocturno de las locomotoras y la polución levantan preocupaciones sanitarias en la población. Sumado a ello, los actores locales resienten una asimetría transaccional, indicando que FCAB aplica <span class="hl-red">estrategias de relacionamiento estandarizadas —un modelo "copy-paste"—</span> que carecen de pertinencia sociocultural para un territorio fronterizo y aislado.</p>
+                <p>Ante esto, las autoridades exigen mayor <strong>equidad territorial</strong>, sugiriendo medidas como el pago directo de <strong>patentes comerciales en el municipio</strong> para compensar los impactos generados.</p>
+                <div class="demand-box demand-red">
+                  🎯 <strong>Demandas concretas:</strong> Mitigación del ruido nocturno de locomotoras · Fin del modelo estandarizado · Pago de patentes comerciales locales · Pertinencia sociocultural del relacionamiento.
+                </div>
+              </div>
+            </div>
+
+            <!-- Eje 5 -->
+            <div class="axis-card">
+              <div class="axis-header">
+                <div class="axis-num num-red">5</div>
+                <div class="axis-icon">🤝</div>
+                <div class="axis-title">Hacia una Planificación Territorial Conjunta</div>
+              </div>
+              <div class="axis-body">
+                <p>El vínculo actual se sostiene en <strong>actividades programáticas de corto plazo</strong> —como celebraciones del Día del Niño o Navidad— que, aunque generan satisfacción inmediata, resultan repetitivas y nulas en impacto estructural. Se requiere con urgencia superar este modelo.</p>
+                <p>La demanda es clara: formalizar un <strong>plan de trabajo conjunto</strong> entre FCAB y el municipio, estableciendo objetivos trazables, compromisos medibles y plazos definidos. Abandonar la dependencia de las buenas voluntades individuales e instaurar <strong>canales institucionales de seguimiento</strong> es el único camino viable para revertir el desgaste acumulado y construir una convivencia territorial estratégica.</p>
+                <div class="axis-chips">
+                  <span class="axis-chip chip-point-red">📅 Navidad y Día del Niño: impacto nulo estructural</span>
+                  <span class="axis-chip chip-point-red">📋 Plan conjunto con compromisos medibles</span>
+                  <span class="axis-chip chip-point-red">🏛️ Canales institucionales de seguimiento</span>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /.axis-list -->
+        </section>
+
+      </div><!-- /.chapter-content -->
+  </div>
+  <div class="chapter-divider"></div>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- CAP 09: ANÁLISIS DE CLUSTER -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <div id="cap-09" class="chapter-block">
 <!-- CHAPTER HEADER -->
       <header class="chapter-header">
         <div class="chapter-meta">
@@ -5474,9 +5942,9 @@
   <div class="chapter-divider"></div>
 
   <!-- ════════════════════════════════════════════════════════════ -->
-  <!-- CAP 09: RECOMENDACIONES ESTRATÉGICAS -->
+  <!-- CAP 10: RECOMENDACIONES ESTRATÉGICAS -->
   <!-- ════════════════════════════════════════════════════════════ -->
-  <div id="cap-09" class="chapter-block">
+  <div id="cap-10" class="chapter-block">
 <!-- CHAPTER HEADER -->
       <header class="chapter-header">
         <div class="chapter-meta">
@@ -5961,9 +6429,9 @@
   <div class="chapter-divider"></div>
 
   <!-- ════════════════════════════════════════════════════════════ -->
-  <!-- CAP 10: CONCLUSIONES -->
+  <!-- CAP 11: CONCLUSIONES -->
   <!-- ════════════════════════════════════════════════════════════ -->
-  <div id="cap-10" class="chapter-block">
+  <div id="cap-11" class="chapter-block">
 <!-- CHAPTER HEADER -->
       <header class="chapter-header">
         <div class="chapter-meta">
