@@ -1,0 +1,558 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sub-Cap. I — Disposición al diálogo | Estudio FCAB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    /* ── Variable intro card ─────────────────────────────────────── */
+    .var-intro-card {
+      display: flex; gap: 0; border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06); margin: 24px 0;
+    }
+    .var-accent-bar { width: 6px; flex-shrink: 0; }
+    .var-intro-body { padding: 24px 28px; flex: 1; }
+    .var-intro-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+    .var-icon { font-size: 32px; line-height: 1; flex-shrink: 0; }
+    .var-name  { font-size: 18px; font-weight: 700; color: var(--text-1); margin-bottom: 4px; }
+    .var-desc  { font-size: 13.5px; color: var(--text-2); line-height: 1.55; }
+    .var-stats-row {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 12px;
+      border-top: 1px solid var(--border); padding-top: 16px;
+    }
+    .var-stat { text-align: center; }
+    .var-stat-val { font-size: 22px; font-weight: 700; color: var(--text-1); }
+    .var-stat-val.highlight-green { color: #059669; }
+    .var-stat-lbl { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+    @media(max-width:600px){ .var-stats-row { grid-template-columns: repeat(2,1fr); } }
+
+    /* ── Insight box ─────────────────────────────────────────────── */
+    .insight-box {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: var(--surface-1); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 20px; margin: 20px 0;
+      font-size: 14px; line-height: 1.6; color: var(--text-2);
+    }
+    .insight-icon { font-size: 20px; flex-shrink: 0; }
+
+    /* ── Hero stat banner ────────────────────────────────────────── */
+    .hero-stat-banner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      margin: 20px 0;
+    }
+    @media(max-width:580px){ .hero-stat-banner { grid-template-columns: 1fr; } }
+    .hero-stat-card {
+      border-radius: 16px; padding: 28px 24px; text-align: center;
+      border: 1px solid transparent;
+    }
+    .hero-stat-card.primary {
+      background: linear-gradient(135deg,#ecfdf5,#d1fae5);
+      border-color: #6ee7b7;
+    }
+    .hero-stat-card.secondary {
+      background: linear-gradient(135deg,#eff6ff,#dbeafe);
+      border-color: #bfdbfe;
+    }
+    .hero-big-num { font-size: 56px; font-weight: 900; line-height: 1; color: #065f46; }
+    .hero-big-num.blue { color: #1d4ed8; }
+    .hero-big-label { font-size: 14px; font-weight: 600; color: var(--text-2); margin-top: 8px; }
+    .hero-big-sub { font-size: 12px; color: var(--text-3); margin-top: 4px; }
+
+    /* ── Universal badge ─────────────────────────────────────────── */
+    .universal-badge {
+      display: flex; align-items: center; gap: 20px;
+      background: linear-gradient(135deg,#ecfdf5,#d1fae5);
+      border: 2px solid #10b981; border-radius: 16px;
+      padding: 22px 28px; margin: 20px 0;
+    }
+    .univ-icon   { font-size: 36px; flex-shrink: 0; }
+    .univ-text   { font-size: 15px; line-height: 1.6; color: var(--text-2); }
+    .univ-text strong { color: #065f46; font-size: 16px; }
+
+    /* ── Distribution cards ──────────────────────────────────────── */
+    .dist-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 12px;
+      margin: 20px 0;
+    }
+    @media(max-width:580px){ .dist-grid { grid-template-columns: 1fr; } }
+    .dist-card {
+      border-radius: 12px; padding: 20px 16px; text-align: center;
+      border: 1px solid var(--border);
+    }
+    .dist-card.dist-max  { background: linear-gradient(135deg,#ecfdf5,#d1fae5); border-color:#6ee7b7; }
+    .dist-card.dist-alta { background: linear-gradient(135deg,#eff6ff,#dbeafe); border-color:#bfdbfe; }
+    .dist-card.dist-none { background: var(--surface-1); border-style: dashed; }
+    .dist-pct   { font-size: 32px; font-weight: 800; color: var(--text-1); }
+    .dist-score { font-size: 13px; font-weight: 600; color: var(--text-1); margin: 4px 0 2px; }
+    .dist-label { font-size: 11.5px; color: var(--text-2); }
+    .dist-note  { font-size: 12px; color: var(--text-3); margin-top: 6px; font-style: italic; }
+
+    /* ── Actor score cards (horizontal) ─────────────────────────── */
+    .actor-score-list { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+    .actor-score-row {
+      display: flex; align-items: center; gap: 16px;
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 14px 20px; background: var(--surface-1);
+    }
+    .actor-score-row.top-actor { border-color:#6ee7b7; background: linear-gradient(135deg,#ecfdf5,#f0fdf4); }
+    .actor-score-row.low-actor { border-color:#fde68a; background: linear-gradient(135deg,#fefce8,#fef9c3); }
+    .asr-rank   { font-size: 11px; font-weight: 700; color: var(--text-3); width: 24px; flex-shrink: 0; }
+    .asr-score  { font-size: 24px; font-weight: 800; color: var(--text-1); flex-shrink: 0; width: 52px; }
+    .asr-score.perfect { color: #059669; }
+    .asr-name   { font-size: 14px; font-weight: 600; color: var(--text-1); flex: 1; }
+    .asr-bar-wrap { flex: 2; }
+    .asr-bar    { height: 6px; border-radius: 3px; background: var(--surface-2); overflow: hidden; }
+    .asr-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg,#10b981,#059669); }
+    .asr-note   { font-size: 12px; color: var(--text-3); margin-top: 3px; }
+    @media(max-width:600px){ .asr-bar-wrap { display: none; } }
+
+    /* ── Condition callout ───────────────────────────────────────── */
+    .condition-callout {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: linear-gradient(135deg,#fefce8,#fef9c3);
+      border: 1px solid #fde68a; border-radius: 12px;
+      padding: 16px 20px; margin: 20px 0;
+      font-size: 14px; line-height: 1.6; color: var(--text-2);
+    }
+    .condition-callout strong { color: #92400e; }
+
+    /* ── Territory cards ─────────────────────────────────────────── */
+    .territory-grid {
+      display: grid; grid-template-columns: repeat(2,1fr); gap: 14px;
+      margin: 20px 0;
+    }
+    @media(max-width:580px){ .territory-grid { grid-template-columns: 1fr; } }
+    .territory-card {
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 20px; background: var(--surface-1);
+    }
+    .territory-card.t-perfect { border-color: #6ee7b7; background: linear-gradient(135deg,#ecfdf5,#f0fdf4); }
+    .territory-card.t-sierra  { border-color: #a5b4fc; background: linear-gradient(135deg,#f5f3ff,#ede9fe); }
+    .tc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .tc-name   { font-size: 14px; font-weight: 700; color: var(--text-1); }
+    .tc-score  { font-size: 24px; font-weight: 800; color: var(--text-1); }
+    .tc-score.perfect { color: #059669; }
+    .tc-score.sierra  { color: #4f46e5; }
+    .tc-list   { margin: 0; padding-left: 16px; font-size: 13px; color: var(--text-2); line-height: 1.65; }
+    .tc-list li { margin-bottom: 4px; }
+    .tc-badge  {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      padding: 3px 10px; border-radius: 20px; margin-top: 10px;
+    }
+    .tc-badge.best  { background: #d1fae5; color: #065f46; }
+    .tc-badge.mejor { background: #ede9fe; color: #4f46e5; }
+
+    /* ── Sierra highlight ────────────────────────────────────────── */
+    .sierra-highlight {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: linear-gradient(135deg,#f5f3ff,#ede9fe);
+      border: 1px solid #a5b4fc; border-radius: 12px;
+      padding: 16px 20px; margin: 20px 0;
+      font-size: 14px; line-height: 1.6; color: var(--text-2);
+    }
+    .sierra-highlight strong { color: #4338ca; }
+
+    /* ── Suelo firme pillars ─────────────────────────────────────── */
+    .suelo-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 14px;
+      margin: 20px 0;
+    }
+    @media(max-width:680px){ .suelo-grid { grid-template-columns: 1fr; } }
+    .suelo-card {
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 22px; background: var(--surface-1); text-align: center;
+    }
+    .suelo-icon  { font-size: 30px; margin-bottom: 10px; }
+    .suelo-title { font-size: 13.5px; font-weight: 700; color: var(--text-1); margin-bottom: 8px; }
+    .suelo-text  { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+
+    /* ── Diagnosis box ───────────────────────────────────────────── */
+    .diag-box {
+      border: 1px solid #6ee7b7;
+      background: linear-gradient(135deg,#ecfdf5,#f0fdf4);
+      border-radius: 14px; overflow: hidden; margin: 24px 0;
+    }
+    .diag-box-header {
+      background: rgba(16,185,129,.12); padding: 12px 20px;
+      font-size: 13px; font-weight: 700; color: #065f46;
+      border-bottom: 1px solid #6ee7b7;
+    }
+    .diag-box p { padding: 16px 20px; margin: 0; font-size: 14px; color: var(--text-2); line-height: 1.7; }
+
+    /* ── Insight list ────────────────────────────────────────────── */
+    .insight-list { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+    .insight-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: var(--surface-1); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 16px;
+      font-size: 13.5px; color: var(--text-2); line-height: 1.6;
+    }
+    .insight-bullet { color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+    /* ── Info note ───────────────────────────────────────────────── */
+    .info-note {
+      background: var(--surface-1); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px 18px;
+      font-size: 12.5px; color: var(--text-3); line-height: 1.6;
+      margin: 20px 0;
+    }
+
+    /* ── Iframe wrapper ──────────────────────────────────────────── */
+    .iframe-wrap {
+      width: 100%; border-radius: 14px; overflow: hidden;
+      border: 1px solid var(--border); margin: 24px 0;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+    }
+    .iframe-wrap iframe { width: 100%; height: 520px; border: none; display: block; }
+
+    /* ── Scroll progress ─────────────────────────────────────────── */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0; height: 2px;
+      background: var(--accent); z-index: 9999; transition: width .1s linear;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menú">&#9776;</button>
+
+  <header class="topbar">
+    <div class="topbar-left">
+      <img src="../assets/img/logo-fcab.jpg" alt="FCAB" class="topbar-logo-img">
+      <span class="topbar-title">Estudio FCAB</span>
+    </div>
+    <div class="topbar-right">
+      <img src="../assets/img/logo-dos-barbas.png" alt="Dos Barbas" class="topbar-logo-img">
+    </div>
+  </header>
+
+  <div class="layout-root">
+    <nav class="sidebar" id="sidebar"></nav>
+
+    <main class="chapter-main">
+      <div class="chapter-content">
+
+        <div class="chapter-header">
+          <div class="chapter-breadcrumb">
+            <a href="capitulo-08.html">Cap. 03 — Análisis Descriptivo</a>
+            <span class="breadcrumb-sep">›</span>
+            Sub-capítulo I
+          </div>
+          <h1 class="chapter-title">Disposición al diálogo</h1>
+          <p class="chapter-lead">
+            La variable más contundente y homogénea del estudio: apertura de los actores a participar en instancias formales de diálogo, coordinación o trabajo conjunto con FCAB.
+          </p>
+          <div class="chapter-meta-row">
+            <span class="chapter-meta-item">📏 Variable ordinal 1–7</span>
+            <span class="chapter-meta-item">👥 N = 70 actores</span>
+            <span class="chapter-meta-item">📊 Media: 6,8 · &sigma; = 0,71</span>
+          </div>
+        </div>
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 1: VISIÓN GENERAL DE LA VARIABLE
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-overview">
+          <h2>1. Visión general de la variable</h2>
+
+          <div class="var-intro-card">
+            <div class="var-accent-bar" style="background:linear-gradient(135deg,#059669,#34d399)"></div>
+            <div class="var-intro-body">
+              <div class="var-intro-header">
+                <div class="var-icon">🤲</div>
+                <div>
+                  <div class="var-name">Disposición al diálogo</div>
+                  <div class="var-desc">Mide la apertura del actor o su organización a participar en instancias formales de diálogo, coordinación o trabajo conjunto con FCAB. Produce los resultados más contundentes y homogéneos de toda la batería de variables.</div>
+                </div>
+              </div>
+              <div class="var-stats-row">
+                <div class="var-stat">
+                  <div class="var-stat-val highlight-green">6,8</div>
+                  <div class="var-stat-lbl">Promedio (escala 1–7)</div>
+                </div>
+                <div class="var-stat">
+                  <div class="var-stat-val">0,71</div>
+                  <div class="var-stat-lbl">Desviación estándar</div>
+                </div>
+                <div class="var-stat">
+                  <div class="var-stat-val">70</div>
+                  <div class="var-stat-lbl">Actores evaluados</div>
+                </div>
+                <div class="var-stat">
+                  <div class="var-stat-val highlight-green">92%</div>
+                  <div class="var-stat-lbl">En nivel máximo (7)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="universal-badge">
+            <div class="univ-icon">✅</div>
+            <div class="univ-text">
+              <strong>Disposición al diálogo prácticamente universal</strong><br>
+              Con un promedio de 6,8 y el 92% de los actores en nivel máximo, esta variable se convierte en la dimensión más sólida de todo el diagnóstico. No existe ningún actor en los rangos 1–2. Las diferencias entre categorías son mínimas. La apertura es estructural, independiente del historial de la relación con FCAB.
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 2: DISTRIBUCIÓN POR PUNTAJE
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-distribucion">
+          <h2>2. Distribución de puntajes</h2>
+
+          <div class="hero-stat-banner">
+            <div class="hero-stat-card primary">
+              <div class="hero-big-num">92%</div>
+              <div class="hero-big-label">Puntaje máximo (7)</div>
+              <div class="hero-big-sub">La concentración más alta de todo el estudio</div>
+            </div>
+            <div class="hero-stat-card secondary">
+              <div class="hero-big-num blue">0</div>
+              <div class="hero-big-label">Actores en rango 1–2</div>
+              <div class="hero-big-sub">Ningún actor rechaza el diálogo formal</div>
+            </div>
+          </div>
+
+          <div class="dist-grid">
+            <div class="dist-card dist-max">
+              <div class="dist-pct">92%</div>
+              <div class="dist-score">Puntaje 7</div>
+              <div class="dist-label">Disposición máxima</div>
+              <div class="dist-note">La concentración más alta registrada en cualquier variable del estudio</div>
+            </div>
+            <div class="dist-card dist-alta">
+              <div class="dist-pct">8%</div>
+              <div class="dist-score">Puntaje 5–6</div>
+              <div class="dist-label">Disposición alta</div>
+              <div class="dist-note">Actores dispuestos con condiciones o matices específicos</div>
+            </div>
+            <div class="dist-card dist-none">
+              <div class="dist-pct" style="color:var(--text-3)">0%</div>
+              <div class="dist-score">Puntaje 1–4</div>
+              <div class="dist-label">Sin actores</div>
+              <div class="dist-note">Ningún actor rechaza participar en instancias formales</div>
+            </div>
+          </div>
+
+          <div class="insight-box">
+            <span class="insight-icon">🔑</span>
+            <div>
+              La homogeneidad de esta variable la convierte en un <strong>signo de apertura estructural</strong>: la disposición al diálogo no depende del historial de la relación, del territorio ni del tipo de actor. Incluso donde la calidad relacional es baja o la afectación alta, los actores mantienen su apertura a instancias formales de participación con FCAB.
+            </div>
+          </div>
+
+          <div class="iframe-wrap">
+            <iframe src="../../disposicion_dialogo_fcab_segmentacion_1_7.html" title="Distribución Disposición al diálogo" loading="lazy"></iframe>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 3: POR TIPO DE ACTOR
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-actores">
+          <h2>3. Disposición por tipo de actor</h2>
+
+          <div class="actor-score-list">
+            <div class="actor-score-row top-actor">
+              <div class="asr-rank">1°</div>
+              <div class="asr-score perfect">7,0</div>
+              <div class="asr-name">Autoridades y sector público</div>
+              <div class="asr-bar-wrap">
+                <div class="asr-bar"><div class="asr-bar-fill" style="width:100%"></div></div>
+                <div class="asr-note">Promedio perfecto — participar en instancias de diálogo con una empresa que opera en su territorio es parte inherente de su función pública</div>
+              </div>
+            </div>
+            <div class="actor-score-row">
+              <div class="asr-rank">2°</div>
+              <div class="asr-score">6,94</div>
+              <div class="asr-name">Sector productivo, clientes y gremios</div>
+              <div class="asr-bar-wrap">
+                <div class="asr-bar"><div class="asr-bar-fill" style="width:99%"></div></div>
+                <div class="asr-note">Casi perfecto — la coordinación con FCAB es coherente con su lógica de relacionamiento empresarial e institucional</div>
+              </div>
+            </div>
+            <div class="actor-score-row">
+              <div class="asr-rank">3°</div>
+              <div class="asr-score">6,79</div>
+              <div class="asr-name">Comunidad y organización social</div>
+              <div class="asr-bar-wrap">
+                <div class="asr-bar"><div class="asr-bar-fill" style="width:97%"></div></div>
+                <div class="asr-note">Alto y consistente — la apertura al diálogo se mantiene incluso en actores comunitarios con afectación negativa o relación deteriorada</div>
+              </div>
+            </div>
+            <div class="actor-score-row low-actor">
+              <div class="asr-rank">4°</div>
+              <div class="asr-score">6,51</div>
+              <div class="asr-name">Sociedad civil, academia y medios</div>
+              <div class="asr-bar-wrap">
+                <div class="asr-bar"><div class="asr-bar-fill" style="width:93%"></div></div>
+                <div class="asr-note">El único segmento con matices: algunos actores condicionan su disposición a la calidad del diálogo propuesto</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="condition-callout">
+            <span style="font-size:22px;flex-shrink:0">⚠️</span>
+            <div>
+              <strong>Condiciones del segmento sociedad civil, academia y medios:</strong> Pese a estar dispuestos, algunos actores de este segmento matizan su apertura. No es rechazo, sino exigencia de calidad: prefieren <em>diálogos con agenda concreta</em> u <em>objetivos compartidos claros</em> antes que instancias genéricas de relacionamiento. La disposición es real; la expectativa de sustancia también.
+            </div>
+          </div>
+
+          <div class="iframe-wrap">
+            <iframe src="../../disposicion_dialogo_fcab_promedio_categoria_1_7.html" title="Disposición al diálogo por tipo de actor" loading="lazy"></iframe>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 4: POR TERRITORIO
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-territorio">
+          <h2>4. Distribución territorial</h2>
+
+          <div class="insight-box" style="margin-bottom:20px">
+            <span class="insight-icon">🗺️</span>
+            <div>
+              El mapa territorial <strong>refuerza la homogeneidad</strong> de esta variable. A diferencia de todas las variables anteriores, no existe ningún territorio en zona media o baja. Incluso Sierra Gorda —que registraba los valores más bajos en calidad relacional, cercanía y afectación— llega aquí a 6,33, su <em>mejor resultado relativo en todo el estudio</em>.
+            </div>
+          </div>
+
+          <div class="territory-grid">
+            <div class="territory-card t-perfect">
+              <div class="tc-header">
+                <span class="tc-name">📍 Mejillones</span>
+                <span class="tc-score perfect">7,0</span>
+              </div>
+              <ul class="tc-list">
+                <li>Máximo perfecto — todos los actores evaluados en nivel 7</li>
+                <li>Contrasta con su cercanía relacional moderada (4,24)</li>
+                <li>La membresía gremial activa de FCAB se traduce en apertura total al diálogo formal</li>
+              </ul>
+              <span class="tc-badge best">Máximo del estudio</span>
+            </div>
+
+            <div class="territory-card">
+              <div class="tc-header">
+                <span class="tc-name">📍 Calama</span>
+                <span class="tc-score">6,94</span>
+              </div>
+              <ul class="tc-list">
+                <li>Disposición casi perfecta, coherente con el vínculo comunitario activo</li>
+                <li>Los actores con relación más distante mantienen igual su apertura formal</li>
+                <li>Alta homogeneidad interna del grupo</li>
+              </ul>
+            </div>
+
+            <div class="territory-card">
+              <div class="tc-header">
+                <span class="tc-name">📍 Antofagasta</span>
+                <span class="tc-score">6,77</span>
+              </div>
+              <ul class="tc-list">
+                <li>Disposición muy alta en el territorio de mayor concentración de actores</li>
+                <li>La diversidad del ecosistema no genera dispersión en esta variable</li>
+                <li>Todos los segmentos de actores mantienen apertura al diálogo formal</li>
+              </ul>
+            </div>
+
+            <div class="territory-card t-sierra">
+              <div class="tc-header">
+                <span class="tc-name">📍 Sierra Gorda</span>
+                <span class="tc-score sierra">6,33</span>
+              </div>
+              <ul class="tc-list">
+                <li>Su valor más bajo en cualquier variable — pero aún en zona muy alta de la escala</li>
+                <li>Incluso donde la relación está deteriorada y la afectación no se traduce en participación, los actores mantienen disposición activa</li>
+                <li>La puerta no está cerrada: los actores quieren construir algo diferente</li>
+              </ul>
+              <span class="tc-badge mejor">Mejor resultado relativo de Sierra Gorda</span>
+            </div>
+          </div>
+
+          <div class="sierra-highlight">
+            <span style="font-size:22px;flex-shrink:0">💡</span>
+            <div>
+              <strong>El dato estratégicamente más relevante del territorio:</strong> Sierra Gorda tiene 6,33 en disposición al diálogo. En calidad relacional obtuvo 4,56, en cercanía percibida 3,67, y en afectación mostraba riesgo crítico. Que su peor variable relacional no impida su apertura al diálogo significa que <em>la ventana de oportunidad está abierta</em>, aunque el tiempo de deterioro juega en contra.
+            </div>
+          </div>
+
+          <div class="iframe-wrap">
+            <iframe src="../../8. di&#225;logo mapa.html" title="Disposición al diálogo territorial" loading="lazy"></iframe>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 5: DIAGNÓSTICO CONVERGENTE
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-diagnostico">
+          <h2>5. Diagnóstico convergente</h2>
+
+          <div class="suelo-grid">
+            <div class="suelo-card">
+              <div class="suelo-icon">🏗️</div>
+              <div class="suelo-title">Suelo firme para la estrategia</div>
+              <div class="suelo-text">La disposición al diálogo funciona como el suelo firme sobre el que FCAB puede construir toda su estrategia de relacionamiento. No es punto de llegada sino condición de partida: la apertura existe; la arquitectura del vínculo es lo que falta.</div>
+            </div>
+            <div class="suelo-card">
+              <div class="suelo-icon">📢</div>
+              <div class="suelo-title">Demanda de relación mejor, no rechazo</div>
+              <div class="suelo-text">Las brechas identificadas en calidad relacional, escucha percibida y afectación no expresan rechazo a la empresa. Son demanda de una relación mejor. El 91% de los actores —incluidos los más críticos— está dispuesto a participar formalmente.</div>
+            </div>
+            <div class="suelo-card">
+              <div class="suelo-icon">🎯</div>
+              <div class="suelo-title">Iniciativa exclusivamente de FCAB</div>
+              <div class="suelo-text">El aprovechamiento de esta condición habilitante depende exclusivamente de la iniciativa de FCAB. La apertura de los actores es robusta y transversal; la variable que falta es la acción propositiva de la empresa.</div>
+            </div>
+          </div>
+
+          <div class="diag-box">
+            <div class="diag-box-header">📋 Síntesis diagnóstica</div>
+            <p>
+              La disposición al diálogo es la <strong>condición habilitante más robusta</strong> que este diagnóstico identifica: prácticamente universal (92% en nivel máximo), sin excepciones territoriales ni segmentales relevantes, e independiente del historial de la relación. Leída en el contexto del conjunto de variables, este hallazgo reencuadra las brechas identificadas en otras dimensiones: no son expresión de rechazo a FCAB, sino de <em>demanda insatisfecha de un relacionamiento mejor</em>. La apertura estructural de los actores es la oportunidad; su aprovechamiento depende exclusivamente de la iniciativa y la arquitectura que FCAB construya a partir de ella.
+            </p>
+          </div>
+
+          <div class="insight-list">
+            <div class="insight-item">
+              <span class="insight-bullet">→</span>
+              <span>Esta es la única variable del estudio sin ningún actor en rango bajo (1–4), lo que la convierte en el activo más sólido y transversal del diagnóstico.</span>
+            </div>
+            <div class="insight-item">
+              <span class="insight-bullet">→</span>
+              <span>La condición de sociedad civil, academia y medios —diálogos con agenda concreta— no es una barrera; es una señal de madurez relacional que orienta el diseño de las instancias de participación.</span>
+            </div>
+            <div class="insight-item">
+              <span class="insight-bullet">→</span>
+              <span>Sierra Gorda (6,33) registra aquí su mejor resultado relativo: incluso el territorio con mayor acumulación de brechas mantiene la puerta abierta.</span>
+            </div>
+            <div class="insight-item">
+              <span class="insight-bullet">→</span>
+              <span>La brecha entre disposición al diálogo (6,8) y calidad relacional percibida (5,37) o cercanía (4,9) representa el margen de oportunidad que FCAB tiene para convertir apertura en vínculo.</span>
+            </div>
+          </div>
+
+          <div class="info-note">
+            <strong>Nota metodológica:</strong> La variable disposición al diálogo mide la apertura declarada a instancias formales de participación. Su promedio de 6,8 con desviación estándar de 0,71 representa la distribución más concentrada y elevada de todo el estudio, lo que la distingue cualitativamente de todas las demás variables analizadas.
+          </div>
+        </section>
+
+      </div><!-- /.chapter-content -->
+    </main>
+  </div><!-- /.layout-root -->
+
+  <nav class="chapter-nav">
+    <a href="capitulo-08h.html" class="chapter-nav-btn">
+      ← Sub-capítulo H: Cercanía relacional percibida
+    </a>
+    <a href="capitulo-08.html" class="chapter-nav-btn">
+      Volver al Análisis Descriptivo →
+    </a>
+  </nav>
+
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>
