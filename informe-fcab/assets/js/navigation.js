@@ -14,119 +14,128 @@ const CHAPTERS = [
   {
     num:    '01',
     title:  'Introducción',
-    desc:   'Propósito, metodología, cobertura territorial y organización del informe.',
     file:   'capitulo-01.html',
     status: 'borrador',
   },
   {
     num:    '02',
     title:  'Metodología',
-    desc:   'Diseño mixto, población, técnicas y proceso de análisis.',
     file:   'capitulo-02.html',
     status: 'borrador',
   },
   {
     num:    '03',
-    title:  'Análisis Descriptivo de Datos',
-    desc:   'Distribución territorial de la muestra y estrategia analítica integrada.',
+    title:  'Análisis Descriptivo',
     file:   'capitulo-08.html',
     status: 'borrador',
-    sections: [
-      { id: 'sec-descriptivo', label: 'Análisis descriptivo' },
-      { id: 'sec-diseno',      label: 'Diseño del análisis' },
-      { id: 'sec-territorial', label: 'Distribución territorial' },
-      { id: 'sec-influencia',  label: 'Influencia territorial' },
-      { id: 'sec-afectacion',  label: 'Afectación organizacional' },
-      { id: 'sec-expectativa', label: 'Expectativa de consideración' },
-      { id: 'sec-escucha',     label: 'Escucha percibida' },
-      { id: 'sec-coherencia',  label: 'Coherencia discurso-práctica' },
-      { id: 'sec-cercania',    label: 'Cercanía relacional' },
-      { id: 'sec-dialogo',     label: 'Disposición al diálogo' },
-      { id: 'sec-resumen',     label: 'Resumen descriptivo' },
+    subpages: [
+      { label: 'B · Influencia territorial',      file: 'capitulo-08b.html' },
+      { label: 'C · Afectación organizacional',   file: 'capitulo-08c.html' },
+      { label: 'D · Expectativa de consideración',file: 'capitulo-08d.html' },
+      { label: 'E · Escucha percibida',            file: 'capitulo-08e.html' },
+      { label: 'F · Coherencia discurso-práctica', file: 'capitulo-08f.html' },
+      { label: 'G · Calidad percibida',            file: 'capitulo-08g.html' },
+      { label: 'H · Cercanía relacional',          file: 'capitulo-08h.html' },
+      { label: 'I · Disposición al diálogo',       file: 'capitulo-08i.html' },
+      { label: 'J · Resumen descriptivo',          file: 'capitulo-08j.html' },
     ],
   },
   {
     num:    '04',
     title:  'Análisis LDA',
-    desc:   'Modelamiento LDA aplicado al corpus para identificar patrones discursivos del relacionamiento territorial.',
     file:   'capitulo-04.html',
     status: 'borrador',
   },
   {
     num:    '05',
     title:  'Análisis de temas prevalentes',
-    desc:   'Ranking de temas espontáneos por volumen de menciones, actores y tipología de origen.',
     file:   'capitulo-05.html',
     status: 'borrador',
   },
   {
     num:    '06',
     title:  'Ecosistema de Actores',
-    desc:   'Centralidad perceptual del ecosistema institucional: tres niveles de influencia y posicionamiento relativo.',
     file:   'capitulo-06.html',
     status: 'borrador',
   },
   {
     num:    '07',
     title:  'Red de Coordinación',
-    desc:   'Análisis de la red de coordinación interorganizacional mediante algoritmo Kamada-Kawai.',
     file:   'capitulo-07.html',
     status: 'borrador',
   },
   {
     num:    '08',
     title:  'Temas pendientes: Baquedano, Sierra Gorda y Ollagüe',
-    desc:   'Ejes críticos de relacionamiento territorial en tres comunidades expuestas a la operación de FCAB.',
     file:   'capitulo-11.html',
     status: 'borrador',
   },
   {
     num:    '09',
     title:  'Análisis de Cluster',
-    desc:   'Segmentación empírica del ecosistema en tres perfiles relacionales.',
     file:   'capitulo-03.html',
     status: 'borrador',
   },
   {
     num:    '10',
     title:  'Recomendaciones Estratégicas',
-    desc:   'Once recomendaciones organizadas por cluster: distantes, vinculados y actores estratégicos.',
     file:   'capitulo-10.html',
     status: 'borrador',
   },
   {
     num:    '11',
     title:  'Conclusiones',
-    desc:   'Balance estratégico del capital territorial, brechas críticas y recomendación transversal.',
     file:   'capitulo-09.html',
     status: 'borrador',
   },
 ];
 
-function statusBadgeHTML(status) {
-  const map = {
-    borrador:  ['Borrador',  'badge-borrador'],
-    revision:  ['Revisión',  'badge-revision'],
-    final:     ['Final',     'badge-final'],
-    pendiente: ['Pendiente', 'badge-pendiente'],
-  };
-  const [label, cls] = map[status] || map.pendiente;
-  return `<span class="badge ${cls} sidebar-badge">${label}</span>`;
+/* ================================================================
+   Helpers
+   ================================================================ */
+function injectStyles(id, css) {
+  if (document.getElementById(id)) return;
+  const st = document.createElement('style');
+  st.id = id;
+  st.textContent = css;
+  document.head.appendChild(st);
 }
 
+/* ================================================================
+   buildSidebar
+   ================================================================ */
 function buildSidebar() {
   const sidebar = document.getElementById('sidebar');
   if (!sidebar) return;
 
   const currentFile = window.location.pathname.split('/').pop() || 'index.html';
 
+  /* Find parent chapter if currentFile is a subpage */
+  const parentChapter = CHAPTERS.find(ch =>
+    ch.subpages && ch.subpages.some(sp => sp.file === currentFile)
+  );
+
   const linksHTML = CHAPTERS.map(ch => {
-    const isActive    = currentFile === ch.file;
+    /* A chapter is "active" if we're on its hub file OR on one of its subpages */
+    const isActive    = currentFile === ch.file || parentChapter === ch;
     const isAvailable = ch.status !== 'pendiente';
-    const cls = ['sidebar-link', isActive ? 'active' : '', !isAvailable ? 'disabled' : ''].filter(Boolean).join(' ');
+    const cls = ['sidebar-link', isActive ? 'active' : '', !isAvailable ? 'disabled' : '']
+      .filter(Boolean).join(' ');
     const href = isAvailable ? ch.file : '#';
 
     let subHTML = '';
+
+    /* ── Subpages (file links, e.g. Chapter 03 sub-chapters) ── */
+    if (isActive && ch.subpages && ch.subpages.length) {
+      const items = ch.subpages.map(sp => {
+        const isSubActive = currentFile === sp.file;
+        const subCls = ['sidebar-sub', isSubActive ? 'active' : ''].filter(Boolean).join(' ');
+        return `<a class="${subCls}" href="${sp.file}" data-subpage="${sp.file}">${sp.label}</a>`;
+      }).join('');
+      subHTML = `<div class="sidebar-sections" id="sidebar-subpages">${items}</div>`;
+    }
+
+    /* ── Sections scrollspy (legacy, for chapters with inline sections) ── */
     if (isActive && ch.sections && ch.sections.length) {
       const items = ch.sections.map(s =>
         `<a class="sidebar-sub" href="#${s.id}" data-sub-id="${s.id}">${s.label}</a>`
@@ -148,38 +157,53 @@ function buildSidebar() {
       <div style="margin-top:4px;opacity:.7">${REPORT.year} · ${REPORT.title}</div>
     </div>`;
 
-  /* Inject sub-nav styles once */
-  if (!document.getElementById('sidebar-sub-styles')) {
-    const st = document.createElement('style');
-    st.id = 'sidebar-sub-styles';
-    st.textContent = `
-      .sidebar-sections {
-        display: flex; flex-direction: column; gap: 1px;
-        margin: 2px 0 6px 0; padding-left: 28px;
-      }
-      .sidebar-sub {
-        display: block; padding: 5px 10px 5px 8px;
-        border-left: 2px solid var(--border);
-        color: var(--text-2); text-decoration: none;
-        font-size: 11.5px; font-weight: 400; line-height: 1.35;
-        border-radius: 0 4px 4px 0;
-        transition: color .15s, border-color .15s, background .15s;
-        cursor: pointer;
-      }
-      .sidebar-sub:hover {
-        color: var(--accent); border-left-color: rgba(37,99,235,.4);
-        background: rgba(37,99,235,.04); text-decoration: none;
-      }
-      .sidebar-sub.active {
-        color: var(--accent); border-left-color: var(--accent);
-        background: rgba(37,99,235,.07); font-weight: 500;
-      }
-    `;
-    document.head.appendChild(st);
-  }
+  /* ── Inject styles ── */
+  injectStyles('sidebar-sub-styles', `
+    .sidebar-sections {
+      display: flex; flex-direction: column; gap: 1px;
+      margin: 2px 0 6px 0; padding-left: 0;
+    }
+    .sidebar-sub {
+      display: block; padding: 6px 10px 6px 32px;
+      border-left: 2px solid var(--border);
+      color: var(--text-2); text-decoration: none;
+      font-size: 11.5px; font-weight: 400; line-height: 1.35;
+      transition: color .15s, border-color .15s, background .15s;
+      cursor: pointer;
+    }
+    .sidebar-sub:hover {
+      color: var(--accent); border-left-color: rgba(37,99,235,.4);
+      background: rgba(37,99,235,.04); text-decoration: none;
+    }
+    .sidebar-sub.active {
+      color: var(--accent); border-left-color: var(--accent);
+      background: rgba(37,99,235,.08); font-weight: 600;
+    }
+    /* 3rd level: sections within a subpage */
+    .sidebar-subsections {
+      display: flex; flex-direction: column; gap: 0;
+      margin: 2px 0 4px 0;
+    }
+    .sidebar-subsub {
+      display: block; padding: 4px 10px 4px 48px;
+      border-left: 2px solid var(--border);
+      color: var(--text-3); text-decoration: none;
+      font-size: 10.5px; font-weight: 400; line-height: 1.3;
+      transition: color .12s, border-color .12s, background .12s;
+      cursor: pointer;
+    }
+    .sidebar-subsub:hover {
+      color: var(--accent); border-left-color: rgba(37,99,235,.3);
+      background: rgba(37,99,235,.03); text-decoration: none;
+    }
+    .sidebar-subsub.active {
+      color: var(--accent); border-left-color: rgba(37,99,235,.5);
+      background: rgba(37,99,235,.05); font-weight: 500;
+    }
+  `);
 
-  /* Smooth scroll for sub-links */
-  sidebar.querySelectorAll('.sidebar-sub').forEach(link => {
+  /* ── Smooth scroll for legacy section links ── */
+  sidebar.querySelectorAll('.sidebar-sub[data-sub-id]').forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
       const target = document.getElementById(link.dataset.subId);
@@ -191,28 +215,111 @@ function buildSidebar() {
     });
   });
 
-  /* Scrollspy for sub-links */
-  const subLinks = Array.from(sidebar.querySelectorAll('.sidebar-sub'));
-  if (!subLinks.length) return;
+  /* ── Legacy scrollspy for section links ── */
+  const sectionLinks = Array.from(sidebar.querySelectorAll('.sidebar-sub[data-sub-id]'));
+  if (sectionLinks.length) {
+    const setSubActive = id => {
+      sectionLinks.forEach(l => l.classList.toggle('active', l.dataset.subId === id));
+    };
+    if (sectionLinks[0]) setSubActive(sectionLinks[0].dataset.subId);
+    const obs = new IntersectionObserver(entries => {
+      const visible = entries.filter(e => e.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length) setSubActive(visible[0].target.id);
+    }, { rootMargin: '-10% 0px -55% 0px', threshold: 0 });
+    sectionLinks.forEach(l => {
+      const el = document.getElementById(l.dataset.subId);
+      if (el) obs.observe(el);
+    });
+  }
 
-  const setSubActive = id => {
-    subLinks.forEach(l => l.classList.toggle('active', l.dataset.subId === id));
-  };
-  if (subLinks[0]) setSubActive(subLinks[0].dataset.subId);
-
-  const observer = new IntersectionObserver(entries => {
-    const visible = entries
-      .filter(e => e.isIntersecting)
-      .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-    if (visible.length) setSubActive(visible[0].target.id);
-  }, { rootMargin: '-10% 0px -55% 0px', threshold: 0 });
-
-  subLinks.forEach(l => {
-    const el = document.getElementById(l.dataset.subId);
-    if (el) observer.observe(el);
-  });
+  /* ── Section scrollspy WITHIN the current subpage ── */
+  _buildSubpageSectionSpy(sidebar, currentFile);
 }
 
+/* ================================================================
+   _buildSubpageSectionSpy
+   When on a subpage (e.g. capitulo-08c.html), inject 3rd-level
+   section links under the active subpage item and run scrollspy.
+   ================================================================ */
+function _buildSubpageSectionSpy(sidebar, currentFile) {
+  /* Only run if we're on a subpage */
+  const parentChapter = CHAPTERS.find(ch =>
+    ch.subpages && ch.subpages.some(sp => sp.file === currentFile)
+  );
+  if (!parentChapter) return;
+
+  /* Collect visible sections from the DOM */
+  const sections = Array.from(document.querySelectorAll('.chapter-content section.section'));
+  if (!sections.length) return;
+
+  /* Assign IDs if missing and collect items */
+  const items = [];
+  sections.forEach((sec, i) => {
+    const h2 = sec.querySelector('h2');
+    if (!h2) return;
+    if (!sec.id) sec.id = `nav-sec-${i + 1}`;
+    const rawLabel = h2.textContent.trim();
+    const num   = rawLabel.match(/^\d+/)?.[0] ?? String(i + 1);
+    const label = rawLabel.replace(/^\d+[\.\s]+/, '').trim();
+    items.push({ id: sec.id, num, label, el: sec });
+  });
+  if (!items.length) return;
+
+  /* Find the active subpage link in the sidebar */
+  const activeSubLink = sidebar.querySelector(`.sidebar-sub[data-subpage="${currentFile}"]`);
+  if (!activeSubLink) return;
+
+  /* Build sub-section block */
+  const subsecHTML = items.map(item =>
+    `<a class="sidebar-subsub" href="#${item.id}" data-subsub-id="${item.id}">
+      ${item.num}. ${item.label}
+    </a>`
+  ).join('');
+  const subsecBlock = document.createElement('div');
+  subsecBlock.className = 'sidebar-subsections';
+  subsecBlock.innerHTML = subsecHTML;
+  activeSubLink.insertAdjacentElement('afterend', subsecBlock);
+
+  /* Smooth scroll on click */
+  subsecBlock.querySelectorAll('.sidebar-subsub').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.getElementById(link.dataset.subsubId);
+      if (!target) return;
+      const tocBar = document.querySelector('.section-toc');
+      const tocH   = tocBar ? tocBar.offsetHeight : 0;
+      const top    = target.getBoundingClientRect().top + window.scrollY - 56 - tocH - 8;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+
+  /* Scrollspy */
+  const subsubLinks = Array.from(subsecBlock.querySelectorAll('.sidebar-subsub'));
+  const subsubMap = {};
+  subsubLinks.forEach(l => { subsubMap[l.dataset.subsubId] = l; });
+
+  const setActive = id => {
+    Object.values(subsubMap).forEach(l => l.classList.remove('active'));
+    if (subsubMap[id]) {
+      subsubMap[id].classList.add('active');
+      subsubMap[id].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  };
+  if (items[0]) setActive(items[0].id);
+
+  const obs = new IntersectionObserver(entries => {
+    const visible = entries.filter(e => e.isIntersecting)
+      .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+    if (visible.length) setActive(visible[0].target.id);
+  }, { rootMargin: '-10% 0px -55% 0px', threshold: 0 });
+
+  sections.forEach(sec => { if (sec.id) obs.observe(sec); });
+}
+
+/* ================================================================
+   buildMobileToggle
+   ================================================================ */
 function buildMobileToggle() {
   const toggle  = document.getElementById('sidebar-toggle');
   const sidebar = document.getElementById('sidebar');
@@ -232,9 +339,7 @@ function buildMobileToggle() {
 }
 
 /* ================================================================
-   buildSectionTOC — Navegación interna de secciones
-   Se ejecuta en todos los capítulos. Lee los <section class="section">
-   y construye una barra de píldoras sticky con scrollspy.
+   buildSectionTOC — Barra de píldoras sticky (top)
    ================================================================ */
 function buildSectionTOC() {
   const content  = document.querySelector('.chapter-content');
@@ -242,70 +347,51 @@ function buildSectionTOC() {
   const sections = content ? Array.from(content.querySelectorAll('section.section')) : [];
   if (!header || sections.length < 2) return;
 
-  /* Inyectar estilos una sola vez */
-  if (!document.getElementById('stoc-styles')) {
-    const st = document.createElement('style');
-    st.id = 'stoc-styles';
-    st.textContent = `
-      .section-toc {
-        display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
-        padding: 10px 0; margin: 0 0 6px;
-        position: sticky; top: 56px; z-index: 20;
-        background: var(--bg); border-bottom: 1px solid var(--border);
-      }
-      .section-toc::-webkit-scrollbar { display: none; }
-      .section-toc::before, .section-toc::after {
-        content: ''; flex-shrink: 0; width: 4px;
-      }
-      .stoc-pill {
-        display: inline-flex; align-items: center; gap: 7px;
-        padding: 5px 13px 5px 7px; border-radius: 20px;
-        border: 1px solid var(--border); background: var(--surface-1);
-        color: var(--text-2); text-decoration: none; white-space: nowrap;
-        font-size: 12px; font-weight: 500; flex-shrink: 0;
-        transition: border-color .15s, color .15s, background .15s;
-        cursor: pointer;
-      }
-      .stoc-pill:hover { border-color: rgba(37,99,235,.4); color: var(--accent); text-decoration: none; }
-      .stoc-pill.active {
-        border-color: var(--accent);
-        background: rgba(37,99,235,.07);
-        color: var(--accent);
-      }
-      .stoc-num {
-        font-size: 10px; font-weight: 700;
-        background: var(--surface-2); border: 1px solid var(--border);
-        border-radius: 50%; width: 18px; height: 18px;
-        display: inline-flex; align-items: center; justify-content: center;
-        flex-shrink: 0; line-height: 1;
-      }
-      .stoc-pill.active .stoc-num {
-        background: rgba(37,99,235,.12);
-        border-color: rgba(37,99,235,.25);
-        color: var(--accent);
-      }
-      @media (max-width: 640px) {
-        .stoc-pill { font-size: 11px; padding: 4px 10px 4px 6px; }
-        .stoc-num  { width: 16px; height: 16px; font-size: 9px; }
-      }
-    `;
-    document.head.appendChild(st);
-  }
+  injectStyles('stoc-styles', `
+    .section-toc {
+      display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+      padding: 10px 0; margin: 0 0 6px;
+      position: sticky; top: 56px; z-index: 20;
+      background: var(--bg); border-bottom: 1px solid var(--border);
+    }
+    .section-toc::-webkit-scrollbar { display: none; }
+    .section-toc::before, .section-toc::after { content: ''; flex-shrink: 0; width: 4px; }
+    .stoc-pill {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 5px 13px 5px 7px; border-radius: 20px;
+      border: 1px solid var(--border); background: var(--surface-1);
+      color: var(--text-2); text-decoration: none; white-space: nowrap;
+      font-size: 12px; font-weight: 500; flex-shrink: 0;
+      transition: border-color .15s, color .15s, background .15s; cursor: pointer;
+    }
+    .stoc-pill:hover { border-color: rgba(37,99,235,.4); color: var(--accent); text-decoration: none; }
+    .stoc-pill.active { border-color: var(--accent); background: rgba(37,99,235,.07); color: var(--accent); }
+    .stoc-num {
+      font-size: 10px; font-weight: 700;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 50%; width: 18px; height: 18px;
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0; line-height: 1;
+    }
+    .stoc-pill.active .stoc-num { background: rgba(37,99,235,.12); border-color: rgba(37,99,235,.25); color: var(--accent); }
+    @media (max-width: 640px) {
+      .stoc-pill { font-size: 11px; padding: 4px 10px 4px 6px; }
+      .stoc-num  { width: 16px; height: 16px; font-size: 9px; }
+    }
+  `);
 
-  /* Asignar IDs y recolectar ítems */
   const items = [];
   sections.forEach((sec, i) => {
     const h2 = sec.querySelector('h2');
     if (!h2) return;
     if (!sec.id) sec.id = `stoc-sec-${i + 1}`;
     const rawLabel = h2.textContent.trim();
-    const num      = rawLabel.match(/^\d+/)?.[0] ?? String(i + 1);
-    const label    = rawLabel.replace(/^\d+[\.\s]+/, '').trim();
+    const num   = rawLabel.match(/^\d+/)?.[0] ?? String(i + 1);
+    const label = rawLabel.replace(/^\d+[\.\s]+/, '').trim();
     items.push({ id: sec.id, num, label, el: sec });
   });
   if (items.length < 2) return;
 
-  /* Construir barra TOC */
   const toc = document.createElement('nav');
   toc.className = 'section-toc';
   toc.setAttribute('aria-label', 'Secciones del capítulo');
@@ -315,10 +401,8 @@ function buildSectionTOC() {
        <span class="stoc-label">${item.label}</span>
      </a>`
   ).join('');
-
   header.insertAdjacentElement('afterend', toc);
 
-  /* Scroll suave al hacer clic */
   toc.querySelectorAll('.stoc-pill').forEach(pill => {
     pill.addEventListener('click', e => {
       e.preventDefault();
@@ -330,7 +414,6 @@ function buildSectionTOC() {
     });
   });
 
-  /* Scrollspy con IntersectionObserver */
   const pillMap = {};
   toc.querySelectorAll('.stoc-pill').forEach(p => { pillMap[p.dataset.tocId] = p; });
 
@@ -340,13 +423,10 @@ function buildSectionTOC() {
     pillMap[id].classList.add('active');
     pillMap[id].scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
   };
-
-  /* Inicia con la primera sección activa */
   if (items[0]) setActive(items[0].id);
 
   const observer = new IntersectionObserver(entries => {
-    const visible = entries
-      .filter(e => e.isIntersecting)
+    const visible = entries.filter(e => e.isIntersecting)
       .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
     if (visible.length) setActive(visible[0].target.id);
   }, { rootMargin: '-10% 0px -55% 0px', threshold: 0 });
@@ -361,31 +441,25 @@ function buildProgressBar() {
   const bar = document.createElement('div');
   bar.className = 'scroll-progress';
   document.body.prepend(bar);
-
   const update = () => {
     const scrolled = window.scrollY;
     const total    = document.documentElement.scrollHeight - window.innerHeight;
     bar.style.width = total > 0 ? `${(scrolled / total) * 100}%` : '0%';
   };
-
   window.addEventListener('scroll', update, { passive: true });
   update();
 }
 
 /* ================================================================
-   animateSections — Entrada suave de secciones al hacer scroll
+   animateSections — Entrada suave al hacer scroll
    ================================================================ */
 function animateSections() {
   const sections = Array.from(document.querySelectorAll('.section'));
   if (!sections.length) return;
-
   const fold = window.innerHeight * 0.85;
   sections.forEach(sec => {
-    if (sec.getBoundingClientRect().top > fold) {
-      sec.classList.add('section-hidden');
-    }
+    if (sec.getBoundingClientRect().top > fold) sec.classList.add('section-hidden');
   });
-
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -395,7 +469,6 @@ function animateSections() {
       }
     });
   }, { threshold: 0.06 });
-
   sections.forEach(sec => {
     if (sec.classList.contains('section-hidden')) observer.observe(sec);
   });
