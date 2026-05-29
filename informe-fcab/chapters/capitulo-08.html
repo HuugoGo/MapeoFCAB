@@ -3,217 +3,102 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cap. 03 — Análisis Descriptivo de Datos | Estudio FCAB</title>
+  <title>Cap. 03 &mdash; Análisis Descriptivo de Datos | Estudio FCAB</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/styles.css">
   <style>
-    /* ── Distribución territorial ── */
-    .dist-list {
-      display: flex; flex-direction: column; gap: 0;
-      border: 1px solid var(--border); border-radius: var(--r); overflow: hidden;
-      margin-bottom: 24px;
-    }
-    .dist-row {
-      display: grid;
-      grid-template-columns: 140px 48px 120px 1fr 52px;
-      align-items: center; gap: 14px;
-      padding: 14px 18px; background: var(--surface-1);
-      border-bottom: 1px solid var(--border);
-    }
-    .dist-row:last-child { border-bottom: none; }
-    .dist-row.header {
-      background: rgba(37,99,235,0.05); padding: 10px 18px;
-      border-bottom: 1px solid var(--border-2);
-    }
-    .dist-row.header span {
-      font-size: 10px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.08em; color: var(--text-3);
-    }
-    .dist-row.total-row {
-      background: var(--surface-2);
-      border-top: 1px solid var(--border-2);
-    }
-    .dist-row.total-row .dist-comuna { font-weight: 700; color: var(--text-1); }
-    .dist-comuna { font-size: 14px; font-weight: 500; color: var(--text-1); }
-    .dist-n { font-size: 16px; font-weight: 700; color: var(--text-1); text-align: right; font-variant-numeric: tabular-nums; }
-    .dist-pct { font-size: 12px; font-weight: 600; color: var(--accent); text-align: right; font-variant-numeric: tabular-nums; }
-    .dist-bar-wrap { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
-    .dist-bar { height: 100%; background: var(--accent); border-radius: 4px; transition: width 0.3s; }
-    .dist-bar.bar-2 { background: #7C3AED; }
-    .dist-bar.bar-3 { background: #059669; }
-    .dist-bar.bar-4 { background: #D97706; }
-    .dist-bar.bar-0 { background: var(--border-2); }
-    .dist-ns { font-size: 12px; color: var(--text-3); text-align: right; font-variant-numeric: tabular-nums; }
-
-    /* ── Tarjetas de territorio ── */
-    .territory-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px;
-    }
-    .territory-card {
-      background: var(--surface-1); border: 1px solid var(--border);
-      border-radius: var(--r); padding: 20px 22px;
-      border-top: 3px solid var(--accent);
-    }
-    .territory-card:nth-child(2) { border-top-color: #7C3AED; }
-    .territory-card:nth-child(3) { border-top-color: #059669; }
-    .territory-card:nth-child(4) { border-top-color: #D97706; }
-    .territory-eyebrow {
-      font-size: 10px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.1em; color: var(--text-3); margin-bottom: 4px;
-    }
-    .territory-name { font-size: 16px; font-weight: 700; color: var(--text-1); margin-bottom: 10px; }
-    .territory-stat {
-      display: inline-flex; align-items: baseline; gap: 5px;
-      background: var(--accent-soft); border: 1px solid rgba(37,99,235,0.2);
-      border-radius: var(--r-sm); padding: 3px 10px; margin-bottom: 12px;
-    }
-    .territory-stat .n { font-size: 20px; font-weight: 700; color: var(--text-1); letter-spacing: -0.02em; }
-    .territory-stat .p { font-size: 12px; color: var(--text-2); }
-    .territory-card p { font-size: 13px; color: var(--text-2); line-height: 1.6; margin: 0; }
-
-    @media (max-width: 640px) {
-      .dist-row { grid-template-columns: 110px 40px 80px 1fr 44px; gap: 10px; padding: 12px 14px; }
-      .territory-grid { grid-template-columns: 1fr; }
-    }
-
-    /* ── Sección: Influencia territorial percibida ── */
-    .chart-block {
-      background: var(--surface-1);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 22px 22px 22px;
-      margin-bottom: 32px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      overflow: hidden;
-    }
-    .chart-container ~ p,
-    .chart-container ~ .finding,
-    .chart-container ~ .insight,
-    .chart-container ~ .callout,
-    .chart-container ~ .steps-list,
-    .chart-container ~ .pull-quote { margin-top: 20px; }
-    .chart-block h3 { font-size: 15px; font-weight: 700; color: var(--text-1); margin-bottom: 6px; line-height: 1.35; }
-    .chart-container {
-      margin: 16px -22px 0;
-      border-top: 1px solid var(--border);
-      background: #fff;
-    }
-    .chart-container iframe { width: 100%; border: none; display: block; }
-
-    .dist-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
-    .dchip { font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 20px; border: 1px solid; }
-    .dchip-vhigh { background: rgba(37,99,235,0.12); border-color: rgba(37,99,235,0.35); color: #1D4ED8; }
-    .dchip-high  { background: rgba(37,99,235,0.06); border-color: rgba(37,99,235,0.20); color: #2563EB; }
-    .dchip-mid   { background: rgba(217,119,6,0.09);  border-color: rgba(217,119,6,0.28);  color: #92400E; }
-    .dchip-low   { background: rgba(220,38,38,0.07);  border-color: rgba(220,38,38,0.22);  color: #B91C1C; }
-
-    .score-rows { display: flex; flex-direction: column; gap: 10px; margin: 16px 0 20px; }
-    .score-row { display: grid; grid-template-columns: 1fr 160px 52px; align-items: center; gap: 14px; }
-    .score-label { font-size: 13px; color: var(--text-2); line-height: 1.35; }
-    .score-bar-wrap { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
-    .score-bar { height: 100%; background: var(--accent); border-radius: 3px; }
-    .score-bar.bar-dim { background: #94A3B8; }
-    .score-num { font-size: 14px; font-weight: 700; color: var(--text-1); text-align: right; font-variant-numeric: tabular-nums; }
-
-    .territory-scores { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 20px; }
-    .tscore {
-      display: flex; flex-direction: column; align-items: center;
-      background: var(--surface-1); border: 1px solid var(--border);
-      border-radius: var(--r-sm); padding: 12px 20px; min-width: 100px;
-      border-top: 3px solid var(--accent);
-    }
-    .tscore.ts-low { border-top-color: var(--amber); }
-    .tscore-n { font-size: 22px; font-weight: 700; color: var(--text-1); letter-spacing: -0.03em; line-height: 1; }
-    .tscore-label { font-size: 11px; color: var(--text-3); margin-top: 5px; }
-
-    @media (max-width: 640px) {
-      .score-row { grid-template-columns: 1fr 80px 44px; gap: 8px; }
-      .territory-scores { gap: 8px; }
-      .tscore { min-width: 80px; padding: 10px 14px; }
-    }
-
-    /* ── Perfiles resumen ── */
-    .profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0 28px; }
-    .profile-card {
-      background: var(--surface-1); border: 1px solid var(--border);
-      border-radius: var(--r); padding: 20px 22px;
-      border-top: 3px solid var(--accent);
-    }
-    .profile-card.pc-2 { border-top-color: #7C3AED; }
-    .profile-card.pc-3 { border-top-color: #059669; }
-    .profile-card.pc-4 { border-top-color: #D97706; }
-    .profile-card-title { font-size: 14px; font-weight: 700; color: var(--text-1); line-height: 1.3; margin-bottom: 4px; }
-    .profile-card-n { font-size: 11px; color: var(--text-3); margin-bottom: 14px; }
-    .profile-metrics { display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
-    .profile-metric { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 10px; }
-    .profile-metric-label { font-size: 12px; color: var(--text-2); }
-    .profile-metric-val { font-size: 13px; font-weight: 700; color: var(--text-1); font-variant-numeric: tabular-nums; white-space: nowrap; }
-    .profile-card-note { font-size: 12px; color: var(--text-2); line-height: 1.55; border-top: 1px solid var(--border); padding-top: 10px; }
-    @media (max-width: 640px) { .profile-grid { grid-template-columns: 1fr; } }
-
-    /* ── Sistema de tabs por variable ── */
-    .var-tabs { margin-bottom: 32px; }
-    .var-tab-bar {
-      display: inline-flex; gap: 6px; margin-bottom: 24px;
-      background: var(--surface-2); border: 1px solid var(--border);
-      border-radius: 10px; padding: 4px;
-    }
-    .var-tab-btn {
-      font-size: 12px; font-weight: 600; padding: 8px 18px;
-      border: none; background: transparent; cursor: pointer;
-      color: var(--text-3); border-radius: 7px;
-      transition: color .15s, background .15s, box-shadow .15s;
-      white-space: nowrap; letter-spacing: 0.01em;
-    }
-    .var-tab-btn:hover { color: var(--text-1); background: rgba(255,255,255,0.7); }
-    .var-tab-btn.active {
-      color: var(--accent); background: #fff;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.10);
-    }
-    .var-tab-panel { display: none; }
-    .var-tab-panel.active { display: block; }
-
-    /* ── Tabla estadística descriptiva ── */
     .desc-table-wrap {
-      overflow-x: auto; margin: 20px 0;
-      border-radius: var(--r); border: 1px solid var(--border);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin: 28px 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
     }
-    .desc-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    .desc-table th {
-      background: rgba(37,99,235,0.05); padding: 10px 16px;
-      text-align: left; font-size: 10px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3);
-      border-bottom: 1px solid var(--border-2); white-space: nowrap;
+    .desc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .84rem;
     }
-    .desc-table th:not(:first-child) { text-align: right; }
-    .desc-table td {
-      padding: 11px 16px; border-bottom: 1px solid var(--border);
-      color: var(--text-2); vertical-align: middle;
+    .desc-table thead tr { background: var(--surface-2); }
+    .desc-table thead th {
+      padding: 12px 16px;
+      text-align: center;
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text-3);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
     }
-    .desc-table td:not(:first-child) {
-      text-align: right; font-variant-numeric: tabular-nums;
-      font-weight: 600; color: var(--text-1);
+    .desc-table thead th:first-child { text-align: left; min-width: 220px; }
+    .desc-table tbody tr { border-bottom: 1px solid var(--border); transition: background .14s; }
+    .desc-table tbody tr:last-child { border-bottom: none; }
+    .desc-table tbody tr:hover { background: rgba(37,99,235,.03); }
+    .desc-table tbody td { padding: 13px 16px; color: var(--text-2); line-height: 1.4; }
+    .desc-table tbody td:first-child { font-weight: 500; color: var(--text-1); }
+    .desc-table tbody td:not(:first-child) { text-align: center; font-variant-numeric: tabular-nums; }
+    .desc-table tbody td.col-mean { font-weight: 600; color: var(--accent); }
+    .desc-table tbody tr.row-highlight td { background: rgba(16,185,129,.05); }
+    .desc-table tbody tr.row-highlight td.col-mean { color: #10b981; }
+    .mean-bar-wrap { display: flex; align-items: center; gap: 8px; justify-content: center; }
+    .mean-bar { flex: 1; max-width: 60px; height: 5px; border-radius: 3px; background: var(--surface-2); position: relative; overflow: hidden; }
+    .mean-bar-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; background: var(--accent); }
+    .mean-bar-fill.green { background: #10b981; }
+    .scale-legend { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 22px 0; font-size: .78rem; }
+    .scale-seg { flex: 1; text-align: center; padding: 9px 6px; font-weight: 500; border-right: 1px solid var(--border); line-height: 1.25; }
+    .scale-seg:last-child { border-right: none; }
+    .scale-seg span { display: block; font-size: .65rem; font-weight: 400; color: var(--text-3); margin-top: 2px; }
+    .scale-low  { background: rgba(239,68,68,.08);  color: #ef4444; }
+    .scale-mid  { background: rgba(245,158,11,.08); color: #d97706; }
+    .scale-high { background: rgba(16,185,129,.08); color: #10b981; }
+    .method-note {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: rgba(37,99,235,.05); border: 1px solid rgba(37,99,235,.15);
+      border-radius: 10px; padding: 14px 18px; margin: 22px 0;
+      font-size: .84rem; color: var(--text-2); line-height: 1.55;
     }
-    .desc-table tr:last-child td { border-bottom: none; }
-    .desc-table tr:hover td { background: var(--surface-2); }
-    .desc-table .var-name { font-weight: 500; color: var(--text-1); }
+    .method-note .mn-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+    .subcap-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 28px 0; }
+    .subcap-card {
+      display: flex; flex-direction: column; gap: 6px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px 22px;
+      text-decoration: none; color: inherit;
+      transition: border-color .18s, box-shadow .18s, transform .18s;
+      position: relative;
+    }
+    .subcap-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 20px rgba(37,99,235,.1);
+      transform: translateY(-2px);
+      text-decoration: none; color: inherit;
+    }
+    .subcap-card.disabled { opacity: .55; pointer-events: none; }
+    .subcap-card-num { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); }
+    .subcap-card-title { font-size: .97rem; font-weight: 600; color: var(--text-1); line-height: 1.3; }
+    .subcap-card-desc { font-size: .8rem; color: var(--text-3); line-height: 1.5; margin-top: 2px; }
+    .subcap-badge { display: inline-block; font-size: .65rem; font-weight: 600; padding: 2px 8px; border-radius: 20px; margin-top: 6px; width: fit-content; }
+    .subcap-badge.ready { background: rgba(16,185,129,.12); color: #10b981; }
+    .subcap-badge.pending-badge { background: var(--surface-2); color: var(--text-3); }
+    @media (max-width: 680px) { .subcap-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
 
   <!-- HEADER -->
   <header class="site-header">
-    <button class="header-toggle" id="sidebar-toggle" aria-label="Abrir menú">
-      <svg viewBox="0 0 24 24"><line x1="3" y1="6"  x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <button class="header-toggle" id="sidebar-toggle" aria-label="Abrir menu">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
     <a href="../index.html" class="header-back">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-      Índice
+      Indice
     </a>
     <span class="header-sep"></span>
-    <span class="header-chapter">Cap. 03 — Análisis Descriptivo de Datos</span>
+    <span class="header-chapter">Cap. 03 &mdash; Analisis Descriptivo de Datos</span>
     <div class="header-right">
       <img src="../assets/img/logo-fcab.jpg" alt="FCAB" class="header-logo">
       <span class="header-sep"></span>
@@ -221,815 +106,194 @@
     </div>
   </header>
 
-  <!-- SIDEBAR -->
-  <nav class="sidebar" id="sidebar" aria-label="Capítulos del informe"></nav>
+  <!-- SIDEBAR (generado por navigation.js) -->
+  <nav class="sidebar" id="sidebar" aria-label="Navegacion del capitulo"></nav>
 
+  <!-- CONTENT -->
   <main class="chapter-main">
     <div class="chapter-content">
 
-      <!-- ── ENCABEZADO ──────────────────────────────────────────── -->
       <header class="chapter-header">
         <div class="chapter-meta">
-          <span class="chapter-num-label">Capítulo 03</span>
-                  </div>
-        <h1>Análisis Descriptivo de Datos</h1>
-        <p class="chapter-lead">Distribución territorial de la muestra, estrategia analítica integrada y caracterización de los actores del ecosistema FCAB en cuatro comunas de la región de Antofagasta.</p>
+          <span class="chapter-num-label">Capitulo 03</span>
+          <span class="badge badge-borrador">Borrador</span>
+        </div>
+        <h1>Analisis Descriptivo de Datos</h1>
+        <p class="chapter-lead">Distribucion territorial de la muestra, estadisticos descriptivos de las variables relacionales y estrategia analitica integrada para la caracterizacion del ecosistema de 73 stakeholders de FCAB.</p>
       </header>
 
-      <!-- ── INDICADORES CLAVE ────────────────────────────────────── -->
-      <div class="stats-grid" style="grid-template-columns: 1fr 1fr">
-        <div class="stat-card">
-          <div class="stat-num">73</div>
-          <div class="stat-label">Entrevistas sistematizadas</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">6</div>
-          <div class="stat-label">Entrevistas no sistematizadas</div>
-        </div>
-      </div>
-
-      <!-- ── 1. ANÁLISIS DESCRIPTIVO ──────────────────────────────── -->
+      <!-- SECCION 1 -->
       <section class="section" id="sec-descriptivo">
-        <h2>1. Análisis descriptivo</h2>
+        <h2>1. Analisis descriptivo</h2>
 
-        <p>La siguiente tabla resume los principales estadísticos descriptivos de las variables analizadas, incluyendo medidas de tendencia central y dispersión. Estos resultados entregan una primera aproximación al comportamiento de los indicadores antes de avanzar hacia análisis comparativos y multivariados.</p>
+        <p>La siguiente tabla resume los principales estadisticos descriptivos de las ocho variables relacionales medidas en el estudio. La escala utilizada es de 1 a 7 en todos los casos, donde valores mas altos indican mayor nivel del atributo evaluado.</p>
+
+        <div class="scale-legend">
+          <div class="scale-seg scale-low">1 &ndash; 3<span>Bajo</span></div>
+          <div class="scale-seg scale-mid">4<span>Neutro</span></div>
+          <div class="scale-seg scale-mid">5<span>Moderado</span></div>
+          <div class="scale-seg scale-high">6 &ndash; 7<span>Alto</span></div>
+        </div>
 
         <div class="desc-table-wrap">
           <table class="desc-table">
             <thead>
               <tr>
                 <th>Variable</th>
-                <th>N válidos</th>
+                <th>N validos</th>
                 <th>Promedio</th>
                 <th>Desv. est.</th>
                 <th>Varianza</th>
-                <th>Mín.</th>
-                <th>Máx.</th>
+                <th>Min.</th>
+                <th>Max.</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="var-name">Influencia territorial percibida de FCAB</td>
-                <td>72</td><td>5,0</td><td>1,54</td><td>2,36</td><td>1</td><td>7</td>
+                <td>Influencia territorial percibida de FCAB</td>
+                <td>72</td>
+                <td class="col-mean"><div class="mean-bar-wrap"><span>5,0</span><div class="mean-bar"><div class="mean-bar-fill" style="width:71.4%"></div></div></div></td>
+                <td>1,54</td><td>2,36</td><td>1</td><td>7</td>
               </tr>
               <tr>
-                <td class="var-name">Afectación organizacional percibida</td>
-                <td>72</td><td>4,2</td><td>2,21</td><td>4,89</td><td>1</td><td>7</td>
+                <td>Afectacion organizacional percibida</td>
+                <td>72</td>
+                <td class="col-mean"><div class="mean-bar-wrap"><span>4,2</span><div class="mean-bar"><div class="mean-bar-fill" style="width:60%"></div></div></div></td>
+                <td>2,21</td><td>4,89</td><td>1</td><td>7</td>
               </tr>
               <tr>
-                <td class="var-name">Expectativa de consideración</td>
-                <td>71</td><td>5,3</td><td>1,75</td><td>3,05</td><td>1</td><td>7</td>
+                <td>Expectativa de consideracion</td>
+                <td>71</td>
+                <td class="col-mean"><div class="mean-bar-wrap"><span>5,3</span><div class="mean-bar"><div class="mean-bar-fill" style="width:75.7%"></div></div></div></td>
+                <td>1,75</td><td>3,05</td><td>1</td><td>7</td>
               </tr>
               <tr>
-                <td class="var-name">Escucha percibida</td>
-                <td>72</td><td>4,8</td><td>1,96</td><td>3,83</td><td>1</td><td>7</td>
+                <td>Escucha percibida</td>
+                <td>72</td>
+                <td class="col-mean"><div class="mean-bar-wrap"><span>4,8</span><div class="mean-bar"><div class="mean-bar-fill" style="width:68.6%"></div></div></div></td>
+                <td>1,96</td><td>3,83</td><td>1</td><td>7</td>
               </tr>
               <tr>
-                <td class="var-name">Coherencia discurso-práctica percibida</td>
-                <td>63</td><td>5,0</td><td>1,84</td><td>3,39</td><td>1</td><td>7</td>
+                <td>Coherencia discurso-practica percibida</td>
+                <td>63</td>
+                <td class="col-mean"><div class="mean-bar-wrap"><span>5,0</span><div class="mean-bar"><div class="mean-bar-fill" style="width:71.4%"></div></div></div></td>
+                <td>1,84</td><td>3,39</td><td>1</td><td>7</td>
               </tr>
               <tr>
-                <td class="var-name">Calidad percibida de la relación</td>
-                <td>72</td><td>5,4</td><td>1,53</td><td>2,33</td><td>1</td><td>7</td>
+                <td>Calidad percibida de la relacion</td>
+                <td>72</td>
+                <td class="col-mean"><div class="mean-bar-wrap"><span>5,4</span><div class="mean-bar"><div class="mean-bar-fill" style="width:77.1%"></div></div></div></td>
+                <td>1,53</td><td>2,33</td><td>1</td><td>7</td>
               </tr>
               <tr>
-                <td class="var-name">Cercanía relacional percibida</td>
-                <td>72</td><td>4,9</td><td>1,77</td><td>3,15</td><td>1</td><td>7</td>
+                <td>Cercania relacional percibida</td>
+                <td>72</td>
+                <td class="col-mean"><div class="mean-bar-wrap"><span>4,9</span><div class="mean-bar"><div class="mean-bar-fill" style="width:70%"></div></div></div></td>
+                <td>1,77</td><td>3,15</td><td>1</td><td>7</td>
               </tr>
-              <tr>
-                <td class="var-name">Disposición al diálogo</td>
-                <td>70</td><td>6,8</td><td>0,71</td><td>0,50</td><td>3</td><td>7</td>
+              <tr class="row-highlight">
+                <td>Disposicion al dialogo</td>
+                <td>70</td>
+                <td class="col-mean"><div class="mean-bar-wrap"><span>6,8</span><div class="mean-bar"><div class="mean-bar-fill green" style="width:97.1%"></div></div></div></td>
+                <td>0,71</td><td>0,50</td><td>3</td><td>7</td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <p>Los resultados descriptivos permiten distinguir entre variables altamente concentradas y variables con mayor capacidad discriminante. Aquellas con mayor dispersión aportan más información para diferenciar perfiles de actores, mientras que las variables con valores homogéneos deben interpretarse con mayor cautela, ya que podrían expresar consensos generales o baja capacidad de segmentación.</p>
+        <div class="method-note">
+          <span class="mn-icon">&#8505;</span>
+          <span>Los resultados descriptivos permiten distinguir entre variables altamente concentradas y variables con mayor capacidad discriminante. La variable <strong>Disposicion al dialogo</strong> presenta la media mas alta (6,8) con minima dispersion (&sigma; = 0,71), lo que indica una respuesta casi uniforme entre los actores entrevistados. Por su parte, la variable <strong>Afectacion organizacional percibida</strong> registra la mayor varianza (4,89), reflejando percepciones altamente heterogeneas entre los distintos actores del ecosistema.</span>
+        </div>
+
       </section>
 
-      <!-- ── 2. DISEÑO DEL ANÁLISIS ──────────────────────────────── -->
+      <!-- SECCION 2: DISENO Y SUB-CAPITULOS -->
       <section class="section" id="sec-diseno">
-        <h2>2. Diseño del análisis</h2>
+        <h2>2. Diseno del analisis &mdash; Sub-capitulos</h2>
 
-        <p>El análisis de datos se desarrolló mediante una estrategia integrada que combinó procedimientos descriptivos, comparativos, multivariados y temáticos. De este modo, el análisis no se limitó a describir atributos aislados, sino que buscó comprender cómo se configuran distintos perfiles de actores dentro del ecosistema territorial de FCAB.</p>
+        <p>Este capitulo organiza el analisis de los datos de manera modular. Cada sub-capitulo corresponde a una variable o dimension analitica especifica, con su propia estadistica descriptiva, distribucion de frecuencias y analisis cualitativo de los patrones encontrados.</p>
 
-        <div class="pipeline">
-          <div class="pipeline-step">
-            <strong>Descriptivo</strong>
-            <span>Distribución y atributos de la muestra</span>
-          </div>
-          <div class="pipeline-step">
-            <strong>Comparativo</strong>
-            <span>Contraste entre tipos de actores</span>
-          </div>
-          <div class="pipeline-step">
-            <strong>Multivariado</strong>
-            <span>Segmentación y perfiles relacionales</span>
-          </div>
-          <div class="pipeline-step">
-            <strong>Temático</strong>
-            <span>Prevalencia e interpretación discursiva</span>
-          </div>
+        <div class="method-note">
+          <span class="mn-icon">&#x1F4D0;</span>
+          <span>El analisis combina estadisticos descriptivos (media, desviacion estandar, varianza, rango) con distribuciones de frecuencia por punto de escala y analisis territorial, permitiendo una caracterizacion multidimensional del ecosistema de stakeholders de FCAB.</span>
         </div>
 
-        <div class="callout">
-          <p>La muestra fue construida de forma <strong>intencionada y no probabilística</strong>, bajo criterios de relevancia territorial, representatividad por tipo de actor y pertinencia para los objetivos del mapeo.</p>
+        <div class="subcap-grid">
+
+          <a class="subcap-card disabled" href="#">
+            <div class="subcap-card-num">Sub-capitulo A</div>
+            <div class="subcap-card-title">Distribucion territorial de la muestra</div>
+            <div class="subcap-card-desc">Caracterizacion geografica de los 73 actores entrevistados por territorio de influencia.</div>
+            <span class="subcap-badge pending-badge">Proximo</span>
+          </a>
+
+          <a class="subcap-card disabled" href="#">
+            <div class="subcap-card-num">Sub-capitulo B</div>
+            <div class="subcap-card-title">Influencia territorial percibida</div>
+            <div class="subcap-card-desc">Distribucion de frecuencias y analisis por zona geografica. Media: 5,0 &middot; &sigma; = 1,54</div>
+            <span class="subcap-badge pending-badge">Proximo</span>
+          </a>
+
+          <a class="subcap-card disabled" href="#">
+            <div class="subcap-card-num">Sub-capitulo C</div>
+            <div class="subcap-card-title">Afectacion organizacional percibida</div>
+            <div class="subcap-card-desc">Variable con mayor dispersion del estudio. Media: 4,2 &middot; &sigma; = 2,21 &middot; Var = 4,89</div>
+            <span class="subcap-badge pending-badge">Proximo</span>
+          </a>
+
+          <a class="subcap-card disabled" href="#">
+            <div class="subcap-card-num">Sub-capitulo D</div>
+            <div class="subcap-card-title">Expectativa de consideracion</div>
+            <div class="subcap-card-desc">Nivel de expectativa de ser considerado por FCAB. Media: 5,3 &middot; &sigma; = 1,75</div>
+            <span class="subcap-badge pending-badge">Proximo</span>
+          </a>
+
+          <a class="subcap-card disabled" href="#">
+            <div class="subcap-card-num">Sub-capitulo E</div>
+            <div class="subcap-card-title">Escucha percibida</div>
+            <div class="subcap-card-desc">Percepcion de ser escuchado por FCAB. Media: 4,8 &middot; &sigma; = 1,96</div>
+            <span class="subcap-badge pending-badge">Proximo</span>
+          </a>
+
+          <a class="subcap-card disabled" href="#">
+            <div class="subcap-card-num">Sub-capitulo F</div>
+            <div class="subcap-card-title">Coherencia discurso-practica</div>
+            <div class="subcap-card-desc">Consistencia percibida entre lo que FCAB dice y hace. Media: 5,0 &middot; &sigma; = 1,84 &middot; N = 63</div>
+            <span class="subcap-badge pending-badge">Proximo</span>
+          </a>
+
+          <a class="subcap-card disabled" href="#">
+            <div class="subcap-card-num">Sub-capitulo G</div>
+            <div class="subcap-card-title">Cercania relacional percibida</div>
+            <div class="subcap-card-desc">Nivel de cercania y vinculo relacional con FCAB. Media: 4,9 &middot; &sigma; = 1,77</div>
+            <span class="subcap-badge pending-badge">Proximo</span>
+          </a>
+
+          <a class="subcap-card disabled" href="#">
+            <div class="subcap-card-num">Sub-capitulo H</div>
+            <div class="subcap-card-title">Disposicion al dialogo</div>
+            <div class="subcap-card-desc">Variable mas concentrada y elevada del estudio. Media: 6,8 &middot; &sigma; = 0,71 &middot; N = 70</div>
+            <span class="subcap-badge pending-badge">Proximo</span>
+          </a>
+
         </div>
+
       </section>
 
-      <!-- ── 3. DISTRIBUCIÓN TERRITORIAL ────────────────────────── -->
-      <section class="section" id="sec-territorial">
-        <h2>3. Distribución territorial de la muestra</h2>
-
-        <p>El estudio consideró un total de <strong>72 actores válidamente entrevistados</strong>, distribuidos en cuatro comunas de la región de Antofagasta. La concentración en Antofagasta responde a la mayor densidad institucional, organizacional y empresarial al tratarse de la capital regional, así como a la localización de actores estratégicos con incidencia en la región completa.</p>
-
-        <!-- Tarjetas de contexto por territorio -->
-        <div class="territory-grid">
-          <div class="territory-card">
-            <div class="territory-eyebrow">Polo principal</div>
-            <div class="territory-name">Antofagasta</div>
-            <div class="territory-stat">
-              <span class="n">50</span>
-              <span class="p">entrevistas · 68%</span>
-            </div>
-            <p>Capital regional con mayor densidad institucional, organizacional y empresarial. Concentra actores estratégicos con incidencia en la región completa.</p>
-          </div>
-
-          <div class="territory-card">
-            <div class="territory-eyebrow">Segundo polo</div>
-            <div class="territory-name">Calama</div>
-            <div class="territory-stat">
-              <span class="n">12</span>
-              <span class="p">entrevistas · 16%</span>
-            </div>
-            <p>Ciudad con presencia directa de operaciones mineras y servicios asociados. Segundo polo de representación del estudio.</p>
-          </div>
-
-          <div class="territory-card">
-            <div class="territory-eyebrow">Perspectiva territorial</div>
-            <div class="territory-name">Sierra Gorda</div>
-            <div class="territory-stat">
-              <span class="n">6</span>
-              <span class="p">entrevistas · 8%</span>
-            </div>
-            <p>Aporta perspectiva territorial específica vinculada a localidad con afectación directa por infraestructura ferroviaria y logística.</p>
-          </div>
-
-          <div class="territory-card">
-            <div class="territory-eyebrow">Perspectiva territorial</div>
-            <div class="territory-name">Mejillones</div>
-            <div class="territory-stat">
-              <span class="n">5</span>
-              <span class="p">entrevistas · 7%</span>
-            </div>
-            <p>Aporta perspectiva territorial específica con afectación directa por infraestructura logística. 2 entrevistas no sistematizadas adicionales.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── 4. INFLUENCIA TERRITORIAL PERCIBIDA ───────────────── -->
-      <section class="section" id="sec-influencia">
-        <h2>4. Influencia territorial percibida</h2>
-
-        <p>Esta variable evalúa el nivel de influencia que el actor atribuye a FCAB sobre su territorio, medida en escala 1–7. El 58% de los actores evalúa la influencia en el rango 5–6 (alta), el 21% en 7 (muy alta), el 16% en 3–4 (media) y solo el 5% en 1–2 (baja).</p>
-
-        <div class="var-tabs">
-          <div class="var-tab-bar">
-            <button class="var-tab-btn active" type="button">Distribución general</button>
-            <button class="var-tab-btn" type="button">Por tipo de actor</button>
-            <button class="var-tab-btn" type="button">Por territorio</button>
-          </div>
-
-          <div class="var-tab-panel">
-            <div class="chart-block">
-              <h3>Influencia percibida por tipo de actor</h3>
-              <p>La variación entre tipos de actores es acotada (rango 4,61–5,12), pero su dirección es analíticamente significativa: los actores con mayor conocimiento del funcionamiento económico regional lideran la percepción, mientras que quienes viven la relación de manera más cotidiana —comunidades y autoridades— la evalúan por debajo del promedio del eje.</p>
-              <div class="chart-container">
-                <iframe src="../../influencia_fcab_territorio_promedio_categoria_1_7.html" scrolling="no" title="Influencia percibida por tipo de actor" style="height:460px"></iframe>
-              </div>
-            <p>Al desagregar por tipo de actor, el sector productivo, clientes y gremios lidera con 5,12, seguido de la sociedad civil, academia y medios con 5,09. Este resultado revela que son los actores con mayor conocimiento del funcionamiento económico regional —no necesariamente los más cercanos a FCAB— quienes reconocen con mayor claridad su peso territorial. Los gremios industriales y las organizaciones académicas comprenden que FCAB es un actor estructural en la economía de la región, aunque ese reconocimiento no derive en una relación satisfactoria.</p>
-            <p>Comunidad y organización social (4,93) y las autoridades (4,61) puntúan por debajo del promedio. Para muchas JJVV, la influencia de FCAB en sus decisiones cotidianas es concreta pero acotada a aspectos físicos —ruido, faja, cruces—, no a un rol de desarrollo territorial más amplio. Las autoridades, por su parte, distinguen entre la influencia económica de FCAB —que reconocen como alta— y su influencia en el desarrollo comunitario local.</p>
-            </div>
-          </div>
-
-          <div class="var-tab-panel active">
-            <div class="chart-block">
-              <h3>Distribución general de la influencia percibida</h3>
-              <p>El 79% de los actores sitúa la influencia de FCAB en el rango alto o muy alto (5–7). El valor dominante es el rango 5–6, donde se concentra más de la mitad del ecosistema. Solo uno de cada cinco actores alcanza la valoración máxima de 7, lo que indica que el reconocimiento es amplio pero moderado.</p>
-              <div class="dist-chips">
-                <span class="dchip dchip-high">58% — Alta (5–6)</span>
-                <span class="dchip dchip-vhigh">21% — Muy alta (7)</span>
-                <span class="dchip dchip-mid">16% — Media (3–4)</span>
-                <span class="dchip dchip-low">5% — Baja (1–2)</span>
-              </div>
-              <div class="chart-container">
-                <iframe src="../../influencia_fcab_territorio_segmentacion_1_7.html" scrolling="no" title="Distribución general de la influencia territorial percibida" style="height:460px"></iframe>
-              </div>
-            <p>Desde una perspectiva territorial, Calama (5,67) y Mejillones (5,70) lideran por razones distintas. En Calama, la influencia de FCAB se asocia a una historia de presencia económica e identitaria de largo plazo, vinculada a la minería y al transporte de carga. En Mejillones, el puerto y la industria del combustible generan una percepción de que el ferrocarril es un eslabón central de la cadena logística local, lo que eleva su influencia percibida.</p>
-            <p>Sierra Gorda (4,33) registra el valor más bajo pese a que la línea ferroviaria atraviesa físicamente la comuna. Los actores de Baquedano y Sierra Gorda reconocen la existencia del ferrocarril en su territorio, pero no lo describen como un actor que incide en sus decisiones comunitarias, en su desarrollo local ni en sus oportunidades. La influencia se percibe como de paso —literal y figuradamente— antes que como anclada al territorio.</p>
-            <p>Antofagasta (4,76) es el resultado más llamativo. En la capital regional conviven actores con percepciones de influencia muy alta —especialmente quienes tienen contacto directo con la línea, los patios o la infraestructura portuaria— con actores de barrios donde el ferrocarril es físicamente cercano pero cuya presencia en la vida institucional local se percibe como reducida.</p>
-            </div>
-          </div>
-
-          <div class="var-tab-panel">
-            <div class="chart-block">
-              <h3>Distribución territorial de la influencia percibida</h3>
-              <p>El mapa revela que la influencia percibida de FCAB no sigue un gradiente simple de distancia a la capital. Calama y Mejillones superan a Antofagasta, mientras Sierra Gorda registra el valor más bajo pese a tener la línea ferroviaria dentro de su territorio.</p>
-              <div class="territory-scores">
-                <div class="tscore"><div class="tscore-n">5,70</div><div class="tscore-label">Mejillones</div></div>
-                <div class="tscore"><div class="tscore-n">5,67</div><div class="tscore-label">Calama</div></div>
-                <div class="tscore"><div class="tscore-n">4,76</div><div class="tscore-label">Antofagasta</div></div>
-                <div class="tscore ts-low"><div class="tscore-n">4,33</div><div class="tscore-label">Sierra Gorda</div></div>
-              </div>
-              <div class="chart-container">
-                <iframe src="../../1.%20influencia%20terrritorio%20mapa.html" scrolling="no" title="Mapa de influencia territorial percibida por comuna" style="height:760px"></iframe>
-              </div>
-            <div class="callout callout-green">
-              <p>Los tres gráficos convergen en un diagnóstico común: FCAB es reconocido como un actor con presencia e influencia en el territorio regional, pero esa influencia es percibida como <strong>económico-operacional más que territorial-comunitaria</strong>. La mayoría de los actores la sitúa en el rango alto (5–6), pero pocos llegan al nivel máximo, lo que sugiere que el reconocimiento del peso de FCAB no alcanza a configurar una percepción de agencia real sobre el desarrollo de las comunidades.</p>
-            </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── 5. AFECTACIÓN ORGANIZACIONAL PERCIBIDA ────────────── -->
-      <section class="section" id="sec-afectacion">
-        <h2>5. Afectación organizacional percibida</h2>
-
-        <p>La afectación organizacional pregunta en qué medida las decisiones de FCAB impactan en el funcionamiento específico de cada actor. La respuesta es llamativa: el promedio es uno de los más bajos de las dimensiones analizadas (4,20). El gráfico de segmentación exhibe la distribución más fragmentada del conjunto: el 26% se ubica en el rango bajo (1–2), el 18% en el medio (3–4), el 33% en el alto (5–6) y solo el 23% en el máximo (7). Con el 44% en los rangos bajos y medios, esta es la única variable donde la zona más baja acumula un peso comparable al de la zona alta. La distribución cuasi-plana señala que no hay un patrón dominante: la afectación percibida varía enormemente según el tipo de organización y su relación concreta con la operación ferroviaria.</p>
-
-        <div class="var-tabs">
-          <div class="var-tab-bar">
-            <button class="var-tab-btn active" type="button">Distribución general</button>
-            <button class="var-tab-btn" type="button">Por tipo de actor</button>
-            <button class="var-tab-btn" type="button">Por territorio</button>
-          </div>
-
-          <div class="var-tab-panel">
-            <div class="chart-block">
-              <h3>Afectación percibida por tipo de actor</h3>
-              <p>La brecha de 1,71 puntos entre autoridades/sector público (5,41) y comunidad/organización social (3,70) es la mayor registrada en cualquier variable del estudio. La separación refleja si la interdependencia con FCAB es estructural-operacional o cotidiana-física.</p>
-              <div class="chart-container">
-                <iframe src="../../afectacion_objetivos_fcab_promedio_categoria_1_7.html" scrolling="no" title="Afectación organizacional percibida por tipo de actor" style="height:460px"></iframe>
-              </div>
-            <div class="finding">
-              <div class="finding-label">Mayor brecha del análisis</div>
-              <p>Al desagregar por categoría de actor, se observa la mayor brecha entre grupos de todo el análisis: 1,71 puntos separan a autoridades y sector público (5,41) de la comunidad y organización social (3,70). Esta distancia refleja lógicas de interdependencia distintas según el tipo de vínculo que cada actor mantiene con la operación ferroviaria.</p>
-            </div>
-            <p>Las autoridades lideran porque su interdependencia con FCAB es estructural y concreta. Los municipios atravesados por el trazado ferroviario perciben que las decisiones de la empresa sobre el uso de patios, el mantenimiento de la faja, los horarios de operación y la gestión de cruces tienen consecuencias directas sobre la movilidad urbana, los proyectos de mejoramiento territorial y la capacidad de respuesta ante emergencias.</p>
-            <p>La baja afectación de las organizaciones sociales (3,70) está asociada a que perciben la presencia de FCAB en dimensiones físicas y cotidianas —ruido, tránsito en cruces, estado de la faja— pero no en su quehacer institucional como organizaciones. Esta disociación entre presencia física y afectación decisional revela que una parte de los actores más numerosos del mapa no se siente concernida por las decisiones que definen el desarrollo territorial de la empresa.</p>
-            <p>El sector productivo (5,28) sigue de cerca a las autoridades, también por razones operacionales: los clientes de transporte de carga tienen sus cadenas logísticas directamente vinculadas a las decisiones de FCAB sobre rutas, tarifas y capacidad. La sociedad civil y academia (3,84) se ubica levemente por sobre la comunidad, lo que refleja que algunos actores de ese grupo perciben cierta afectación indirecta de menor intensidad.</p>
-            </div>
-          </div>
-
-          <div class="var-tab-panel active">
-            <div class="chart-block">
-              <h3>Distribución general de la afectación percibida</h3>
-              <p>Con un promedio de 4,20 y la distribución más fragmentada del conjunto, esta variable no tiene un patrón dominante. El 44% de los actores se sitúa en los rangos bajos y medios (1–4), un peso sin equivalente en el resto de las dimensiones analizadas.</p>
-              <div class="dist-chips">
-                <span class="dchip dchip-low">26% — Baja (1–2)</span>
-                <span class="dchip dchip-mid">18% — Media (3–4)</span>
-                <span class="dchip dchip-high">33% — Alta (5–6)</span>
-                <span class="dchip dchip-vhigh">23% — Muy alta (7)</span>
-              </div>
-              <div class="chart-container">
-                <iframe src="../../afectacion_objetivos_fcab_segmentacion_1_7.html" scrolling="no" title="Distribución general de la afectación organizacional percibida" style="height:460px"></iframe>
-              </div>
-            <p>A nivel comunal, Antofagasta (4,56) lidera sobre los demás territorios, seguida de Sierra Gorda (4,18) y Mejillones (4,05), mientras que Calama (3,39) registra el puntaje más bajo.</p>
-            <p>Antofagasta lidera en afectación dado que concentra la mayor parte de la infraestructura visible de FCAB —patios, línea central, estaciones— y la mayor densidad de actores institucionales cuya gestión está vinculada a decisiones sobre ese espacio urbano. Los actores del sector público, los clientes portuarios y los actores de sociedad civil de la capital regional describen conexiones concretas entre las decisiones de FCAB y sus propios objetivos organizacionales.</p>
-            <p>Sierra Gorda (4,18) presenta <strong>afectación sin relación</strong>, combinación especialmente riesgosa desde el punto de vista del relacionamiento. Esta afectación se expresa en cuatro dimensiones:</p>
-            <div class="steps-list">
-              <div class="step-item"><div class="step-dot">1</div><div class="step-body"><h4>Afectación estructural</h4><p>FCAB es vista como un actor territorial cuyas decisiones inciden en la planificación comunal, el desarrollo logístico y proyectos estratégicos como el Plan Maestro Logístico y el Corredor Bioceánico.</p></div></div>
-              <div class="step-item"><div class="step-dot">2</div><div class="step-body"><h4>Baja presencia relacional percibida como abandono</h4><p>La falta de canales de información, gestión de infraestructura histórica y vínculo activo es interpretada como una forma de abandono, especialmente frente al relacionamiento más visible de otras empresas mineras presentes en la zona.</p></div></div>
-              <div class="step-item"><div class="step-dot">3</div><div class="step-body"><h4>Riesgo operacional activo</h4><p>El derrame de ácido en Baquedano permanece como hito relevante, no solo por el incidente, sino por la percepción de falta de seguimiento posterior en materia de comunicación, prevención y educación comunitaria.</p></div></div>
-              <div class="step-item"><div class="step-dot">4</div><div class="step-body"><h4>Brecha entre éxito corporativo y desarrollo local</h4><p>Aunque la empresa comunica logros logísticos y tecnológicos, los actores locales consideran que esos beneficios no retornan proporcionalmente al territorio. FCAB es reconocida como empresa fundacional y decisiva, pero con baja reciprocidad frente a las expectativas locales de desarrollo, seguridad y valor compartido.</p></div></div>
-            </div>
-            <p>El bajo resultado de Calama (3,39) refleja que las JJVV y actores locales no perciben que las decisiones operacionales de FCAB les afecten directamente en su quehacer organizacional.</p>
-            </div>
-          </div>
-
-          <div class="var-tab-panel">
-            <div class="chart-block">
-              <h3>Distribución territorial de la afectación percibida</h3>
-              <p>Antofagasta lidera la afectación por concentración de infraestructura visible e interlocutores institucionales. Sierra Gorda presenta la combinación más crítica: afectación alta sin vínculo relacional activo. Calama registra el valor más bajo pese a ser el segundo polo del estudio.</p>
-              <div class="territory-scores">
-                <div class="tscore"><div class="tscore-n">4,56</div><div class="tscore-label">Antofagasta</div></div>
-                <div class="tscore"><div class="tscore-n">4,18</div><div class="tscore-label">Sierra Gorda</div></div>
-                <div class="tscore"><div class="tscore-n">4,05</div><div class="tscore-label">Mejillones</div></div>
-                <div class="tscore ts-low"><div class="tscore-n">3,39</div><div class="tscore-label">Calama</div></div>
-              </div>
-              <div class="chart-container">
-                <iframe src="../../2.%20afectaci%C3%B3n%20territorio%20mapa.html" scrolling="no" title="Mapa de afectación organizacional percibida por comuna" style="height:760px"></iframe>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── 6. EXPECTATIVA DE CONSIDERACIÓN ───────────────────── -->
-      <section class="section" id="sec-expectativa">
-        <h2>6. Expectativa de consideración</h2>
-
-        <p>Esta variable mide qué tan esperable o legítimo considera el actor que FCAB tome en cuenta su opinión en decisiones que afectan el territorio. El gráfico de segmentación revela la distribución más favorable de las cuatro variables analizadas: el 43% otorga nota máxima (7) y el 32% se ubica en el rango alto (5–6), lo que concentra al 75% de los actores en la zona positiva. Solo el 8% evalúa esta expectativa como baja (1–2), el porcentaje más reducido de todas las variables.</p>
-
-        <div class="var-tabs">
-          <div class="var-tab-bar">
-            <button class="var-tab-btn active" type="button">Distribución general</button>
-            <button class="var-tab-btn" type="button">Por tipo de actor</button>
-            <button class="var-tab-btn" type="button">Por territorio</button>
-          </div>
-
-          <div class="var-tab-panel">
-            <div class="chart-block">
-              <h3>Expectativa de consideración por tipo de actor</h3>
-              <p>Los puntajes están concentrados en un rango estrecho (5,13–5,61), pero la posición de las autoridades al final —pese a tener el rol normativo más directo— es el dato más analíticamente relevante: refleja resignación aprendida, no falta de interés.</p>
-              <div class="chart-container">
-                <iframe src="../../expectativa_escucha_fcab_promedio_categoria_1_7.html" scrolling="no" title="Expectativa de consideración por tipo de actor" style="height:460px"></iframe>
-              </div>
-            <p>Al desagregar por tipo de actor, el sector productivo (5,61) y la sociedad civil, academia y medios (5,58) lideran, mientras que las autoridades quedan últimas (5,13) pese a tener el rol normativo más directo sobre la empresa.</p>
-            <p>El resultado de las autoridades merece atención especial. Que sean el grupo con menor expectativa de consideración no significa desinterés: las transcripciones muestran que varios representantes del sector público distinguen entre lo que sería deseable y lo que es realista dado el carácter privado de la empresa. Algunos actores normalizan la exclusión con expresiones que dan cuenta de una resignación aprendida: reconocen que FCAB opera con lógica empresarial y que sus terrenos y decisiones son propios, lo que rebaja la expectativa de consulta a niveles que no reflejan preferencia sino ajuste a una experiencia histórica de no participación.</p>
-            <p>El sector productivo lidera no porque tenga una relación más satisfactoria con FCAB, sino porque opera con la lógica de quien reconoce la interdependencia: si las decisiones de FCAB los afectan directamente en términos operacionales, la expectativa de ser considerados en esas decisiones es alta y se percibe como estructuralmente lógica. La sociedad civil y los medios fundan esta expectativa en una dinámica distinta: el rol público de FCAB como empresa con infraestructura en el territorio genera, a su juicio, una obligación de transparencia y consulta que no depende de si existe una relación previa.</p>
-            </div>
-          </div>
-
-          <div class="var-tab-panel active">
-            <div class="chart-block">
-              <h3>Distribución general de la expectativa de consideración</h3>
-              <p>Con el 75% de los actores en la zona positiva (5–7) y solo un 8% en rango bajo, esta es la variable con distribución más favorable del conjunto. Casi la mitad del ecosistema asigna la puntuación máxima, lo que señala que la legitimidad de ser considerado por FCAB está ampliamente reconocida.</p>
-              <div class="dist-chips">
-                <span class="dchip dchip-vhigh">43% — Muy alta (7)</span>
-                <span class="dchip dchip-high">32% — Alta (5–6)</span>
-                <span class="dchip dchip-low">8% — Baja (1–2)</span>
-              </div>
-              <div class="chart-container">
-                <iframe src="../../expectativa_escucha_fcab_segmentacion_1_7.html" scrolling="no" title="Distribución general de la expectativa de consideración" style="height:460px"></iframe>
-              </div>
-            <p>Desde el punto de vista territorial, Antofagasta (5,54) lidera, seguido de Mejillones (5,33) y Calama (5,17), mientras que Sierra Gorda (3,78) presenta el valor más bajo con diferencia.</p>
-            <p>Que Antofagasta encabece esta variable apunta a que la densidad institucional de la capital regional genera actores con mayor conciencia y claridad sobre lo que esperan de una empresa con la presencia territorial de FCAB. Los actores de Antofagasta, particularmente los del sector productivo, la academia y los medios, articulan esta expectativa en términos de legitimidad corporativa y responsabilidad social, no simplemente como demanda.</p>
-            <div class="callout callout-amber">
-              <p>En el extremo opuesto, Sierra Gorda (3,78) registra el puntaje más bajo en expectativa de consideración. Las entrevistas revelan que en estas localidades opera una <strong>resignación institucional</strong>: la experiencia repetida de no ser consultados ni informados ha reducido la expectativa hasta el punto en que algunos actores ni siquiera la formulan como una demanda legítima.</p>
-            </div>
-            </div>
-          </div>
-
-          <div class="var-tab-panel">
-            <div class="chart-block">
-              <h3>Distribución territorial de la expectativa de consideración</h3>
-              <p>La brecha entre Antofagasta (5,54) y Sierra Gorda (3,78) —1,76 puntos— es la más pronunciada de esta variable en el corte territorial. Sierra Gorda no solo lidera el valor más bajo: es el único territorio que cae por debajo del umbral de 4 en esta dimensión.</p>
-              <div class="territory-scores">
-                <div class="tscore"><div class="tscore-n">5,54</div><div class="tscore-label">Antofagasta</div></div>
-                <div class="tscore"><div class="tscore-n">5,33</div><div class="tscore-label">Mejillones</div></div>
-                <div class="tscore"><div class="tscore-n">5,17</div><div class="tscore-label">Calama</div></div>
-                <div class="tscore ts-low"><div class="tscore-n">3,78</div><div class="tscore-label">Sierra Gorda</div></div>
-              </div>
-              <div class="chart-container">
-                <iframe src="../../3.expectativa%20conideraic%C3%B3n%20mapa.html" scrolling="no" title="Mapa de expectativa de consideración por comuna" style="height:760px"></iframe>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── 7. ESCUCHA PERCIBIDA ──────────────────────────────── -->
-      <section class="section" id="sec-escucha">
-        <h2>7. Escucha percibida</h2>
-
-        <p>Esta variable evalúa si el actor percibe que FCAB escucha, recibe y toma en cuenta sus preocupaciones o propuestas. El promedio general se ubica en 4,80 e indica que la escucha percibida es la dimensión donde FCAB presenta mayor heterogeneidad entre tipos de actores.</p>
-        <p>El gráfico de segmentación muestra una percepción heterogénea: el 34% con nota máxima corresponde a actores con vínculos operacionales activos y contacto personalizado, que describen la escucha como inmediata y efectiva. El 14% con nota 1–2 incluye actores que no han tenido ocasión de transmitir preocupaciones, sea por ausencia de canales o por no haberlos necesitado. El 21% en rango 3–4 es el más relevante cualitativamente: son actores que han intentado transmitir preguntas o propuestas y no han recibido respuesta, o cuya respuesta fue parcial. Las entrevistas de este grupo articulan una distinción clara entre la atención ante solicitudes puntuales —que evalúan bien— y la consideración real de sus posiciones en decisiones estratégicas, que evalúan como baja.</p>
-
-        <div class="var-tabs">
-          <div class="var-tab-bar">
-            <button class="var-tab-btn active" type="button">Distribución general</button>
-            <button class="var-tab-btn" type="button">Por tipo de actor</button>
-            <button class="var-tab-btn" type="button">Por territorio</button>
-          </div>
-
-          <div class="var-tab-panel">
-            <div class="chart-block">
-              <h3>Escucha percibida por tipo de actor</h3>
-              <p>El rango de 0,49 puntos (5,12–4,63) es el más amplio del análisis por categoría. Los tres grupos por debajo del promedio (4,80) comparten un factor común: la escucha está mediada por la existencia de un referente personal, no por un canal institucional.</p>
-              <div class="chart-container">
-                <iframe src="../../percepcion_escucha_fcab_promedio_categoria_1_7.html" scrolling="no" title="Escucha percibida por tipo de actor" style="height:460px"></iframe>
-              </div>
-            <p>Al desagregar por categoría de actor, el rango entre categorías es el más amplio: 0,49 puntos entre el sector productivo (5,12) y las autoridades (4,63). El sector productivo se explica principalmente por los clientes con contrato operacional activo —quienes tienen canales establecidos y contacto regular— más que por los actores gremiales, cuya percepción de escucha es más moderada.</p>
-            <div class="finding">
-              <div class="finding-label">Hallazgo — Escucha mediada por referente personal</div>
-              <p>Comunidad y organización social (4,75) y sociedad civil, academia y medios (4,69) convergen en valores similares y muy próximos al promedio. Las entrevistas revelan que en ambos grupos la percepción de escucha depende casi completamente de la existencia de un referente personalizado en FCAB: cuando ese vínculo está activo, la escucha se evalúa alta; cuando no existe o se ha interrumpido, baja de forma marcada. Las organizaciones sociales con mejor percepción de escucha son precisamente aquellas que describen una relación de contacto frecuente y directo con una persona específica del equipo de relacionamiento comunitario.</p>
-            </div>
-            </div>
-          </div>
-
-          <div class="var-tab-panel active">
-            <div class="chart-block">
-              <h3>Distribución general de la escucha percibida</h3>
-              <p>La distribución es la más heterogénea del conjunto: los cuatro rangos acumulan porcentajes comparables, sin un valor dominante claro. El promedio de 4,80 oculta realidades muy distintas: actores con contacto directo evalúan alto; actores sin canal de contacto evalúan bajo.</p>
-              <div class="dist-chips">
-                <span class="dchip dchip-vhigh">34% — Muy alta (7)</span>
-                <span class="dchip dchip-high">32% — Alta (5–6)</span>
-                <span class="dchip dchip-mid">21% — Media (3–4)</span>
-                <span class="dchip dchip-low">14% — Baja (1–2)</span>
-              </div>
-              <div class="chart-container">
-                <iframe src="../../percepcion_escucha_fcab_segmentacion_1_7.html" scrolling="no" title="Distribución general de la escucha percibida" style="height:460px"></iframe>
-              </div>
-            <p>El mapa muestra que Calama y Antofagasta presentan percepciones de escucha similares y moderadamente positivas. En ambas ciudades, las transcripciones apuntan al mismo patrón: la escucha funciona cuando hay un referente activo y cuando la demanda está asociada a un proyecto concreto. Cuando ese mecanismo existe, la evaluación sube; a la inversa, la percepción cae dentro del mismo territorio.</p>
-            <p>En Mejillones (4,24), las entrevistas revelan que FCAB participa formalmente en instancias locales, pero esa participación no se traduce en capacidad de incidencia recíproca.</p>
-            <p>En Sierra Gorda (3,89), la baja percepción de escucha es coherente con la ausencia de canales de contacto sistemáticos y con la experiencia de intervenciones puntuales y reactivas. Los actores de Baquedano, en particular, no describen una relación de escucha activa sino episodios aislados de atención a demandas urgentes, sin continuidad.</p>
-            </div>
-          </div>
-
-          <div class="var-tab-panel">
-            <div class="chart-block">
-              <h3>Distribución territorial de la escucha percibida</h3>
-              <p>Calama y Antofagasta muestran percepciones moderadamente positivas y similares entre sí, con escucha que funciona cuando existe un referente activo. Mejillones y Sierra Gorda registran los valores más bajos: en ambos territorios predominan la participación formal sin incidencia recíproca y la intervención puntual sin continuidad.</p>
-              <div class="territory-scores">
-                <div class="tscore ts-low"><div class="tscore-n">4,24</div><div class="tscore-label">Mejillones</div></div>
-                <div class="tscore ts-low"><div class="tscore-n">3,89</div><div class="tscore-label">Sierra Gorda</div></div>
-              </div>
-              <div class="chart-container">
-                <iframe src="../../4.%20escucha%20percibida%20mapa.html" scrolling="no" title="Mapa de escucha percibida por comuna" style="height:760px"></iframe>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── 8. COHERENCIA DISCURSO-PRÁCTICA PERCIBIDA ─────────── -->
-      <section class="section" id="sec-coherencia">
-        <h2>8. Coherencia discurso-práctica percibida</h2>
-
-        <p>Esta variable evalúa el grado en que el actor percibe consistencia entre las declaraciones públicas de FCAB y sus acciones concretas en el territorio. Implica que los actores evalúen si la empresa cumple lo que promete, lo que introduce una dimensión de confianza más exigente que la mera satisfacción relacional.</p>
-
-        <div class="callout callout-amber">
-          <p><strong>Nota metodológica:</strong> 9 actores (12,5% del total) no evaluaron esta variable. Las razones difieren según el tipo de actor, pero todas apuntan al mismo problema de fondo: FCAB no tiene un discurso público suficientemente visible ni consistente como para ser evaluado por quienes no tienen contacto directo con ella. En Sierra Gorda varios entrevistados desconocían el discurso de FCAB porque nunca les había llegado. En el sector de medios, un actor señaló que no sabía qué estaba declarando FCAB ni cuál era su visión actual. Desde el sector comunitario, algunos actores reconocieron sentirse ignorantes respecto al quehacer institucional de la empresa. En todos estos casos, la imposibilidad de evaluar la coherencia es un indicador de <strong>baja presencia discursiva de FCAB en el territorio</strong>.</p>
-        </div>
-
-        <p>Con un promedio general en torno a 5,0 y una distribución que concentra el 41% en el nivel máximo (7) pero también acumula un 31% en los rangos bajo y medio (1–4), esta es una de las variables con mayor dispersión del conjunto. La ausencia de un patrón dominante señala que la percepción de coherencia es heterogénea: conviven actores que perciben alineación total entre discurso y práctica con actores que la cuestionan.</p>
-
-        <div class="var-tabs">
-          <div class="var-tab-bar">
-            <button class="var-tab-btn active" type="button">Distribución general</button>
-            <button class="var-tab-btn" type="button">Por tipo de actor</button>
-            <button class="var-tab-btn" type="button">Por territorio</button>
-          </div>
-
-          <div class="var-tab-panel">
-            <div class="chart-block">
-              <h3>Coherencia percibida por tipo de actor</h3>
-              <p>El patrón se invierte respecto a las variables anteriores: los actores con mayor capacidad de contraste técnico entre discurso y práctica —sector productivo y sociedad civil— registran los valores más bajos. Las autoridades y la comunidad, que evalúan desde la experiencia directa y cotidiana, lideran.</p>
-              <div class="chart-container">
-                <iframe src="../../coherencia_discurso_practica_fcab_promedio_categoria_1_7.html" scrolling="no" title="Coherencia discurso-práctica percibida por tipo de actor" style="height:460px"></iframe>
-              </div>
-            <p>Al realizar la comparación por categorías, el sector productivo, clientes y gremios (4,47) y la sociedad civil, academia y medios (4,64) registran los valores más bajos, mientras que las autoridades (5,37) y la comunidad y organización social (5,22) puntúan por encima del promedio.</p>
-            <p>Este resultado invierte el patrón observado en variables como afectación o escucha, donde el sector productivo lideraba. La razón que emerge de las transcripciones es que los actores con mayor conocimiento técnico y mayor acceso a información pública sobre FCAB —gremios, clientes, medios, academia— son precisamente quienes pueden contrastar con mayor precisión lo que la empresa declara con lo que efectivamente hace. Varios entrevistados de estos grupos elaboran espontáneamente una distinción entre el discurso regional de FCAB —que evalúan como coherente— y su actuación a escala local o comunitaria.</p>
-            <div class="insight">
-              <div class="insight-label">Patrón inverso</div>
-              <p>Las organizaciones sociales y las autoridades evalúan la coherencia desde una experiencia más directa y menos comparativa: cuando FCAB cumple lo que promete en el ámbito de su relación cotidiana, la nota sube, independientemente de lo que ocurra a mayor escala.</p>
-            </div>
-            </div>
-          </div>
-
-          <div class="var-tab-panel active">
-            <div class="chart-block">
-              <h3>Distribución general de la coherencia percibida</h3>
-              <p>El 41% en el nivel máximo convive con un 31% en los rangos bajos y medios (1–4), la mayor polarización registrada en las variables del análisis. La heterogeneidad de la distribución refleja que la coherencia percibida depende directamente de la intensidad del contacto con FCAB.</p>
-              <div class="dist-chips">
-                <span class="dchip dchip-vhigh">41% — Muy alta (7)</span>
-                <span class="dchip dchip-low">31% — Baja y media (1–4)</span>
-              </div>
-              <div class="chart-container">
-                <iframe src="../../coherencia_discurso_practica_fcab_segmentacion_1_7.html" scrolling="no" title="Distribución general de la coherencia discurso-práctica percibida" style="height:460px"></iframe>
-              </div>
-            <p>En el mapa territorial, Calama (5,39) lidera nuevamente, coherente con una historia de vínculos más sólidos y continuos que generan una percepción de correspondencia entre lo que FCAB dice y lo que hace. Antofagasta (4,94) se ubica cerca del promedio, con alta varianza interna: los actores más vinculados a FCAB la evalúan con coherencia alta, mientras que medios y algunas JJVV reducen el promedio.</p>
-            <p>Sierra Gorda (4,11) registra el puntaje más bajo. Los actores de Baquedano perciben que lo que FCAB declara a nivel regional no tiene correlato en intervenciones concretas en su localidad, lo que configura una percepción de incoherencia no ideológica sino experiencial: no ven en su entorno lo que escuchan en el discurso público de la empresa.</p>
-            </div>
-          </div>
-
-          <div class="var-tab-panel">
-            <div class="chart-block">
-              <h3>Distribución territorial de la coherencia percibida</h3>
-              <p>Calama lidera con la mayor percepción de correspondencia entre discurso y práctica. Sierra Gorda registra el valor más bajo: una incoherencia experiencial —no ideológica— donde el discurso regional de la empresa no tiene correlato en la realidad local de Baquedano.</p>
-              <div class="territory-scores">
-                <div class="tscore"><div class="tscore-n">5,39</div><div class="tscore-label">Calama</div></div>
-                <div class="tscore"><div class="tscore-n">4,94</div><div class="tscore-label">Antofagasta</div></div>
-                <div class="tscore ts-low"><div class="tscore-n">4,11</div><div class="tscore-label">Sierra Gorda</div></div>
-              </div>
-              <div class="chart-container">
-                <iframe src="../../5.%20coherencia%20mapa.html" scrolling="no" title="Mapa de coherencia discurso-práctica percibida por comuna" style="height:760px"></iframe>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── 9. CERCANÍA RELACIONAL PERCIBIDA ──────────────────── -->
-      <section class="section" id="sec-cercania">
-        <h2>9. Cercanía relacional percibida</h2>
-
-        <p>Esta variable mide la cercanía percibida entre el actor y la empresa. El 70% de los actores se ubica en los rangos alto (5–6, 38%, n=27) y máximo (7, 32%, n=23). El 22% se sitúa en rango medio (3–4, n=16) y solo el 8% en rango bajo (1–2, n=6).</p>
-
-        <div class="var-tabs">
-          <div class="var-tab-bar">
-            <button class="var-tab-btn active" type="button">Distribución general</button>
-            <button class="var-tab-btn" type="button">Por tipo de actor</button>
-            <button class="var-tab-btn" type="button">Por territorio</button>
-          </div>
-
-          <div class="var-tab-panel">
-            <div class="chart-block">
-              <h3>Cercanía percibida por tipo de actor</h3>
-              <p>Comunidad lidera con el único puntaje claramente sobre el promedio general. Sociedad civil y medios registra el valor más bajo del conjunto: es el segmento con mayor incidencia en reputación y con menor atención sistemática de relacionamiento.</p>
-              <div class="chart-container">
-                <iframe src="../../cercania_relacion_fcab_promedio_categoria_1_7.html" scrolling="no" title="Cercanía relacional percibida por tipo de actor" style="height:460px"></iframe>
-              </div>
-            <p>En el detalle por actor, la categoría Comunidad y organización social registra el promedio más alto (5,27), seguida de Sector productivo, clientes y gremios (4,82) y Autoridades y sector público (4,67), mientras que Sociedad civil, academia y medios obtiene el valor más bajo (4,05).</p>
-            <p>Comunidad y organización social es el único segmento que supera claramente el promedio general. Este resultado refleja la estrategia de relacionamiento que FCAB ha sostenido en los últimos años: presencia concreta en territorios aledaños a su operación, principalmente a través de mesas comunitarias, actividades de navidad, operativos de salud y arborización en sectores próximos a la vía. Sin embargo, al igual que con la calidad relacional percibida, este capital relacional comunitario es frágil si descansa exclusivamente en el contacto presencial de un encargado de relacionamiento: cuando ese contacto se interrumpe —por rotación de personas, cambios de gestión o discontinuidad de programas— la cercanía se diluye rápidamente.</p>
-            <div class="insight">
-              <div class="insight-label">Segmento de mayor riesgo reputacional</div>
-              <p>Sociedad civil, academia y medios es el segmento más distante. El grupo es internamente heterogéneo: lo que lo unifica no es la calidad del vínculo sino el tipo de mirada que ejercen sobre FCAB —observan, evalúan y comunican—, lo que los convierte en amplificadores potenciales tanto de percepciones positivas como críticas. En el polo más bajo se encuentran actores académicos con vínculos históricos puntuales sin agenda de colaboración activa, medios con una relación debilitada en el tiempo, y casos donde directamente no existe relación alguna. <strong>Es el segmento que más incide en la reputación de largo plazo de FCAB y el que menos recibe atención sistemática.</strong></p>
-            </div>
-            <p>El dato de Autoridades y sector público (4,67) revela una brecha de gobernanza. Las autoridades quedan por debajo del promedio general y por debajo del segmento comunitario, pese a ser los actores con mayor poder normativo sobre las operaciones de FCAB. Parte de este resultado se explica por una memoria institucional que persiste: el sector público describe un relacionamiento deficitario con administraciones anteriores de FCAB, caracterizadas por el cierre institucional ante demandas de coordinación. La percepción dominante en este segmento no es de hostilidad sino de insuficiencia: FCAB es reconocida como actor relevante para el territorio, pero no como interlocutor activo de las instituciones que lo administran.</p>
-            </div>
-          </div>
-
-          <div class="var-tab-panel active">
-            <div class="chart-block">
-              <h3>Distribución general de la cercanía percibida</h3>
-              <p>El 70% de los actores se sitúa en los rangos positivos (5–7), con una distribución relativamente equilibrada entre muy alta y alta. El 8% en rango bajo es el segundo más reducido de las variables analizadas, lo que indica que la cercanía generalizada no es el problema central: lo es su distribución desigual entre territorios y segmentos.</p>
-              <div class="dist-chips">
-                <span class="dchip dchip-vhigh">32% — Muy alta (7)</span>
-                <span class="dchip dchip-high">38% — Alta (5–6)</span>
-                <span class="dchip dchip-mid">22% — Media (3–4)</span>
-                <span class="dchip dchip-low">8% — Baja (1–2)</span>
-              </div>
-              <div class="chart-container">
-                <iframe src="../../cercania_relacion_fcab_segmentacion_1_7.html" scrolling="no" title="Distribución general de la cercanía relacional percibida" style="height:460px"></iframe>
-              </div>
-            <p>La geografía del relacionamiento dibuja una centralidad en Antofagasta y una periferia desatendida. La diferencia entre Antofagasta (5,18) y Sierra Gorda (3,67) equivale a 1,51 puntos, una brecha sustantiva que se explica por la concentración histórica del relacionamiento comunitario en la ciudad sede. En Antofagasta, la presencia de FCAB en el tejido comunitario es más densa, con múltiples juntas de vecinos en contacto regular. En Sierra Gorda, coexisten realidades opuestas dentro del mismo territorio: el segmento autoridades tiene una relación valorada y fluida con la gerencia, mientras que en una junta de vecinos se declara distancia máxima y desconocimiento total:</p>
-            <div class="pull-quote">
-              <p>"Nada, nada, no conocimos el FCAB porque pasa el tren ahí nomás."</p>
-              <cite>— Junta de vecinos, Sierra Gorda</cite>
-            </div>
-            <p>Esta polarización intracomunitaria indica que FCAB no ha construido un modelo de relacionamiento que alcance al conjunto del tejido social local, sino que opera a través de interlocutores seleccionados, dejando amplias capas de la comunidad fuera del vínculo.</p>
-            <p>Mejillones (4,24) presenta una cercanía apenas sobre la mediana pese a que FCAB mantiene membresía gremial activa en la comuna desde hace varios años. Esa membresía no se ha traducido en cercanía relacional real: la participación de FCAB en instancias locales es reconocida, pero se describe como puntual y sin involucramiento profundo. La distancia en Mejillones no se explica por ausencia de intención sino por ausencia de arquitectura del relacionamiento.</p>
-            <p>Calama (4,59) presenta un perfil heterogéneo: algunas juntas de vecinos reportan vínculos activos y cercanos —con proyectos, mesas de trabajo y comunicación regular—, mientras que actores del sector público declaran una relación "marginal y muy distante".</p>
-            </div>
-          </div>
-
-          <div class="var-tab-panel">
-            <div class="chart-block">
-              <h3>Distribución territorial de la cercanía percibida</h3>
-              <p>La brecha de 1,51 puntos entre Antofagasta (5,18) y Sierra Gorda (3,67) refleja la concentración histórica del relacionamiento en la ciudad sede. Sierra Gorda es el único territorio donde la polarización intracomunitaria es máxima: conviven vínculos fluidos con gerencia y desconocimiento total de la empresa en el tejido vecinal.</p>
-              <div class="territory-scores">
-                <div class="tscore"><div class="tscore-n">5,18</div><div class="tscore-label">Antofagasta</div></div>
-                <div class="tscore"><div class="tscore-n">4,59</div><div class="tscore-label">Calama</div></div>
-                <div class="tscore"><div class="tscore-n">4,24</div><div class="tscore-label">Mejillones</div></div>
-                <div class="tscore ts-low"><div class="tscore-n">3,67</div><div class="tscore-label">Sierra Gorda</div></div>
-              </div>
-              <div class="chart-container">
-                <iframe src="../../7.%20cercan%C3%ADa%20mapa.html" scrolling="no" title="Mapa de cercanía relacional percibida por comuna" style="height:760px"></iframe>
-              </div>
-            <div class="callout callout-green">
-              <p>Esta variable se percibe como una <strong>brecha de gestión, no como una distancia de principio</strong>. Esto define con claridad el tipo de intervención que se requiere: no reparación de vínculos dañados, sino construcción de arquitectura relacional en territorios y segmentos donde aún no existe.</p>
-            </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── 10. DISPOSICIÓN AL DIÁLOGO ──────────────────────────── -->
-      <section class="section" id="sec-dialogo">
-        <h2>10. Disposición al diálogo</h2>
-
-        <p>Esta variable mide la apertura del actor o su organización a participar en instancias formales de diálogo, coordinación o trabajo conjunto con FCAB. Los resultados son los más contundentes y homogéneos de toda la batería de variables: con un promedio general de 6,8 y el 92% de los actores en el nivel máximo de la escala (7), la disposición al diálogo formal con FCAB es prácticamente universal. No hay rango 1–2 en la distribución y las diferencias entre categorías son mínimas. Esto convierte a esta variable en la dimensión más sólida de todo el diagnóstico y la sitúa como un signo de apertura estructural, independiente del historial de la relación.</p>
-
-        <div class="var-tabs">
-          <div class="var-tab-bar">
-            <button class="var-tab-btn active" type="button">Distribución general</button>
-            <button class="var-tab-btn" type="button">Por tipo de actor</button>
-            <button class="var-tab-btn" type="button">Por territorio</button>
-          </div>
-
-          <div class="var-tab-panel">
-            <div class="chart-block">
-              <h3>Disposición al diálogo por tipo de actor</h3>
-              <p>Las diferencias entre categorías son mínimas —el rango es de apenas 0,49 puntos—. La sociedad civil es el único segmento que introduce condiciones al diálogo: prefiere instancias con agenda concreta por sobre relacionamiento genérico.</p>
-              <div class="chart-container">
-                <iframe src="../../disposicion_dialogo_fcab_promedio_categoria_1_7.html" scrolling="no" title="Disposición al diálogo por tipo de actor" style="height:460px"></iframe>
-              </div>
-            <p>Por categorías, las autoridades alcanzan el promedio perfecto de 7,0, lo que en las transcripciones se explica por la naturaleza de su rol: para un municipio, una delegación u otra autoridad, participar en instancias de diálogo con una empresa que opera en su territorio no es solo deseable sino parte inherente de su función pública. El sector productivo (6,94) y la comunidad y organización social (6,79) le siguen de cerca. La sociedad civil, academia y medios (6,51) es el único segmento que matiza con condiciones: sus actores señalan apertura hacia diálogos con agenda concreta o con objetivos compartidos claros, antes que instancias genéricas de relacionamiento.</p>
-            </div>
-          </div>
-
-          <div class="var-tab-panel active">
-            <div class="chart-block">
-              <h3>Distribución general de la disposición al diálogo</h3>
-              <p>El 92% de los actores asigna la puntuación máxima y no hay ningún actor en el rango bajo (1–2). Es la distribución más concentrada y favorable de todo el análisis, con un promedio de 6,8 sobre 7.</p>
-              <div class="dist-chips">
-                <span class="dchip dchip-vhigh">92% — Nivel máximo (7)</span>
-              </div>
-              <div class="chart-container">
-                <iframe src="../../disposicion_dialogo_fcab_segmentacion_1_7.html" scrolling="no" title="Distribución general de la disposición al diálogo" style="height:460px"></iframe>
-              </div>
-            <p>El mapa territorial refuerza la homogeneidad: Mejillones alcanza el máximo perfecto (7,0), Calama y Antofagasta se ubican entre 6,77 y 6,94, y Sierra Gorda —que en todas las variables anteriores registraba los valores más bajos— llega aquí a 6,33, su mejor resultado relativo. Este dato es estratégicamente relevante: incluso donde la relación está deteriorada y la afectación no se traduce en participación, los actores mantienen una disposición activa a construir algo diferente. La puerta no está cerrada en ningún territorio.</p>
-            </div>
-          </div>
-
-          <div class="var-tab-panel">
-            <div class="chart-block">
-              <h3>Distribución territorial de la disposición al diálogo</h3>
-              <p>Mejillones es el único territorio con máximo perfecto. Calama y Antofagasta se ubican entre 6,77 y 6,94. Sierra Gorda —el territorio más crítico en todas las variables anteriores— registra aquí su mejor resultado relativo: la disposición al diálogo persiste incluso donde la relación está deteriorada.</p>
-              <div class="territory-scores">
-                <div class="tscore"><div class="tscore-n">7,0</div><div class="tscore-label">Mejillones</div></div>
-                <div class="tscore"><div class="tscore-n">6,33</div><div class="tscore-label">Sierra Gorda</div></div>
-              </div>
-              <div class="chart-container">
-                <iframe src="../../8.%20di%C3%A1logo%20mapa.html" scrolling="no" title="Mapa de disposición al diálogo por comuna" style="height:760px"></iframe>
-              </div>
-            <div class="callout callout-green">
-              <p>La disposición al diálogo funciona como el <strong>suelo firme</strong> sobre el que FCAB puede construir toda su estrategia de relacionamiento. Las brechas identificadas en calidad relacional, escucha percibida y afectación no expresan rechazo a la empresa sino demanda de una relación mejor. Que el 91% de los actores —incluidos los más críticos— esté dispuesto a participar formalmente no es un dato trivial: es la condición habilitante más robusta que este diagnóstico identifica, y su aprovechamiento depende exclusivamente de la iniciativa de FCAB.</p>
-            </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── 11. RESUMEN DEL ANÁLISIS DESCRIPTIVO ────────────────── -->
-      <section class="section" id="sec-resumen">
-        <h2>11. Resumen del análisis descriptivo</h2>
-
-        <p>El análisis variable por variable permite identificar en qué dimensiones específicas el relacionamiento de FCAB es más sólido o más débil. Sin embargo, las variables no operan de forma aislada. Para capturar esa combinación, el siguiente apartado examina los perfiles relacionales de forma integrada, agrupando los resultados por tipo de actor y por comuna. Este análisis revela que las brechas identificadas variable por variable se distribuyen de forma desigual en el territorio y entre categorías de actores, lo que tiene implicancias directas para la priorización del relacionamiento.</p>
-
-        <p>El análisis por categoría revela una <strong>disociación estructural</strong>: los actores con mejor calidad de relación y cercanía son los de menor afectación, mientras quienes tienen mayor interdependencia operacional con FCAB evalúan el vínculo con más distancia.</p>
-
-        <div class="profile-grid">
-          <div class="profile-card">
-            <div class="profile-card-title">Comunidad y organizaciones sociales</div>
-            <div class="profile-card-n">n = 37</div>
-            <div class="profile-metrics">
-              <div class="profile-metric">
-                <span class="profile-metric-label">Calidad de la relación</span>
-                <span class="profile-metric-val">5,58 / 7</span>
-              </div>
-              <div class="profile-metric">
-                <span class="profile-metric-label">Cercanía relacional</span>
-                <span class="profile-metric-val">5,27 / 7</span>
-              </div>
-              <div class="profile-metric">
-                <span class="profile-metric-label">Afectación organizacional</span>
-                <span class="profile-metric-val">3,70 / 7</span>
-              </div>
-            </div>
-            <div class="profile-card-note">Valoran el vínculo sin percibir que las decisiones de FCAB incidan en su quehacer organizacional.</div>
-          </div>
-
-          <div class="profile-card pc-2">
-            <div class="profile-card-title">Sociedad civil, academia y medios</div>
-            <div class="profile-card-n">n = 15</div>
-            <div class="profile-metrics">
-              <div class="profile-metric">
-                <span class="profile-metric-label">Expectativa de consulta</span>
-                <span class="profile-metric-val">5,58 / 7</span>
-              </div>
-              <div class="profile-metric">
-                <span class="profile-metric-label">Escucha percibida</span>
-                <span class="profile-metric-val">4,69 / 7</span>
-              </div>
-              <div class="profile-metric">
-                <span class="profile-metric-label">Cercanía relacional</span>
-                <span class="profile-metric-val">4,05 / 7</span>
-              </div>
-            </div>
-            <div class="profile-card-note">Brecha activa entre expectativa de consulta alta y escucha percibida baja, coherente con la percepción de invisibilidad institucional documentada en entrevistas.</div>
-          </div>
-
-          <div class="profile-card pc-3">
-            <div class="profile-card-title">Sector productivo y gremios</div>
-            <div class="profile-card-n">n = 11</div>
-            <div class="profile-metrics">
-              <div class="profile-metric">
-                <span class="profile-metric-label">Escucha percibida</span>
-                <span class="profile-metric-val">5,12 / 7</span>
-              </div>
-              <div class="profile-metric">
-                <span class="profile-metric-label">Coherencia discurso-práctica</span>
-                <span class="profile-metric-val">4,47 / 7</span>
-              </div>
-            </div>
-            <div class="profile-card-note">Los actores con mayor cercanía operacional son también los más críticos respecto a la consistencia entre lo que FCAB declara y lo que hace.</div>
-          </div>
-
-          <div class="profile-card pc-4">
-            <div class="profile-card-title">Autoridades y sector público</div>
-            <div class="profile-card-n">n = 9</div>
-            <div class="profile-metrics">
-              <div class="profile-metric">
-                <span class="profile-metric-label">Afectación organizacional</span>
-                <span class="profile-metric-val">5,39 / 7</span>
-              </div>
-              <div class="profile-metric">
-                <span class="profile-metric-label">Coherencia percibida</span>
-                <span class="profile-metric-val">5,33 / 7</span>
-              </div>
-              <div class="profile-metric">
-                <span class="profile-metric-label">Escucha percibida</span>
-                <span class="profile-metric-val">4,63 / 7</span>
-              </div>
-            </div>
-            <div class="profile-card-note">Reconocen el peso de FCAB en el territorio, pero no se sienten activamente consultados.</div>
-          </div>
-        </div>
-
-        <p>A nivel territorial, los perfiles refuerzan la gradiente observada en el análisis variable por variable: Calama lidera en las dimensiones relacionales más exigentes, Antofagasta refleja la mayor densidad institucional de expectativas, y Mejillones y Sierra Gorda presentan las brechas más preocupantes entre peso percibido de la empresa y vínculo relacional efectivo.</p>
-
-        <div class="profile-grid">
-          <div class="profile-card">
-            <div class="profile-card-title">Calama</div>
-            <div class="profile-card-n">n = 12</div>
-            <div class="profile-metrics">
-              <div class="profile-metric">
-                <span class="profile-metric-label">Calidad de la relación</span>
-                <span class="profile-metric-val">5,91 / 7</span>
-              </div>
-              <div class="profile-metric">
-                <span class="profile-metric-label">Coherencia percibida</span>
-                <span class="profile-metric-val">5,39 / 7</span>
-              </div>
-            </div>
-            <div class="profile-card-note">Lidera en calidad y coherencia. Alta dispersión interna: coexisten vínculos muy estrechos con otros distantes dentro del mismo territorio.</div>
-          </div>
-
-          <div class="profile-card pc-2">
-            <div class="profile-card-title">Antofagasta</div>
-            <div class="profile-card-n">n = 50</div>
-            <div class="profile-metrics">
-              <div class="profile-metric">
-                <span class="profile-metric-label">Expectativa de consulta</span>
-                <span class="profile-metric-val">5,57 / 7</span>
-              </div>
-            </div>
-            <div class="profile-card-note">Valores intermedios-altos con la expectativa de consulta más elevada, reflejo de su densidad institucional y la presencia de actores con alta legitimidad.</div>
-          </div>
-
-          <div class="profile-card pc-3">
-            <div class="profile-card-title">Mejillones</div>
-            <div class="profile-card-n">n = 5</div>
-            <div class="profile-metrics">
-              <div class="profile-metric">
-                <span class="profile-metric-label">Influencia territorial</span>
-                <span class="profile-metric-val">5,45 / 7</span>
-              </div>
-              <div class="profile-metric">
-                <span class="profile-metric-label">Cercanía relacional</span>
-                <span class="profile-metric-val">3,80 / 7</span>
-              </div>
-              <div class="profile-metric">
-                <span class="profile-metric-label">Escucha percibida</span>
-                <span class="profile-metric-val">3,53 / 7</span>
-              </div>
-            </div>
-            <div class="profile-card-note">Brecha entre peso percibido y vínculo efectivo: los actores reconocen la influencia de FCAB pero no se sienten escuchados.</div>
-          </div>
-
-          <div class="profile-card pc-4">
-            <div class="profile-card-title">Sierra Gorda</div>
-            <div class="profile-card-n">n = 6</div>
-            <div class="profile-metrics">
-              <div class="profile-metric">
-                <span class="profile-metric-label">Expectativa de consulta</span>
-                <span class="profile-metric-val">3,78 / 7</span>
-              </div>
-            </div>
-            <div class="profile-card-note">Registra los valores más bajos en todas las variables relacionales. Los actores no solo perciben un vínculo deteriorado: han ajustado a la baja sus expectativas respecto a FCAB.</div>
-          </div>
-        </div>
-
-        <p>Luego de analizar el conjunto de variables, emergen dos hallazgos transversales:</p>
-
-        <div class="callout">
-          <p><strong>Correlación relacional positiva:</strong> Existe una relación positiva entre la coherencia discurso-práctica percibida, la escucha percibida, la calidad percibida de la relación y la cercanía relacional. En general, los actores que evalúan positivamente una de estas variables hacen lo mismo en las demás.</p>
-        </div>
-
-        <div class="callout callout-green">
-          <p><strong>Suelo firme habilitante:</strong> La disposición al diálogo es el suelo firme sobre el que FCAB puede construir toda su estrategia de relacionamiento. Que el 91% de los actores esté completamente dispuesto a participar formalmente —incluidos los más críticos— es la condición habilitante más robusta del diagnóstico.</p>
-        </div>
-      </section>
-
-      <!-- ── NAVEGACIÓN ──────────────────────────────────────────── -->
-      <nav class="chapter-nav" aria-label="Navegación entre capítulos">
-        <a href="../index.html" class="nav-btn nav-center">
-          <span class="nav-dir">↑ Inicio</span>
-          <span class="nav-label">Índice general</span>
+      <!-- CHAPTER NAV -->
+      <nav class="chapter-nav">
+        <a class="nav-btn nav-prev" href="capitulo-02.html">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          Cap.02 Metodologia
         </a>
-        <a href="capitulo-02.html" class="nav-btn">
-          <span class="nav-dir">← Anterior</span>
-          <span class="nav-label">Cap. 02</span>
-          <span class="nav-sub">Metodología</span>
+        <a class="nav-btn nav-center" href="../index.html">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 9 12 2 21 9"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Indice
         </a>
-        <a href="capitulo-04.html" class="nav-btn nav-right">
-          <span class="nav-dir">Siguiente →</span>
-          <span class="nav-label">Cap. 04</span>
-          <span class="nav-sub">Análisis temático</span>
+        <a class="nav-btn nav-next" href="capitulo-04.html">
+          Cap.04 Analisis LDA
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
         </a>
       </nav>
 
@@ -1037,28 +301,5 @@
   </main>
 
   <script src="../assets/js/navigation.js"></script>
-  <script>
-    document.querySelectorAll('.var-tabs').forEach(container => {
-      // Los paneles están en DOM: [tipo-actor, dist-general, territorio]
-      // Los botones están en DOM: [dist-general, tipo-actor, territorio]
-      // → Mover panel[1] (dist-general) antes de panel[0] para alinear índices
-      const snap = Array.from(container.querySelectorAll('.var-tab-panel'));
-      if (snap.length >= 2) container.insertBefore(snap[1], snap[0]);
-
-      // Re-leer paneles en el nuevo orden y resetear clase active
-      const buttons = container.querySelectorAll('.var-tab-btn');
-      const panels  = container.querySelectorAll('.var-tab-panel');
-      panels.forEach((p, i) => p.classList.toggle('active', i === 0));
-
-      buttons.forEach((btn, i) => {
-        btn.addEventListener('click', () => {
-          buttons.forEach(b => b.classList.remove('active'));
-          panels.forEach(p => p.classList.remove('active'));
-          btn.classList.add('active');
-          panels[i].classList.add('active');
-        });
-      });
-    });
-  </script>
 </body>
 </html>
