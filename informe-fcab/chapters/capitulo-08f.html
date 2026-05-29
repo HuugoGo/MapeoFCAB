@@ -1,0 +1,526 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cap. 03F &mdash; Coherencia Discurso-Practica | Estudio FCAB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    .subcap-breadcrumb { display:flex; align-items:center; gap:6px; font-size:.78rem; color:var(--text-3); margin-bottom:6px; }
+    .subcap-breadcrumb a { color:var(--accent); text-decoration:none; }
+    .subcap-breadcrumb a:hover { text-decoration:underline; }
+    .subcap-breadcrumb .sep { opacity:.4; }
+
+    /* ── Var intro ── */
+    .var-intro-card { display:grid; grid-template-columns:auto 1fr; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; margin:28px 0; }
+    .var-intro-accent { width:6px; background:linear-gradient(180deg,#0891b2 0%,#7c3aed 100%); }
+    .var-intro-body { padding:22px 26px; }
+    .var-intro-label { font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:#0891b2; margin-bottom:8px; }
+    .var-intro-body p { font-size:.9rem; color:var(--text-2); line-height:1.6; margin:0; }
+    .var-stat-row { display:flex; gap:24px; margin-top:16px; flex-wrap:wrap; }
+    .var-stat { display:flex; flex-direction:column; gap:2px; }
+    .var-stat-num { font-size:1.5rem; font-weight:700; color:#0891b2; line-height:1; }
+    .var-stat-label { font-size:.7rem; color:var(--text-3); white-space:nowrap; }
+    .var-stat-sub { font-size:.68rem; color:#ef4444; margin-top:1px; }
+
+    /* ── Hallazgo metodológico ── */
+    .metod-box {
+      background:rgba(239,68,68,.05); border:1px solid rgba(239,68,68,.2);
+      border-radius:14px; padding:22px 24px; margin:28px 0;
+    }
+    .metod-header { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+    .metod-icon { font-size:1.4rem; }
+    .metod-title { font-size:.92rem; font-weight:700; color:#dc2626; }
+    .metod-lead { font-size:.86rem; color:var(--text-2); line-height:1.65; margin:0 0 18px; }
+    .metod-lead strong { color:var(--text-1); }
+    .metod-cases { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+    .metod-case { background:var(--card); border:1px solid rgba(239,68,68,.2); border-radius:10px; padding:14px 16px; }
+    .metod-case-tag { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#dc2626; margin-bottom:6px; }
+    .metod-case-icon { font-size:1.2rem; margin-bottom:6px; display:block; }
+    .metod-case p { font-size:.79rem; color:var(--text-2); line-height:1.55; margin:0; }
+    .metod-conclusion {
+      margin-top:16px; padding:12px 16px;
+      background:rgba(239,68,68,.07); border-radius:8px;
+      font-size:.84rem; color:var(--text-2); line-height:1.6;
+    }
+    .metod-conclusion strong { color:#dc2626; }
+
+    /* ── Distribución ── */
+    .dist-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:26px 0; }
+    .dist-card { border-radius:12px; border:1px solid var(--border); padding:20px 16px; text-align:center; background:var(--card); position:relative; overflow:hidden; }
+    .dist-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+    .dist-card.d-max::before  { background:#10b981; }
+    .dist-card.d-alta::before { background:var(--accent); }
+    .dist-card.d-baja::before { background:#ef4444; }
+    .dist-pct { font-size:2.2rem; font-weight:700; line-height:1; margin-bottom:4px; }
+    .dist-card.d-max  .dist-pct { color:#10b981; }
+    .dist-card.d-alta .dist-pct { color:var(--accent); }
+    .dist-card.d-baja .dist-pct { color:#ef4444; }
+    .dist-rango { font-size:.78rem; font-weight:600; color:var(--text-2); margin-bottom:4px; }
+    .dist-label { font-size:.72rem; color:var(--text-3); line-height:1.3; }
+    .dist-bar-wrap { margin-top:12px; height:6px; background:var(--surface-2); border-radius:3px; overflow:hidden; }
+    .dist-bar-fill { height:100%; border-radius:3px; }
+    .dist-card.d-max  .dist-bar-fill { background:#10b981; }
+    .dist-card.d-alta .dist-bar-fill { background:var(--accent); }
+    .dist-card.d-baja .dist-bar-fill { background:#ef4444; }
+
+    /* ── Polarización callout ── */
+    .polariz-note {
+      display:flex; gap:14px; align-items:flex-start;
+      background:rgba(8,145,178,.06); border:1px solid rgba(8,145,178,.2);
+      border-radius:10px; padding:16px 20px; margin:20px 0;
+    }
+    .polariz-note .pn-icon { font-size:1.2rem; flex-shrink:0; }
+    .polariz-note .pn-body { font-size:.84rem; color:var(--text-2); line-height:1.6; }
+    .polariz-note .pn-body strong { color:#0891b2; }
+
+    /* ── Iframe ── */
+    .viz-embed { margin:28px 0; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+    .viz-embed-header { display:flex; align-items:center; gap:10px; padding:13px 20px; border-bottom:1px solid var(--border); font-size:.82rem; color:var(--text-3); }
+    .viz-embed-header .veh-icon { font-size:1rem; }
+    .viz-embed-header strong { color:var(--text-2); }
+    .viz-embed iframe { display:block; width:100%; height:480px; border:none; }
+    .viz-embed iframe.tall { height:560px; }
+
+    /* ── Patron invertido banner ── */
+    .inversion-banner {
+      background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(8,145,178,.06));
+      border:1px solid rgba(124,58,237,.2); border-radius:12px;
+      padding:18px 22px; margin:22px 0;
+    }
+    .inversion-header { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+    .inversion-icon { font-size:1.3rem; }
+    .inversion-title { font-size:.88rem; font-weight:700; color:#7c3aed; }
+    .inversion-body { font-size:.85rem; color:var(--text-2); line-height:1.65; }
+    .inversion-body strong { color:#7c3aed; }
+
+    /* ── Actor grid ── */
+    .actor-type-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin:26px 0; }
+    .actor-type-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 20px; display:flex; align-items:flex-start; gap:16px; }
+    .atc-score-wrap { flex-shrink:0; text-align:center; min-width:56px; }
+    .atc-score { font-size:2rem; font-weight:700; line-height:1; }
+    .atc-max { font-size:.68rem; color:var(--text-3); }
+    .atc-bar-wrap { margin-top:8px; height:4px; background:var(--surface-2); border-radius:2px; overflow:hidden; }
+    .atc-bar-fill { height:100%; border-radius:2px; }
+    .atc-label { font-size:.86rem; font-weight:600; color:var(--text-1); margin-bottom:4px; line-height:1.3; }
+    .atc-note  { font-size:.76rem; color:var(--text-3); line-height:1.45; }
+    .atc-high .atc-score { color:var(--accent); } .atc-high .atc-bar-fill { background:var(--accent); }
+    .atc-mid  .atc-score { color:#0891b2; } .atc-mid  .atc-bar-fill { background:#0891b2; }
+    .atc-low  .atc-score { color:#f59e0b; } .atc-low  .atc-bar-fill { background:#f59e0b; }
+    .atc-min  .atc-score { color:#ef4444; } .atc-min  .atc-bar-fill { background:#ef4444; }
+
+    /* ── Dos lógicas cards ── */
+    .dos-logicas { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:22px 0; }
+    .logica-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 20px; }
+    .logica-card-header { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+    .logica-card-icon { font-size:1.2rem; }
+    .logica-card-title { font-size:.85rem; font-weight:700; color:var(--text-1); line-height:1.3; }
+    .logica-card p { font-size:.82rem; color:var(--text-2); line-height:1.6; margin:0; }
+    .logica-card.technical { border-color:rgba(239,68,68,.25); }
+    .logica-card.technical .logica-card-title { color:#dc2626; }
+    .logica-card.direct { border-color:rgba(16,185,129,.25); }
+    .logica-card.direct .logica-card-title { color:#10b981; }
+
+    /* ── Territorio ── */
+    .territory-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:26px 0; }
+    .terr-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:20px 20px; }
+    .terr-card.leader  { border-color:rgba(8,145,178,.35); background:rgba(8,145,178,.04); }
+    .terr-card.mid     { border-color:rgba(37,99,235,.25);  background:rgba(37,99,235,.03); }
+    .terr-card.danger  { border-color:rgba(239,68,68,.3);   background:rgba(239,68,68,.04); }
+    .terr-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+    .terr-name { font-size:.88rem; font-weight:700; color:var(--text-1); }
+    .terr-score-badge { font-size:1.6rem; font-weight:700; }
+    .terr-card.leader  .terr-score-badge { color:#0891b2; }
+    .terr-card.mid     .terr-score-badge { color:var(--accent); }
+    .terr-card.danger  .terr-score-badge { color:#ef4444; }
+    .terr-bar-wrap { height:4px; background:var(--surface-2); border-radius:2px; overflow:hidden; margin-bottom:12px; }
+    .terr-bar-fill { height:100%; border-radius:2px; }
+    .terr-card.leader  .terr-bar-fill { background:#0891b2; }
+    .terr-card.mid     .terr-bar-fill { background:var(--accent); }
+    .terr-card.danger  .terr-bar-fill { background:#ef4444; }
+    .terr-body { font-size:.81rem; color:var(--text-2); line-height:1.6; }
+    .terr-body strong { color:var(--text-1); }
+
+    /* ── Incoherencia experiencial callout ── */
+    .experiencial-callout {
+      background:rgba(239,68,68,.05); border-left:3px solid #ef4444;
+      border-radius:0 10px 10px 0; padding:14px 18px; margin:18px 0;
+      font-size:.84rem; color:var(--text-2); line-height:1.65;
+    }
+    .experiencial-callout strong { color:#dc2626; }
+    .experiencial-tag { display:inline-block; font-size:.66rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; background:rgba(239,68,68,.12); color:#dc2626; padding:2px 8px; border-radius:20px; margin-bottom:6px; }
+
+    /* ── Insight list ── */
+    .insight-list { list-style:none; padding:0; margin:20px 0; display:flex; flex-direction:column; gap:10px; }
+    .insight-list li { display:flex; gap:12px; align-items:flex-start; font-size:.87rem; color:var(--text-2); line-height:1.6; }
+    .insight-list li .il-icon { font-size:1rem; flex-shrink:0; margin-top:1px; }
+
+    /* ── Synthesis ── */
+    .synthesis-box { background:linear-gradient(135deg,rgba(8,145,178,.06),rgba(124,58,237,.06)); border:1px solid rgba(8,145,178,.2); border-radius:14px; padding:26px 28px; margin:32px 0; }
+    .synthesis-box-header { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+    .synthesis-box-icon { font-size:1.3rem; }
+    .synthesis-box-title { font-size:1rem; font-weight:700; color:var(--text-1); }
+    .synthesis-box p { font-size:.88rem; color:var(--text-2); line-height:1.7; margin:0 0 10px; }
+    .synthesis-box p:last-child { margin:0; }
+
+    /* ── Info note ── */
+    .info-note { display:flex; gap:12px; align-items:flex-start; background:rgba(37,99,235,.05); border:1px solid rgba(37,99,235,.15); border-radius:10px; padding:14px 18px; margin:22px 0; font-size:.84rem; color:var(--text-2); line-height:1.55; }
+    .info-note .in-icon { font-size:1.1rem; flex-shrink:0; margin-top:1px; }
+
+    @media(max-width:700px) {
+      .dist-grid{grid-template-columns:1fr;}
+      .metod-cases{grid-template-columns:1fr;}
+      .actor-type-grid{grid-template-columns:1fr;}
+      .dos-logicas{grid-template-columns:1fr;}
+      .territory-grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <button class="header-toggle" id="sidebar-toggle" aria-label="Abrir menu">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <a href="../index.html" class="header-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Indice
+    </a>
+    <span class="header-sep"></span>
+    <span class="header-chapter">Cap. 03 &mdash; Coherencia Discurso-Practica Percibida</span>
+    <div class="header-right">
+      <img src="../assets/img/logo-fcab.jpg" alt="FCAB" class="header-logo">
+      <span class="header-sep"></span>
+      <img src="../assets/img/logo-dos-barbas.png" alt="Dos Barbas" class="header-logo">
+    </div>
+  </header>
+  <nav class="sidebar" id="sidebar" aria-label="Navegacion del capitulo"></nav>
+  <main class="chapter-main">
+    <div class="chapter-content">
+      <header class="chapter-header">
+        <div class="subcap-breadcrumb">
+          <a href="capitulo-08.html">Cap. 03 &mdash; Analisis Descriptivo de Datos</a>
+          <span class="sep">/</span>
+          <span>Sub-capitulo F</span>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-num-label">Cap. 03 &middot; Sub-capitulo F</span>
+          <span class="badge badge-borrador">Borrador</span>
+        </div>
+        <h1>Coherencia Discurso-Practica Percibida</h1>
+        <p class="chapter-lead">El grado en que los actores perciben consistencia entre las declaraciones publicas de FCAB y sus acciones concretas en el territorio: la variable con el mayor N faltante del estudio y el patron de evaluacion mas invertido respecto al resto del analisis.</p>
+      </header>
+      <!-- SEC 1 -->
+      <section class="section" id="sec-overview">
+        <h2>1. Descripcion de la variable</h2>
+        <div class="var-intro-card">
+          <div class="var-intro-accent"></div>
+          <div class="var-intro-body">
+            <div class="var-intro-label">&#128270; Variable relacional</div>
+            <p>Esta variable evalua el grado en que el actor percibe consistencia entre las declaraciones publicas de FCAB y sus acciones concretas en el territorio. Implica que los actores evaluen si la empresa cumple lo que promete, lo que introduce una <strong>dimension de confianza mas exigente que la mera satisfaccion relacional</strong>: requiere conocer el discurso de FCAB para poder contrastarlo con su practica.</p>
+            <div class="var-stat-row">
+              <div class="var-stat"><div class="var-stat-num">5,0</div><div class="var-stat-label">Promedio general</div></div>
+              <div class="var-stat"><div class="var-stat-num">1,84</div><div class="var-stat-label">Desviacion estandar</div></div>
+              <div class="var-stat"><div class="var-stat-num">3,39</div><div class="var-stat-label">Varianza</div></div>
+              <div class="var-stat">
+                <div class="var-stat-num">63</div>
+                <div class="var-stat-label">N validos</div>
+                <div class="var-stat-sub">&#9888; 9 actores (12,5%) no respondieron</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEC 2 -->
+      <section class="section" id="sec-ausencia">
+        <h2>2. Hallazgo metodologico: la imposibilidad de evaluar como indicador</h2>
+
+        <div class="metod-box">
+          <div class="metod-header">
+            <span class="metod-icon">&#128683;</span>
+            <div class="metod-title">9 actores (12,5%) no pudieron evaluar esta variable</div>
+          </div>
+          <p class="metod-lead">Un aspecto metodologicamente relevante es que <strong>9 actores no respondieron esta variable</strong>. Las razones difieren segun el tipo de actor, pero todas apuntan al mismo problema de fondo: la empresa <strong>no tiene un discurso publico suficientemente visible ni consistente</strong> como para ser evaluado por quienes no tienen contacto directo con ella.</p>
+
+          <div class="metod-cases">
+            <div class="metod-case">
+              <div class="metod-case-tag">Sierra Gorda</div>
+              <span class="metod-case-icon">&#128739;</span>
+              <p>Varios entrevistados respondieron que <strong>desconocian el discurso de FCAB porque nunca les habia llegado</strong>, haciendo imposible pronunciarse sobre su coherencia.</p>
+            </div>
+            <div class="metod-case">
+              <div class="metod-case-tag">Sector medios</div>
+              <span class="metod-case-icon">&#128240;</span>
+              <p>Un actor senalo que <strong>no sabia que estaba declarando FCAB ni cual era su vision actual</strong>, y que esa ignorancia no derivaba de incoherencia sino de <em>ausencia comunicacional</em>.</p>
+            </div>
+            <div class="metod-case">
+              <div class="metod-case-tag">Sector comunitario</div>
+              <span class="metod-case-icon">&#127968;</span>
+              <p>Algunos actores reconocieron <strong>sentirse ignorantes respecto al quehacer institucional de la empresa</strong>, lo que les impedia emitir un juicio fundado sobre su coherencia.</p>
+            </div>
+          </div>
+
+          <div class="metod-conclusion">
+            En todos estos casos, la imposibilidad de evaluar la coherencia es un <strong>indicador de baja presencia discursiva de FCAB en el territorio</strong>: no hay incoherencia porque no hay discurso conocido que contrastar.
+          </div>
+        </div>
+      </section>
+
+      <!-- SEC 3 -->
+      <section class="section" id="sec-distribucion">
+        <h2>3. Distribucion de frecuencias (escala 1&ndash;7)</h2>
+        <p>Con un promedio general en torno a 5,0, esta es una de las variables con <strong>mayor dispersion del conjunto</strong>. La distribucion concentra el 41% en el nivel maximo (7) pero tambien acumula un 31% en los rangos bajo y medio (1&ndash;4). La ausencia de un patron dominante senala que la percepcion de coherencia es heterogenea: conviven actores que perciben alineacion total entre discurso y practica, con actores que la cuestionan.</p>
+
+        <div class="dist-grid">
+          <div class="dist-card d-max">
+            <div class="dist-pct">41%</div>
+            <div class="dist-rango">Puntuacion 7</div>
+            <div class="dist-label">Muy alta &mdash; alineacion total percibida</div>
+            <div class="dist-bar-wrap"><div class="dist-bar-fill" style="width:41%"></div></div>
+          </div>
+          <div class="dist-card d-alta">
+            <div class="dist-pct">28%</div>
+            <div class="dist-rango">Puntuacion 5&ndash;6</div>
+            <div class="dist-label">Alta</div>
+            <div class="dist-bar-wrap"><div class="dist-bar-fill" style="width:28%"></div></div>
+          </div>
+          <div class="dist-card d-baja">
+            <div class="dist-pct">31%</div>
+            <div class="dist-rango">Puntuacion 1&ndash;4</div>
+            <div class="dist-label">Baja y media &mdash; coherencia cuestionada</div>
+            <div class="dist-bar-wrap"><div class="dist-bar-fill" style="width:31%"></div></div>
+          </div>
+        </div>
+
+        <div class="polariz-note">
+          <span class="pn-icon">&#128308;</span>
+          <div class="pn-body">
+            La coexistencia de un <strong>41% en el maximo (7)</strong> con un <strong>31% en los rangos bajos y medios (1&ndash;4)</strong> configura una distribucion polarizada: no hay un punto de vista predominante sobre si FCAB cumple lo que promete. Esto contrasta con otras variables donde los promedios altos reflejan consenso; aqui, el promedio de 5,0 oculta dos grupos con percepciones radicalmente distintas.
+          </div>
+        </div>
+
+        <div class="viz-embed">
+          <div class="viz-embed-header">
+            <span class="veh-icon">&#128202;</span>
+            <strong>Distribucion de frecuencias &middot; Coherencia discurso-practica percibida (escala 1&ndash;7)</strong>
+            <span style="margin-left:auto;font-size:.75rem">Interactivo</span>
+          </div>
+          <iframe src="../../coherencia_discurso_practica_fcab_segmentacion_1_7.html" title="Distribucion coherencia discurso practica FCAB" loading="lazy"></iframe>
+        </div>
+      </section>
+
+      <!-- SEC 4 -->
+      <section class="section" id="sec-actores">
+        <h2>4. Analisis por tipo de actor</h2>
+        <p>La comparacion por categorias revela el <strong>patron mas invertido de todas las variables del analisis</strong>: el sector productivo y la sociedad civil &mdash;que lideran en afectacion, escucha e influencia&mdash; quedan en los lugares mas bajos, mientras que autoridades y comunidad encabezan.</p>
+
+        <!-- Banner patrón invertido -->
+        <div class="inversion-banner">
+          <div class="inversion-header">
+            <span class="inversion-icon">&#8597;</span>
+            <div class="inversion-title">Patron invertido respecto al resto del analisis</div>
+          </div>
+          <div class="inversion-body">
+            Los actores con <strong>mayor conocimiento tecnico y mayor acceso a informacion publica sobre FCAB</strong> &mdash;gremios, clientes, medios, academia&mdash; son precisamente los que pueden contrastar con mayor precision lo que la empresa declara con lo que efectivamente hace. Mientras las autoridades y la comunidad evaluan desde la experiencia directa y cotidiana, el sector productivo y la sociedad civil evaluan desde el contraste entre discurso publico y actuacion observable.
+          </div>
+        </div>
+
+        <div class="actor-type-grid">
+          <div class="actor-type-card atc-high">
+            <div class="atc-score-wrap">
+              <div class="atc-score">5,37</div>
+              <div class="atc-max">de 7</div>
+              <div class="atc-bar-wrap"><div class="atc-bar-fill" style="width:76.7%"></div></div>
+            </div>
+            <div class="atc-body">
+              <div class="atc-label">&#127963; Autoridades y sector publico</div>
+              <div class="atc-note">Evaluan la coherencia desde una experiencia mas directa y menos comparativa: cuando FCAB cumple lo que promete en el ambito de su relacion cotidiana, la nota sube, independientemente de lo que ocurra a mayor escala.</div>
+            </div>
+          </div>
+          <div class="actor-type-card atc-mid">
+            <div class="atc-score-wrap">
+              <div class="atc-score">5,22</div>
+              <div class="atc-max">de 7</div>
+              <div class="atc-bar-wrap"><div class="atc-bar-fill" style="width:74.6%"></div></div>
+            </div>
+            <div class="atc-body">
+              <div class="atc-label">&#127968; Comunidad y organizacion social</div>
+              <div class="atc-note">Al igual que las autoridades, evaluan desde la experiencia directa del vinculo cotidiano. Su percepcion de coherencia se ancla en si FCAB cumple lo que promete en el ambito comunitario proximal, sin extenderse a la evaluacion del discurso regional.</div>
+            </div>
+          </div>
+          <div class="actor-type-card atc-low">
+            <div class="atc-score-wrap">
+              <div class="atc-score">4,64</div>
+              <div class="atc-max">de 7</div>
+              <div class="atc-bar-wrap"><div class="atc-bar-fill" style="width:66.3%"></div></div>
+            </div>
+            <div class="atc-body">
+              <div class="atc-label">&#127979; Sociedad civil, academia y medios</div>
+              <div class="atc-note">Con acceso a informacion publica y capacidad de contraste, elaboran espontaneamente una distincion entre el discurso regional de FCAB &mdash;que evaluan como coherente&mdash; y su actuacion a escala local o comunitaria, que evaluan como menor.</div>
+            </div>
+          </div>
+          <div class="actor-type-card atc-min">
+            <div class="atc-score-wrap">
+              <div class="atc-score">4,47</div>
+              <div class="atc-max">de 7</div>
+              <div class="atc-bar-wrap"><div class="atc-bar-fill" style="width:63.9%"></div></div>
+            </div>
+            <div class="atc-body">
+              <div class="atc-label">&#127970; Sector productivo, clientes y gremios</div>
+              <div class="atc-note">Lideran en afectacion y escucha pero quedan ultimos en coherencia. Con mayor conocimiento tecnico del funcionamiento de FCAB, son los que pueden contrastar con mayor precision el discurso publico de la empresa con sus decisiones operacionales concretas.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dos lógicas de evaluación -->
+        <p>El patron invertido responde a dos logicas de evaluacion radicalmente distintas segun el tipo de actor:</p>
+        <div class="dos-logicas">
+          <div class="logica-card technical">
+            <div class="logica-card-header">
+              <span class="logica-card-icon">&#128269;</span>
+              <div class="logica-card-title">Logica comparativa &mdash; Sector productivo y sociedad civil</div>
+            </div>
+            <p>Evaluan contrastando el <strong>discurso regional de FCAB</strong> &mdash;sus comunicaciones publicas, posicionamiento institucional, compromisos declarados&mdash; con lo que observan en su actuacion concreta. Varios entrevistados distinguen espontaneamente entre coherencia a escala regional (evaluada bien) y coherencia a escala local o comunitaria (evaluada con mas dudas).</p>
+          </div>
+          <div class="logica-card direct">
+            <div class="logica-card-header">
+              <span class="logica-card-icon">&#129309;</span>
+              <div class="logica-card-title">Logica experiencial &mdash; Autoridades y comunidad</div>
+            </div>
+            <p>Evaluan desde la <strong>experiencia directa del vinculo cotidiano</strong>: si FCAB cumple lo que promete en el ambito de su relacion proxima, la percepcion de coherencia es alta, con independencia de lo que ocurra a mayor escala o en otros territorios. La evaluacion es mas local, mas concreta y menos comparativa.</p>
+          </div>
+        </div>
+
+        <div class="viz-embed">
+          <div class="viz-embed-header">
+            <span class="veh-icon">&#128200;</span>
+            <strong>Promedio por categoria de actor &middot; Coherencia discurso-practica percibida (escala 1&ndash;7)</strong>
+            <span style="margin-left:auto;font-size:.75rem">Interactivo</span>
+          </div>
+          <iframe src="../../coherencia_discurso_practica_fcab_promedio_categoria_1_7.html" title="Promedio por categoria coherencia discurso practica FCAB" loading="lazy"></iframe>
+        </div>
+      </section>
+
+      <!-- SEC 5 -->
+      <section class="section" id="sec-territorio">
+        <h2>5. Analisis por territorio</h2>
+        <p><strong>Calama (5,39)</strong> lidera nuevamente, coherente con una historia de vinculos mas solidos y continuos que generan una percepcion de correspondencia entre lo que FCAB dice y lo que hace. En el extremo opuesto, <strong>Sierra Gorda (4,11)</strong> registra el puntaje mas bajo, pero la razon no es ideologica sino experiencial.</p>
+
+        <div class="territory-grid">
+          <div class="terr-card leader">
+            <div class="terr-header">
+              <div class="terr-name">&#9935; Calama</div>
+              <div class="terr-score-badge">5,39</div>
+            </div>
+            <div class="terr-bar-wrap"><div class="terr-bar-fill" style="width:77%"></div></div>
+            <div class="terr-body">Historia de vinculos mas solidos y continuos que generan una percepcion de correspondencia entre lo que FCAB dice y lo que hace. El relacionamiento de largo plazo construye un marco de referencia que valida el discurso de la empresa.</div>
+          </div>
+          <div class="terr-card mid">
+            <div class="terr-header">
+              <div class="terr-name">&#127961; Antofagasta</div>
+              <div class="terr-score-badge">4,94</div>
+            </div>
+            <div class="terr-bar-wrap"><div class="terr-bar-fill" style="width:70.6%"></div></div>
+            <div class="terr-body">Se ubica cerca del promedio, con <strong>alta varianza interna</strong>: los actores mas vinculados a FCAB la evaluan con coherencia alta, mientras que medios y algunas juntas de vecinos reducen el promedio con evaluaciones mas criticas del contraste discurso-practica.</div>
+          </div>
+          <div class="terr-card danger">
+            <div class="terr-header">
+              <div class="terr-name">&#128739; Sierra Gorda</div>
+              <div class="terr-score-badge">4,11</div>
+            </div>
+            <div class="terr-bar-wrap"><div class="terr-bar-fill" style="width:58.7%"></div></div>
+            <div class="terr-body">
+              <div class="experiencial-callout">
+                <div class="experiencial-tag">Incoherencia experiencial, no ideologica</div>
+                Los actores de Baquedano perciben que lo que FCAB declara a nivel regional <strong>no tiene correlato en intervenciones concretas en su localidad</strong>. No cuestionan el discurso como falso: simplemente no lo ven reflejado en su entorno. La incoherencia percibida no es ideologica sino experiencial &mdash;no ven en su territorio lo que escuchan en el discurso publico de la empresa.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ul class="insight-list">
+          <li>
+            <span class="il-icon">&#9935;</span>
+            <span><strong>Calama (5,39)</strong> lidera por la misma razon que en otras variables: la densidad y continuidad del vinculo historico construye un marco de credibilidad que hace mas plausible el discurso de FCAB.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#127961;</span>
+            <span><strong>Antofagasta (4,94)</strong> refleja la coexistencia de dos grupos: actores con vinculo operacional directo que evaluan coherencia alta, y actores de medios y barrios que evaluan con mas escepticismo el contraste entre lo declarado y lo observado.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#128739;</span>
+            <span><strong>Sierra Gorda (4,11)</strong> concentra el doble problema: actores que no pudieron evaluar por desconocer el discurso, y actores que si lo conocen pero <em>no lo ven reflejado en intervencion local concreta</em>.</span>
+          </li>
+        </ul>
+
+        <div class="viz-embed">
+          <div class="viz-embed-header">
+            <span class="veh-icon">&#128205;</span>
+            <strong>Distribucion territorial &middot; Coherencia discurso-practica percibida por zona geografica</strong>
+            <span style="margin-left:auto;font-size:.75rem">Interactivo</span>
+          </div>
+          <iframe src="../../5. coherencia mapa.html" title="Mapa territorial coherencia discurso practica FCAB" loading="lazy" class="tall"></iframe>
+        </div>
+      </section>
+
+      <!-- SEC 6 -->
+      <section class="section" id="sec-diagnostico">
+        <h2>6. Diagnostico convergente</h2>
+
+        <div class="synthesis-box">
+          <div class="synthesis-box-header">
+            <span class="synthesis-box-icon">&#128270;</span>
+            <span class="synthesis-box-title">Diagnostico estrategico &mdash; Coherencia discurso-practica percibida</span>
+          </div>
+          <p>Esta variable introduce la dimension de confianza mas exigente del analisis: no basta con relacionarse bien, sino con cumplir lo que se declara. El hallazgo mas critico no esta en el promedio (5,0) sino en los dos extremos que lo componen: un <strong>41% que percibe alineacion total</strong> y un <strong>31% que la cuestiona</strong>, sin posicion intermedia dominante.</p>
+          <p>El segundo hallazgo critico es metodologico: el <strong>12,5% que no pudo evaluar esta variable</strong> es en si mismo un dato estrategico. Revela que FCAB no tiene presencia discursiva suficiente para ser evaluada por una parte relevante del ecosistema, particularmente en territorios como Sierra Gorda y Baquedano.</p>
+        </div>
+
+        <ul class="insight-list">
+          <li>
+            <span class="il-icon">&#9889;</span>
+            <span>El <strong>patron invertido por tipo de actor</strong> es el hallazgo mas singular de la variable: los actores con mayor conocimiento tecnico (sector productivo, sociedad civil) son los mas criticos, porque pueden contrastar el discurso con la practica. Los que evaluan desde la experiencia directa (autoridades, comunidad) son mas generosos.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#128683;</span>
+            <span>El <strong>12,5% que no pudo evaluar</strong> senala un deficit de presencia discursiva de FCAB, especialmente critico en Sierra Gorda. No se trata de que el discurso sea incoherente: es que no ha llegado.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#128739;</span>
+            <span><strong>Sierra Gorda</strong> acumula el peor escenario: ausencia de discurso conocido + incoherencia experiencial para quienes si lo conocen. Lo que FCAB declara regionales no tiene correlato local visible.</span>
+          </li>
+          <li>
+            <span class="il-icon">&#128308;</span>
+            <span>La <strong>distribucion polarizada</strong> de la variable implica que no hay una percepcion promedio de coherencia: hay dos ecosistemas coexistiendo. Gestionar esa brecha requiere distinguir entre los actores que evaluan por experiencia directa y los que evaluan por contraste informado.</span>
+          </li>
+        </ul>
+
+        <div class="info-note">
+          <span class="in-icon">&#128196;</span>
+          <span>Este sub-capitulo corresponde a la variable <em>Coherencia discurso-practica percibida</em> del analisis descriptivo multivariable. Para el contexto completo de los estadisticos y la estrategia analitica integrada, ver <a href="capitulo-08.html">Cap. 03 &mdash; Analisis Descriptivo de Datos</a>.</span>
+        </div>
+      </section>
+
+      <!-- NAV -->
+      <nav class="chapter-nav">
+        <a class="nav-btn nav-prev" href="capitulo-08e.html">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          Sub-cap E &mdash; Escucha percibida
+        </a>
+        <a class="nav-btn nav-center" href="../index.html">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 9 12 2 21 9"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Indice
+        </a>
+        <a class="nav-btn nav-next" href="capitulo-04.html">
+          Cap.04 Analisis LDA
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </nav>
+    </div>
+  </main>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>
