@@ -435,6 +435,49 @@ function buildSectionTOC() {
 }
 
 /* ================================================================
+   buildChapterNav — Prev / Next dinámico entre capítulos y sub-caps
+   ================================================================ */
+function buildChapterNav() {
+  const nav = document.querySelector('.chapter-nav');
+  if (!nav) return;
+
+  const currentFile = window.location.pathname.split('/').pop() || '';
+
+  /* Secuencia plana: hub → subpages → siguiente capítulo … */
+  const sequence = [];
+  CHAPTERS.forEach(ch => {
+    sequence.push({ file: ch.file, label: `Cap.${ch.num} · ${ch.title}` });
+    if (ch.subpages) {
+      ch.subpages.forEach(sp => {
+        sequence.push({ file: sp.file, label: sp.label });
+      });
+    }
+  });
+
+  const idx = sequence.findIndex(p => p.file === currentFile);
+  if (idx === -1) return;
+
+  const prev = idx > 0               ? sequence[idx - 1] : null;
+  const next = idx < sequence.length - 1 ? sequence[idx + 1] : null;
+
+  const svgLeft  = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>`;
+  const svgRight = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>`;
+  const svgHome  = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 9 12 2 21 9"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;
+
+  nav.innerHTML = `
+    ${prev
+      ? `<a class="nav-btn nav-prev" href="${prev.file}">${svgLeft} ${prev.label}</a>`
+      : `<span class="nav-btn nav-prev" style="visibility:hidden">${svgLeft}</span>`
+    }
+    <a class="nav-btn nav-center" href="../index.html">${svgHome} Índice</a>
+    ${next
+      ? `<a class="nav-btn nav-next" href="${next.file}">${next.label} ${svgRight}</a>`
+      : `<span class="nav-btn nav-next" style="visibility:hidden">${svgRight}</span>`
+    }
+  `;
+}
+
+/* ================================================================
    buildProgressBar — Barra de progreso de lectura (2px, top fixed)
    ================================================================ */
 function buildProgressBar() {
@@ -478,6 +521,7 @@ document.addEventListener('DOMContentLoaded', () => {
   buildSidebar();
   buildMobileToggle();
   buildSectionTOC();
+  buildChapterNav();
   buildProgressBar();
   animateSections();
 });
