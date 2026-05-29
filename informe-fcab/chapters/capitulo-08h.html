@@ -1,0 +1,601 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sub-Cap. G — Cercanía relacional percibida | Estudio FCAB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    /* ── Variable intro card ─────────────────────────────────────── */
+    .var-intro-card {
+      display: flex; gap: 0; border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06); margin: 24px 0;
+    }
+    .var-accent-bar { width: 6px; flex-shrink: 0; }
+    .var-intro-body { padding: 24px 28px; flex: 1; }
+    .var-intro-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+    .var-icon { font-size: 32px; line-height: 1; flex-shrink: 0; }
+    .var-name  { font-size: 18px; font-weight: 700; color: var(--text-1); margin-bottom: 4px; }
+    .var-desc  { font-size: 13.5px; color: var(--text-2); line-height: 1.55; }
+    .var-stats-row {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 12px;
+      border-top: 1px solid var(--border); padding-top: 16px;
+    }
+    .var-stat { text-align: center; }
+    .var-stat-val { font-size: 22px; font-weight: 700; color: var(--text-1); }
+    .var-stat-lbl { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+    @media(max-width:600px){
+      .var-stats-row { grid-template-columns: repeat(2,1fr); }
+    }
+
+    /* ── Insight box ─────────────────────────────────────────────── */
+    .insight-box {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: var(--surface-1); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 20px; margin: 20px 0;
+      font-size: 14px; line-height: 1.6; color: var(--text-2);
+    }
+    .insight-icon { font-size: 20px; flex-shrink: 0; }
+
+    /* ── Distribution cards ──────────────────────────────────────── */
+    .dist-grid {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 12px;
+      margin: 20px 0;
+    }
+    @media(max-width:640px){ .dist-grid { grid-template-columns: repeat(2,1fr); } }
+    .dist-card {
+      border-radius: 12px; padding: 20px 16px; text-align: center;
+      border: 1px solid var(--border);
+    }
+    .dist-card.dist-top    { background: linear-gradient(135deg,#eff6ff,#dbeafe); border-color:#bfdbfe; }
+    .dist-card.dist-alta   { background: linear-gradient(135deg,#f0fdf4,#dcfce7); border-color:#bbf7d0; }
+    .dist-card.dist-med    { background: linear-gradient(135deg,#fefce8,#fef9c3); border-color:#fde68a; }
+    .dist-card.dist-baja   { background: linear-gradient(135deg,#fff7ed,#ffedd5); border-color:#fed7aa; }
+    .dist-pct   { font-size: 28px; font-weight: 800; color: var(--text-1); }
+    .dist-score { font-size: 13px; font-weight: 600; color: var(--text-1); margin: 4px 0 2px; }
+    .dist-label { font-size: 11.5px; color: var(--text-2); }
+
+    /* ── Base banner ─────────────────────────────────────────────── */
+    .base-banner {
+      display: flex; align-items: center; gap: 20px;
+      background: linear-gradient(135deg,#f0fdf4,#dcfce7);
+      border: 1px solid #86efac; border-radius: 14px;
+      padding: 18px 24px; margin: 20px 0;
+    }
+    .base-pct  { font-size: 40px; font-weight: 800; color: #15803d; flex-shrink: 0; }
+    .base-banner-text { font-size: 14px; line-height: 1.55; color: var(--text-2); }
+
+    /* ── Banda cards (qualitative profiles) ──────────────────────── */
+    .banda-grid {
+      display: grid; grid-template-columns: repeat(2,1fr); gap: 14px;
+      margin: 20px 0;
+    }
+    @media(max-width:640px){ .banda-grid { grid-template-columns: 1fr; } }
+    .banda-card {
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 18px 20px; background: var(--surface-1);
+    }
+    .banda-card.highlight-alta { border-color:#f59e0b; background: linear-gradient(135deg,#fffbeb,#fef3c7); }
+    .banda-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .banda-score  { font-size: 16px; font-weight: 700; color: var(--text-1); }
+    .banda-pct    { font-size: 13px; font-weight: 600; color: var(--text-2); }
+    .banda-label  { font-size: 13px; font-weight: 600; color: var(--text-1); margin-bottom: 10px; }
+    .banda-list   { margin: 0; padding-left: 18px; color: var(--text-2); font-size: 13px; line-height: 1.6; }
+    .banda-nota   { font-size: 12px; color: #b45309; margin-top: 10px; font-style: italic; }
+
+    /* ── Actor segment grid ──────────────────────────────────────── */
+    .actor-seg-grid {
+      display: grid; grid-template-columns: repeat(2,1fr); gap: 14px;
+      margin: 20px 0;
+    }
+    @media(max-width:640px){ .actor-seg-grid { grid-template-columns: 1fr; } }
+    .actor-seg-card {
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 20px; background: var(--surface-1); position: relative;
+    }
+    .actor-seg-card.seg-top { border-left: 4px solid #2563eb; }
+    .actor-seg-card.seg-low { border-left: 4px solid #f59e0b; }
+    .seg-rank  { font-size: 11px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
+    .seg-score { font-size: 28px; font-weight: 800; color: var(--text-1); margin-bottom: 2px; }
+    .seg-name  { font-size: 13.5px; font-weight: 600; color: var(--text-1); margin-bottom: 10px; }
+    .seg-text  { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+    .seg-list  { margin: 8px 0 0; padding-left: 16px; font-size: 13px; color: var(--text-2); line-height: 1.6; }
+
+    /* ── Callouts ────────────────────────────────────────────────── */
+    .fragilidad-callout {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: linear-gradient(135deg,#fffbeb,#fef3c7);
+      border: 1px solid #f59e0b; border-radius: 12px;
+      padding: 16px 20px; margin: 20px 0;
+      font-size: 14px; line-height: 1.6; color: var(--text-2);
+    }
+    .fragilidad-icon { font-size: 22px; flex-shrink: 0; }
+    .fragilidad-body strong { color: #92400e; }
+
+    .memoria-callout {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: linear-gradient(135deg,#f5f3ff,#ede9fe);
+      border: 1px solid #c4b5fd; border-radius: 12px;
+      padding: 16px 20px; margin: 20px 0;
+      font-size: 14px; line-height: 1.6; color: var(--text-2);
+    }
+    .memoria-callout strong { color: #5b21b6; }
+
+    .brecha-gov-banner {
+      display: flex; align-items: center; gap: 20px;
+      background: linear-gradient(135deg,#fff7ed,#ffedd5);
+      border: 1px solid #fb923c; border-radius: 14px;
+      padding: 18px 24px; margin: 20px 0;
+    }
+    .bg-val  { font-size: 36px; font-weight: 800; color: #c2410c; flex-shrink: 0; }
+    .bg-text { font-size: 14px; line-height: 1.55; color: var(--text-2); }
+
+    /* ── Quote card ──────────────────────────────────────────────── */
+    .quote-card {
+      border-radius: 12px; padding: 20px 22px; margin: 16px 0;
+      border-left: 4px solid #94a3b8;
+      background: var(--surface-1); font-size: 14px;
+    }
+    .quote-card.q-sierra { border-left-color: #ef4444; background: linear-gradient(135deg,#fff5f5,#fee2e2); }
+    .quote-card blockquote {
+      margin: 0 0 10px; font-style: italic;
+      color: var(--text-1); line-height: 1.65;
+    }
+    .quote-source  { font-size: 11.5px; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+    .quote-insight { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+
+    /* ── Territory cards ─────────────────────────────────────────── */
+    .territory-detail-grid {
+      display: grid; grid-template-columns: repeat(2,1fr); gap: 14px;
+      margin: 20px 0;
+    }
+    @media(max-width:640px){ .territory-detail-grid { grid-template-columns: 1fr; } }
+    .territory-detail {
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 20px; background: var(--surface-1);
+    }
+    .territory-detail.t-concern { border-color: #fca5a5; background: linear-gradient(135deg,#fff5f5,#fee2e2); }
+    .territory-detail.t-mejillones { border-color: #fde68a; background: linear-gradient(135deg,#fefce8,#fef9c3); }
+    .td-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .td-territory { font-size: 13.5px; font-weight: 700; color: var(--text-1); }
+    .td-score { font-size: 20px; font-weight: 800; color: var(--text-1); }
+    .td-score.concern-score { color: #dc2626; }
+    .td-list { margin: 0; padding-left: 16px; font-size: 13px; color: var(--text-2); line-height: 1.65; }
+    .td-list li { margin-bottom: 5px; }
+
+    /* ── Polarization callout ────────────────────────────────────── */
+    .polariz-callout {
+      background: linear-gradient(135deg,#fff5f5,#fee2e2);
+      border: 1px solid #fca5a5; border-radius: 12px;
+      padding: 18px 22px; margin: 16px 0;
+      font-size: 14px; line-height: 1.6; color: var(--text-2);
+    }
+    .polariz-callout strong { color: #b91c1c; }
+
+    /* ── Diagnosis pillars ───────────────────────────────────────── */
+    .pilares-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 14px;
+      margin: 20px 0;
+    }
+    @media(max-width:680px){ .pilares-grid { grid-template-columns: 1fr; } }
+    .pilar-card {
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 20px; background: var(--surface-1); text-align: center;
+    }
+    .pilar-icon  { font-size: 28px; margin-bottom: 10px; }
+    .pilar-title { font-size: 13.5px; font-weight: 700; color: var(--text-1); margin-bottom: 8px; }
+    .pilar-text  { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+
+    /* ── Diagnosis box ───────────────────────────────────────────── */
+    .diag-box {
+      border: 1px solid var(--border); border-radius: 14px;
+      overflow: hidden; margin: 24px 0;
+    }
+    .diag-box-header {
+      background: var(--surface-2); padding: 12px 20px;
+      font-size: 13px; font-weight: 700; color: var(--text-1);
+      border-bottom: 1px solid var(--border);
+    }
+    .diag-box p { padding: 16px 20px; margin: 0; font-size: 14px; color: var(--text-2); line-height: 1.7; }
+
+    /* ── Insight list ────────────────────────────────────────────── */
+    .insight-list { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+    .insight-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: var(--surface-1); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 16px;
+      font-size: 13.5px; color: var(--text-2); line-height: 1.6;
+    }
+    .insight-bullet { color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+    /* ── Info note ───────────────────────────────────────────────── */
+    .info-note {
+      background: var(--surface-1); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px 18px;
+      font-size: 12.5px; color: var(--text-3); line-height: 1.6;
+      margin: 20px 0;
+    }
+
+    /* ── Iframe wrapper ──────────────────────────────────────────── */
+    .iframe-wrap {
+      width: 100%; border-radius: 14px; overflow: hidden;
+      border: 1px solid var(--border); margin: 24px 0;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+    }
+    .iframe-wrap iframe {
+      width: 100%; height: 520px; border: none; display: block;
+    }
+
+    /* ── Scroll progress ─────────────────────────────────────────── */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0; height: 2px;
+      background: var(--accent); z-index: 9999;
+      transition: width .1s linear;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile sidebar toggle -->
+  <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menú">&#9776;</button>
+
+  <!-- HEADER -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <img src="../assets/img/logo-fcab.jpg" alt="FCAB" class="topbar-logo-img">
+      <span class="topbar-title">Estudio FCAB</span>
+    </div>
+    <div class="topbar-right">
+      <img src="../assets/img/logo-dos-barbas.png" alt="Dos Barbas" class="topbar-logo-img">
+    </div>
+  </header>
+
+  <div class="layout-root">
+    <!-- SIDEBAR -->
+    <nav class="sidebar" id="sidebar"></nav>
+
+    <!-- MAIN -->
+    <main class="chapter-main">
+      <div class="chapter-content">
+
+        <!-- Chapter header -->
+        <div class="chapter-header">
+          <div class="chapter-breadcrumb">
+            <a href="capitulo-08.html">Cap. 03 — Análisis Descriptivo</a>
+            <span class="breadcrumb-sep">›</span>
+            Sub-capítulo H
+          </div>
+          <h1 class="chapter-title">Cercanía relacional percibida</h1>
+          <p class="chapter-lead">
+            Medición de la proximidad percibida entre cada actor y FCAB: distribución, perfiles por segmento de actor y gradiente territorial.
+          </p>
+          <div class="chapter-meta-row">
+            <span class="chapter-meta-item">📏 Variable ordinal 1–7</span>
+            <span class="chapter-meta-item">👥 N = 73 actores</span>
+            <span class="chapter-meta-item">📊 Media: 4,9 · &sigma; = 1,77</span>
+          </div>
+        </div>
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 1: VISIÓN GENERAL DE LA VARIABLE
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-overview">
+          <h2>1. Visión general de la variable</h2>
+
+          <div class="var-intro-card">
+            <div class="var-accent-bar" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)"></div>
+            <div class="var-intro-body">
+              <div class="var-intro-header">
+                <div class="var-icon">🔗</div>
+                <div>
+                  <div class="var-name">Cercanía relacional percibida</div>
+                  <div class="var-desc">Mide la cercanía percibida entre el actor y la empresa: proximidad del vínculo, frecuencia del contacto y sentido de conexión con FCAB como institución presente en su territorio.</div>
+                </div>
+              </div>
+              <div class="var-stats-row">
+                <div class="var-stat">
+                  <div class="var-stat-val">4,9</div>
+                  <div class="var-stat-lbl">Promedio (escala 1–7)</div>
+                </div>
+                <div class="var-stat">
+                  <div class="var-stat-val">1,77</div>
+                  <div class="var-stat-lbl">Desviación estándar</div>
+                </div>
+                <div class="var-stat">
+                  <div class="var-stat-val">73</div>
+                  <div class="var-stat-lbl">Actores evaluados</div>
+                </div>
+                <div class="var-stat">
+                  <div class="var-stat-val">3,15</div>
+                  <div class="var-stat-lbl">Varianza</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="insight-box">
+            <span class="insight-icon">📊</span>
+            <div>
+              El 70% de los actores se ubica en los rangos alto (5–6) y máximo (7), lo que indica una base positiva amplia. Sin embargo, el 22% en rango medio y el 8% en rango bajo apuntan a segmentos y territorios donde la cercanía relacional aún no está construida — una <strong>brecha de gestión, no de principio</strong>.
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 2: DISTRIBUCIÓN POR PUNTAJE
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-distribucion">
+          <h2>2. Distribución de puntajes</h2>
+
+          <div class="base-banner">
+            <span class="base-pct">70%</span>
+            <div class="base-banner-text">
+              <strong>Base relacional positiva</strong><br>
+              El 70% de los actores evalúa la cercanía en rangos alto (5–6, 38%) y máximo (7, 32%), configurando una mayoría con vínculo positivo percibido.
+            </div>
+          </div>
+
+          <div class="dist-grid">
+            <div class="dist-card dist-top">
+              <div class="dist-pct">32%</div>
+              <div class="dist-score">Puntaje 7 · n=23</div>
+              <div class="dist-label">Cercanía máxima</div>
+            </div>
+            <div class="dist-card dist-alta">
+              <div class="dist-pct">38%</div>
+              <div class="dist-score">Puntaje 5–6 · n=27</div>
+              <div class="dist-label">Cercanía alta</div>
+            </div>
+            <div class="dist-card dist-med">
+              <div class="dist-pct">22%</div>
+              <div class="dist-score">Puntaje 3–4 · n=16</div>
+              <div class="dist-label">Cercanía media</div>
+            </div>
+            <div class="dist-card dist-baja">
+              <div class="dist-pct">8%</div>
+              <div class="dist-score">Puntaje 1–2 · n=6</div>
+              <div class="dist-label">Cercanía baja</div>
+            </div>
+          </div>
+
+          <div class="iframe-wrap">
+            <iframe src="../../cercania_relacion_fcab_segmentacion_1_7.html" title="Distribución Cercanía relacional percibida" loading="lazy"></iframe>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 3: POR TIPO DE ACTOR
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-actores">
+          <h2>3. Cercanía por tipo de actor</h2>
+
+          <div class="actor-seg-grid">
+            <div class="actor-seg-card seg-top">
+              <div class="seg-rank">1° · Mayor cercanía</div>
+              <div class="seg-score">5,27</div>
+              <div class="seg-name">Comunidad y organización social</div>
+              <div class="seg-text">Único segmento que supera claramente el promedio general. Refleja la estrategia de relacionamiento sostenida por FCAB en los últimos años:</div>
+              <ul class="seg-list">
+                <li>Presencia concreta en territorios aledaños a la operación</li>
+                <li>Mesas comunitarias y actividades de navidad</li>
+                <li>Operativos de salud y arborización en sectores próximos a la vía</li>
+              </ul>
+            </div>
+
+            <div class="actor-seg-card">
+              <div class="seg-rank">2°</div>
+              <div class="seg-score">4,82</div>
+              <div class="seg-name">Sector productivo, clientes y gremios</div>
+              <div class="seg-text">Cercanía por encima de la media general. El vínculo se sostiene en relaciones de coordinación operativa y membresía gremial, aunque sin la profundidad del segmento comunitario.</div>
+            </div>
+
+            <div class="actor-seg-card">
+              <div class="seg-rank">3°</div>
+              <div class="seg-score">4,67</div>
+              <div class="seg-name">Autoridades y sector público</div>
+              <div class="seg-text">Por debajo del promedio general y por debajo del segmento comunitario, pese a ser los actores con mayor poder normativo sobre las operaciones de FCAB. La percepción dominante no es hostilidad sino <em>insuficiencia</em>: FCAB es reconocida como actor relevante, pero no como interlocutor activo de las instituciones que administran el territorio.</div>
+            </div>
+
+            <div class="actor-seg-card seg-low">
+              <div class="seg-rank">4° · Menor cercanía</div>
+              <div class="seg-score">4,05</div>
+              <div class="seg-name">Sociedad civil, academia y medios</div>
+              <div class="seg-text">Segmento más distante e internamente heterogéneo. Incluye actores desde colaboración activa hasta vínculos inexistentes. Tres perfiles concretos:</div>
+              <ul class="seg-list">
+                <li><strong>Academia:</strong> vínculos históricos puntuales (visitas técnicas, vinculación) sin agenda de colaboración institucional activa</li>
+                <li><strong>Medios:</strong> relación debilitada en el tiempo</li>
+                <li><strong>Casos extremos:</strong> ausencia total de relación directa con FCAB</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="fragilidad-callout">
+            <div class="fragilidad-icon">⚡</div>
+            <div class="fragilidad-body">
+              <strong>Capital relacional comunitario frágil:</strong> Al igual que con la calidad relacional percibida, el vínculo con la comunidad descansa en el contacto presencial de un encargado de relacionamiento. Cuando ese contacto se interrumpe —por rotación de personas, cambios de gestión o discontinuidad de programas— la cercanía se diluye rápidamente.
+            </div>
+          </div>
+
+          <div class="memoria-callout">
+            <span style="font-size:22px;flex-shrink:0">🏛️</span>
+            <div>
+              <strong>Memoria institucional en autoridades:</strong> El resultado del sector público (4,67) se explica parcialmente por una memoria que persiste sobre administraciones anteriores de FCAB, caracterizadas por <em>cierre institucional ante demandas de coordinación</em>. Esa experiencia acumulada pesa sobre la evaluación presente incluso cuando las condiciones actuales han cambiado. En otros casos, la distancia no proviene de conflicto sino de escasez: la relación existe y cuando ocurre es valorada, pero no tiene la frecuencia ni la sistematicidad que la gestión territorial requiere.
+            </div>
+          </div>
+
+          <div class="insight-box">
+            <span class="insight-icon">📡</span>
+            <div>
+              <strong>Sociedad civil como amplificador reputacional:</strong> Lo que unifica al segmento de sociedad civil, academia y medios no es la calidad del vínculo sino el tipo de mirada que ejercen sobre FCAB: son actores que <em>observan, evalúan y comunican</em>. Esto los convierte en amplificadores potenciales tanto de percepciones positivas como críticas, y en el grupo que más incide en la reputación de largo plazo de FCAB — y el que menos recibe atención sistemática.
+            </div>
+          </div>
+
+          <div class="iframe-wrap">
+            <iframe src="../../cercania_relacion_fcab_promedio_categoria_1_7.html" title="Cercanía relacional por tipo de actor" loading="lazy"></iframe>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 4: POR TERRITORIO
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-territorio">
+          <h2>4. Distribución territorial</h2>
+
+          <div class="insight-box" style="margin-bottom:20px">
+            <span class="insight-icon">🗺️</span>
+            <div>
+              La geografía del relacionamiento dibuja una <strong>centralidad en Antofagasta y una periferia desatendida</strong>. La diferencia entre Antofagasta (5,18) y Sierra Gorda (3,67) es de 1,51 puntos — una brecha sustantiva que refleja la concentración histórica del relacionamiento comunitario en la ciudad sede.
+            </div>
+          </div>
+
+          <div class="brecha-gov-banner">
+            <div class="bg-val">1,51 pts</div>
+            <div class="bg-text">
+              <strong>Brecha territorial máxima</strong><br>
+              Antofagasta (5,18) vs Sierra Gorda (3,67): la diferencia entre el territorio con mayor y menor cercanía percibida. Sierra Gorda concentra la operación ferroviaria y es, al mismo tiempo, el territorio más alejado en términos relacionales.
+            </div>
+          </div>
+
+          <div class="territory-detail-grid">
+            <div class="territory-detail">
+              <div class="td-header">
+                <span class="td-territory">📍 Antofagasta</span>
+                <span class="td-score">5,18</span>
+              </div>
+              <ul class="td-list">
+                <li>Mayor cercanía percibida del estudio territorial</li>
+                <li>Presencia densa de FCAB en el tejido comunitario</li>
+                <li>Múltiples juntas de vecinos en contacto regular</li>
+                <li>Centralidad histórica del relacionamiento institucional</li>
+              </ul>
+            </div>
+            <div class="territory-detail">
+              <div class="td-header">
+                <span class="td-territory">📍 Calama</span>
+                <span class="td-score">4,59</span>
+              </div>
+              <ul class="td-list">
+                <li>Perfil heterogéneo con dos realidades coexistentes</li>
+                <li>Algunas juntas de vecinos: vínculos activos y cercanos, proyectos y mesas de trabajo</li>
+                <li>Actores del sector público: relación descrita como <em>"marginal y muy distante"</em></li>
+                <li>Alta dispersión interna del grupo</li>
+              </ul>
+            </div>
+            <div class="territory-detail t-mejillones">
+              <div class="td-header">
+                <span class="td-territory">📍 Mejillones</span>
+                <span class="td-score">4,24</span>
+              </div>
+              <ul class="td-list">
+                <li>Cercanía apenas sobre la mediana pese a membresía gremial activa de FCAB desde hace varios años</li>
+                <li>La participación de FCAB en instancias locales es reconocida, pero descrita como puntual y sin involucramiento profundo</li>
+                <li>La distancia no se explica por ausencia de intención sino por <strong>ausencia de arquitectura del relacionamiento</strong></li>
+                <li>FCAB está presente institucionalmente, pero sin un modelo de vínculo que trascienda la asamblea o el aporte económico a eventos</li>
+              </ul>
+            </div>
+            <div class="territory-detail t-concern">
+              <div class="td-header">
+                <span class="td-territory">📍 Sierra Gorda</span>
+                <span class="td-score concern-score">3,67</span>
+              </div>
+              <ul class="td-list">
+                <li>Evaluación más baja del estudio territorial</li>
+                <li>Polarización intracomunitaria: dos realidades opuestas dentro del mismo territorio</li>
+                <li>Autoridades: relación valorada y fluida con la gerencia de FCAB</li>
+                <li>Juntas de vecinos: distancia máxima y desconocimiento total de la empresa</li>
+                <li>FCAB opera a través de interlocutores seleccionados, dejando amplias capas de la comunidad fuera del vínculo</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="polariz-callout">
+            <strong>Polarización intracomunitaria en Sierra Gorda:</strong><br><br>
+            Coexisten en el mismo territorio una relación fluida con liderazgos institucionales y la distancia total con actores de base. Una junta de vecinos declaró:
+          </div>
+
+          <div class="quote-card q-sierra">
+            <div class="quote-source">Junta de vecinos · Sierra Gorda</div>
+            <blockquote>"nada, nada, no conocimos el FCAB porque pasa el tren ahí nomás"</blockquote>
+            <div class="quote-insight">Esta declaración ilustra la selectividad del modelo de relacionamiento actual: FCAB construyó vínculos con liderazgos institucionales, pero no ha alcanzado al conjunto del tejido social local.</div>
+          </div>
+
+          <div class="iframe-wrap">
+            <iframe src="../../7. cercan&#237;a mapa.html" title="Cercanía relacional territorial" loading="lazy"></iframe>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 5: DIAGNÓSTICO CONVERGENTE
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-diagnostico">
+          <h2>5. Diagnóstico convergente</h2>
+
+          <div class="pilares-grid">
+            <div class="pilar-card">
+              <div class="pilar-icon">🏗️</div>
+              <div class="pilar-title">Brecha de gestión, no de principio</div>
+              <div class="pilar-text">La distancia relacional no se explica por hostilidad ni por rechazo de fondo hacia FCAB. Los actores más distantes reconocen la relevancia de la empresa. La brecha es estructural: ausencia de arquitectura de relacionamiento en territorios y segmentos específicos.</div>
+            </div>
+            <div class="pilar-card">
+              <div class="pilar-icon">📍</div>
+              <div class="pilar-title">Centralidad geográfica mal distribuida</div>
+              <div class="pilar-text">La concentración histórica en Antofagasta dejó a Sierra Gorda, Mejillones y sectores de Calama sin un modelo de vínculo sistemático. La membresía gremial en Mejillones y la presencia operacional en Sierra Gorda no se traducen automáticamente en cercanía relacional.</div>
+            </div>
+            <div class="pilar-card">
+              <div class="pilar-icon">🔊</div>
+              <div class="pilar-title">Sociedad civil: activo reputacional desatendido</div>
+              <div class="pilar-text">El segmento con menor cercanía es simultáneamente el que más incide en la percepción pública de FCAB. Medios, academia y organizaciones de la sociedad civil son amplificadores de reputación que operan sin vínculo directo con la empresa.</div>
+            </div>
+          </div>
+
+          <div class="diag-box">
+            <div class="diag-box-header">📋 Síntesis diagnóstica</div>
+            <p>
+              La cercanía relacional percibida presenta una <strong>base positiva del 70%</strong>, pero con brechas territoriales y segmentales que definen con claridad el tipo de intervención requerida: no reparación de vínculos dañados, sino <em>construcción de arquitectura relacional</em> en los territorios y segmentos donde aún no existe. Sierra Gorda representa la paradoja más crítica — el territorio con mayor presencia operacional de FCAB es el de menor cercanía percibida —, mientras que Sociedad Civil y Academia concentran el mayor déficit de relacionamiento estratégico.
+            </p>
+          </div>
+
+          <div class="insight-list">
+            <div class="insight-item">
+              <span class="insight-bullet">→</span>
+              <span>La polarización intracomunitaria de Sierra Gorda muestra que el modelo de relacionamiento actual es <em>selectivo</em>: alcanza a liderazgos institucionales pero no al tejido comunitario de base.</span>
+            </div>
+            <div class="insight-item">
+              <span class="insight-bullet">→</span>
+              <span>En Mejillones, la membresía gremial activa de FCAB no se ha traducido en cercanía real: participación institucional sin arquitectura de vínculo.</span>
+            </div>
+            <div class="insight-item">
+              <span class="insight-bullet">→</span>
+              <span>La memoria de administraciones anteriores pesa sobre la evaluación actual de las autoridades, incluso cuando las condiciones del vínculo han mejorado.</span>
+            </div>
+            <div class="insight-item">
+              <span class="insight-bullet">→</span>
+              <span>El capital relacional comunitario —el activo más alto del estudio— es frágil por depender de personas específicas de FCAB, no de procesos o estructuras institucionales.</span>
+            </div>
+          </div>
+
+          <div class="info-note">
+            <strong>Nota metodológica:</strong> La variable cercanía relacional percibida mide la proximidad del vínculo desde la perspectiva del actor. Su promedio de 4,9 debe leerse junto a su alta varianza interna (3,15), que refleja realidades relacionales muy distintas coexistiendo bajo el mismo resultado agregado.
+          </div>
+        </section>
+
+      </div><!-- /.chapter-content -->
+    </main>
+  </div><!-- /.layout-root -->
+
+  <!-- NAV PREV/NEXT -->
+  <nav class="chapter-nav">
+    <a href="capitulo-08g.html" class="chapter-nav-btn">
+      ← Sub-capítulo G: Calidad percibida de la relación
+    </a>
+    <a href="capitulo-08.html" class="chapter-nav-btn">
+      Volver al Análisis Descriptivo →
+    </a>
+  </nav>
+
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>
