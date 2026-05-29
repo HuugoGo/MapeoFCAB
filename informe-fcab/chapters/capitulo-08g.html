@@ -1,0 +1,622 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cap. 03G &mdash; Calidad Percibida de la Relacion | Estudio FCAB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    .subcap-breadcrumb { display:flex; align-items:center; gap:6px; font-size:.78rem; color:var(--text-3); margin-bottom:6px; }
+    .subcap-breadcrumb a { color:var(--accent); text-decoration:none; }
+    .subcap-breadcrumb a:hover { text-decoration:underline; }
+    .subcap-breadcrumb .sep { opacity:.4; }
+
+    /* ── Var intro ── */
+    .var-intro-card { display:grid; grid-template-columns:auto 1fr; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; margin:28px 0; }
+    .var-intro-accent { width:6px; background:linear-gradient(180deg,#10b981 0%,#0891b2 100%); }
+    .var-intro-body { padding:22px 26px; }
+    .var-intro-label { font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:#10b981; margin-bottom:8px; }
+    .var-intro-body p { font-size:.9rem; color:var(--text-2); line-height:1.6; margin:0; }
+    .var-stat-row { display:flex; gap:24px; margin-top:16px; flex-wrap:wrap; }
+    .var-stat { display:flex; flex-direction:column; gap:2px; }
+    .var-stat-num { font-size:1.5rem; font-weight:700; color:#10b981; line-height:1; }
+    .var-stat-label { font-size:.7rem; color:var(--text-3); white-space:nowrap; }
+
+    /* ── 82% banner ── */
+    .base-banner { display:flex; align-items:center; gap:16px; flex-wrap:wrap; background:linear-gradient(135deg,rgba(16,185,129,.07),rgba(37,99,235,.07)); border:1px solid rgba(16,185,129,.3); border-radius:12px; padding:18px 24px; margin:24px 0; }
+    .bb-pct { font-size:2.6rem; font-weight:700; color:#10b981; line-height:1; flex-shrink:0; }
+    .bb-body { font-size:.87rem; color:var(--text-2); line-height:1.6; }
+    .bb-body strong { color:var(--text-1); }
+
+    /* ── Dist grid ── */
+    .dist-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:26px 0; }
+    .dist-card { border-radius:12px; border:1px solid var(--border); padding:20px 16px; text-align:center; background:var(--card); position:relative; overflow:hidden; }
+    .dist-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+    .dist-card.d-max::before  { background:#10b981; }
+    .dist-card.d-alta::before { background:var(--accent); }
+    .dist-card.d-med::before  { background:#f59e0b; }
+    .dist-card.d-baja::before { background:#ef4444; }
+    .dist-pct { font-size:2rem; font-weight:700; line-height:1; margin-bottom:4px; }
+    .dist-card.d-max  .dist-pct { color:#10b981; }
+    .dist-card.d-alta .dist-pct { color:var(--accent); }
+    .dist-card.d-med  .dist-pct { color:#f59e0b; }
+    .dist-card.d-baja .dist-pct { color:#ef4444; }
+    .dist-rango { font-size:.78rem; font-weight:600; color:var(--text-2); margin-bottom:4px; }
+    .dist-label { font-size:.72rem; color:var(--text-3); line-height:1.3; }
+    .dist-bar-wrap { margin-top:12px; height:6px; background:var(--surface-2); border-radius:3px; overflow:hidden; }
+    .dist-bar-fill { height:100%; border-radius:3px; }
+    .dist-card.d-max  .dist-bar-fill { background:#10b981; }
+    .dist-card.d-alta .dist-bar-fill { background:var(--accent); }
+    .dist-card.d-med  .dist-bar-fill { background:#f59e0b; }
+    .dist-card.d-baja .dist-bar-fill { background:#ef4444; }
+
+    /* ── Banda cualitativa ── */
+    .banda-grid { display:grid; grid-template-columns:1fr; gap:12px; margin:24px 0; }
+    .banda-card { display:flex; gap:16px; align-items:flex-start; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 20px; }
+    .banda-pct-col { flex-shrink:0; text-align:center; min-width:64px; }
+    .banda-pct { font-size:1.6rem; font-weight:700; line-height:1; }
+    .banda-pct.c-max  { color:#10b981; }
+    .banda-pct.c-alta { color:var(--accent); }
+    .banda-pct.c-med  { color:#f59e0b; }
+    .banda-pct.c-baja { color:#ef4444; }
+    .banda-rango { font-size:.65rem; color:var(--text-3); margin-top:2px; }
+    .banda-body { flex:1; }
+    .banda-title { font-size:.84rem; font-weight:700; color:var(--text-1); margin-bottom:5px; display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
+    .banda-title .bt-icon { font-size:.9rem; }
+    .banda-body p { font-size:.82rem; color:var(--text-2); line-height:1.6; margin:0 0 6px; }
+    .banda-body p:last-child { margin:0; }
+    .banda-card.highlight-alta { border-color:rgba(37,99,235,.3); background:rgba(37,99,235,.03); }
+    .banda-card.highlight-alta .banda-title { color:var(--accent); }
+    .potential-tag { display:inline-block; font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; padding:2px 7px; border-radius:20px; background:rgba(37,99,235,.12); color:var(--accent); margin-left:4px; }
+    .warning-tag { display:inline-block; font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; padding:2px 7px; border-radius:20px; background:rgba(245,158,11,.12); color:#d97706; margin-left:4px; }
+
+    /* ── Fragilidad callout ── */
+    .fragilidad-callout { display:flex; gap:14px; align-items:flex-start; background:rgba(245,158,11,.06); border:1px solid rgba(245,158,11,.25); border-radius:10px; padding:16px 20px; margin:20px 0; }
+    .fragilidad-callout .fc-icon { font-size:1.3rem; flex-shrink:0; }
+    .fragilidad-callout .fc-body { font-size:.84rem; color:var(--text-2); line-height:1.6; }
+    .fragilidad-callout .fc-body strong { color:#d97706; }
+
+    /* ── Iframe ── */
+    .viz-embed { margin:28px 0; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+    .viz-embed-header { display:flex; align-items:center; gap:10px; padding:13px 20px; border-bottom:1px solid var(--border); font-size:.82rem; color:var(--text-3); }
+    .viz-embed-header .veh-icon { font-size:1rem; }
+    .viz-embed-header strong { color:var(--text-2); }
+    .viz-embed iframe { display:block; width:100%; height:480px; border:none; }
+    .viz-embed iframe.tall { height:560px; }
+
+    /* ── Rango mínimo banner ── */
+    .rango-banner { display:flex; align-items:center; gap:16px; flex-wrap:wrap; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 22px; margin:22px 0; }
+    .rb-label { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--text-3); flex-shrink:0; }
+    .rb-values { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+    .rb-pill { display:flex; align-items:center; gap:6px; background:var(--surface-2); border-radius:8px; padding:6px 12px; font-size:.84rem; }
+    .rb-pill .rp-score { font-weight:700; color:#10b981; }
+    .rb-pill .rp-name { color:var(--text-3); font-size:.75rem; }
+    .rb-diff { font-size:1.1rem; font-weight:700; color:var(--accent); }
+    .rb-diff-label { font-size:.72rem; color:var(--text-3); }
+
+    /* ── Actor grid ── */
+    .actor-type-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin:26px 0; }
+    .actor-type-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 20px; display:flex; align-items:flex-start; gap:16px; }
+    .atc-score-wrap { flex-shrink:0; text-align:center; min-width:56px; }
+    .atc-score { font-size:2rem; font-weight:700; line-height:1; }
+    .atc-max { font-size:.68rem; color:var(--text-3); }
+    .atc-bar-wrap { margin-top:8px; height:4px; background:var(--surface-2); border-radius:2px; overflow:hidden; }
+    .atc-bar-fill { height:100%; border-radius:2px; }
+    .atc-label { font-size:.86rem; font-weight:600; color:var(--text-1); margin-bottom:4px; line-height:1.3; }
+    .atc-note  { font-size:.76rem; color:var(--text-3); line-height:1.45; }
+    .atc-top  .atc-score { color:#10b981; } .atc-top  .atc-bar-fill { background:#10b981; }
+    .atc-high .atc-score { color:var(--accent); } .atc-high .atc-bar-fill { background:var(--accent); }
+    .atc-mid  .atc-score { color:#0891b2; } .atc-mid  .atc-bar-fill { background:#0891b2; }
+    .atc-low  .atc-score { color:#f59e0b; } .atc-low  .atc-bar-fill { background:#f59e0b; }
+
+    /* ── Citas textuales ── */
+    .quotes-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:24px 0; }
+    .quote-card { background:var(--card); border:1px solid var(--border); border-left:3px solid var(--accent); border-radius:0 12px 12px 0; padding:18px 20px; }
+    .quote-card.q-high { border-left-color:#10b981; }
+    .quote-card.q-low  { border-left-color:#f59e0b; }
+    .quote-tag { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; margin-bottom:8px; }
+    .quote-card.q-high .quote-tag { color:#10b981; }
+    .quote-card.q-low  .quote-tag { color:#d97706; }
+    .quote-text { font-size:.84rem; color:var(--text-2); line-height:1.65; font-style:italic; }
+    .quote-icon { font-size:1.4rem; margin-bottom:8px; display:block; }
+
+    /* ── Gradiente territorial ── */
+    .gradient-bar { margin:26px 0; }
+    .gradient-label { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--text-3); margin-bottom:12px; }
+    .gradient-track { display:grid; grid-template-columns:repeat(4,1fr); gap:0; border-radius:12px; overflow:hidden; border:1px solid var(--border); }
+    .grad-seg { padding:18px 16px; text-align:center; position:relative; }
+    .grad-seg:not(:last-child) { border-right:1px solid var(--border); }
+    .grad-seg.gs-1 { background:rgba(16,185,129,.12); }
+    .grad-seg.gs-2 { background:rgba(16,185,129,.07); }
+    .grad-seg.gs-3 { background:rgba(37,99,235,.06); }
+    .grad-seg.gs-4 { background:rgba(245,158,11,.08); }
+    .grad-name { font-size:.78rem; font-weight:600; color:var(--text-1); margin-bottom:6px; }
+    .grad-score { font-size:1.7rem; font-weight:700; line-height:1; }
+    .gs-1 .grad-score { color:#10b981; }
+    .gs-2 .grad-score { color:#10b981; opacity:.75; }
+    .gs-3 .grad-score { color:var(--accent); }
+    .gs-4 .grad-score { color:#f59e0b; }
+    .grad-chip { display:inline-block; margin-top:6px; font-size:.62rem; font-weight:600; padding:2px 7px; border-radius:20px; }
+    .gs-1 .grad-chip { background:rgba(16,185,129,.15); color:#10b981; }
+    .gs-2 .grad-chip { background:rgba(16,185,129,.1); color:#059669; }
+    .gs-3 .grad-chip { background:rgba(37,99,235,.1); color:var(--accent); }
+    .gs-4 .grad-chip { background:rgba(245,158,11,.12); color:#d97706; }
+
+    /* ── Territory detail cards ── */
+    .territory-detail { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin:26px 0; }
+    .td-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:20px 22px; }
+    .td-card.td-top  { border-color:rgba(16,185,129,.35); }
+    .td-card.td-warn { border-color:rgba(245,158,11,.35); }
+    .td-card.td-crit { border-color:rgba(239,68,68,.3); }
+    .td-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+    .td-name { font-size:.9rem; font-weight:700; color:var(--text-1); }
+    .td-score { font-size:1.5rem; font-weight:700; }
+    .td-card.td-top  .td-score { color:#10b981; }
+    .td-card.td-warn .td-score { color:#f59e0b; }
+    .td-card.td-crit .td-score { color:#ef4444; }
+    .td-card:not(.td-top):not(.td-warn):not(.td-crit) .td-score { color:var(--accent); }
+    .td-bar-wrap { height:4px; background:var(--surface-2); border-radius:2px; overflow:hidden; margin-bottom:12px; }
+    .td-bar-fill { height:100%; border-radius:2px; }
+    .td-card.td-top  .td-bar-fill { background:#10b981; }
+    .td-card.td-warn .td-bar-fill { background:#f59e0b; }
+    .td-card.td-crit .td-bar-fill { background:#ef4444; }
+    .td-card:not(.td-top):not(.td-warn):not(.td-crit) .td-bar-fill { background:var(--accent); }
+    .td-body { font-size:.81rem; color:var(--text-2); line-height:1.6; }
+    .td-body strong { color:var(--text-1); }
+
+    /* ── Insight list ── */
+    .insight-list { list-style:none; padding:0; margin:20px 0; display:flex; flex-direction:column; gap:10px; }
+    .insight-list li { display:flex; gap:12px; align-items:flex-start; font-size:.87rem; color:var(--text-2); line-height:1.6; }
+    .insight-list li .il-icon { font-size:1rem; flex-shrink:0; margin-top:1px; }
+
+    /* ── Synthesis ── */
+    .synthesis-box { background:linear-gradient(135deg,rgba(16,185,129,.06),rgba(37,99,235,.06)); border:1px solid rgba(16,185,129,.2); border-radius:14px; padding:26px 28px; margin:32px 0; }
+    .synthesis-box-header { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+    .synthesis-box-icon { font-size:1.3rem; }
+    .synthesis-box-title { font-size:1rem; font-weight:700; color:var(--text-1); }
+    .synthesis-box p { font-size:.88rem; color:var(--text-2); line-height:1.7; margin:0 0 10px; }
+    .synthesis-box p:last-child { margin:0; }
+
+    /* ── 3 pilares diagnóstico ── */
+    .pilares-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:22px 0; }
+    .pilar-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 18px; text-align:center; }
+    .pilar-icon { font-size:1.6rem; margin-bottom:8px; display:block; }
+    .pilar-label { font-size:.78rem; font-weight:700; color:var(--text-1); line-height:1.3; margin-bottom:6px; }
+    .pilar-desc { font-size:.75rem; color:var(--text-3); line-height:1.5; }
+
+    /* ── Info note ── */
+    .info-note { display:flex; gap:12px; align-items:flex-start; background:rgba(37,99,235,.05); border:1px solid rgba(37,99,235,.15); border-radius:10px; padding:14px 18px; margin:22px 0; font-size:.84rem; color:var(--text-2); line-height:1.55; }
+    .info-note .in-icon { font-size:1.1rem; flex-shrink:0; margin-top:1px; }
+
+    @media(max-width:700px){
+      .dist-grid{grid-template-columns:repeat(2,1fr);}
+      .actor-type-grid{grid-template-columns:1fr;}
+      .quotes-grid{grid-template-columns:1fr;}
+      .gradient-track{grid-template-columns:repeat(2,1fr);}
+      .territory-detail{grid-template-columns:1fr;}
+      .pilares-grid{grid-template-columns:1fr;}
+      .banda-card{flex-direction:column;}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <button class="header-toggle" id="sidebar-toggle" aria-label="Abrir menu">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <a href="../index.html" class="header-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Indice
+    </a>
+    <span class="header-sep"></span>
+    <span class="header-chapter">Cap. 03 &mdash; Calidad Percibida de la Relacion</span>
+    <div class="header-right">
+      <img src="../assets/img/logo-fcab.jpg" alt="FCAB" class="header-logo">
+      <span class="header-sep"></span>
+      <img src="../assets/img/logo-dos-barbas.png" alt="Dos Barbas" class="header-logo">
+    </div>
+  </header>
+  <nav class="sidebar" id="sidebar" aria-label="Navegacion del capitulo"></nav>
+  <main class="chapter-main">
+    <div class="chapter-content">
+      <header class="chapter-header">
+        <div class="subcap-breadcrumb">
+          <a href="capitulo-08.html">Cap. 03 &mdash; Analisis Descriptivo de Datos</a>
+          <span class="sep">/</span>
+          <span>Sub-capitulo G</span>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-num-label">Cap. 03 &middot; Sub-capitulo G</span>
+          <span class="badge badge-borrador">Borrador</span>
+        </div>
+        <h1>Calidad Percibida de la Relacion</h1>
+        <p class="chapter-lead">La evaluacion general que realiza el actor sobre la calidad del vinculo actual entre su organizacion y FCAB: base positiva amplia, pero sostenida en personas mas que en procesos institucionales y con brechas territoriales significativas.</p>
+      </header>
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 1: VISIÓN GENERAL DE LA VARIABLE
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-overview">
+          <h2>1. Visión general de la variable</h2>
+
+          <div class="var-intro-card">
+            <div class="var-accent-bar" style="background:linear-gradient(135deg,#059669,#10b981)"></div>
+            <div class="var-intro-body">
+              <div class="var-intro-header">
+                <div class="var-icon">🤝</div>
+                <div>
+                  <div class="var-name">Calidad percibida de la relación</div>
+                  <div class="var-desc">Evaluación global de la experiencia de relacionamiento entre el actor y FCAB: continuidad, iniciativa, fluidez comunicacional y vínculo humano.</div>
+                </div>
+              </div>
+              <div class="var-stats-row">
+                <div class="var-stat">
+                  <div class="var-stat-val">5,37</div>
+                  <div class="var-stat-lbl">Promedio (escala 1–7)</div>
+                </div>
+                <div class="var-stat">
+                  <div class="var-stat-val">1,53</div>
+                  <div class="var-stat-lbl">Desviación estándar</div>
+                </div>
+                <div class="var-stat">
+                  <div class="var-stat-val">72</div>
+                  <div class="var-stat-lbl">Actores evaluados</div>
+                </div>
+                <div class="var-stat">
+                  <div class="var-stat-val">2,33</div>
+                  <div class="var-stat-lbl">Varianza</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="insight-box">
+            <span class="insight-icon">📊</span>
+            <div>
+              La calidad percibida de la relación registra un promedio de <strong>5,37 puntos</strong>, situándose en la zona positiva de la escala con una varianza de 2,33. Sin embargo, bajo este resultado agregado coexiste una distribución interna heterogénea que revela <strong>lógicas de relacionamiento significativamente distintas</strong> entre perfiles de actores y territorios.
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 2: DISTRIBUCIÓN POR PUNTAJE
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-distribucion">
+          <h2>2. Distribución de puntajes</h2>
+
+          <div class="base-banner">
+            <span class="base-pct">82%</span>
+            <div class="base-banner-text">
+              <strong>Base positiva consolidada</strong><br>
+              El 82% de los actores evaluados otorga puntajes altos (5–7), configurando una base relacional sólida a nivel agregado.
+            </div>
+          </div>
+
+          <div class="dist-grid">
+            <div class="dist-card dist-top">
+              <div class="dist-pct">38%</div>
+              <div class="dist-score">Puntaje 7</div>
+              <div class="dist-label">Máxima evaluación</div>
+            </div>
+            <div class="dist-card dist-alta">
+              <div class="dist-pct">44%</div>
+              <div class="dist-score">Puntaje 5–6</div>
+              <div class="dist-label">Alta pero no plena</div>
+            </div>
+            <div class="dist-card dist-med">
+              <div class="dist-pct">15%</div>
+              <div class="dist-score">Puntaje 3–4</div>
+              <div class="dist-label">Relación deteriorada</div>
+            </div>
+            <div class="dist-card dist-baja">
+              <div class="dist-pct">3%</div>
+              <div class="dist-score">Puntaje 1–2</div>
+              <div class="dist-label">Ruptura relacional (n=2)</div>
+            </div>
+          </div>
+
+          <h3 style="margin:28px 0 14px;font-size:15px;font-weight:600;color:var(--text-1)">Perfiles cualitativos por banda</h3>
+
+          <div class="banda-grid">
+            <div class="banda-card highlight-alta">
+              <div class="banda-header">
+                <span class="banda-score">5–6</span>
+                <span class="banda-pct">44%</span>
+              </div>
+              <div class="banda-label">Expectativas parcialmente satisfechas</div>
+              <ul class="banda-list">
+                <li>Reconocen la relación, pero identifican déficits concretos</li>
+                <li>Falta de continuidad en el contacto</li>
+                <li>Ausencia de iniciativa desde FCAB</li>
+                <li>Vínculo activado solo ante solicitudes puntuales</li>
+                <li>Cambios de personal que interrumpen la relación</li>
+              </ul>
+              <div class="banda-nota">⚠️ Este grupo puede desplazarse hacia arriba o hacia abajo según las acciones de FCAB</div>
+            </div>
+
+            <div class="banda-card">
+              <div class="banda-header">
+                <span class="banda-score">7</span>
+                <span class="banda-pct">38%</span>
+              </div>
+              <div class="banda-label">Relación excelente — con riesgo de fragilidad</div>
+              <ul class="banda-list">
+                <li>Vínculo sostenido principalmente con personas específicas de FCAB</li>
+                <li>Comunicación fluida e histórico relacional positivo</li>
+                <li>Participación activa en actividades conjuntas</li>
+                <li>Riesgo: capital relacional anclado en individuos, no en la institución</li>
+              </ul>
+            </div>
+
+            <div class="banda-card">
+              <div class="banda-header">
+                <span class="banda-score">3–4</span>
+                <span class="banda-pct">15%</span>
+              </div>
+              <div class="banda-label">Deterioro con diagnóstico preciso</div>
+              <ul class="banda-list">
+                <li>Actores identifican con claridad los motivos del deterioro</li>
+                <li>No es indiferencia, sino decepción fundamentada</li>
+                <li>Potencial de recuperación si se abordan causas específicas</li>
+              </ul>
+            </div>
+
+            <div class="banda-card">
+              <div class="banda-header">
+                <span class="banda-score">1–2</span>
+                <span class="banda-pct">3%</span>
+              </div>
+              <div class="banda-label">Ruptura relacional efectiva</div>
+              <ul class="banda-list">
+                <li>Solo 2 actores en esta banda</li>
+                <li>Experiencias de quiebre relacional sin reparación</li>
+                <li>Requieren intervención específica y sostenida</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="fragilidad-callout">
+            <div class="fragilidad-icon">⚡</div>
+            <div class="fragilidad-body">
+              <strong>Alerta de fragilidad institucional:</strong> El 38% que evalúa con puntaje máximo sostiene esa relación con personas de FCAB, no con la institución. Esto convierte el capital relacional en un activo <em>personalizado y no transferible</em>, expuesto a rotación de personal.
+            </div>
+          </div>
+
+          <div class="iframe-wrap">
+            <iframe src="../../calidad_relacion_fcab_segmentacion_1_7.html" title="Distribución Calidad percibida de la relación" loading="lazy"></iframe>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 3: POR TIPO DE ACTOR
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-actores">
+          <h2>3. Calidad percibida por tipo de actor</h2>
+
+          <div class="rango-banner">
+            <div class="rango-val">0,45 pts</div>
+            <div class="rango-desc">
+              <strong>Rango más estrecho del estudio</strong><br>
+              La diferencia entre el tipo de actor con mayor y menor puntaje es de solo 0,45 puntos — la variable de menor dispersión entre tipos de actor en todo el estudio.
+            </div>
+          </div>
+
+          <div class="actor-type-grid">
+            <div class="actor-type-card">
+              <div class="actor-rank">1°</div>
+              <div class="actor-score">5,58</div>
+              <div class="actor-name">Comunidad</div>
+              <div class="actor-note">Mayor puntaje promedio, pero también la mayor dispersión interna entre sus miembros</div>
+            </div>
+            <div class="actor-type-card">
+              <div class="actor-rank">2°</div>
+              <div class="actor-score">5,24</div>
+              <div class="actor-name">Sector productivo</div>
+              <div class="actor-note">Evaluación moderadamente alta con menor variabilidad interna</div>
+            </div>
+            <div class="actor-type-card">
+              <div class="actor-rank">3°</div>
+              <div class="actor-score">5,15</div>
+              <div class="actor-name">Sociedad civil</div>
+              <div class="actor-note">Mayor varianza interna: medios de comunicación registran las evaluaciones más desfavorables</div>
+            </div>
+            <div class="actor-type-card">
+              <div class="actor-rank">4°</div>
+              <div class="actor-score">5,13</div>
+              <div class="actor-name">Autoridades</div>
+              <div class="actor-note">Relación funcional pero sin profundidad: coordinación operativa sin vínculo relacional sostenido</div>
+            </div>
+          </div>
+
+          <h3 style="margin:28px 0 14px;font-size:15px;font-weight:600;color:var(--text-1)">Voces del territorio</h3>
+
+          <div class="quotes-grid">
+            <div class="quote-card q-low">
+              <div class="quote-icon">💬</div>
+              <blockquote>"Pondría un tres coma cinco, porque no hemos tenido un acercamiento este año. No está la persona que estaba antes encargada."</blockquote>
+              <div class="quote-source">Actor comunitario · Evaluación baja</div>
+              <div class="quote-insight">El quiebre relacional se asocia directamente a la rotación de personal y a la ausencia de contacto proactivo desde FCAB.</div>
+            </div>
+            <div class="quote-card q-high">
+              <div class="quote-icon">💬</div>
+              <blockquote>"Excelente la relación, porque es una empresa que siempre ha estado pendiente de la comunidad. Hemos participado con ellos como junta de vecinos, como sector. A pesar de que han cambiado las personas, siempre nos han informado, siempre han hecho reunión para informarnos todo tipo de cosas. Ha sido fluida la comunicación con ellos."</blockquote>
+              <div class="quote-source">Actor comunitario · Evaluación máxima</div>
+              <div class="quote-insight">La relación excelente se ancla en el histórico de presencia, información y participación —no en la ausencia de cambios de personal, sino en la continuidad institucional que los trasciende.</div>
+            </div>
+          </div>
+
+          <div class="insight-box">
+            <span class="insight-icon">🔍</span>
+            <div>
+              Ambas voces comparten el mismo tema — la rotación de personal de FCAB — pero arriban a evaluaciones opuestas. La diferencia radica en si FCAB logró sostener <strong>continuidad institucional</strong> más allá de los individuos. Donde lo hizo, la relación sobrevive; donde no, se fractura.
+            </div>
+          </div>
+
+          <div class="iframe-wrap">
+            <iframe src="../../calidad_relacion_fcab_promedio_categoria_1_7.html" title="Calidad percibida por tipo de actor" loading="lazy"></iframe>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 4: POR TERRITORIO
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-territorio">
+          <h2>4. Distribución territorial</h2>
+
+          <div class="insight-box" style="margin-bottom:20px">
+            <span class="insight-icon">🗺️</span>
+            <div>
+              La calidad percibida de la relación muestra un <strong>gradiente territorial claro</strong>: desciende sistemáticamente desde Calama (5,91) hasta Sierra Gorda (4,56). Este gradiente <em>no se explica por proximidad física</em> — Sierra Gorda es el territorio más cercano a la operación ferroviaria y, sin embargo, registra la evaluación más baja.
+            </div>
+          </div>
+
+          <div class="gradient-bar">
+            <div class="gradient-track">
+              <div class="gradient-dot" style="left:0%">
+                <div class="gradient-label top">Calama</div>
+                <div class="gradient-score">5,91</div>
+              </div>
+              <div class="gradient-dot" style="left:33%">
+                <div class="gradient-label top">Antofagasta</div>
+                <div class="gradient-score">5,38</div>
+              </div>
+              <div class="gradient-dot" style="left:66%">
+                <div class="gradient-label top">Mejillones</div>
+                <div class="gradient-score">5,13</div>
+              </div>
+              <div class="gradient-dot concern" style="left:100%">
+                <div class="gradient-label top">Sierra Gorda</div>
+                <div class="gradient-score concern-score">4,56</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="territory-detail-grid">
+            <div class="territory-detail t-calama">
+              <div class="td-header">
+                <span class="td-territory">📍 Calama</span>
+                <span class="td-score">5,91</span>
+              </div>
+              <ul class="td-list">
+                <li>Puntaje más alto del estudio territorial</li>
+                <li>Vínculo sostenido en relaciones personales de largo aliento</li>
+                <li>Alta dispersión interna: coexisten relaciones excelentes y algunas deterioradas</li>
+                <li>El promedio elevado refleja un núcleo de actores con trayectoria relacional consolidada</li>
+              </ul>
+            </div>
+            <div class="territory-detail t-antofagasta">
+              <div class="td-header">
+                <span class="td-territory">📍 Antofagasta</span>
+                <span class="td-score">5,38</span>
+              </div>
+              <ul class="td-list">
+                <li>Mayor diversidad interna del grupo: actores con evaluaciones muy dispares</li>
+                <li>Refleja la heterogeneidad del ecosistema en la ciudad capital regional</li>
+                <li>Potencial de mejora a través de segmentación específica por actor</li>
+              </ul>
+            </div>
+            <div class="territory-detail t-mejillones">
+              <div class="td-header">
+                <span class="td-territory">📍 Mejillones</span>
+                <span class="td-score">5,13</span>
+              </div>
+              <ul class="td-list">
+                <li>Relación de carácter funcional: existe coordinación pero sin profundidad</li>
+                <li>Autoridades prácticamente ausentes del relacionamiento</li>
+                <li>Vínculo concentrado en actores de sector productivo y comunidad portuaria</li>
+              </ul>
+            </div>
+            <div class="territory-detail t-sierra">
+              <div class="td-header">
+                <span class="td-territory">📍 Sierra Gorda</span>
+                <span class="td-score concern-score">4,56</span>
+              </div>
+              <ul class="td-list">
+                <li>Evaluación más baja del estudio territorial</li>
+                <li>La <strong>presencia física</strong> de FCAB no se traduce en <strong>presencia relacional</strong></li>
+                <li>No hay hostilidad declarada, sino expectativas sistemáticamente insatisfechas</li>
+                <li>Los actores conocen a FCAB pero no se sienten vinculados en términos relacionales</li>
+                <li>Representa la brecha más crítica: cercanía operacional sin cercanía relacional</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="iframe-wrap">
+            <iframe src="../../6. calidad mapa.html" title="Calidad percibida territorial" loading="lazy"></iframe>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SECTION 5: DIAGNÓSTICO CONVERGENTE
+        ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="sec-diagnostico">
+          <h2>5. Diagnóstico convergente</h2>
+
+          <div class="pilares-grid">
+            <div class="pilar-card">
+              <div class="pilar-icon">🏗️</div>
+              <div class="pilar-title">Base positiva heterogénea</div>
+              <div class="pilar-text">El 82% evalúa positivamente la relación, pero bajo ese agregado coexisten lógicas relacionales distintas: relaciones excelentes personalizadas, relaciones funcionales sin profundidad y relaciones en deterioro con diagnóstico preciso.</div>
+            </div>
+            <div class="pilar-card">
+              <div class="pilar-icon">👤</div>
+              <div class="pilar-title">Capital relacional en personas, no en procesos</div>
+              <div class="pilar-text">Las evaluaciones más altas se sostienen en vínculos personales históricos. Esta personalización es un activo frágil: expone a FCAB ante rotación de personal y dificulta la transferencia institucional del capital relacional acumulado.</div>
+            </div>
+            <div class="pilar-card">
+              <div class="pilar-icon">🔄</div>
+              <div class="pilar-title">Lógica reactiva más que proactiva</div>
+              <div class="pilar-text">El 44% en puntaje 5–6 identifica déficits concretos: ausencia de iniciativa de FCAB, contacto solo ante solicitudes puntuales, discontinuidad. La relación existe cuando el actor la activa; FCAB no la sostiene de forma autónoma.</div>
+            </div>
+          </div>
+
+          <div class="diag-box">
+            <div class="diag-box-header">📋 Síntesis diagnóstica</div>
+            <p>
+              La calidad percibida de la relación presenta una <strong>base positiva heterogénea</strong>, sostenida en vínculos personales más que institucionales, de carácter reactivo más que proactivo, con brechas territoriales que no guardan relación con la proximidad física a la operación de FCAB. El dato más estratégico es el 44% en puntaje 5–6: actores que reconocen la relación pero señalan déficits concretos y que pueden desplazarse hacia la excelencia o el deterioro según las acciones que FCAB adopte en el corto y mediano plazo.
+            </p>
+          </div>
+
+          <div class="insight-list">
+            <div class="insight-item">
+              <span class="insight-bullet">→</span>
+              <span>Sierra Gorda representa la paradoja más crítica: mayor presencia operacional de FCAB, menor calidad relacional percibida.</span>
+            </div>
+            <div class="insight-item">
+              <span class="insight-bullet">→</span>
+              <span>El rango más estrecho entre tipos de actor (0,45 pts) sugiere que la calidad relacional no está determinada por el perfil del actor, sino por la historia y continuidad del vínculo específico.</span>
+            </div>
+            <div class="insight-item">
+              <span class="insight-bullet">→</span>
+              <span>La coexistencia de evaluaciones máximas y mínimas dentro del mismo tipo de actor (especialmente en comunidad) revela que el relacionamiento de FCAB es <em>selectivo y no sistemático</em>.</span>
+            </div>
+            <div class="insight-item">
+              <span class="insight-bullet">→</span>
+              <span>El 38% de evaluaciones máximas ancladas en personas específicas de FCAB requiere estrategias de transferencia institucional del capital relacional antes de que ocurran nuevas rotaciones.</span>
+            </div>
+          </div>
+
+          <div class="info-note">
+            <strong>Nota metodológica:</strong> La variable de calidad percibida de la relación integra dimensiones de continuidad, iniciativa, comunicación y vínculo humano. Su promedio de 5,37 debe leerse junto a su distribución interna, que revela una base sólida pero heterogénea con focos de fragilidad y deterioro que el agregado tiende a ocultar.
+          </div>
+        </section>
+
+      </main>
+    </div><!-- /.layout-body -->
+  </div><!-- /.layout-root -->
+
+  <!-- NAV PREV/NEXT -->
+  <nav class="chapter-nav">
+    <a href="capitulo-08f.html" class="chapter-nav-btn">
+      ← Sub-capítulo F: Coherencia discurso-práctica
+    </a>
+    <a href="capitulo-08.html" class="chapter-nav-btn">
+      Volver al Análisis Descriptivo →
+    </a>
+  </nav>
+
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>
